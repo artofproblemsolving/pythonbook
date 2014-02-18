@@ -1,0 +1,1022 @@
+..  Copyright (C) 2014, AoPS Incorporated.
+..  Copyright (C)  Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with Invariant Sections being Foreword, Preface, and Contributor List, no
+    Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+    included in the section entitled "GNU Free Documentation License".
+ 
+|
+
+Flow of Control
+===============
+
+.. index:: iteration, assignment, assignment statement 
+
+.. index::
+    single: statement; assignment
+   
+    
+Computers are often used to automate repetitive tasks. Repeating identical or
+similar tasks without making errors is something that computers do well and
+people do poorly.
+
+Repeated execution of a set of statements is called **iteration**.  Because
+iteration is so common, Python provides several language features to make it
+easier. We've already seen the ``for`` statement: this the 
+the form of iteration you'll likely be using most often.  But in this chapter
+we've going to look at the ``while`` statement: another way to have your
+program do iteration, useful in slightly different circumstances.
+
+Before we do that, let's just review a few ideas...
+
+Assignment
+---------- 
+
+As we have mentioned previously, it is legal to make more than one assignment to the
+same variable. A new assignment makes an existing variable refer to a new value
+(and stop referring to the old value).
+
+.. activecode:: variablereassign
+	
+   airtime_remaining = 15
+   print(airtime_remaining)
+   airtime_remaining = 7
+   print(airtime_remaining)
+
+The first time ``airtime_remaining`` is
+printed, its value is 15, and the second time, its value is 7.  
+
+It is especially important to distinguish between an
+assignment statement and a Boolean expression that tests for equality. 
+Because Python uses the equal token (``=``) for assignment, 
+it is tempting to interpret a statement like
+``a = b`` as a Boolean test.  Unlike mathematics, it is not!  Remember that the Python token
+for the equality operator is ``==``.
+
+Note too that an equality test is symmetric, but assignment is not. For example, 
+if ``a == 7`` then ``7 == a``. But in Python, the statement ``a = 7``
+is legal and ``7 = a`` is not.
+
+In Python, an assignment statement can make
+two variables equal, but because further assignments can change either of them, 
+they don't have to stay that way:
+
+.. activecode:: twovariablesresassign
+        
+   a = 5
+   b = a    # After executing this line, a and b are now equal
+   print("a="+str(a)+" b="+str(b))
+   a = 3    # After executing this line, a and b are no longer equal
+   print("a="+str(a)+" b="+str(b))
+
+Line 4 changes the value of ``a`` but does not change the value of
+``b``, so they are no longer equal. Some 
+people also think that *variable* was an unfortunate word to choose, and instead  
+we should have called them *assignables*.  Python chooses to 
+follow common terminology and token usage, also found in languages like C, C++, Java, and C#,
+so we use the tokens ``=`` for assignment, ``==`` for equality, and we talk of *variables*.
+
+
+Updating variables
+------------------
+
+When an assignment statement is executed, the right-hand side expression (i.e. the 
+expression that comes after the assignment token) is evaluated first.  This produces a value. 
+Then the assignment is made, so that the variable on the left-hand side now refers
+to the new value.
+
+One of the most common forms of assignment is an update, where the new
+value of the variable depends on its old value.   Deduct 40 cents from
+my airtime balance, or add one run to the scoreboard. 
+
+.. activecode:: simpleupdateexample
+        
+   n = 5
+   n = 3 * n + 1
+   print(n)
+
+Line 2 means *get the current value of n, multiply it by three and add
+one, and assign the answer to n, thus making n refer to the value*.  
+So after executing the two lines above, ``n`` will point/refer to the
+integer 16.
+
+If you try to get the value of a variable that has never been assigned to, you'll get an error:
+
+    .. code-block:: none
+        
+       >>> w = x + 1
+       Traceback (most recent call last):
+         File "<pyshell#0>", line 1, in <module>
+           w=x+1
+       NameError: name 'x' is not defined
+
+Before you can update a variable, you have to **initialize** it to some starting value, 
+usually with a simple assignment:
+
+    .. code-block:: none
+        
+       runs_scored = 0
+       ...
+       runs_scored = runs_scored + 1
+
+This sort of assignment --- updating a variable by adding 1 to it --- is very common.  
+It is called an **increment** of the variable; subtracting 1 is called a **decrement**.  
+Sometimes programmers also talk about *bumping* a variable, which means the same 
+as incrementing it by 1.
+
+.. index:: for loop
+
+The ``for`` loop revisited
+--------------------------
+
+Recall that the ``for`` loop processes each item in a list.  Each item in
+turn is (re-)assigned to the loop variable, and the body of the loop is executed.
+We saw this example in an earlier chapter:
+
+.. activecode:: partyinviteredux
+
+   for f in ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]:
+       invitation = "Hi " + f + ".  Please come to my party on Saturday!"
+       print(invitation) 
+        
+Running through all the items in a list is called **traversing** the list,
+or **traversal**.      
+
+Let us write a function now to sum up all the elements in a list of numbers.
+Do this by hand first, and try to isolate exactly what steps you take.  You'll
+find you need to keep some "running total" of the sum so far, either on a piece 
+of paper, in your head, or in your calculator. Remembering things from one step to the next is
+precisely why we have variables in a program: so we'll need some variable
+to remember the "running total".  It should be initialized with a value of zero,
+and then we need to traverse the items in the list.  For each item, we'll want
+to update the running total by adding the next number to it.
+
+.. activecode:: sumalistexample
+
+   def mysum(xs):
+       """ Sum all the numbers in the list xs, and return the total. """
+       running_total = 0
+       for x in xs:
+          running_total = running_total + x
+       return running_total
+
+   # Add tests like these to your test suite ...
+   print(mysum([1, 2, 3, 4])) # should be 10
+   print(mysum([1.25, 2.5, 1.75])) # should be 5.5
+   print(mysum([1, -2, 3])) # should be 2
+   print(mysum([ ])) # should be 0
+   print(mysum(range(11))) # should be 0+1+2+...+10 = 55
+      
+        
+.. index:: while statement, while loop, iteration, loop, loop body,
+           infinite loop, condition
+
+The ``while`` statement
+-----------------------
+
+Here is a fragment of code that demonstrates the use of the ``while`` statement:
+
+.. activecode:: whilefirstexample
+
+   def sum_to(n):
+       """ Return the sum of 1+2+3+...+n """
+       ss  = 0
+       v = 1
+       while v <= n:
+           ss = ss + v
+           v = v + 1
+       return ss
+
+   # For your test suite
+   print(sum_to(4))
+   print(sum_to(1000))
+
+You can almost read the ``while`` statement as if it were English. It means,
+while ``v`` is less than or equal to ``n``, continue executing the body of the loop. Within
+the body, each time, increment ``v``. When ``v`` passes ``n``, return your accumulated sum.
+
+More formally, here is precise flow of execution for a ``while`` statement:
+
+* Evaluate the condition at line 5, yielding a value which is either ``False`` or ``True``.
+* If the value is ``False``, exit the ``while`` statement and continue
+  execution at the next statement (line 8 in this case).
+* If the value is ``True``, execute each of the statements in the body (lines 6 and 7) and
+  then go back to the ``while`` statement at line 5.
+
+The body consists of all of the statements indented below the ``while`` keyword.  
+
+Notice that if the loop condition is ``False`` the first time we get 
+loop, the statements in the body of the loop are never executed.
+
+The body of the loop should change the value of one or more variables so that
+eventually the condition becomes false and the loop terminates. Otherwise the
+loop will repeat forever, which is called an **infinite loop**. An endless
+source of amusement for computer scientists is the observation that the
+directions on shampoo, "lather, rinse, repeat", are an infinite loop.
+
+In the case here, we can prove that the loop terminates because we
+know that the value of ``n`` is finite, and we can see that the value of ``v``
+increments each time through the loop, so eventually it will have to exceed ``n``. In
+other cases, it is not so easy, even impossible in some cases, 
+to tell if the loop will ever terminate.  
+
+What you will notice here is that the ``while`` loop is more work for
+you --- the programmer --- than the equivalent ``for`` loop.  When using a ``while``
+loop one has to manage the loop variable yourself: give it an initial value, test
+for completion, and then make sure you change something in the body so that the loop
+terminates.  By comparison, here is an equivalent function that uses ``for`` instead: 
+
+.. activecode:: betterwithoutwhile
+
+   def sum_to(n):
+       """ Return the sum of 1+2+3+...+n """
+       ss  = 0
+       for v in range(n+1):
+           ss = ss + v
+       return ss
+
+   print(sum_to(4))
+   print(sum_to(1000))
+
+Notice the slightly tricky call to the ``range`` function --- we had to add one onto ``n``, 
+because ``range`` generates its list up to but excluding the value you give it.  
+It would be easy to make a programming mistake and overlook this, but because we've
+made the investment of writing some unit tests, our test suite would have caught our error.        
+        
+So why have two kinds of loop if ``for`` looks easier?  This next example shows a case where
+we need the extra power that we get from the ``while`` loop.        
+        
+.. index:: Collatz 3n + 1 sequence        
+        
+The Collatz 3n + 1 sequence
+---------------------------
+
+Let's look at a simple sequence that has fascinated mathematicians for many years.
+They still cannot answer even quite simple questions about this.  
+
+The rule for creating the sequence is to start from
+some given ``n``, and to generate
+the next term of the sequence from ``n``, either by halving ``n`` 
+(whenever ``n`` is even), or else by multiplying it by three and adding 1 (whenever ``n`` is odd).  The sequence
+terminates when ``n`` reaches 1. 
+
+This Python function captures that algorithm:
+
+.. activecode:: collatz
+        
+   def seq_3n_plus_1(n):
+       """ Print the 3n+1 sequence from n, 
+           terminating when it reaches 1.
+       """
+       while n != 1:
+           print(n, end=", ")
+           if n % 2 == 0:        # n is even
+               n = n // 2
+           else:                 # n is odd
+               n = n * 3 + 1
+       print(n, end=".\n")     
+
+   seq_3n_plus_1(3)
+   seq_3n_plus_1(19)
+
+Notice first that the print function on line 6 has an extra argument ``end=", "``.  This 
+tells the ``print`` function to follow the printed string with whatever the programmer
+chooses (in this case, a comma followed by a space), instead of ending the line. So
+each time something is printed in the loop, it is printed on the same output line, with
+the numbers separated by commas.  The call to ``print(n, end=".\n")`` at line 11 after the loop terminates
+will then print the final value of ``n`` followed by a period and a newline character. 
+(You'll cover the ``\n`` (newline character) in the next chapter).             
+                
+The condition for continuing with this loop is ``n != 1``, so the loop will continue running until
+it reaches its termination condition, (i.e. ``n == 1``).
+
+Each time through the loop, the program outputs the value of ``n`` and then
+checks whether it is even or odd. If it is even, the value of ``n`` is divided
+by 2 using integer division. If it is odd, the value is replaced by ``n * 3 + 1``.  Try some examples to see how the sequence behaves for different inputs.
+    
+Since ``n`` sometimes increases and sometimes decreases, there is no obvious
+proof that ``n`` will ever reach 1, or that the program terminates. For some
+particular values of ``n``, we can prove termination. For example, if the
+starting value is a power of two, then the value of ``n`` will be even each
+time through the loop until it reaches 1. The previous example ends with such a
+sequence, starting with 16.
+
+See if you can find a small starting 
+number that needs more than a hundred steps before it terminates.
+
+Particular values aside, the interesting question was first posed by a German 
+mathematician called Lothar Collatz: the *Collatz conjecture* (also known as
+the *3n + 1 conjecture*), is that this sequence terminates for *all* positive 
+values of ``n``.  So far, no one has been able to prove it *or* disprove it!  
+(A conjecture is a statement that might be true, but nobody knows for sure.) 
+
+Think carefully about what would be needed for a proof or disproof of the conjecture
+*"All positive integers will eventually converge to 1 using the Collatz rules"*.  
+With fast computers we have been able to test every integer up to very 
+large values, and so far, they have all eventually ended up at 1.  
+But who knows? Perhaps there is some as-yet untested number which does not reduce to 1.   
+
+You'll notice that if you don't stop when you reach 1, the sequence gets into
+its own cyclic loop:  1, 4, 2, 1, 4, 2, 1, 4 ...   So one possibility is that there might
+be other cycles that we just haven't found yet.  
+
+Wikipedia has an informative article about the Collatz conjecture. There's also a humorous take on the Collatz conjecture at http://imgs.xkcd.com/comics/collatz_conjecture.png. The sequence 
+also goes under other names (Hailstone sequence, Wonderous numbers, etc.),
+and you'll find out just how many integers have already been tested by computer,
+and found to converge! 
+ 
+
+.. admonition:: Choosing between ``for`` and ``while``
+
+   Use a ``for`` loop if you know, before you start looping, 
+   the maximum number of times that you'll need to execute the body.  
+   For example, if you're traversing a list of elements, you know that the maximum
+   number of loop iterations you can possibly need is "all the elements in the list".
+   Or if you need to print the 12 times table, we know right away how many times
+   the loop will need to run. 
+
+   So any problem like "iterate this weather model for 1000 cycles", or "search this
+   list of words", "find all prime numbers up to 10000" suggest that a ``for`` loop is best.
+
+   By contrast, if you are required to repeat some computation until some condition is 
+   met, and you cannot calculate in advance when (of if) this will happen, 
+   as we did in this 3n + 1 problem, you'll need a ``while`` loop. 
+
+   We call the first case **definite iteration** --- we know ahead of time some definite bounds for 
+   what is needed.  The latter case is called **indefinite iteration** --- we're not sure
+   how many iterations we'll need --- we cannot even establish an upper bound!    
+
+
+.. index:: program tracing, hand trace, tracing a program
+
+Tracing a program
+-----------------
+
+To write effective computer programs, and to build a good conceptual
+model of program execution, a programmer needs to develop the ability
+to **trace** the execution of a computer program. Tracing involves becoming the
+computer and following the flow of execution through a sample program run,
+recording the state of all variables and any output the program generates after
+each instruction is executed.
+
+To understand this process, let's trace the call to ``seq3np1(3)`` from the
+previous section. At the start of the trace, we have a variable, ``n``
+(the parameter), with an initial value of 3. Since 3 is not equal to 1, the
+``while`` loop body is executed. 3 is printed and ``3 % 2 == 0`` is evaluated.
+Since it evaluates to ``False``, the ``else`` branch is executed and
+``3 * 3 + 1`` is evaluated and assigned to ``n``.
+
+To keep track of all this as you hand trace a program, make a column heading on
+a piece of paper for each variable created as the program runs and another one
+for output. Our trace so far would look something like this:
+
+    .. sourcecode:: pycon
+        
+        n               output printed so far
+        --              ---------------------
+        3               3, 
+        10
+
+Since ``10 != 1`` evaluates to ``True``, the loop body is again executed,
+and 10 is printed. ``10 % 2 == 0`` is true, so the ``if`` branch is
+executed and ``n`` becomes 5. By the end of the trace we have:
+
+    .. sourcecode:: pycon
+
+          n               output printed so far
+          --              ---------------------
+          3               3,
+          10              3, 10,
+          5               3, 10, 5,
+          16              3, 10, 5, 16,
+          8               3, 10, 5, 16, 8,
+          4               3, 10, 5, 16, 8, 4,
+          2               3, 10, 5, 16, 8, 4, 2,
+          1               3, 10, 5, 16, 8, 4, 2, 1.
+
+Tracing can be a bit tedious and error prone (that's why we get computers to do
+this stuff in the first place!), but it is an essential skill for a programmer
+to have. 
+
+..
+   From this trace we can learn a lot about the way our code works. We
+   can observe that as soon as ``n`` becomes a power of 2, for example, the program
+   will require log\ :sub:`2`\ (n) executions of the loop body to complete. We can
+   also see that the final 1 will not be printed as output within the body of the loop,
+   which is why we put the special ``print`` function at the end. 
+
+Tracing a program is, of course, related to single-stepping through your code
+and being able to inspect the variables. Using the computer to **single-step** for you is
+less error prone and more convenient. 
+Also, as your programs get more complex, they might execute many millions of 
+steps before they get to the code that you're really interested in, so manual tracing 
+becomes impossible.  Being able to set a **breakpoint** where you need
+one is far more powerful. 
+
+..
+   So we strongly encourage you to invest time in
+   learning using to use your programming environment (PyScripter, in these notes) to full
+   effect. 
+
+..
+   There are also some great visualization tools becoming available to help you 
+   trace and understand small fragments of Python code.  The one we recommend is at 
+   http://netserv.ict.ru.ac.za/python3_viz 
+
+We've cautioned
+against chatterbox functions, but used them here.  As we learn a bit more Python, we'll
+be able to show you how to generate a list of values to hold the sequence, rather than having
+the function print them. Doing this would remove the need to have all these pesky ``print`` functions
+in the middle of our logic, and will make the function more useful.
+
+
+.. _counting:
+
+Counting digits
+---------------
+
+The following function counts the number of decimal digits in a positive
+integer:
+
+.. activecode:: countingdigits
+
+   def num_digits(n):
+       count = 0
+       while n != 0:
+           count = count + 1
+           n = n // 10
+       return count
+
+   print(num_digits(731))
+    
+Trace the execution of this
+function call to convince yourself that it works.
+
+This function demonstrates an important pattern of computation called a **counter**.
+The variable ``count`` is initialized to 0 and then incremented each time the
+loop body is executed. When the loop exits, ``count`` contains the result ---
+the total number of times the loop body was executed, which is the same as the
+number of digits.
+
+A common mistake is to forget to initialize your counter before you start your loop. You'll get a runtime error if you do that, like in the example below:
+
+.. activecode:: countingwitherror
+
+   def num_digits(n):
+       while n != 0:
+           count = count + 1
+           n = n // 10
+       return count
+
+   print(num_digits(731))
+
+
+If we wanted to only count digits that are either 0 or 5, adding a conditional
+before incrementing the counter will do the trick:
+
+.. activecode:: countingzerosandfives
+        
+   def num_zero_and_five_digits(n):
+       count = 0
+       while n > 0:
+           digit = n % 10
+           if digit == 0 or digit == 5:
+               count = count + 1
+           n = n // 10
+       return count
+
+   print(num_zero_and_five_digits(1055030250))
+
+Confirm that ``num_zero_and_five_digits(1055030250)`` returns ``7``.
+
+Notice, however, that ``num_digits(0)`` appears to fail.  Explain why.  Do you think this is a bug in
+the code, or a bug in the specifications, or our expectations, or the tests?  
+
+    
+.. index:: abbreviated assignment    
+    
+Abbreviated assignment
+----------------------
+
+Incrementing a variable is so common that Python provides an abbreviated syntax
+for it:
+
+.. activecode:: selfincrement 
+
+   count = 0
+   print(count)
+   count += 1
+   print(count)
+   count += 1
+   print(count)
+
+``count += 1`` is an abreviation for ``count = count + 1`` . We pronounce the operator
+as *"plus-equals"*.  The increment value does not have to be 1:
+
+.. activecode:: selfadd
+
+   n = 2
+   n += 5
+   print(n)
+
+There are similar abbreviations for ``-=``, ``*=``, ``/=``, ``//=`` and ``%=``:
+
+.. activecode:: selfarith
+
+   n = 2
+   n *= 5
+   print(n)  # 2 * 5 -> 10
+   n -= 4
+   print(n)  # 10 - 4 -> 6
+   n //= 2
+   print(n)  # 6 // 2 -> 3
+   n %= 2
+   print(n)  # 3 % 2 -> 1
+
+
+.. index:: table, logarithm, Intel, Pentium, escape sequence, tab, newline 
+         
+
+Tables
+------
+
+One of the things loops are good for is generating tables.  Before
+computers were readily available, people had to calculate logarithms, sines and
+cosines, and other mathematical functions by hand. To make that easier,
+mathematics books contained long tables listing the values of these functions.
+Creating the tables was slow and boring, and they tended to be full of errors.
+
+When computers appeared on the scene, one of the initial reactions was, *"This is
+great! We can use the computers to generate the tables, so there will be no
+errors."* That turned out to be true (mostly) but shortsighted. Soon thereafter,
+computers and calculators were so pervasive that the tables became obsolete.
+
+Well, almost. For some operations, computers use tables of values to get an
+approximate answer and then perform computations to improve the approximation.
+In some cases, there have been errors in the underlying tables, most famously
+in the table the Intel Pentium processor chip used to perform floating-point division.
+
+Although a log table is not as useful as it once was, it still makes a good
+example of iteration. The following program outputs a sequence of values in the
+left column and 2 raised to the power of that value in the right column:
+
+.. activecode:: powersof2table 
+       
+   for x in range(13):   # Generate numbers 0 to 12
+       print(str(x)+"\t"+str(2**x))
+
+The string ``"\t"`` represents a **tab character**. The backslash character in
+``"\t"`` indicates the beginning of an **escape sequence**.  Escape sequences
+are used to represent invisible characters like tabs and newlines. The sequence
+``\n`` represents a **newline**.
+
+An escape sequence can appear anywhere in a string; in this example, the tab
+escape sequence is the only thing in the string. How do you think you represent
+a backslash in a string?
+
+As characters and strings are displayed on the screen, an invisible marker
+called the **cursor** keeps track of where the next character will go. After a
+``print`` function, the cursor normally goes to the beginning of the next
+line.
+
+The tab character shifts the cursor to the right until it reaches one of the
+tab stops. Tabs are useful for making columns of text line up, as in the output
+of the previous program. Because of the tab characters between the columns, the position of the second
+column does not depend on the number of digits in the first column.
+
+
+.. index:: two-dimensional table
+
+Two-dimensional tables
+----------------------
+
+A two-dimensional table is a table where you read the value at the intersection
+of a row and a column. A multiplication table is a good example. Let's say you
+want to print a multiplication table for the values from 1 to 6.
+
+A good way to start is to write a loop that prints the multiples of 2, all on
+one line:
+
+.. activecode:: multtablestep1
+        
+   for i in range(1, 7):
+       print(2 * i, end="   ")
+   print()
+
+Here we've used the ``range`` function, but made it start its sequence at 1. 
+As the loop executes, the value of ``i`` changes from 1 to
+6. When all the elements of the range have been assigned to ``i``, the loop terminates. 
+Each time through the loop, it
+displays the value of ``2 * i``, followed by three spaces.
+
+Again, the extra ``end="   "`` argument in the ``print`` function suppresses the newline, and
+uses three spaces instead.  After the
+loop completes, the call to ``print`` at line 3 finishes the current line, and starts a new line.
+
+So far, so good. The next step is to **encapsulate** and **generalize**.
+
+
+.. index:: encapsulation, generalization, program development
+
+Encapsulation and generalization
+--------------------------------
+
+Encapsulation is the process of wrapping a piece of code in a function,
+allowing you to take advantage of all the things functions are good for. 
+
+Generalization means taking something specific, such as printing the multiples
+of 2, and making it more general, such as printing the multiples of any
+integer.
+
+This function encapsulates the previous loop and generalizes it to print
+multiples of ``n``:
+
+.. activecode:: multtablestep2
+        
+   def print_multiples(n):
+       for i in range(1, 7):
+           print(n * i, end="   ")
+       print()
+
+   print_multiples(2)
+   print_multiples(3)
+   print_multiples(4)
+
+To encapsulate, all we had to do was add the first line, which declares the
+name of the function and the parameter list. To generalize, all we had to do
+was replace the value 2 with the parameter ``n``.
+
+By now you can probably guess how to print a multiplication table --- by
+calling ``print_multiples`` repeatedly with different arguments. In fact, we
+can use another loop:
+
+.. activecode:: multtablestep3
+        
+   def print_multiples(n):
+       for i in range(1, 7):
+           print(n * i, end="   ")
+       print()
+
+   for i in range(1, 7):
+       print_multiples(i)
+
+Notice how similar this loop is to the one inside ``print_multiples``.  All we
+did was replace the ``print`` function with a function call. The output of this program is a multiplication table.
+
+
+.. index:: development plan
+
+More encapsulation
+------------------
+
+To demonstrate encapsulation again, let's take the code from the last section
+and wrap it up in a function:
+
+.. activecode:: multtablefinal
+        
+   def print_multiples(n):
+       for i in range(1, 7):
+           print(n * i, end="   ")
+       print()
+
+   def print_mult_table():
+       for i in range(1, 7):
+           print_multiples(i)
+
+   print_mult_table()
+
+This process is a common **development plan**. We develop code by writing lines
+of code outside any function, or typing them in to the interpreter. When we get
+the code working, we extract it and wrap it up in a function.
+
+This development plan is particularly useful if you don't know how to divide
+the program into functions when you start writing. This approach lets you
+design as you go along.
+
+
+.. index::
+    single: local variable
+    single: variable; local
+
+Local variables
+---------------
+
+You might be wondering how we can use the same variable, ``i``, in both
+``print_multiples`` and ``print_mult_table``. Doesn't it cause problems when
+one of the functions changes the value of the variable?
+
+The answer is no, because the ``i`` in ``print_multiples`` and the ``i`` in
+``print_mult_table`` are *not* the same variable.
+
+Variables created inside a function definition are local; you can't access a
+local variable from outside its home function. That means you are free to have
+multiple variables with the same name as long as they are not in the same
+function.
+
+Python examines all the statements in a function --- if any of them assign a value
+to a variable, that is the clue that Python uses to make the variable a local variable.
+
+The stack diagram for this program shows that the two variables named ``i`` are
+not the same variable. They can refer to different values, and changing one
+does not affect the other.
+
+    .. image:: illustrations/stack2.png
+       :alt: Stack 2 diagram 
+
+The value of ``i`` in ``print_mult_table`` goes from 1 to 6. In the diagram it
+happens to be 3. The next time through the loop it will be 4. Each time through
+the loop, ``print_mult_table`` calls ``print_multiples`` with the current value
+of ``i`` as an argument. That value gets assigned to the parameter ``n``.
+
+Inside ``print_multiples``, the value of ``i`` goes from 1 to 6. In the
+diagram, it happens to be 2. Changing this variable has no effect on the value
+of ``i`` in ``print_mult_table``.
+
+It is common and perfectly legal to have different local variables with the
+same name. In particular, names like ``i`` and ``j`` are used frequently as
+loop variables. If you avoid using them in one function just because you used
+them somewhere else, you will probably make the program harder to read.
+
+.. index:: break statement,  statement: break
+
+The ``break`` statement 
+-----------------------
+
+The **break** statement is used to immediately leave the body of its loop.  The next
+statement to be executed is the first one after the body: 
+
+.. activecode:: breakexample
+        
+   for i in [12, 16, 17, 24, 29]: 
+       if i % 2 == 1:  # If the number is odd
+           break        #  ... immediately exit the loop
+       print(i)
+   print("done")
+    
+.. admonition::  The pre-test loop --- standard loop behavior
+
+    ``for`` and ``while`` loops do their tests at the start, before executing
+    any part of the body.   They're called **pre-test** loops, because the test
+    happens before (pre) the body.    
+    ``break`` and ``return`` are our tools for adapting this standard behavior.
+
+    .. image:: illustrations/pre_test_loop.png  
+    
+Other flavors of loops
+-----------------------  
+  
+Sometimes we'd like to have the **middle-test** loop with the exit test in the middle 
+of the body, rather than at the beginning or at the end.  Or a **post-test** loop that
+puts its exit test as the last thing in the body. Other languages have different
+syntax and keywords for these different flavours, but Python just uses 
+a combination of ``while`` and ``if condition: break`` to get the job done.    
+
+A typical example is a problem where the user has to input numbers to be summed.  
+To indicate that there are no more inputs, the user enters a special value, often
+the value -1, or the empty string.  This needs a middle-exit loop pattern: 
+input the next number, then test whether to exit, or else process the number: 
+
+    .. admonition::  The middle-test loop flowchart
+
+        .. image:: illustrations/mid_test_loop.png 
+        
+.. activecode:: sumbreakexample
+        
+   total = 0
+   while True:
+       response = input("Enter the next number. (Leave blank to end)")
+       if response == "":
+           break 
+       total += int(response)
+   print("The total of the numbers you entered is "+str(total))
+        
+Convince yourself that this fits the middle-exit loop flowchart: line 3
+does some useful work, lines 4 and 5 can exit the loop, and if they don't
+line 6 does more useful work before the next iteration starts.
+
+The ``while bool-expr:`` uses the Boolean expression to determine whether to iterate again.
+``True`` is a trivial Boolean expression, so ``while True:``  means *always do 
+the loop body again*.  This is a language *idiom* --- a convention that
+most programmers will recognize immediately. Since the expression on line 2
+will never terminate the loop, (it is a dummy test) the programmer must arrange to 
+break (or return) out of the loop body elsewhere, in some other way (i.e. in lines 4 and 5 in 
+this sample). 
+
+..
+   A clever compiler or interpreter will understand that line 2 is a 
+   fake test that must always succeed, so it won't even generate a test, and our flowchart 
+   never even put the diamond-shape dummy test box at the top of the loop!  
+
+Similarly, by just moving the ``if condition: break`` to the end of the loop body we
+create a pattern for a post-test loop.  Post-test loops are used when you want to
+be sure that the loop body always executes at least once (because the first test
+only happens at the end of the execution of the first loop body). 
+This is useful, for example, if we want to play an interactive game against 
+the user --- we always want to play at least one game:
+
+.. activecode:: guessinggamepseudo
+   :nolinenums:
+   :norun:
+
+   while True:
+       play_the_game_once()
+       response = input("Play again? (yes or no)")
+       if response != "yes":
+           break 
+   print("Goodbye!")
+        
+  
+.. admonition::  Hint: Think about where you want the exit test to happen
+
+    Once you've recognized that you need a loop to repeat something, think
+    about its terminating condition --- when will I want to stop iterating?
+    Then figure out whether you need to do the test before starting
+    the first (and every other) iteration, or at the end of 
+    the first (and every other) iteration, or perhaps in 
+    the middle of each iteration.  Interactive programs that require input
+    from the user or read from files often need to exit their loops in the 
+    middle or at the end of an iteration, when it becomes clear that there is 
+    no more data to process, or the user doesn't want to play our game anymore. 
+  
+
+.. index:: continue statement,  statement; continue
+
+The ``continue`` statement
+--------------------------
+
+This is a control flow statement that causes the program to immediately skip the
+processing of the rest of the body of the loop, *for the current iteration*.  But
+the loop still carries on running for its remaining iterations: 
+
+.. activecode:: continueexample
+
+   for i in [12, 16, 17, 24, 29, 30]: 
+       if i % 2 == 1:      # If the number is odd
+           continue         # Don't process it
+       print(i)
+   print("done")
+
+    
+
+.. index:: function
+
+Functions
+---------
+
+A few times now, we have mentioned all the things functions are good for. By
+now, you might be wondering what exactly those things are.  Here are some of
+them:
+
+#. Capturing your mental chunking. Breaking your complex tasks into sub-tasks, and
+   giving the sub-tasks a meaningful name is a powerful mental technique.  Look back
+   at the example that illustrated the post-test loop: we assumed that we had a function
+   called ``play_the_game_once``.  This chunking allowed us to put aside the details
+   of the particular game --- is it a card game, or noughts and crosses, or a role playing
+   game --- and simply focus on one isolated part of our program logic --- letting the player
+   choose whether they want to play again.   
+#. Dividing a long program into functions allows you to separate parts of the
+   program, debug them in isolation, and then compose them into a whole.
+#. Functions facilitate the use of iteration.
+#. Well-designed functions are often useful for many programs. Once you write
+   and debug one, you can reuse it.
+
+
+Glossary
+--------
+
+.. glossary::
+
+
+    algorithm
+        A step-by-step process for solving a category of problems.
+
+    body
+        The statements inside a loop.
+        
+    breakpoint
+        A place in your program code where program execution will pause (or break),
+        allowing you to inspect the state of the program's variables, or single-step
+        through individual statements, executing them one at a time. 
+        
+    bump
+        Programmer slang. Synonym for increment.
+
+    continue statement
+        A statement that causes the remainder of the current iteration of a loop to be skipped. 
+        The flow of execution goes back to the top of the loop, evaluates the condition,
+        and if this is true the next iteration of the loop will begin. 
+
+    counter
+        A variable used to count something, usually initialized to zero and
+        incremented in the body of a loop.
+
+    cursor
+        An invisible marker that keeps track of where the next character will
+        be printed.
+
+    decrement
+        Decrease by 1.
+
+    definite iteration
+        A loop where we have an upper bound on the number of times the 
+        body will be executed.  Definite iteration is usually best coded
+        as a ``for`` loop.    
+        
+    development plan
+        A process for developing a program. In this chapter, we demonstrated a
+        style of development based on developing code to do simple, specific
+        things and then encapsulating and generalizing.
+
+    encapsulate
+        To divide a large complex program into components (like functions) and
+        isolate the components from each other (by using local variables, for
+        example).
+
+    escape sequence
+        An escape character, \\, followed by one or more printable characters
+        used to designate a nonprintable character.
+
+    generalize
+        To replace something unnecessarily specific (like a constant value)
+        with something appropriately general (like a variable or parameter).
+        Generalization makes code more versatile, more likely to be reused, and
+        sometimes even easier to write.
+
+    increment
+        Both as a noun and as a verb, increment means to increase by 1.
+
+    infinite loop
+        A loop in which the terminating condition is never satisfied.
+
+    indefinite iteration
+        A loop where we just need to keep going until some condition is met.
+        A ``while`` statement is used for this case.      
+        
+    initialization (of a variable)
+        To initialize a variable is to give it an initial value.  
+        Since in Python variables don't exist
+        until they are assigned values, they are initialized when they are
+        created.  In other programming languages this is not the case, and
+        variables can be created without being initialized, in which case they
+        have either default or *garbage* values.
+
+    iteration
+        Repeated execution of a set of programming statements.
+
+    loop
+        The construct that allows allows us to repeatedly execute a
+        statement or a group of statements until a terminating
+        condition is satisfied.
+
+    loop variable
+        A variable used as part of the terminating condition of a loop.
+     
+    meta-notation
+        Extra symbols or notation that helps describe other notation. Here we introduced
+        square brackets, ellipses, italics, and bold as meta-notation to help 
+        describe optional, repeatable, substitutable and fixed parts of the Python syntax.
+     
+    middle-test loop
+        A loop that executes some of the body, then tests for the exit condition, 
+        and then may execute some more of the body.  We don't have a special 
+        Python construct for this case, but can 
+        use ``while`` and ``break`` together.
+    
+    nested loop
+        A loop inside the body of another loop.
+    
+    newline
+        A special character that causes the cursor to move to the beginning of
+        the next line.
+
+    post-test loop
+        A loop that executes the body, then tests for the exit condition.  We don't have a special
+        Python construct for this, but can use ``while`` and ``break`` together.
+        
+    pre-test loop
+        A loop that tests before deciding whether the execute its body.  ``for`` and ``while``
+        are both pre-test loops.    
+    
+    single-step
+        A mode of interpreter execution where you are able to execute your 
+        program one step at a time, and inspect the consequences of that step. 
+        Useful for debugging and building your internal mental model of what is
+        going on.
+     
+    tab
+        A special character that causes the cursor to move to the next tab stop
+        on the current line.
+        
+    trichotomy
+        Given any real numbers *a* and *b*, exactly one of the following
+        relations holds: *a < b*, *a > b*, or *a == b*. Thus when you can
+        establish that two of the relations are false, you can assume the
+        remaining one is true.
+
+    trace
+        To follow the flow of execution of a program by hand, recording the
+        change of state of the variables and any output produced.
+
+        

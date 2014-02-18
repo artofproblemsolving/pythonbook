@@ -1,0 +1,1138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Conditionals &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="6. Flow of Control" href="iteration.html" />
+    <link rel="prev" title="4. Functions" href="functions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="iteration.html" title="6. Flow of Control"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="functions.html" title="4. Functions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="conditionals">
+<h1>5. Conditionals<a class="headerlink" href="#conditionals" title="Permalink to this headline">¶</a></h1>
+<p>Programs get really interesting when we can test conditions and change the
+program behavior depending on the outcome of the tests.  That&#8217;s what this
+chapter is about.</p>
+<div class="section" id="boolean-values-and-expressions">
+<span id="index-0"></span><h2>5.1. Boolean values and expressions<a class="headerlink" href="#boolean-values-and-expressions" title="Permalink to this headline">¶</a></h2>
+<p>A <em>Boolean</em> value is either true or false.  It is named
+after the British mathematician, George Boole, who first formulated <em>Boolean
+algebra</em> &#8212; some rules for reasoning about and combining these values.
+This is the basis of all modern computer logic.</p>
+<p>In Python, the two Boolean values are <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> (the
+capitalization must be exactly as shown), and the Python type is <strong>bool</strong>.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; type(True)
+&lt;class &#39;bool&#39;&gt;
+&gt;&gt;&gt; type(true)
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#3&gt;&quot;, line 1, in &lt;module&gt;
+    type(true)
+NameError: name &#39;true&#39; is not defined
+</pre></div>
+</div>
+</div></blockquote>
+<p>A <strong>Boolean expression</strong> is an expression that evaluates to produce a result which is
+a Boolean value.  For example, the operator <tt class="docutils literal"><span class="pre">==</span></tt> tests if two values are equal.
+It produces (or <em>yields</em>) a Boolean value:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 5 == (3 + 2)   # Is five equal 5 to the result of 3 + 2?
+True
+&gt;&gt;&gt; 5 == 6
+False
+&gt;&gt;&gt; j = &quot;hel&quot;
+&gt;&gt;&gt; j + &quot;lo&quot; == &quot;hello&quot;
+True
+</pre></div>
+</div>
+</div></blockquote>
+<p>In the first statement, the two operands evaluate to equal values, so the expression evaluates
+to <tt class="docutils literal"><span class="pre">True</span></tt>; in the second statement, 5 is not equal to 6, so we get <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">==</span></tt> operator is one of six common <strong>comparison operators</strong> which all produce
+a <tt class="docutils literal"><span class="pre">bool</span></tt> result; here are all six:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>x == y               # Produce True if ... x is equal to y
+x != y               #                 ... x is not equal to y
+x &gt; y                #                 ... x is greater than y
+x &lt; y                #                 ... x is less than y
+x &gt;= y               #                 ... x is greater than or equal to y
+x &lt;= y               #                 ... x is less than or equal to y
+</pre></div>
+</div>
+</div></blockquote>
+<p>Although these operations are probably familiar, the Python symbols are
+different from the mathematical symbols. A common error is to use a single
+equal sign (<tt class="docutils literal"><span class="pre">=</span></tt>) instead of a double equal sign (<tt class="docutils literal"><span class="pre">==</span></tt>). Remember that <tt class="docutils literal"><span class="pre">=</span></tt>
+is an assignment operator and <tt class="docutils literal"><span class="pre">==</span></tt> is a comparison operator. Also, there is
+no such thing as <tt class="docutils literal"><span class="pre">=&lt;</span></tt> or <tt class="docutils literal"><span class="pre">=&gt;</span></tt>.</p>
+<p>Like any other types we&#8217;ve seen so far, Boolean values can be assigned to
+variables, printed, etc.</p>
+
+<div id="booleanexample" class="pywindow" >
+
+<div id="booleanexample_code_div" style="display: block">
+<textarea rows="3" id="booleanexample_code" class="active_code" prefixcode="undefined">
+age = 18
+oldEnoughToGetDriversLicense = age >= 16
+print(oldEnoughToGetDriversLicense)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanexample_code'] = true;
+pythonTool.readOnlyFlags['booleanexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="booleanexample_runb" onclick="pythonTool.runit('booleanexample_code','booleanexample_pre','booleanexample_error','booleanexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanexample_code','booleanexample_pre','booleanexample_error','booleanexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='booleanexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="booleanexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="booleanexample_suffix" style="display:none">
+</pre>
+<pre id="booleanexample_pre" class="active_out">
+
+</pre>
+
+<div id="booleanexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="logical-operators">
+<span id="index-1"></span><h2>5.2. Logical operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h2>
+<p>There are three <strong>logical operators</strong>,  <tt class="docutils literal"><span class="pre">and</span></tt>, <tt class="docutils literal"><span class="pre">or</span></tt>, and <tt class="docutils literal"><span class="pre">not</span></tt>,
+that allow us to build more complex
+Boolean expressions from simpler Boolean expressions. The
+semantics (meaning) of these operators is similar to their meaning in English.
+For example, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">10</span></tt> produces <tt class="docutils literal"><span class="pre">True</span></tt> only if <tt class="docutils literal"><span class="pre">x</span></tt> is greater than 0 <em>and</em>
+at the same time, x is less than 10.</p>
+<p><tt class="docutils literal"><span class="pre">n</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">or</span> <span class="pre">n</span> <span class="pre">%</span> <span class="pre">3</span> <span class="pre">==</span> <span class="pre">0</span></tt> is <tt class="docutils literal"><span class="pre">True</span></tt> if <em>either</em> of the conditions is <tt class="docutils literal"><span class="pre">True</span></tt>,
+that is, if the number <tt class="docutils literal"><span class="pre">n</span></tt> is divisible by 2 <em>or</em> it is divisible by 3.  What do
+you think happens if <tt class="docutils literal"><span class="pre">n</span></tt> is divisible by both 2 and by 3 at the same time?
+Will the expression yield <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>?  Let&#8217;s try it:</p>
+
+<div id="ortest" class="pywindow" >
+
+<div id="ortest_code_div" style="display: block">
+<textarea rows="2" id="ortest_code" class="active_code" prefixcode="undefined">
+n = 6
+print(n % 2 == 0 or n % 3 == 0)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ortest_code'] = true;
+pythonTool.readOnlyFlags['ortest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="ortest_runb" onclick="pythonTool.runit('ortest_code','ortest_pre','ortest_error','ortest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ortest_code','ortest_pre','ortest_error','ortest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='ortest_error'></div>
+
+<div style="text-align: center">
+<canvas id="ortest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="ortest_suffix" style="display:none">
+</pre>
+<pre id="ortest_pre" class="active_out">
+
+</pre>
+
+<div id="ortest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Finally, the <tt class="docutils literal"><span class="pre">not</span></tt> operator negates a Boolean value, so <tt class="docutils literal"><span class="pre">not</span> <span class="pre">(x</span> <span class="pre">&gt;</span> <span class="pre">y)</span></tt>
+is <tt class="docutils literal"><span class="pre">True</span></tt> if <tt class="docutils literal"><span class="pre">(x</span> <span class="pre">&gt;</span> <span class="pre">y)</span></tt> is <tt class="docutils literal"><span class="pre">False</span></tt>, that is, if <tt class="docutils literal"><span class="pre">x</span></tt> is less than or equal to
+<tt class="docutils literal"><span class="pre">y</span></tt>.</p>
+<p>The expression on the left of the <tt class="docutils literal"><span class="pre">or</span></tt> operator is evaluated first: if the result is <tt class="docutils literal"><span class="pre">True</span></tt>,
+Python does not (and need not) evaluate the expression on the right &#8212; this is called <em>short-circuit evaluation</em>.
+Similarly, for the <tt class="docutils literal"><span class="pre">and</span></tt> operator, if the expression on the left yields <tt class="docutils literal"><span class="pre">False</span></tt>, Python does not
+evaluate the expression on the right.   In this way, there are no unnecessary evaluations.</p>
+</div>
+<div class="section" id="truth-tables">
+<h2>5.3. Truth Tables<a class="headerlink" href="#truth-tables" title="Permalink to this headline">¶</a></h2>
+<p>A truth table is a small table that allows us to list all the possible inputs,
+and to give the results for the logical operators.  Because the <tt class="docutils literal"><span class="pre">and</span></tt> and <tt class="docutils literal"><span class="pre">or</span></tt>
+operators each have two operands, there are only four rows in a truth table that
+describes the semantics of <tt class="docutils literal"><span class="pre">and</span></tt>.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="32%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">a</th>
+<th class="head">b</th>
+<th class="head">a and b</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="row-odd"><td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>True</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="row-odd"><td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>In a Truth Table, we sometimes use T and F as shorthand for the two
+Boolean values: here is the truth table describing <tt class="docutils literal"><span class="pre">or</span></tt>:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="23%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">a</th>
+<th class="head">b</th>
+<th class="head">a or b</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>T</td>
+<td>T</td>
+</tr>
+<tr class="row-even"><td>T</td>
+<td>F</td>
+<td>T</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>T</td>
+<td>T</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>The third logical operator, <tt class="docutils literal"><span class="pre">not</span></tt>, only takes a single operand, so its truth table
+only has two rows:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">a</th>
+<th class="head">not a</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>T</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<span class="target" id="index-2"></span></div>
+<div class="section" id="conditional-execution">
+<span id="index-3"></span><h2>5.4. Conditional execution<a class="headerlink" href="#conditional-execution" title="Permalink to this headline">¶</a></h2>
+<p>In order to write useful programs, we almost always need the ability to check
+conditions and change the behavior of the program accordingly. <strong>Conditional
+statements</strong> give us this ability. The simplest form is the <strong>if</strong>
+statement:</p>
+
+<div id="parityexample" class="pywindow" >
+
+<div id="parityexample_code_div" style="display: block">
+<textarea rows="9" id="parityexample_code" class="active_code" prefixcode="undefined">
+x = 8
+
+if x % 2 == 0:
+    print(str(x)+" is even.")
+    print("Did you know that 2 is the only even number that is prime?")
+else:
+    print(str(x)+" is odd.")
+    print("Did you know that multiplying two odd numbers " +
+                             "always gives an odd result?")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['parityexample_code'] = true;
+pythonTool.readOnlyFlags['parityexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="parityexample_runb" onclick="pythonTool.runit('parityexample_code','parityexample_pre','parityexample_error','parityexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('parityexample_code','parityexample_pre','parityexample_error','parityexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='parityexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="parityexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="parityexample_suffix" style="display:none">
+</pre>
+<pre id="parityexample_pre" class="active_out">
+
+</pre>
+
+<div id="parityexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Try changing the value of <tt class="docutils literal"><span class="pre">x</span></tt> in the above program, and see how the output changes.</p>
+<p>The Boolean expression after the <tt class="docutils literal"><span class="pre">if</span></tt> statement is called the <strong>condition</strong>.
+If it is true, then all the indented statements get executed. If not, then all
+the statements indented under the <tt class="docutils literal"><span class="pre">else</span></tt> clause get executed.</p>
+<div class="admonition-flowchart-of-an-if-statement-with-an-else-clause admonition">
+<p class="first admonition-title">Flowchart of an if statement with an else clause</p>
+<img alt="_images/flowchart_if_else.png" class="last" src="_images/flowchart_if_else.png" />
+</div>
+<p>The syntax for an <tt class="docutils literal"><span class="pre">if</span></tt> statement looks like this:</p>
+
+<div id="booleanflowchart" class="pywindow" >
+
+<div id="booleanflowchart_code_div" style="display: block">
+<textarea rows="4" id="booleanflowchart_code" class="active_code" prefixcode="undefined">
+if BOOLEAN EXPRESSION:
+    STATEMENTS_1        # Executed if condition evaluates to True
+else:
+    STATEMENTS_2        # Executed if condition evaluates to False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanflowchart_code'] = false;
+pythonTool.readOnlyFlags['booleanflowchart_code'] = true;
+</script>
+
+<div id='booleanflowchart_error'></div>
+<pre id="booleanflowchart_suffix" style="display:none">
+</pre>
+</div>
+
+<p>As with the function definition from the last chapter and other compound
+statements like <tt class="docutils literal"><span class="pre">for</span></tt>, the <tt class="docutils literal"><span class="pre">if</span></tt> statement consists of a header line and a body. The header
+line begins with the keyword <tt class="docutils literal"><span class="pre">if</span></tt> followed by a <em>Boolean expression</em> and ends with
+a colon (:).</p>
+<p>The indented statements that follow are called a <strong>block</strong>. The first
+unindented statement marks the end of the block.</p>
+<p>Each of the statements inside the first block of statements are executed in order if the Boolean
+expression evaluates to <tt class="docutils literal"><span class="pre">True</span></tt>. The entire first block of statements
+is skipped if the Boolean expression evaluates to <tt class="docutils literal"><span class="pre">False</span></tt>, and instead
+all the statements indented under the <tt class="docutils literal"><span class="pre">else</span></tt> clause are executed.</p>
+<p>There is no limit on the number of statements that can appear under the two clauses of an
+<tt class="docutils literal"><span class="pre">if</span></tt> statement, but there has to be at least one statement in each block.  Occasionally, it is useful
+to have a section with no statements (usually as a place keeper, or scaffolding,
+for code we haven&#8217;t written yet). In that case, we can use the <tt class="docutils literal"><span class="pre">pass</span></tt> statement, which
+does nothing except act as a placeholder.</p>
+
+<div id="ifelsewithpasses" class="pywindow" >
+
+<div id="ifelsewithpasses_code_div" style="display: block">
+<textarea rows="4" id="ifelsewithpasses_code" class="active_code" prefixcode="undefined">
+if True:          # This is always True,
+    pass          #   so this is always executed, but it does nothing
+else:
+    pass</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ifelsewithpasses_code'] = false;
+pythonTool.readOnlyFlags['ifelsewithpasses_code'] = true;
+</script>
+
+<div id='ifelsewithpasses_error'></div>
+<pre id="ifelsewithpasses_suffix" style="display:none">
+</pre>
+</div>
+
+</div>
+<div class="section" id="omitting-the-else-clause">
+<span id="index-4"></span><h2>5.5. Omitting the <tt class="docutils literal"><span class="pre">else</span></tt> clause<a class="headerlink" href="#omitting-the-else-clause" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-flowchart-of-an-if-statement-with-no-else-clause admonition">
+<p class="first admonition-title">Flowchart of an if statement with no else clause</p>
+<img alt="_images/flowchart_if_only.png" class="last" src="_images/flowchart_if_only.png" />
+</div>
+<p>Another form of the <tt class="docutils literal"><span class="pre">if</span></tt> statement is one in which the <tt class="docutils literal"><span class="pre">else</span></tt> clause is omitted entirely.
+In this case, when the condition evaluates to <tt class="docutils literal"><span class="pre">True</span></tt>, the statements are
+executed, otherwise the flow of execution continues to the statement after the <tt class="docutils literal"><span class="pre">if</span></tt>.</p>
+
+<div id="squarerootexample" class="pywindow" >
+
+<div id="squarerootexample_code_div" style="display: block">
+<textarea rows="6" id="squarerootexample_code" class="active_code" prefixcode="undefined">
+x = 36
+if x < 0:
+    print("The negative number "+str(x)+" is not valid here.")
+    x = 42
+    print("I've decided to use the number 42 instead.")
+print("The square root of "+str(x)+" is "+str(x**0.5))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['squarerootexample_code'] = true;
+pythonTool.readOnlyFlags['squarerootexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="squarerootexample_runb" onclick="pythonTool.runit('squarerootexample_code','squarerootexample_pre','squarerootexample_error','squarerootexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('squarerootexample_code','squarerootexample_pre','squarerootexample_error','squarerootexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='squarerootexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="squarerootexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="squarerootexample_suffix" style="display:none">
+</pre>
+<pre id="squarerootexample_pre" class="active_out">
+
+</pre>
+
+<div id="squarerootexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>In this case, the print function that outputs the square root is the one after the <tt class="docutils literal"><span class="pre">if</span></tt> block.  As the code is originally written, the condition of the <tt class="docutils literal"><span class="pre">if</span></tt> statement is <tt class="docutils literal"><span class="pre">False</span></tt>, so the block of code inside the <tt class="docutils literal"><span class="pre">if</span></tt> block gets skipped. Change the value of <tt class="docutils literal"><span class="pre">x</span></tt> to something negative and run it again to see the difference.</p>
+<div class="admonition-python-terminology admonition">
+<p class="first admonition-title">Python terminology</p>
+<p>Python documentation sometimes uses the term <strong>suite</strong> of statements to mean what we
+have called a <em>block</em> here. They mean the same thing, and since most other languages and
+computer scientists use the word <em>block</em>, we&#8217;ll stick with that.</p>
+<p class="last">Notice too that <tt class="docutils literal"><span class="pre">else</span></tt> is not a statement.  The <tt class="docutils literal"><span class="pre">if</span></tt> statement has
+two <em>clauses</em>, one of which is the (optional) <tt class="docutils literal"><span class="pre">else</span></tt> clause.</p>
+</div>
+</div>
+<div class="section" id="chained-conditionals">
+<span id="index-5"></span><h2>5.6. Chained conditionals<a class="headerlink" href="#chained-conditionals" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes there are more than two possibilities and we need more than two
+branches. One way to express a computation like that is a <strong>chained
+conditional</strong>:</p>
+
+<div id="ifelifelseflowchart" class="pywindow" >
+
+<div id="ifelifelseflowchart_code_div" style="display: block">
+<textarea rows="6" id="ifelifelseflowchart_code" class="active_code" prefixcode="undefined">
+if x < y:
+    STATEMENTS_A
+elif x > y:
+    STATEMENTS_B
+else:
+    STATEMENTS_C</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ifelifelseflowchart_code'] = false;
+pythonTool.readOnlyFlags['ifelifelseflowchart_code'] = true;
+</script>
+
+<div id='ifelifelseflowchart_error'></div>
+<pre id="ifelifelseflowchart_suffix" style="display:none">
+</pre>
+</div>
+
+<div class="admonition-flowchart-of-this-chained-conditional admonition">
+<p class="first admonition-title">Flowchart of this chained conditional</p>
+<img alt="_images/flowchart_chained_conditional.png" class="last" src="_images/flowchart_chained_conditional.png" />
+</div>
+<p><tt class="docutils literal"><span class="pre">elif</span></tt> is an abbreviation of <tt class="docutils literal"><span class="pre">else</span> <span class="pre">if</span></tt>. Again, exactly one branch will be
+executed. There is no limit of the number of <tt class="docutils literal"><span class="pre">elif</span></tt> statements but only a
+single (and optional) final <tt class="docutils literal"><span class="pre">else</span></tt> statement is allowed and it must be the last
+branch in the statement:</p>
+
+<div id="ifelifelifelseflowchart" class="pywindow" >
+
+<div id="ifelifelifelseflowchart_code_div" style="display: block">
+<textarea rows="8" id="ifelifelifelseflowchart_code" class="active_code" prefixcode="undefined">
+if choice == "a":
+    function_one()
+elif choice == "b":
+    function_two()
+elif choice == "c":
+    function_three()
+else:
+    print("Invalid choice.")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ifelifelifelseflowchart_code'] = false;
+pythonTool.readOnlyFlags['ifelifelifelseflowchart_code'] = true;
+</script>
+
+<div id='ifelifelifelseflowchart_error'></div>
+<pre id="ifelifelifelseflowchart_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Each condition is checked in order. If the first is false, the next is checked,
+and so on. If one of them is true, the corresponding branch executes, and the
+statement ends. Even if more than one condition is true, only the first true
+branch executes.</p>
+</div>
+<div class="section" id="nested-conditionals">
+<span id="index-6"></span><h2>5.7. Nested conditionals<a class="headerlink" href="#nested-conditionals" title="Permalink to this headline">¶</a></h2>
+<p>One conditional can also be <strong>nested</strong> within another. (It is the same theme of
+composability, again!)  We could have written
+the previous example as follows:</p>
+<div class="admonition-flowchart-of-this-nested-conditional admonition">
+<p class="first admonition-title">Flowchart of this nested conditional</p>
+<img alt="_images/flowchart_nested_conditional.png" class="last" src="_images/flowchart_nested_conditional.png" />
+</div>
+
+<div id="ififelseflowchart" class="pywindow" >
+
+<div id="ififelseflowchart_code_div" style="display: block">
+<textarea rows="7" id="ififelseflowchart_code" class="active_code" prefixcode="undefined">
+if x < y:
+    STATEMENTS_A
+else:
+    if x > y:
+        STATEMENTS_B
+    else:
+        STATEMENTS_C</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ififelseflowchart_code'] = false;
+pythonTool.readOnlyFlags['ififelseflowchart_code'] = true;
+</script>
+
+<div id='ififelseflowchart_error'></div>
+<pre id="ififelseflowchart_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The outer conditional contains two branches.
+The second branch contains another <tt class="docutils literal"><span class="pre">if</span></tt> statement, which
+has two branches of its own. Those two branches could contain
+conditional statements as well.</p>
+<p>Although the indentation of the statements makes the structure apparent, nested
+conditionals very quickly become difficult to read.  In general, it is a good
+idea to avoid them when we can.</p>
+<p>Logical operators often provide a way to simplify nested conditional
+statements. For example, we can rewrite the following code using a single
+conditional:</p>
+
+<div id="multicondbad" class="pywindow" >
+
+<div id="multicondbad_code_div" style="display: block">
+<textarea rows="3" id="multicondbad_code" class="active_code" prefixcode="undefined">
+if 0 < x:            # Assume x is an int here
+    if x < 10:
+        print("x is a positive single digit.")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multicondbad_code'] = false;
+pythonTool.readOnlyFlags['multicondbad_code'] = true;
+</script>
+
+<div id='multicondbad_error'></div>
+<pre id="multicondbad_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">print</span></tt> function is called only if we make it past both the
+conditionals, so instead of the above which uses two <tt class="docutils literal"><span class="pre">if</span></tt> statements each with
+a simple condition, we could make a more complex condition using the <tt class="docutils literal"><span class="pre">and</span></tt> operator.  Now we only
+need a single <tt class="docutils literal"><span class="pre">if</span></tt> statement:</p>
+
+<div id="multicondgood" class="pywindow" >
+
+<div id="multicondgood_code_div" style="display: block">
+<textarea rows="2" id="multicondgood_code" class="active_code" prefixcode="undefined">
+if 0 < x and x < 10: # Assume x is an int here
+    print("x is a positive single digit.")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multicondgood_code'] = false;
+pythonTool.readOnlyFlags['multicondgood_code'] = true;
+</script>
+
+<div id='multicondgood_error'></div>
+<pre id="multicondgood_suffix" style="display:none">
+</pre>
+</div>
+
+</div>
+<div class="section" id="the-return-statement">
+<span id="index-7"></span><h2>5.8. The <tt class="docutils literal"><span class="pre">return</span></tt> statement<a class="headerlink" href="#the-return-statement" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">return</span></tt> statement, with or without a value, depending on whether the
+function is fruitful or void, allows us to terminate the execution of a function
+before (or when) we reach the end. One reason to use an <em>early return</em> is if we detect an error
+condition:</p>
+
+<div id="squarerootwithcheck" class="pywindow" >
+
+<div id="squarerootwithcheck_code_div" style="display: block">
+<textarea rows="9" id="squarerootwithcheck_code" class="active_code" prefixcode="undefined">
+def print_square_root(x):
+    if x <= 0:
+        print("Positive numbers only, please.")
+        return
+    result = x**0.5
+    print("The square root of "+str(x)+" is "+str(result))
+
+print_square_root(16)
+print_square_root(-4)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['squarerootwithcheck_code'] = true;
+pythonTool.readOnlyFlags['squarerootwithcheck_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="squarerootwithcheck_runb" onclick="pythonTool.runit('squarerootwithcheck_code','squarerootwithcheck_pre','squarerootwithcheck_error','squarerootwithcheck_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('squarerootwithcheck_code','squarerootwithcheck_pre','squarerootwithcheck_error','squarerootwithcheck_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='squarerootwithcheck_error'></div>
+
+<div style="text-align: center">
+<canvas id="squarerootwithcheck_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="squarerootwithcheck_suffix" style="display:none">
+</pre>
+<pre id="squarerootwithcheck_pre" class="active_out">
+
+</pre>
+
+<div id="squarerootwithcheck_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The function <tt class="docutils literal"><span class="pre">print_square_root</span></tt> has a parameter named <tt class="docutils literal"><span class="pre">x</span></tt>. The first thing
+it does is check whether <tt class="docutils literal"><span class="pre">x</span></tt> is less than or equal to 0, in which case it
+displays an error message and then uses <tt class="docutils literal"><span class="pre">return</span></tt> to exit the function. The
+flow of execution immediately returns to the caller, and the remaining lines of
+the function are not executed.</p>
+</div>
+<div class="section" id="logical-opposites">
+<h2>5.9. Logical opposites<a class="headerlink" href="#logical-opposites" title="Permalink to this headline">¶</a></h2>
+<p>Each of the six relational operators has a logical opposite: for example,
+suppose we can get a driver&#8217;s licence when our age is greater or equal to 16,
+we can <em>not</em> get the driver&#8217;s licence when we are less than 16.</p>
+<p>Notice that the opposite of <tt class="docutils literal"><span class="pre">&gt;=</span></tt> is <tt class="docutils literal"><span class="pre">&lt;</span></tt>.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">operator</th>
+<th class="head">logical opposite</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>==</td>
+<td>!=</td>
+</tr>
+<tr class="row-odd"><td>!=</td>
+<td>==</td>
+</tr>
+<tr class="row-even"><td>&lt;</td>
+<td>&gt;=</td>
+</tr>
+<tr class="row-odd"><td>&lt;=</td>
+<td>&gt;</td>
+</tr>
+<tr class="row-even"><td>&gt;</td>
+<td>&lt;=</td>
+</tr>
+<tr class="row-odd"><td>&gt;=</td>
+<td>&lt;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Understanding these logical opposites allows us to sometimes get rid of <tt class="docutils literal"><span class="pre">not</span></tt>
+operators.  <tt class="docutils literal"><span class="pre">not</span></tt> operators are often quite difficult to read in computer code, and
+our intentions will usually be clearer if we can eliminate them.</p>
+<p>For example, if we wrote this Python:</p>
+
+<div id="licensebad" class="pywindow" >
+
+<div id="licensebad_code_div" style="display: block">
+<textarea rows="2" id="licensebad_code" class="active_code" prefixcode="undefined">
+if not (age >= 17):
+    print("Hey, you are too young to get a driver's licence!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['licensebad_code'] = false;
+pythonTool.readOnlyFlags['licensebad_code'] = true;
+</script>
+
+<div id='licensebad_error'></div>
+<pre id="licensebad_suffix" style="display:none">
+</pre>
+</div>
+
+<p>it would probably be clearer to use the simplification laws, and to
+write instead:</p>
+
+<div id="licensegood" class="pywindow" >
+
+<div id="licensegood_code_div" style="display: block">
+<textarea rows="2" id="licensegood_code" class="active_code" prefixcode="undefined">
+if age < 17:
+    print("Hey, you are too young to get a driver's licence!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['licensegood_code'] = false;
+pythonTool.readOnlyFlags['licensegood_code'] = true;
+</script>
+
+<div id='licensegood_error'></div>
+<pre id="licensegood_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Two powerful simplification laws (called de Morgan&#8217;s laws) that are often
+helpful when dealing with complicated Boolean expressions are:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>not (x and y)  ==  (not x) or (not y)
+not (x or y)   ==  (not x) and (not y)
+</pre></div>
+</div>
+</div></blockquote>
+<p>For example, suppose we can slay the dragon only if our magic
+lightsabre sword is charged to 90% or higher,
+and we have 100 or more energy units in our protective shield.
+We find this fragment of Python code in the game:</p>
+
+<div id="dragonbad" class="pywindow" >
+
+<div id="dragonbad_code_div" style="display: block">
+<textarea rows="4" id="dragonbad_code" class="active_code" prefixcode="undefined">
+if not ((sword_charge >= 0.90) and (shield_energy >= 100)):
+    print("Your attack has no effect, the dragon fries you to a crisp!")
+else:
+    print("The dragon crumples in a heap. You rescue the princess!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dragonbad_code'] = false;
+pythonTool.readOnlyFlags['dragonbad_code'] = true;
+</script>
+
+<div id='dragonbad_error'></div>
+<pre id="dragonbad_suffix" style="display:none">
+</pre>
+</div>
+
+<p>de Morgan&#8217;s laws together with the logical opposites would let us
+rework the condition in a (perhaps) easier to understand way like this:</p>
+
+<div id="dragonbetter" class="pywindow" >
+
+<div id="dragonbetter_code_div" style="display: block">
+<textarea rows="4" id="dragonbetter_code" class="active_code" prefixcode="undefined">
+if (sword_charge < 0.90) or (shield_energy < 100):
+    print("Your attack has no effect, the dragon fries you to a crisp!")
+else:
+    print("The dragon crumples in a heap. You rescue the princess!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dragonbetter_code'] = false;
+pythonTool.readOnlyFlags['dragonbetter_code'] = true;
+</script>
+
+<div id='dragonbetter_error'></div>
+<pre id="dragonbetter_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We could also get rid of the <tt class="docutils literal"><span class="pre">not</span></tt> by swapping around the <tt class="docutils literal"><span class="pre">then</span></tt> and
+<tt class="docutils literal"><span class="pre">else</span></tt> parts of the conditional.  So here is a third version, also equivalent:</p>
+
+<div id="dragonbest" class="pywindow" >
+
+<div id="dragonbest_code_div" style="display: block">
+<textarea rows="4" id="dragonbest_code" class="active_code" prefixcode="undefined">
+if (sword_charge >= 0.90) and (shield_energy >= 100):
+    print("The dragon crumples in a heap. You rescue the princess!")
+else:
+    print("Your attack has no effect, the dragon fries you to a crisp!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dragonbest_code'] = false;
+pythonTool.readOnlyFlags['dragonbest_code'] = true;
+</script>
+
+<div id='dragonbest_error'></div>
+<pre id="dragonbest_suffix" style="display:none">
+</pre>
+</div>
+
+<p>This version is probably the best of the three, because it very closely matches
+the initial English statement. Clarity of our code (for other humans),
+and making it easy to see that the code does what was expected should always
+be a high priority.</p>
+<p>As our programming skills develop we&#8217;ll find we have
+more than one way to solve any problem.  So good programs are <em>designed</em>.
+We make choices that favour clarity, simplicity, and elegance.  The job
+title <em>software architect</em> says a lot about what we do &#8212; we are <em>architects</em>
+who engineer our products to balance beauty, functionality, simplicity and
+clarity in our creations.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>Once our program works, we should play around a bit trying to polish it up.
+Write good comments.  Think about whether the code would be clearer with
+different variable names.  Could we have done it more elegantly?  Should
+we rather use a function?  Can we simplify the conditionals?</p>
+<p class="last">We think of our code as our creation, our work of art!  We make it great.</p>
+</div>
+</div>
+<div class="section" id="type-conversion">
+<span id="index-8"></span><h2>5.10. Type conversion<a class="headerlink" href="#type-conversion" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve had a first look at this in an earlier chapter.  Seeing it again won&#8217;t hurt!</p>
+<p>Many Python types come with a built-in function that attempts to convert values
+of another type into its own type. The <tt class="docutils literal"><span class="pre">int</span></tt> function, for example,
+takes any value and converts it to an integer, if possible, or complains
+otherwise:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; int(&quot;32&quot;)
+32
+&gt;&gt;&gt; int(&quot;Hello&quot;)
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#6&gt;&quot;, line 1, in &lt;module&gt;
+    int(&quot;hello&quot;)
+ValueError: invalid literal for int() with base 10: &#39;hello&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">int</span></tt> can also convert floating-point values to integers, but remember
+that it truncates the fractional part:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; int(-2.3)
+-2
+&gt;&gt;&gt; int(3.99999)
+3
+&gt;&gt;&gt; int(&quot;42&quot;)
+42
+&gt;&gt;&gt; int(1.0)
+1
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <tt class="docutils literal"><span class="pre">float</span></tt> function converts integers and strings to floating-point
+numbers:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; float(32)
+32.0
+&gt;&gt;&gt; float(&quot;3.14159&quot;)
+3.14159
+&gt;&gt;&gt; float(1)
+1.0
+</pre></div>
+</div>
+</div></blockquote>
+<p>It may seem odd that Python distinguishes the integer value <tt class="docutils literal"><span class="pre">1</span></tt> from the
+floating-point value <tt class="docutils literal"><span class="pre">1.0</span></tt>. They may represent the same number, but they
+belong to different types. The reason is that they are represented differently
+inside the computer.</p>
+<p>The <tt class="docutils literal"><span class="pre">str</span></tt> function converts any argument given to it to type
+<tt class="docutils literal"><span class="pre">string</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; str(32)
+&#39;32&#39;
+&gt;&gt;&gt; str(3.14149)
+&#39;3.14149&#39;
+&gt;&gt;&gt; str(True)
+&#39;True&#39;
+&gt;&gt;&gt; str(true)
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#7&gt;&quot;, line 1, in &lt;module&gt;
+    str(true)
+NameError: name &#39;true&#39; is not defined
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">str</span></tt> will work with any value and convert it into a string.  As
+mentioned earlier, <tt class="docutils literal"><span class="pre">True</span></tt> is Boolean value; <tt class="docutils literal"><span class="pre">true</span></tt> is just an ordinary variable name,
+and is not defined here, so we get an error.</p>
+</div>
+<div class="section" id="boolean-functions">
+<span id="index-9"></span><h2>5.11. Boolean functions<a class="headerlink" href="#boolean-functions" title="Permalink to this headline">¶</a></h2>
+<p>Functions can return Boolean values, which is often convenient for hiding
+complicated tests inside functions. For example:</p>
+
+<div id="booleanfunction" class="pywindow" >
+
+<div id="booleanfunction_code_div" style="display: block">
+<textarea rows="9" id="booleanfunction_code" class="active_code" prefixcode="undefined">
+def is_divisible(x, y):
+    """ Test if x is exactly divisible by y """
+    if x % y == 0:
+        return True
+    else:
+        return False
+
+print(is_divisible(10,5))  # should print True
+print(is_divisible(10,7))  # should print False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanfunction_code'] = true;
+pythonTool.readOnlyFlags['booleanfunction_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="booleanfunction_runb" onclick="pythonTool.runit('booleanfunction_code','booleanfunction_pre','booleanfunction_error','booleanfunction_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanfunction_code','booleanfunction_pre','booleanfunction_error','booleanfunction_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='booleanfunction_error'></div>
+
+<div style="text-align: center">
+<canvas id="booleanfunction_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="booleanfunction_suffix" style="display:none">
+</pre>
+<pre id="booleanfunction_pre" class="active_out">
+
+</pre>
+
+<div id="booleanfunction_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It is common to give <strong>Boolean
+functions</strong> names that sound like yes/no questions.  <tt class="docutils literal"><span class="pre">is_divisible</span></tt> returns
+either <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> to indicate whether the <tt class="docutils literal"><span class="pre">x</span></tt> is or is not
+divisible by <tt class="docutils literal"><span class="pre">y</span></tt>.</p>
+<p>We can make the function more concise by taking advantage of the fact that the
+condition of the <tt class="docutils literal"><span class="pre">if</span></tt> statement is itself a Boolean expression. We can return
+it directly, avoiding the <tt class="docutils literal"><span class="pre">if</span></tt> statement altogether:</p>
+
+<div id="booleanfunctionbetter" class="pywindow" >
+
+<div id="booleanfunctionbetter_code_div" style="display: block">
+<textarea rows="6" id="booleanfunctionbetter_code" class="active_code" prefixcode="undefined">
+def is_divisible(x, y):
+    """ Test if x is exactly divisible by y """
+    return x % y == 0
+
+print(is_divisible(10,5))  # should print True
+print(is_divisible(10,7))  # should print False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanfunctionbetter_code'] = true;
+pythonTool.readOnlyFlags['booleanfunctionbetter_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="booleanfunctionbetter_runb" onclick="pythonTool.runit('booleanfunctionbetter_code','booleanfunctionbetter_pre','booleanfunctionbetter_error','booleanfunctionbetter_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanfunctionbetter_code','booleanfunctionbetter_pre','booleanfunctionbetter_error','booleanfunctionbetter_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='booleanfunctionbetter_error'></div>
+
+<div style="text-align: center">
+<canvas id="booleanfunctionbetter_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="booleanfunctionbetter_suffix" style="display:none">
+</pre>
+<pre id="booleanfunctionbetter_pre" class="active_out">
+
+</pre>
+
+<div id="booleanfunctionbetter_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Boolean functions are often used in conditional statements:</p>
+
+<div id="booleanfunctionexample" class="pywindow" >
+
+<div id="booleanfunctionexample_code_div" style="display: block">
+<textarea rows="4" id="booleanfunctionexample_code" class="active_code" prefixcode="undefined">
+if is_divisible(x, y):
+    ... # Do something ...
+else:
+    ... # Do something else ...</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanfunctionexample_code'] = false;
+pythonTool.readOnlyFlags['booleanfunctionexample_code'] = true;
+</script>
+
+<div id='booleanfunctionexample_error'></div>
+<pre id="booleanfunctionexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>It might be tempting to write something like:</p>
+
+<div id="booleanfunctionbadidea" class="pywindow" >
+
+<div id="booleanfunctionbadidea_code_div" style="display: block">
+<textarea rows="1" id="booleanfunctionbadidea_code" class="active_code" prefixcode="undefined">
+if is_divisible(x, y) == True:</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['booleanfunctionbadidea_code'] = false;
+pythonTool.readOnlyFlags['booleanfunctionbadidea_code'] = true;
+</script>
+
+<div id='booleanfunctionbadidea_error'></div>
+<pre id="booleanfunctionbadidea_suffix" style="display:none">
+</pre>
+</div>
+
+<p>but the extra comparison is unnecessary.</p>
+</div>
+<div class="section" id="glossary">
+<h2>5.12. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-block">block</dt>
+<dd>A group of consecutive statements with the same indentation.</dd>
+<dt id="term-body">body</dt>
+<dd>The block of statements in a compound statement that follows the
+header.</dd>
+<dt id="term-boolean-expression">Boolean expression</dt>
+<dd>An expression that is either true or false.</dd>
+<dt id="term-boolean-value">Boolean value</dt>
+<dd>There are exactly two Boolean values: <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt>. Boolean
+values result when a Boolean expression is evaluated by the Python
+interepreter.  They have type <tt class="docutils literal"><span class="pre">bool</span></tt>.</dd>
+<dt id="term-branch">branch</dt>
+<dd>One of the possible paths of the flow of execution determined by
+conditional execution.</dd>
+<dt id="term-chained-conditional">chained conditional</dt>
+<dd>A conditional branch with more than two possible flows of execution. In
+Python chained conditionals are written with <tt class="docutils literal"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">elif</span> <span class="pre">...</span> <span class="pre">else</span></tt>
+statements.</dd>
+<dt id="term-comparison-operator">comparison operator</dt>
+<dd>One of the six operators that compares two values: <tt class="docutils literal"><span class="pre">==</span></tt>, <tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>,
+<tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, and <tt class="docutils literal"><span class="pre">&lt;=</span></tt>.</dd>
+<dt id="term-condition">condition</dt>
+<dd>The Boolean expression in a conditional statement that determines which
+branch is executed.</dd>
+<dt id="term-conditional-statement">conditional statement</dt>
+<dd>A statement that controls the flow of execution depending on some
+condition. In Python the keywords <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">elif</span></tt>, and <tt class="docutils literal"><span class="pre">else</span></tt> are
+used for conditional statements.</dd>
+<dt id="term-logical-operator">logical operator</dt>
+<dd>One of the operators that combines Boolean expressions: <tt class="docutils literal"><span class="pre">and</span></tt>,
+<tt class="docutils literal"><span class="pre">or</span></tt>, and <tt class="docutils literal"><span class="pre">not</span></tt>.</dd>
+<dt id="term-nesting">nesting</dt>
+<dd>One program structure within another, such as a conditional statement
+inside a branch of another conditional statement.</dd>
+<dt id="term-prompt">prompt</dt>
+<dd>A visual cue that tells the user that the system is ready to accept input data.</dd>
+<dt id="term-truth-table">truth table</dt>
+<dd>A concise table of Boolean values that can describe the semantics
+of an operator.</dd>
+<dt id="term-type-conversion">type conversion</dt>
+<dd>An explicit function call that takes a value of one type and computes a
+corresponding value of another type.</dd>
+<dt id="term-wrapping-code-in-a-function">wrapping code in a function</dt>
+<dd>The process of adding a function header and parameters to a sequence
+of program statements is often refered to as &#8220;wrapping the code in
+a function&#8221;.  This process is very useful whenever the program
+statements in question are going to be used multiple times.  It is
+even more useful when it allows the programmer to express their mental
+chunking, and how they&#8217;ve broken a complex problem into pieces.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="iteration.html" title="6. Flow of Control"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="functions.html" title="4. Functions"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

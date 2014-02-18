@@ -1,0 +1,1550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>6. Flow of Control &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="7. Strings" href="strings.html" />
+    <link rel="prev" title="5. Conditionals" href="conditionals.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="strings.html" title="7. Strings"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="conditionals.html" title="5. Conditionals"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="flow-of-control">
+<h1>6. Flow of Control<a class="headerlink" href="#flow-of-control" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><p id="index-1">Computers are often used to automate repetitive tasks. Repeating identical or
+similar tasks without making errors is something that computers do well and
+people do poorly.</p>
+<p>Repeated execution of a set of statements is called <strong>iteration</strong>.  Because
+iteration is so common, Python provides several language features to make it
+easier. We&#8217;ve already seen the <tt class="docutils literal"><span class="pre">for</span></tt> statement: this the
+the form of iteration you&#8217;ll likely be using most often.  But in this chapter
+we&#8217;ve going to look at the <tt class="docutils literal"><span class="pre">while</span></tt> statement: another way to have your
+program do iteration, useful in slightly different circumstances.</p>
+<p>Before we do that, let&#8217;s just review a few ideas...</p>
+<div class="section" id="assignment">
+<h2>6.1. Assignment<a class="headerlink" href="#assignment" title="Permalink to this headline">¶</a></h2>
+<p>As we have mentioned previously, it is legal to make more than one assignment to the
+same variable. A new assignment makes an existing variable refer to a new value
+(and stop referring to the old value).</p>
+
+<div id="variablereassign" class="pywindow" >
+
+<div id="variablereassign_code_div" style="display: block">
+<textarea rows="4" id="variablereassign_code" class="active_code" prefixcode="undefined">
+airtime_remaining = 15
+print(airtime_remaining)
+airtime_remaining = 7
+print(airtime_remaining)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['variablereassign_code'] = true;
+pythonTool.readOnlyFlags['variablereassign_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="variablereassign_runb" onclick="pythonTool.runit('variablereassign_code','variablereassign_pre','variablereassign_error','variablereassign_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('variablereassign_code','variablereassign_pre','variablereassign_error','variablereassign_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='variablereassign_error'></div>
+
+<div style="text-align: center">
+<canvas id="variablereassign_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="variablereassign_suffix" style="display:none">
+</pre>
+<pre id="variablereassign_pre" class="active_out">
+
+</pre>
+
+<div id="variablereassign_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The first time <tt class="docutils literal"><span class="pre">airtime_remaining</span></tt> is
+printed, its value is 15, and the second time, its value is 7.</p>
+<p>It is especially important to distinguish between an
+assignment statement and a Boolean expression that tests for equality.
+Because Python uses the equal token (<tt class="docutils literal"><span class="pre">=</span></tt>) for assignment,
+it is tempting to interpret a statement like
+<tt class="docutils literal"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">b</span></tt> as a Boolean test.  Unlike mathematics, it is not!  Remember that the Python token
+for the equality operator is <tt class="docutils literal"><span class="pre">==</span></tt>.</p>
+<p>Note too that an equality test is symmetric, but assignment is not. For example,
+if <tt class="docutils literal"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">7</span></tt> then <tt class="docutils literal"><span class="pre">7</span> <span class="pre">==</span> <span class="pre">a</span></tt>. But in Python, the statement <tt class="docutils literal"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">7</span></tt>
+is legal and <tt class="docutils literal"><span class="pre">7</span> <span class="pre">=</span> <span class="pre">a</span></tt> is not.</p>
+<p>In Python, an assignment statement can make
+two variables equal, but because further assignments can change either of them,
+they don&#8217;t have to stay that way:</p>
+
+<div id="twovariablesresassign" class="pywindow" >
+
+<div id="twovariablesresassign_code_div" style="display: block">
+<textarea rows="5" id="twovariablesresassign_code" class="active_code" prefixcode="undefined">
+a = 5
+b = a    # After executing this line, a and b are now equal
+print("a="+str(a)+" b="+str(b))
+a = 3    # After executing this line, a and b are no longer equal
+print("a="+str(a)+" b="+str(b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['twovariablesresassign_code'] = true;
+pythonTool.readOnlyFlags['twovariablesresassign_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="twovariablesresassign_runb" onclick="pythonTool.runit('twovariablesresassign_code','twovariablesresassign_pre','twovariablesresassign_error','twovariablesresassign_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twovariablesresassign_code','twovariablesresassign_pre','twovariablesresassign_error','twovariablesresassign_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='twovariablesresassign_error'></div>
+
+<div style="text-align: center">
+<canvas id="twovariablesresassign_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="twovariablesresassign_suffix" style="display:none">
+</pre>
+<pre id="twovariablesresassign_pre" class="active_out">
+
+</pre>
+
+<div id="twovariablesresassign_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Line 4 changes the value of <tt class="docutils literal"><span class="pre">a</span></tt> but does not change the value of
+<tt class="docutils literal"><span class="pre">b</span></tt>, so they are no longer equal. Some
+people also think that <em>variable</em> was an unfortunate word to choose, and instead
+we should have called them <em>assignables</em>.  Python chooses to
+follow common terminology and token usage, also found in languages like C, C++, Java, and C#,
+so we use the tokens <tt class="docutils literal"><span class="pre">=</span></tt> for assignment, <tt class="docutils literal"><span class="pre">==</span></tt> for equality, and we talk of <em>variables</em>.</p>
+</div>
+<div class="section" id="updating-variables">
+<h2>6.2. Updating variables<a class="headerlink" href="#updating-variables" title="Permalink to this headline">¶</a></h2>
+<p>When an assignment statement is executed, the right-hand side expression (i.e. the
+expression that comes after the assignment token) is evaluated first.  This produces a value.
+Then the assignment is made, so that the variable on the left-hand side now refers
+to the new value.</p>
+<p>One of the most common forms of assignment is an update, where the new
+value of the variable depends on its old value.   Deduct 40 cents from
+my airtime balance, or add one run to the scoreboard.</p>
+
+<div id="simpleupdateexample" class="pywindow" >
+
+<div id="simpleupdateexample_code_div" style="display: block">
+<textarea rows="3" id="simpleupdateexample_code" class="active_code" prefixcode="undefined">
+n = 5
+n = 3 * n + 1
+print(n)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['simpleupdateexample_code'] = true;
+pythonTool.readOnlyFlags['simpleupdateexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="simpleupdateexample_runb" onclick="pythonTool.runit('simpleupdateexample_code','simpleupdateexample_pre','simpleupdateexample_error','simpleupdateexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('simpleupdateexample_code','simpleupdateexample_pre','simpleupdateexample_error','simpleupdateexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='simpleupdateexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="simpleupdateexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="simpleupdateexample_suffix" style="display:none">
+</pre>
+<pre id="simpleupdateexample_pre" class="active_out">
+
+</pre>
+
+<div id="simpleupdateexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Line 2 means <em>get the current value of n, multiply it by three and add
+one, and assign the answer to n, thus making n refer to the value</em>.
+So after executing the two lines above, <tt class="docutils literal"><span class="pre">n</span></tt> will point/refer to the
+integer 16.</p>
+<p>If you try to get the value of a variable that has never been assigned to, you&#8217;ll get an error:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; w = x + 1
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#0&gt;&quot;, line 1, in &lt;module&gt;
+    w=x+1
+NameError: name &#39;x&#39; is not defined
+</pre></div>
+</div>
+</div></blockquote>
+<p>Before you can update a variable, you have to <strong>initialize</strong> it to some starting value,
+usually with a simple assignment:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>runs_scored = 0
+...
+runs_scored = runs_scored + 1
+</pre></div>
+</div>
+</div></blockquote>
+<p>This sort of assignment &#8212; updating a variable by adding 1 to it &#8212; is very common.
+It is called an <strong>increment</strong> of the variable; subtracting 1 is called a <strong>decrement</strong>.
+Sometimes programmers also talk about <em>bumping</em> a variable, which means the same
+as incrementing it by 1.</p>
+</div>
+<div class="section" id="the-for-loop-revisited">
+<span id="index-2"></span><h2>6.3. The <tt class="docutils literal"><span class="pre">for</span></tt> loop revisited<a class="headerlink" href="#the-for-loop-revisited" title="Permalink to this headline">¶</a></h2>
+<p>Recall that the <tt class="docutils literal"><span class="pre">for</span></tt> loop processes each item in a list.  Each item in
+turn is (re-)assigned to the loop variable, and the body of the loop is executed.
+We saw this example in an earlier chapter:</p>
+
+<div id="partyinviteredux" class="pywindow" >
+
+<div id="partyinviteredux_code_div" style="display: block">
+<textarea rows="3" id="partyinviteredux_code" class="active_code" prefixcode="undefined">
+for f in ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]:
+    invitation = "Hi " + f + ".  Please come to my party on Saturday!"
+    print(invitation)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['partyinviteredux_code'] = true;
+pythonTool.readOnlyFlags['partyinviteredux_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="partyinviteredux_runb" onclick="pythonTool.runit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='partyinviteredux_error'></div>
+
+<div style="text-align: center">
+<canvas id="partyinviteredux_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="partyinviteredux_suffix" style="display:none">
+</pre>
+<pre id="partyinviteredux_pre" class="active_out">
+
+</pre>
+
+<div id="partyinviteredux_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Running through all the items in a list is called <strong>traversing</strong> the list,
+or <strong>traversal</strong>.</p>
+<p>Let us write a function now to sum up all the elements in a list of numbers.
+Do this by hand first, and try to isolate exactly what steps you take.  You&#8217;ll
+find you need to keep some &#8220;running total&#8221; of the sum so far, either on a piece
+of paper, in your head, or in your calculator. Remembering things from one step to the next is
+precisely why we have variables in a program: so we&#8217;ll need some variable
+to remember the &#8220;running total&#8221;.  It should be initialized with a value of zero,
+and then we need to traverse the items in the list.  For each item, we&#8217;ll want
+to update the running total by adding the next number to it.</p>
+
+<div id="sumalistexample" class="pywindow" >
+
+<div id="sumalistexample_code_div" style="display: block">
+<textarea rows="13" id="sumalistexample_code" class="active_code" prefixcode="undefined">
+def mysum(xs):
+    """ Sum all the numbers in the list xs, and return the total. """
+    running_total = 0
+    for x in xs:
+       running_total = running_total + x
+    return running_total
+
+# Add tests like these to your test suite ...
+print(mysum([1, 2, 3, 4])) # should be 10
+print(mysum([1.25, 2.5, 1.75])) # should be 5.5
+print(mysum([1, -2, 3])) # should be 2
+print(mysum([ ])) # should be 0
+print(mysum(range(11))) # should be 0+1+2+...+10 = 55</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['sumalistexample_code'] = true;
+pythonTool.readOnlyFlags['sumalistexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="sumalistexample_runb" onclick="pythonTool.runit('sumalistexample_code','sumalistexample_pre','sumalistexample_error','sumalistexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('sumalistexample_code','sumalistexample_pre','sumalistexample_error','sumalistexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='sumalistexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="sumalistexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="sumalistexample_suffix" style="display:none">
+</pre>
+<pre id="sumalistexample_pre" class="active_out">
+
+</pre>
+
+<div id="sumalistexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="the-while-statement">
+<span id="index-3"></span><h2>6.4. The <tt class="docutils literal"><span class="pre">while</span></tt> statement<a class="headerlink" href="#the-while-statement" title="Permalink to this headline">¶</a></h2>
+<p>Here is a fragment of code that demonstrates the use of the <tt class="docutils literal"><span class="pre">while</span></tt> statement:</p>
+
+<div id="whilefirstexample" class="pywindow" >
+
+<div id="whilefirstexample_code_div" style="display: block">
+<textarea rows="12" id="whilefirstexample_code" class="active_code" prefixcode="undefined">
+def sum_to(n):
+    """ Return the sum of 1+2+3+...+n """
+    ss  = 0
+    v = 1
+    while v <= n:
+        ss = ss + v
+        v = v + 1
+    return ss
+
+# For your test suite
+print(sum_to(4))
+print(sum_to(1000))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['whilefirstexample_code'] = true;
+pythonTool.readOnlyFlags['whilefirstexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="whilefirstexample_runb" onclick="pythonTool.runit('whilefirstexample_code','whilefirstexample_pre','whilefirstexample_error','whilefirstexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('whilefirstexample_code','whilefirstexample_pre','whilefirstexample_error','whilefirstexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='whilefirstexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="whilefirstexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="whilefirstexample_suffix" style="display:none">
+</pre>
+<pre id="whilefirstexample_pre" class="active_out">
+
+</pre>
+
+<div id="whilefirstexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>You can almost read the <tt class="docutils literal"><span class="pre">while</span></tt> statement as if it were English. It means,
+while <tt class="docutils literal"><span class="pre">v</span></tt> is less than or equal to <tt class="docutils literal"><span class="pre">n</span></tt>, continue executing the body of the loop. Within
+the body, each time, increment <tt class="docutils literal"><span class="pre">v</span></tt>. When <tt class="docutils literal"><span class="pre">v</span></tt> passes <tt class="docutils literal"><span class="pre">n</span></tt>, return your accumulated sum.</p>
+<p>More formally, here is precise flow of execution for a <tt class="docutils literal"><span class="pre">while</span></tt> statement:</p>
+<ul class="simple">
+<li>Evaluate the condition at line 5, yielding a value which is either <tt class="docutils literal"><span class="pre">False</span></tt> or <tt class="docutils literal"><span class="pre">True</span></tt>.</li>
+<li>If the value is <tt class="docutils literal"><span class="pre">False</span></tt>, exit the <tt class="docutils literal"><span class="pre">while</span></tt> statement and continue
+execution at the next statement (line 8 in this case).</li>
+<li>If the value is <tt class="docutils literal"><span class="pre">True</span></tt>, execute each of the statements in the body (lines 6 and 7) and
+then go back to the <tt class="docutils literal"><span class="pre">while</span></tt> statement at line 5.</li>
+</ul>
+<p>The body consists of all of the statements indented below the <tt class="docutils literal"><span class="pre">while</span></tt> keyword.</p>
+<p>Notice that if the loop condition is <tt class="docutils literal"><span class="pre">False</span></tt> the first time we get
+loop, the statements in the body of the loop are never executed.</p>
+<p>The body of the loop should change the value of one or more variables so that
+eventually the condition becomes false and the loop terminates. Otherwise the
+loop will repeat forever, which is called an <strong>infinite loop</strong>. An endless
+source of amusement for computer scientists is the observation that the
+directions on shampoo, &#8220;lather, rinse, repeat&#8221;, are an infinite loop.</p>
+<p>In the case here, we can prove that the loop terminates because we
+know that the value of <tt class="docutils literal"><span class="pre">n</span></tt> is finite, and we can see that the value of <tt class="docutils literal"><span class="pre">v</span></tt>
+increments each time through the loop, so eventually it will have to exceed <tt class="docutils literal"><span class="pre">n</span></tt>. In
+other cases, it is not so easy, even impossible in some cases,
+to tell if the loop will ever terminate.</p>
+<p>What you will notice here is that the <tt class="docutils literal"><span class="pre">while</span></tt> loop is more work for
+you &#8212; the programmer &#8212; than the equivalent <tt class="docutils literal"><span class="pre">for</span></tt> loop.  When using a <tt class="docutils literal"><span class="pre">while</span></tt>
+loop one has to manage the loop variable yourself: give it an initial value, test
+for completion, and then make sure you change something in the body so that the loop
+terminates.  By comparison, here is an equivalent function that uses <tt class="docutils literal"><span class="pre">for</span></tt> instead:</p>
+
+<div id="betterwithoutwhile" class="pywindow" >
+
+<div id="betterwithoutwhile_code_div" style="display: block">
+<textarea rows="9" id="betterwithoutwhile_code" class="active_code" prefixcode="undefined">
+def sum_to(n):
+    """ Return the sum of 1+2+3+...+n """
+    ss  = 0
+    for v in range(n+1):
+        ss = ss + v
+    return ss
+
+print(sum_to(4))
+print(sum_to(1000))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['betterwithoutwhile_code'] = true;
+pythonTool.readOnlyFlags['betterwithoutwhile_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="betterwithoutwhile_runb" onclick="pythonTool.runit('betterwithoutwhile_code','betterwithoutwhile_pre','betterwithoutwhile_error','betterwithoutwhile_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('betterwithoutwhile_code','betterwithoutwhile_pre','betterwithoutwhile_error','betterwithoutwhile_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='betterwithoutwhile_error'></div>
+
+<div style="text-align: center">
+<canvas id="betterwithoutwhile_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="betterwithoutwhile_suffix" style="display:none">
+</pre>
+<pre id="betterwithoutwhile_pre" class="active_out">
+
+</pre>
+
+<div id="betterwithoutwhile_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice the slightly tricky call to the <tt class="docutils literal"><span class="pre">range</span></tt> function &#8212; we had to add one onto <tt class="docutils literal"><span class="pre">n</span></tt>,
+because <tt class="docutils literal"><span class="pre">range</span></tt> generates its list up to but excluding the value you give it.
+It would be easy to make a programming mistake and overlook this, but because we&#8217;ve
+made the investment of writing some unit tests, our test suite would have caught our error.</p>
+<p>So why have two kinds of loop if <tt class="docutils literal"><span class="pre">for</span></tt> looks easier?  This next example shows a case where
+we need the extra power that we get from the <tt class="docutils literal"><span class="pre">while</span></tt> loop.</p>
+</div>
+<div class="section" id="the-collatz-3n-1-sequence">
+<span id="index-4"></span><h2>6.5. The Collatz 3n + 1 sequence<a class="headerlink" href="#the-collatz-3n-1-sequence" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s look at a simple sequence that has fascinated mathematicians for many years.
+They still cannot answer even quite simple questions about this.</p>
+<p>The rule for creating the sequence is to start from
+some given <tt class="docutils literal"><span class="pre">n</span></tt>, and to generate
+the next term of the sequence from <tt class="docutils literal"><span class="pre">n</span></tt>, either by halving <tt class="docutils literal"><span class="pre">n</span></tt>
+(whenever <tt class="docutils literal"><span class="pre">n</span></tt> is even), or else by multiplying it by three and adding 1 (whenever <tt class="docutils literal"><span class="pre">n</span></tt> is odd).  The sequence
+terminates when <tt class="docutils literal"><span class="pre">n</span></tt> reaches 1.</p>
+<p>This Python function captures that algorithm:</p>
+
+<div id="collatz" class="pywindow" >
+
+<div id="collatz_code_div" style="display: block">
+<textarea rows="14" id="collatz_code" class="active_code" prefixcode="undefined">
+def seq_3n_plus_1(n):
+    """ Print the 3n+1 sequence from n,
+        terminating when it reaches 1.
+    """
+    while n != 1:
+        print(n, end=", ")
+        if n % 2 == 0:        # n is even
+            n = n // 2
+        else:                 # n is odd
+            n = n * 3 + 1
+    print(n, end=".\n")
+
+seq_3n_plus_1(3)
+seq_3n_plus_1(19)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['collatz_code'] = true;
+pythonTool.readOnlyFlags['collatz_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="collatz_runb" onclick="pythonTool.runit('collatz_code','collatz_pre','collatz_error','collatz_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('collatz_code','collatz_pre','collatz_error','collatz_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='collatz_error'></div>
+
+<div style="text-align: center">
+<canvas id="collatz_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="collatz_suffix" style="display:none">
+</pre>
+<pre id="collatz_pre" class="active_out">
+
+</pre>
+
+<div id="collatz_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice first that the print function on line 6 has an extra argument <tt class="docutils literal"><span class="pre">end=&quot;,</span> <span class="pre">&quot;</span></tt>.  This
+tells the <tt class="docutils literal"><span class="pre">print</span></tt> function to follow the printed string with whatever the programmer
+chooses (in this case, a comma followed by a space), instead of ending the line. So
+each time something is printed in the loop, it is printed on the same output line, with
+the numbers separated by commas.  The call to <tt class="docutils literal"><span class="pre">print(n,</span> <span class="pre">end=&quot;.\n&quot;)</span></tt> at line 11 after the loop terminates
+will then print the final value of <tt class="docutils literal"><span class="pre">n</span></tt> followed by a period and a newline character.
+(You&#8217;ll cover the <tt class="docutils literal"><span class="pre">\n</span></tt> (newline character) in the next chapter).</p>
+<p>The condition for continuing with this loop is <tt class="docutils literal"><span class="pre">n</span> <span class="pre">!=</span> <span class="pre">1</span></tt>, so the loop will continue running until
+it reaches its termination condition, (i.e. <tt class="docutils literal"><span class="pre">n</span> <span class="pre">==</span> <span class="pre">1</span></tt>).</p>
+<p>Each time through the loop, the program outputs the value of <tt class="docutils literal"><span class="pre">n</span></tt> and then
+checks whether it is even or odd. If it is even, the value of <tt class="docutils literal"><span class="pre">n</span></tt> is divided
+by 2 using integer division. If it is odd, the value is replaced by <tt class="docutils literal"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">1</span></tt>.  Try some examples to see how the sequence behaves for different inputs.</p>
+<p>Since <tt class="docutils literal"><span class="pre">n</span></tt> sometimes increases and sometimes decreases, there is no obvious
+proof that <tt class="docutils literal"><span class="pre">n</span></tt> will ever reach 1, or that the program terminates. For some
+particular values of <tt class="docutils literal"><span class="pre">n</span></tt>, we can prove termination. For example, if the
+starting value is a power of two, then the value of <tt class="docutils literal"><span class="pre">n</span></tt> will be even each
+time through the loop until it reaches 1. The previous example ends with such a
+sequence, starting with 16.</p>
+<p>See if you can find a small starting
+number that needs more than a hundred steps before it terminates.</p>
+<p>Particular values aside, the interesting question was first posed by a German
+mathematician called Lothar Collatz: the <em>Collatz conjecture</em> (also known as
+the <em>3n + 1 conjecture</em>), is that this sequence terminates for <em>all</em> positive
+values of <tt class="docutils literal"><span class="pre">n</span></tt>.  So far, no one has been able to prove it <em>or</em> disprove it!
+(A conjecture is a statement that might be true, but nobody knows for sure.)</p>
+<p>Think carefully about what would be needed for a proof or disproof of the conjecture
+<em>&#8220;All positive integers will eventually converge to 1 using the Collatz rules&#8221;</em>.
+With fast computers we have been able to test every integer up to very
+large values, and so far, they have all eventually ended up at 1.
+But who knows? Perhaps there is some as-yet untested number which does not reduce to 1.</p>
+<p>You&#8217;ll notice that if you don&#8217;t stop when you reach 1, the sequence gets into
+its own cyclic loop:  1, 4, 2, 1, 4, 2, 1, 4 ...   So one possibility is that there might
+be other cycles that we just haven&#8217;t found yet.</p>
+<p>Wikipedia has an informative article about the Collatz conjecture. There&#8217;s also a humorous take on the Collatz conjecture at <a class="reference external" href="http://imgs.xkcd.com/comics/collatz_conjecture.png">http://imgs.xkcd.com/comics/collatz_conjecture.png</a>. The sequence
+also goes under other names (Hailstone sequence, Wonderous numbers, etc.),
+and you&#8217;ll find out just how many integers have already been tested by computer,
+and found to converge!</p>
+<div class="admonition-choosing-between-for-and-while admonition">
+<p class="first admonition-title">Choosing between <tt class="docutils literal"><span class="pre">for</span></tt> and <tt class="docutils literal"><span class="pre">while</span></tt></p>
+<p>Use a <tt class="docutils literal"><span class="pre">for</span></tt> loop if you know, before you start looping,
+the maximum number of times that you&#8217;ll need to execute the body.
+For example, if you&#8217;re traversing a list of elements, you know that the maximum
+number of loop iterations you can possibly need is &#8220;all the elements in the list&#8221;.
+Or if you need to print the 12 times table, we know right away how many times
+the loop will need to run.</p>
+<p>So any problem like &#8220;iterate this weather model for 1000 cycles&#8221;, or &#8220;search this
+list of words&#8221;, &#8220;find all prime numbers up to 10000&#8221; suggest that a <tt class="docutils literal"><span class="pre">for</span></tt> loop is best.</p>
+<p>By contrast, if you are required to repeat some computation until some condition is
+met, and you cannot calculate in advance when (of if) this will happen,
+as we did in this 3n + 1 problem, you&#8217;ll need a <tt class="docutils literal"><span class="pre">while</span></tt> loop.</p>
+<p class="last">We call the first case <strong>definite iteration</strong> &#8212; we know ahead of time some definite bounds for
+what is needed.  The latter case is called <strong>indefinite iteration</strong> &#8212; we&#8217;re not sure
+how many iterations we&#8217;ll need &#8212; we cannot even establish an upper bound!</p>
+</div>
+</div>
+<div class="section" id="tracing-a-program">
+<span id="index-5"></span><h2>6.6. Tracing a program<a class="headerlink" href="#tracing-a-program" title="Permalink to this headline">¶</a></h2>
+<p>To write effective computer programs, and to build a good conceptual
+model of program execution, a programmer needs to develop the ability
+to <strong>trace</strong> the execution of a computer program. Tracing involves becoming the
+computer and following the flow of execution through a sample program run,
+recording the state of all variables and any output the program generates after
+each instruction is executed.</p>
+<p>To understand this process, let&#8217;s trace the call to <tt class="docutils literal"><span class="pre">seq3np1(3)</span></tt> from the
+previous section. At the start of the trace, we have a variable, <tt class="docutils literal"><span class="pre">n</span></tt>
+(the parameter), with an initial value of 3. Since 3 is not equal to 1, the
+<tt class="docutils literal"><span class="pre">while</span></tt> loop body is executed. 3 is printed and <tt class="docutils literal"><span class="pre">3</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span></tt> is evaluated.
+Since it evaluates to <tt class="docutils literal"><span class="pre">False</span></tt>, the <tt class="docutils literal"><span class="pre">else</span></tt> branch is executed and
+<tt class="docutils literal"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">1</span></tt> is evaluated and assigned to <tt class="docutils literal"><span class="pre">n</span></tt>.</p>
+<p>To keep track of all this as you hand trace a program, make a column heading on
+a piece of paper for each variable created as the program runs and another one
+for output. Our trace so far would look something like this:</p>
+<blockquote>
+<div><div class="highlight-pycon"><div class="highlight"><pre><span class="go">n               output printed so far</span>
+<span class="go">--              ---------------------</span>
+<span class="go">3               3,</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Since <tt class="docutils literal"><span class="pre">10</span> <span class="pre">!=</span> <span class="pre">1</span></tt> evaluates to <tt class="docutils literal"><span class="pre">True</span></tt>, the loop body is again executed,
+and 10 is printed. <tt class="docutils literal"><span class="pre">10</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span></tt> is true, so the <tt class="docutils literal"><span class="pre">if</span></tt> branch is
+executed and <tt class="docutils literal"><span class="pre">n</span></tt> becomes 5. By the end of the trace we have:</p>
+<blockquote>
+<div><div class="highlight-pycon"><div class="highlight"><pre><span class="go">n               output printed so far</span>
+<span class="go">--              ---------------------</span>
+<span class="go">3               3,</span>
+<span class="go">10              3, 10,</span>
+<span class="go">5               3, 10, 5,</span>
+<span class="go">16              3, 10, 5, 16,</span>
+<span class="go">8               3, 10, 5, 16, 8,</span>
+<span class="go">4               3, 10, 5, 16, 8, 4,</span>
+<span class="go">2               3, 10, 5, 16, 8, 4, 2,</span>
+<span class="go">1               3, 10, 5, 16, 8, 4, 2, 1.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Tracing can be a bit tedious and error prone (that&#8217;s why we get computers to do
+this stuff in the first place!), but it is an essential skill for a programmer
+to have.</p>
+<p>Tracing a program is, of course, related to single-stepping through your code
+and being able to inspect the variables. Using the computer to <strong>single-step</strong> for you is
+less error prone and more convenient.
+Also, as your programs get more complex, they might execute many millions of
+steps before they get to the code that you&#8217;re really interested in, so manual tracing
+becomes impossible.  Being able to set a <strong>breakpoint</strong> where you need
+one is far more powerful.</p>
+<p>We&#8217;ve cautioned
+against chatterbox functions, but used them here.  As we learn a bit more Python, we&#8217;ll
+be able to show you how to generate a list of values to hold the sequence, rather than having
+the function print them. Doing this would remove the need to have all these pesky <tt class="docutils literal"><span class="pre">print</span></tt> functions
+in the middle of our logic, and will make the function more useful.</p>
+</div>
+<div class="section" id="counting-digits">
+<span id="counting"></span><h2>6.7. Counting digits<a class="headerlink" href="#counting-digits" title="Permalink to this headline">¶</a></h2>
+<p>The following function counts the number of decimal digits in a positive
+integer:</p>
+
+<div id="countingdigits" class="pywindow" >
+
+<div id="countingdigits_code_div" style="display: block">
+<textarea rows="8" id="countingdigits_code" class="active_code" prefixcode="undefined">
+def num_digits(n):
+    count = 0
+    while n != 0:
+        count = count + 1
+        n = n // 10
+    return count
+
+print(num_digits(731))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['countingdigits_code'] = true;
+pythonTool.readOnlyFlags['countingdigits_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="countingdigits_runb" onclick="pythonTool.runit('countingdigits_code','countingdigits_pre','countingdigits_error','countingdigits_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingdigits_code','countingdigits_pre','countingdigits_error','countingdigits_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='countingdigits_error'></div>
+
+<div style="text-align: center">
+<canvas id="countingdigits_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="countingdigits_suffix" style="display:none">
+</pre>
+<pre id="countingdigits_pre" class="active_out">
+
+</pre>
+
+<div id="countingdigits_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Trace the execution of this
+function call to convince yourself that it works.</p>
+<p>This function demonstrates an important pattern of computation called a <strong>counter</strong>.
+The variable <tt class="docutils literal"><span class="pre">count</span></tt> is initialized to 0 and then incremented each time the
+loop body is executed. When the loop exits, <tt class="docutils literal"><span class="pre">count</span></tt> contains the result &#8212;
+the total number of times the loop body was executed, which is the same as the
+number of digits.</p>
+<p>A common mistake is to forget to initialize your counter before you start your loop. You&#8217;ll get a runtime error if you do that, like in the example below:</p>
+
+<div id="countingwitherror" class="pywindow" >
+
+<div id="countingwitherror_code_div" style="display: block">
+<textarea rows="7" id="countingwitherror_code" class="active_code" prefixcode="undefined">
+def num_digits(n):
+    while n != 0:
+        count = count + 1
+        n = n // 10
+    return count
+
+print(num_digits(731))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['countingwitherror_code'] = true;
+pythonTool.readOnlyFlags['countingwitherror_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="countingwitherror_runb" onclick="pythonTool.runit('countingwitherror_code','countingwitherror_pre','countingwitherror_error','countingwitherror_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingwitherror_code','countingwitherror_pre','countingwitherror_error','countingwitherror_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='countingwitherror_error'></div>
+
+<div style="text-align: center">
+<canvas id="countingwitherror_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="countingwitherror_suffix" style="display:none">
+</pre>
+<pre id="countingwitherror_pre" class="active_out">
+
+</pre>
+
+<div id="countingwitherror_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If we wanted to only count digits that are either 0 or 5, adding a conditional
+before incrementing the counter will do the trick:</p>
+
+<div id="countingzerosandfives" class="pywindow" >
+
+<div id="countingzerosandfives_code_div" style="display: block">
+<textarea rows="10" id="countingzerosandfives_code" class="active_code" prefixcode="undefined">
+def num_zero_and_five_digits(n):
+    count = 0
+    while n > 0:
+        digit = n % 10
+        if digit == 0 or digit == 5:
+            count = count + 1
+        n = n // 10
+    return count
+
+print(num_zero_and_five_digits(1055030250))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['countingzerosandfives_code'] = true;
+pythonTool.readOnlyFlags['countingzerosandfives_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="countingzerosandfives_runb" onclick="pythonTool.runit('countingzerosandfives_code','countingzerosandfives_pre','countingzerosandfives_error','countingzerosandfives_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingzerosandfives_code','countingzerosandfives_pre','countingzerosandfives_error','countingzerosandfives_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='countingzerosandfives_error'></div>
+
+<div style="text-align: center">
+<canvas id="countingzerosandfives_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="countingzerosandfives_suffix" style="display:none">
+</pre>
+<pre id="countingzerosandfives_pre" class="active_out">
+
+</pre>
+
+<div id="countingzerosandfives_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Confirm that <tt class="docutils literal"><span class="pre">num_zero_and_five_digits(1055030250)</span></tt> returns <tt class="docutils literal"><span class="pre">7</span></tt>.</p>
+<p>Notice, however, that <tt class="docutils literal"><span class="pre">num_digits(0)</span></tt> appears to fail.  Explain why.  Do you think this is a bug in
+the code, or a bug in the specifications, or our expectations, or the tests?</p>
+</div>
+<div class="section" id="abbreviated-assignment">
+<span id="index-6"></span><h2>6.8. Abbreviated assignment<a class="headerlink" href="#abbreviated-assignment" title="Permalink to this headline">¶</a></h2>
+<p>Incrementing a variable is so common that Python provides an abbreviated syntax
+for it:</p>
+
+<div id="selfincrement" class="pywindow" >
+
+<div id="selfincrement_code_div" style="display: block">
+<textarea rows="6" id="selfincrement_code" class="active_code" prefixcode="undefined">
+count = 0
+print(count)
+count += 1
+print(count)
+count += 1
+print(count)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['selfincrement_code'] = true;
+pythonTool.readOnlyFlags['selfincrement_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="selfincrement_runb" onclick="pythonTool.runit('selfincrement_code','selfincrement_pre','selfincrement_error','selfincrement_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfincrement_code','selfincrement_pre','selfincrement_error','selfincrement_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='selfincrement_error'></div>
+
+<div style="text-align: center">
+<canvas id="selfincrement_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="selfincrement_suffix" style="display:none">
+</pre>
+<pre id="selfincrement_pre" class="active_out">
+
+</pre>
+
+<div id="selfincrement_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p><tt class="docutils literal"><span class="pre">count</span> <span class="pre">+=</span> <span class="pre">1</span></tt> is an abreviation for <tt class="docutils literal"><span class="pre">count</span> <span class="pre">=</span> <span class="pre">count</span> <span class="pre">+</span> <span class="pre">1</span></tt> . We pronounce the operator
+as <em>&#8220;plus-equals&#8221;</em>.  The increment value does not have to be 1:</p>
+
+<div id="selfadd" class="pywindow" >
+
+<div id="selfadd_code_div" style="display: block">
+<textarea rows="3" id="selfadd_code" class="active_code" prefixcode="undefined">
+n = 2
+n += 5
+print(n)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['selfadd_code'] = true;
+pythonTool.readOnlyFlags['selfadd_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="selfadd_runb" onclick="pythonTool.runit('selfadd_code','selfadd_pre','selfadd_error','selfadd_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfadd_code','selfadd_pre','selfadd_error','selfadd_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='selfadd_error'></div>
+
+<div style="text-align: center">
+<canvas id="selfadd_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="selfadd_suffix" style="display:none">
+</pre>
+<pre id="selfadd_pre" class="active_out">
+
+</pre>
+
+<div id="selfadd_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>There are similar abbreviations for <tt class="docutils literal"><span class="pre">-=</span></tt>, <tt class="docutils literal"><span class="pre">*=</span></tt>, <tt class="docutils literal"><span class="pre">/=</span></tt>, <tt class="docutils literal"><span class="pre">//=</span></tt> and <tt class="docutils literal"><span class="pre">%=</span></tt>:</p>
+
+<div id="selfarith" class="pywindow" >
+
+<div id="selfarith_code_div" style="display: block">
+<textarea rows="9" id="selfarith_code" class="active_code" prefixcode="undefined">
+n = 2
+n *= 5
+print(n)  # 2 * 5 -> 10
+n -= 4
+print(n)  # 10 - 4 -> 6
+n //= 2
+print(n)  # 6 // 2 -> 3
+n %= 2
+print(n)  # 3 % 2 -> 1</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['selfarith_code'] = true;
+pythonTool.readOnlyFlags['selfarith_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="selfarith_runb" onclick="pythonTool.runit('selfarith_code','selfarith_pre','selfarith_error','selfarith_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfarith_code','selfarith_pre','selfarith_error','selfarith_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='selfarith_error'></div>
+
+<div style="text-align: center">
+<canvas id="selfarith_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="selfarith_suffix" style="display:none">
+</pre>
+<pre id="selfarith_pre" class="active_out">
+
+</pre>
+
+<div id="selfarith_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="tables">
+<span id="index-7"></span><h2>6.9. Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h2>
+<p>One of the things loops are good for is generating tables.  Before
+computers were readily available, people had to calculate logarithms, sines and
+cosines, and other mathematical functions by hand. To make that easier,
+mathematics books contained long tables listing the values of these functions.
+Creating the tables was slow and boring, and they tended to be full of errors.</p>
+<p>When computers appeared on the scene, one of the initial reactions was, <em>&#8220;This is
+great! We can use the computers to generate the tables, so there will be no
+errors.&#8221;</em> That turned out to be true (mostly) but shortsighted. Soon thereafter,
+computers and calculators were so pervasive that the tables became obsolete.</p>
+<p>Well, almost. For some operations, computers use tables of values to get an
+approximate answer and then perform computations to improve the approximation.
+In some cases, there have been errors in the underlying tables, most famously
+in the table the Intel Pentium processor chip used to perform floating-point division.</p>
+<p>Although a log table is not as useful as it once was, it still makes a good
+example of iteration. The following program outputs a sequence of values in the
+left column and 2 raised to the power of that value in the right column:</p>
+
+<div id="powersof2table" class="pywindow" >
+
+<div id="powersof2table_code_div" style="display: block">
+<textarea rows="2" id="powersof2table_code" class="active_code" prefixcode="undefined">
+for x in range(13):   # Generate numbers 0 to 12
+    print(str(x)+"\t"+str(2**x))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['powersof2table_code'] = true;
+pythonTool.readOnlyFlags['powersof2table_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="powersof2table_runb" onclick="pythonTool.runit('powersof2table_code','powersof2table_pre','powersof2table_error','powersof2table_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('powersof2table_code','powersof2table_pre','powersof2table_error','powersof2table_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='powersof2table_error'></div>
+
+<div style="text-align: center">
+<canvas id="powersof2table_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="powersof2table_suffix" style="display:none">
+</pre>
+<pre id="powersof2table_pre" class="active_out">
+
+</pre>
+
+<div id="powersof2table_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The string <tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt> represents a <strong>tab character</strong>. The backslash character in
+<tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt> indicates the beginning of an <strong>escape sequence</strong>.  Escape sequences
+are used to represent invisible characters like tabs and newlines. The sequence
+<tt class="docutils literal"><span class="pre">\n</span></tt> represents a <strong>newline</strong>.</p>
+<p>An escape sequence can appear anywhere in a string; in this example, the tab
+escape sequence is the only thing in the string. How do you think you represent
+a backslash in a string?</p>
+<p>As characters and strings are displayed on the screen, an invisible marker
+called the <strong>cursor</strong> keeps track of where the next character will go. After a
+<tt class="docutils literal"><span class="pre">print</span></tt> function, the cursor normally goes to the beginning of the next
+line.</p>
+<p>The tab character shifts the cursor to the right until it reaches one of the
+tab stops. Tabs are useful for making columns of text line up, as in the output
+of the previous program. Because of the tab characters between the columns, the position of the second
+column does not depend on the number of digits in the first column.</p>
+</div>
+<div class="section" id="two-dimensional-tables">
+<span id="index-8"></span><h2>6.10. Two-dimensional tables<a class="headerlink" href="#two-dimensional-tables" title="Permalink to this headline">¶</a></h2>
+<p>A two-dimensional table is a table where you read the value at the intersection
+of a row and a column. A multiplication table is a good example. Let&#8217;s say you
+want to print a multiplication table for the values from 1 to 6.</p>
+<p>A good way to start is to write a loop that prints the multiples of 2, all on
+one line:</p>
+
+<div id="multtablestep1" class="pywindow" >
+
+<div id="multtablestep1_code_div" style="display: block">
+<textarea rows="3" id="multtablestep1_code" class="active_code" prefixcode="undefined">
+for i in range(1, 7):
+    print(2 * i, end="   ")
+print()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multtablestep1_code'] = true;
+pythonTool.readOnlyFlags['multtablestep1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep1_runb" onclick="pythonTool.runit('multtablestep1_code','multtablestep1_pre','multtablestep1_error','multtablestep1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep1_code','multtablestep1_pre','multtablestep1_error','multtablestep1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='multtablestep1_error'></div>
+
+<div style="text-align: center">
+<canvas id="multtablestep1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="multtablestep1_suffix" style="display:none">
+</pre>
+<pre id="multtablestep1_pre" class="active_out">
+
+</pre>
+
+<div id="multtablestep1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Here we&#8217;ve used the <tt class="docutils literal"><span class="pre">range</span></tt> function, but made it start its sequence at 1.
+As the loop executes, the value of <tt class="docutils literal"><span class="pre">i</span></tt> changes from 1 to
+6. When all the elements of the range have been assigned to <tt class="docutils literal"><span class="pre">i</span></tt>, the loop terminates.
+Each time through the loop, it
+displays the value of <tt class="docutils literal"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">i</span></tt>, followed by three spaces.</p>
+<p>Again, the extra <tt class="docutils literal"><span class="pre">end=&quot;</span>&nbsp;&nbsp; <span class="pre">&quot;</span></tt> argument in the <tt class="docutils literal"><span class="pre">print</span></tt> function suppresses the newline, and
+uses three spaces instead.  After the
+loop completes, the call to <tt class="docutils literal"><span class="pre">print</span></tt> at line 3 finishes the current line, and starts a new line.</p>
+<p>So far, so good. The next step is to <strong>encapsulate</strong> and <strong>generalize</strong>.</p>
+</div>
+<div class="section" id="encapsulation-and-generalization">
+<span id="index-9"></span><h2>6.11. Encapsulation and generalization<a class="headerlink" href="#encapsulation-and-generalization" title="Permalink to this headline">¶</a></h2>
+<p>Encapsulation is the process of wrapping a piece of code in a function,
+allowing you to take advantage of all the things functions are good for.</p>
+<p>Generalization means taking something specific, such as printing the multiples
+of 2, and making it more general, such as printing the multiples of any
+integer.</p>
+<p>This function encapsulates the previous loop and generalizes it to print
+multiples of <tt class="docutils literal"><span class="pre">n</span></tt>:</p>
+
+<div id="multtablestep2" class="pywindow" >
+
+<div id="multtablestep2_code_div" style="display: block">
+<textarea rows="8" id="multtablestep2_code" class="active_code" prefixcode="undefined">
+def print_multiples(n):
+    for i in range(1, 7):
+        print(n * i, end="   ")
+    print()
+
+print_multiples(2)
+print_multiples(3)
+print_multiples(4)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multtablestep2_code'] = true;
+pythonTool.readOnlyFlags['multtablestep2_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep2_runb" onclick="pythonTool.runit('multtablestep2_code','multtablestep2_pre','multtablestep2_error','multtablestep2_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep2_code','multtablestep2_pre','multtablestep2_error','multtablestep2_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='multtablestep2_error'></div>
+
+<div style="text-align: center">
+<canvas id="multtablestep2_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="multtablestep2_suffix" style="display:none">
+</pre>
+<pre id="multtablestep2_pre" class="active_out">
+
+</pre>
+
+<div id="multtablestep2_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>To encapsulate, all we had to do was add the first line, which declares the
+name of the function and the parameter list. To generalize, all we had to do
+was replace the value 2 with the parameter <tt class="docutils literal"><span class="pre">n</span></tt>.</p>
+<p>By now you can probably guess how to print a multiplication table &#8212; by
+calling <tt class="docutils literal"><span class="pre">print_multiples</span></tt> repeatedly with different arguments. In fact, we
+can use another loop:</p>
+
+<div id="multtablestep3" class="pywindow" >
+
+<div id="multtablestep3_code_div" style="display: block">
+<textarea rows="7" id="multtablestep3_code" class="active_code" prefixcode="undefined">
+def print_multiples(n):
+    for i in range(1, 7):
+        print(n * i, end="   ")
+    print()
+
+for i in range(1, 7):
+    print_multiples(i)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multtablestep3_code'] = true;
+pythonTool.readOnlyFlags['multtablestep3_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep3_runb" onclick="pythonTool.runit('multtablestep3_code','multtablestep3_pre','multtablestep3_error','multtablestep3_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep3_code','multtablestep3_pre','multtablestep3_error','multtablestep3_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='multtablestep3_error'></div>
+
+<div style="text-align: center">
+<canvas id="multtablestep3_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="multtablestep3_suffix" style="display:none">
+</pre>
+<pre id="multtablestep3_pre" class="active_out">
+
+</pre>
+
+<div id="multtablestep3_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice how similar this loop is to the one inside <tt class="docutils literal"><span class="pre">print_multiples</span></tt>.  All we
+did was replace the <tt class="docutils literal"><span class="pre">print</span></tt> function with a function call. The output of this program is a multiplication table.</p>
+</div>
+<div class="section" id="more-encapsulation">
+<span id="index-10"></span><h2>6.12. More encapsulation<a class="headerlink" href="#more-encapsulation" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate encapsulation again, let&#8217;s take the code from the last section
+and wrap it up in a function:</p>
+
+<div id="multtablefinal" class="pywindow" >
+
+<div id="multtablefinal_code_div" style="display: block">
+<textarea rows="10" id="multtablefinal_code" class="active_code" prefixcode="undefined">
+def print_multiples(n):
+    for i in range(1, 7):
+        print(n * i, end="   ")
+    print()
+
+def print_mult_table():
+    for i in range(1, 7):
+        print_multiples(i)
+
+print_mult_table()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['multtablefinal_code'] = true;
+pythonTool.readOnlyFlags['multtablefinal_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="multtablefinal_runb" onclick="pythonTool.runit('multtablefinal_code','multtablefinal_pre','multtablefinal_error','multtablefinal_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablefinal_code','multtablefinal_pre','multtablefinal_error','multtablefinal_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='multtablefinal_error'></div>
+
+<div style="text-align: center">
+<canvas id="multtablefinal_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="multtablefinal_suffix" style="display:none">
+</pre>
+<pre id="multtablefinal_pre" class="active_out">
+
+</pre>
+
+<div id="multtablefinal_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This process is a common <strong>development plan</strong>. We develop code by writing lines
+of code outside any function, or typing them in to the interpreter. When we get
+the code working, we extract it and wrap it up in a function.</p>
+<p>This development plan is particularly useful if you don&#8217;t know how to divide
+the program into functions when you start writing. This approach lets you
+design as you go along.</p>
+</div>
+<div class="section" id="local-variables">
+<span id="index-11"></span><h2>6.13. Local variables<a class="headerlink" href="#local-variables" title="Permalink to this headline">¶</a></h2>
+<p>You might be wondering how we can use the same variable, <tt class="docutils literal"><span class="pre">i</span></tt>, in both
+<tt class="docutils literal"><span class="pre">print_multiples</span></tt> and <tt class="docutils literal"><span class="pre">print_mult_table</span></tt>. Doesn&#8217;t it cause problems when
+one of the functions changes the value of the variable?</p>
+<p>The answer is no, because the <tt class="docutils literal"><span class="pre">i</span></tt> in <tt class="docutils literal"><span class="pre">print_multiples</span></tt> and the <tt class="docutils literal"><span class="pre">i</span></tt> in
+<tt class="docutils literal"><span class="pre">print_mult_table</span></tt> are <em>not</em> the same variable.</p>
+<p>Variables created inside a function definition are local; you can&#8217;t access a
+local variable from outside its home function. That means you are free to have
+multiple variables with the same name as long as they are not in the same
+function.</p>
+<p>Python examines all the statements in a function &#8212; if any of them assign a value
+to a variable, that is the clue that Python uses to make the variable a local variable.</p>
+<p>The stack diagram for this program shows that the two variables named <tt class="docutils literal"><span class="pre">i</span></tt> are
+not the same variable. They can refer to different values, and changing one
+does not affect the other.</p>
+<blockquote>
+<div><img alt="Stack 2 diagram" src="_images/stack2.png" />
+</div></blockquote>
+<p>The value of <tt class="docutils literal"><span class="pre">i</span></tt> in <tt class="docutils literal"><span class="pre">print_mult_table</span></tt> goes from 1 to 6. In the diagram it
+happens to be 3. The next time through the loop it will be 4. Each time through
+the loop, <tt class="docutils literal"><span class="pre">print_mult_table</span></tt> calls <tt class="docutils literal"><span class="pre">print_multiples</span></tt> with the current value
+of <tt class="docutils literal"><span class="pre">i</span></tt> as an argument. That value gets assigned to the parameter <tt class="docutils literal"><span class="pre">n</span></tt>.</p>
+<p>Inside <tt class="docutils literal"><span class="pre">print_multiples</span></tt>, the value of <tt class="docutils literal"><span class="pre">i</span></tt> goes from 1 to 6. In the
+diagram, it happens to be 2. Changing this variable has no effect on the value
+of <tt class="docutils literal"><span class="pre">i</span></tt> in <tt class="docutils literal"><span class="pre">print_mult_table</span></tt>.</p>
+<p>It is common and perfectly legal to have different local variables with the
+same name. In particular, names like <tt class="docutils literal"><span class="pre">i</span></tt> and <tt class="docutils literal"><span class="pre">j</span></tt> are used frequently as
+loop variables. If you avoid using them in one function just because you used
+them somewhere else, you will probably make the program harder to read.</p>
+</div>
+<div class="section" id="the-break-statement">
+<span id="index-12"></span><h2>6.14. The <tt class="docutils literal"><span class="pre">break</span></tt> statement<a class="headerlink" href="#the-break-statement" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>break</strong> statement is used to immediately leave the body of its loop.  The next
+statement to be executed is the first one after the body:</p>
+
+<div id="breakexample" class="pywindow" >
+
+<div id="breakexample_code_div" style="display: block">
+<textarea rows="5" id="breakexample_code" class="active_code" prefixcode="undefined">
+for i in [12, 16, 17, 24, 29]:
+    if i % 2 == 1:  # If the number is odd
+        break        #  ... immediately exit the loop
+    print(i)
+print("done")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['breakexample_code'] = true;
+pythonTool.readOnlyFlags['breakexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="breakexample_runb" onclick="pythonTool.runit('breakexample_code','breakexample_pre','breakexample_error','breakexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('breakexample_code','breakexample_pre','breakexample_error','breakexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='breakexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="breakexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="breakexample_suffix" style="display:none">
+</pre>
+<pre id="breakexample_pre" class="active_out">
+
+</pre>
+
+<div id="breakexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<div class="admonition-the-pre-test-loop-standard-loop-behavior admonition">
+<p class="first admonition-title">The pre-test loop &#8212; standard loop behavior</p>
+<p><tt class="docutils literal"><span class="pre">for</span></tt> and <tt class="docutils literal"><span class="pre">while</span></tt> loops do their tests at the start, before executing
+any part of the body.   They&#8217;re called <strong>pre-test</strong> loops, because the test
+happens before (pre) the body.
+<tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">return</span></tt> are our tools for adapting this standard behavior.</p>
+<img alt="_images/pre_test_loop.png" class="last" src="_images/pre_test_loop.png" />
+</div>
+</div>
+<div class="section" id="other-flavors-of-loops">
+<h2>6.15. Other flavors of loops<a class="headerlink" href="#other-flavors-of-loops" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes we&#8217;d like to have the <strong>middle-test</strong> loop with the exit test in the middle
+of the body, rather than at the beginning or at the end.  Or a <strong>post-test</strong> loop that
+puts its exit test as the last thing in the body. Other languages have different
+syntax and keywords for these different flavours, but Python just uses
+a combination of <tt class="docutils literal"><span class="pre">while</span></tt> and <tt class="docutils literal"><span class="pre">if</span> <span class="pre">condition:</span> <span class="pre">break</span></tt> to get the job done.</p>
+<p>A typical example is a problem where the user has to input numbers to be summed.
+To indicate that there are no more inputs, the user enters a special value, often
+the value -1, or the empty string.  This needs a middle-exit loop pattern:
+input the next number, then test whether to exit, or else process the number:</p>
+<blockquote>
+<div><div class="admonition-the-middle-test-loop-flowchart admonition">
+<p class="first admonition-title">The middle-test loop flowchart</p>
+<img alt="_images/mid_test_loop.png" class="last" src="_images/mid_test_loop.png" />
+</div>
+</div></blockquote>
+
+<div id="sumbreakexample" class="pywindow" >
+
+<div id="sumbreakexample_code_div" style="display: block">
+<textarea rows="7" id="sumbreakexample_code" class="active_code" prefixcode="undefined">
+total = 0
+while True:
+    response = input("Enter the next number. (Leave blank to end)")
+    if response == "":
+        break
+    total += int(response)
+print("The total of the numbers you entered is "+str(total))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['sumbreakexample_code'] = true;
+pythonTool.readOnlyFlags['sumbreakexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="sumbreakexample_runb" onclick="pythonTool.runit('sumbreakexample_code','sumbreakexample_pre','sumbreakexample_error','sumbreakexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('sumbreakexample_code','sumbreakexample_pre','sumbreakexample_error','sumbreakexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='sumbreakexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="sumbreakexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="sumbreakexample_suffix" style="display:none">
+</pre>
+<pre id="sumbreakexample_pre" class="active_out">
+
+</pre>
+
+<div id="sumbreakexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Convince yourself that this fits the middle-exit loop flowchart: line 3
+does some useful work, lines 4 and 5 can exit the loop, and if they don&#8217;t
+line 6 does more useful work before the next iteration starts.</p>
+<p>The <tt class="docutils literal"><span class="pre">while</span> <span class="pre">bool-expr:</span></tt> uses the Boolean expression to determine whether to iterate again.
+<tt class="docutils literal"><span class="pre">True</span></tt> is a trivial Boolean expression, so <tt class="docutils literal"><span class="pre">while</span> <span class="pre">True:</span></tt>  means <em>always do
+the loop body again</em>.  This is a language <em>idiom</em> &#8212; a convention that
+most programmers will recognize immediately. Since the expression on line 2
+will never terminate the loop, (it is a dummy test) the programmer must arrange to
+break (or return) out of the loop body elsewhere, in some other way (i.e. in lines 4 and 5 in
+this sample).</p>
+<p>Similarly, by just moving the <tt class="docutils literal"><span class="pre">if</span> <span class="pre">condition:</span> <span class="pre">break</span></tt> to the end of the loop body we
+create a pattern for a post-test loop.  Post-test loops are used when you want to
+be sure that the loop body always executes at least once (because the first test
+only happens at the end of the execution of the first loop body).
+This is useful, for example, if we want to play an interactive game against
+the user &#8212; we always want to play at least one game:</p>
+
+<div id="guessinggamepseudo" class="pywindow" >
+
+<div id="guessinggamepseudo_code_div" style="display: block">
+<textarea rows="6" id="guessinggamepseudo_code" class="active_code" prefixcode="undefined">
+while True:
+    play_the_game_once()
+    response = input("Play again? (yes or no)")
+    if response != "yes":
+        break
+print("Goodbye!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['guessinggamepseudo_code'] = false;
+pythonTool.readOnlyFlags['guessinggamepseudo_code'] = true;
+</script>
+
+<div id='guessinggamepseudo_error'></div>
+<pre id="guessinggamepseudo_suffix" style="display:none">
+</pre>
+</div>
+
+<div class="admonition-hint-think-about-where-you-want-the-exit-test-to-happen admonition">
+<p class="first admonition-title">Hint: Think about where you want the exit test to happen</p>
+<p class="last">Once you&#8217;ve recognized that you need a loop to repeat something, think
+about its terminating condition &#8212; when will I want to stop iterating?
+Then figure out whether you need to do the test before starting
+the first (and every other) iteration, or at the end of
+the first (and every other) iteration, or perhaps in
+the middle of each iteration.  Interactive programs that require input
+from the user or read from files often need to exit their loops in the
+middle or at the end of an iteration, when it becomes clear that there is
+no more data to process, or the user doesn&#8217;t want to play our game anymore.</p>
+</div>
+</div>
+<div class="section" id="the-continue-statement">
+<span id="index-13"></span><h2>6.16. The <tt class="docutils literal"><span class="pre">continue</span></tt> statement<a class="headerlink" href="#the-continue-statement" title="Permalink to this headline">¶</a></h2>
+<p>This is a control flow statement that causes the program to immediately skip the
+processing of the rest of the body of the loop, <em>for the current iteration</em>.  But
+the loop still carries on running for its remaining iterations:</p>
+
+<div id="continueexample" class="pywindow" >
+
+<div id="continueexample_code_div" style="display: block">
+<textarea rows="5" id="continueexample_code" class="active_code" prefixcode="undefined">
+for i in [12, 16, 17, 24, 29, 30]:
+    if i % 2 == 1:      # If the number is odd
+        continue         # Don't process it
+    print(i)
+print("done")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['continueexample_code'] = true;
+pythonTool.readOnlyFlags['continueexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="continueexample_runb" onclick="pythonTool.runit('continueexample_code','continueexample_pre','continueexample_error','continueexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('continueexample_code','continueexample_pre','continueexample_error','continueexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='continueexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="continueexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="continueexample_suffix" style="display:none">
+</pre>
+<pre id="continueexample_pre" class="active_out">
+
+</pre>
+
+<div id="continueexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="functions">
+<span id="index-14"></span><h2>6.17. Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>A few times now, we have mentioned all the things functions are good for. By
+now, you might be wondering what exactly those things are.  Here are some of
+them:</p>
+<ol class="arabic simple">
+<li>Capturing your mental chunking. Breaking your complex tasks into sub-tasks, and
+giving the sub-tasks a meaningful name is a powerful mental technique.  Look back
+at the example that illustrated the post-test loop: we assumed that we had a function
+called <tt class="docutils literal"><span class="pre">play_the_game_once</span></tt>.  This chunking allowed us to put aside the details
+of the particular game &#8212; is it a card game, or noughts and crosses, or a role playing
+game &#8212; and simply focus on one isolated part of our program logic &#8212; letting the player
+choose whether they want to play again.</li>
+<li>Dividing a long program into functions allows you to separate parts of the
+program, debug them in isolation, and then compose them into a whole.</li>
+<li>Functions facilitate the use of iteration.</li>
+<li>Well-designed functions are often useful for many programs. Once you write
+and debug one, you can reuse it.</li>
+</ol>
+</div>
+<div class="section" id="glossary">
+<h2>6.18. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-algorithm">algorithm</dt>
+<dd>A step-by-step process for solving a category of problems.</dd>
+<dt id="term-body">body</dt>
+<dd>The statements inside a loop.</dd>
+<dt id="term-breakpoint">breakpoint</dt>
+<dd>A place in your program code where program execution will pause (or break),
+allowing you to inspect the state of the program&#8217;s variables, or single-step
+through individual statements, executing them one at a time.</dd>
+<dt id="term-bump">bump</dt>
+<dd>Programmer slang. Synonym for increment.</dd>
+<dt id="term-continue-statement">continue statement</dt>
+<dd>A statement that causes the remainder of the current iteration of a loop to be skipped.
+The flow of execution goes back to the top of the loop, evaluates the condition,
+and if this is true the next iteration of the loop will begin.</dd>
+<dt id="term-counter">counter</dt>
+<dd>A variable used to count something, usually initialized to zero and
+incremented in the body of a loop.</dd>
+<dt id="term-cursor">cursor</dt>
+<dd>An invisible marker that keeps track of where the next character will
+be printed.</dd>
+<dt id="term-decrement">decrement</dt>
+<dd>Decrease by 1.</dd>
+<dt id="term-definite-iteration">definite iteration</dt>
+<dd>A loop where we have an upper bound on the number of times the
+body will be executed.  Definite iteration is usually best coded
+as a <tt class="docutils literal"><span class="pre">for</span></tt> loop.</dd>
+<dt id="term-development-plan">development plan</dt>
+<dd>A process for developing a program. In this chapter, we demonstrated a
+style of development based on developing code to do simple, specific
+things and then encapsulating and generalizing.</dd>
+<dt id="term-encapsulate">encapsulate</dt>
+<dd>To divide a large complex program into components (like functions) and
+isolate the components from each other (by using local variables, for
+example).</dd>
+<dt id="term-escape-sequence">escape sequence</dt>
+<dd>An escape character, \, followed by one or more printable characters
+used to designate a nonprintable character.</dd>
+<dt id="term-generalize">generalize</dt>
+<dd>To replace something unnecessarily specific (like a constant value)
+with something appropriately general (like a variable or parameter).
+Generalization makes code more versatile, more likely to be reused, and
+sometimes even easier to write.</dd>
+<dt id="term-increment">increment</dt>
+<dd>Both as a noun and as a verb, increment means to increase by 1.</dd>
+<dt id="term-infinite-loop">infinite loop</dt>
+<dd>A loop in which the terminating condition is never satisfied.</dd>
+<dt id="term-indefinite-iteration">indefinite iteration</dt>
+<dd>A loop where we just need to keep going until some condition is met.
+A <tt class="docutils literal"><span class="pre">while</span></tt> statement is used for this case.</dd>
+<dt id="term-initialization-of-a-variable">initialization (of a variable)</dt>
+<dd>To initialize a variable is to give it an initial value.
+Since in Python variables don&#8217;t exist
+until they are assigned values, they are initialized when they are
+created.  In other programming languages this is not the case, and
+variables can be created without being initialized, in which case they
+have either default or <em>garbage</em> values.</dd>
+<dt id="term-iteration">iteration</dt>
+<dd>Repeated execution of a set of programming statements.</dd>
+<dt id="term-loop">loop</dt>
+<dd>The construct that allows allows us to repeatedly execute a
+statement or a group of statements until a terminating
+condition is satisfied.</dd>
+<dt id="term-loop-variable">loop variable</dt>
+<dd>A variable used as part of the terminating condition of a loop.</dd>
+<dt id="term-meta-notation">meta-notation</dt>
+<dd>Extra symbols or notation that helps describe other notation. Here we introduced
+square brackets, ellipses, italics, and bold as meta-notation to help
+describe optional, repeatable, substitutable and fixed parts of the Python syntax.</dd>
+<dt id="term-middle-test-loop">middle-test loop</dt>
+<dd>A loop that executes some of the body, then tests for the exit condition,
+and then may execute some more of the body.  We don&#8217;t have a special
+Python construct for this case, but can
+use <tt class="docutils literal"><span class="pre">while</span></tt> and <tt class="docutils literal"><span class="pre">break</span></tt> together.</dd>
+<dt id="term-nested-loop">nested loop</dt>
+<dd>A loop inside the body of another loop.</dd>
+<dt id="term-newline">newline</dt>
+<dd>A special character that causes the cursor to move to the beginning of
+the next line.</dd>
+<dt id="term-post-test-loop">post-test loop</dt>
+<dd>A loop that executes the body, then tests for the exit condition.  We don&#8217;t have a special
+Python construct for this, but can use <tt class="docutils literal"><span class="pre">while</span></tt> and <tt class="docutils literal"><span class="pre">break</span></tt> together.</dd>
+<dt id="term-pre-test-loop">pre-test loop</dt>
+<dd>A loop that tests before deciding whether the execute its body.  <tt class="docutils literal"><span class="pre">for</span></tt> and <tt class="docutils literal"><span class="pre">while</span></tt>
+are both pre-test loops.</dd>
+<dt id="term-single-step">single-step</dt>
+<dd>A mode of interpreter execution where you are able to execute your
+program one step at a time, and inspect the consequences of that step.
+Useful for debugging and building your internal mental model of what is
+going on.</dd>
+<dt id="term-tab">tab</dt>
+<dd>A special character that causes the cursor to move to the next tab stop
+on the current line.</dd>
+<dt id="term-trichotomy">trichotomy</dt>
+<dd>Given any real numbers <em>a</em> and <em>b</em>, exactly one of the following
+relations holds: <em>a &lt; b</em>, <em>a &gt; b</em>, or <em>a == b</em>. Thus when you can
+establish that two of the relations are false, you can assume the
+remaining one is true.</dd>
+<dt id="term-trace">trace</dt>
+<dd>To follow the flow of execution of a program by hand, recording the
+change of state of the variables and any output produced.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="strings.html" title="7. Strings"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="conditionals.html" title="5. Conditionals"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

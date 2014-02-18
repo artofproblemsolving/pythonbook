@@ -1,0 +1,2685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>8. Lists and Tuples &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="9. Files" href="files.html" />
+    <link rel="prev" title="7. Strings" href="strings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="files.html" title="9. Files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="strings.html" title="7. Strings"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="lists-and-tuples">
+<span id="index-0"></span><h1>8. Lists and Tuples<a class="headerlink" href="#lists-and-tuples" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>list</strong> or a <strong>tuple</strong> is an ordered collection of values. The values that make up a list or tuple
+are called its <strong>elements</strong>, or its <strong>items</strong>.
+We will use the term <cite>element</cite> or <cite>item</cite> to mean the same thing. Lists and tuples are
+similar to strings, which are ordered collections of characters, except that the
+elements of a list can be of any type.  Lists, tuples, and strings &#8212; and other collections
+that maintain the order of their items &#8212; are called <strong>sequences</strong>.</p>
+<p>We&#8217;ve already seen lists in previous chapters, so we&#8217;ll start by looking at tuples.</p>
+<div class="section" id="tuples-are-used-for-grouping-data">
+<h2>8.1. Tuples are used for grouping data<a class="headerlink" href="#tuples-are-used-for-grouping-data" title="Permalink to this headline">¶</a></h2>
+<p>We can group together pairs of values by
+surrounding with parentheses.  For example:</p>
+
+<div id="tuplefirstexample" class="pywindow" >
+
+<div id="tuplefirstexample_code_div" style="display: block">
+<textarea rows="1" id="tuplefirstexample_code" class="active_code" prefixcode="undefined">
+year_born = ("Isaac Newton", 1642)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplefirstexample_code'] = false;
+pythonTool.readOnlyFlags['tuplefirstexample_code'] = true;
+</script>
+
+<div id='tuplefirstexample_error'></div>
+<pre id="tuplefirstexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>This is an example of a <strong>data structure</strong> &#8212; a mechanism for grouping and
+organizing data to make it easier to use.</p>
+<p>The pair is an example of a <strong>tuple</strong>. Generalizing this, a tuple can
+be used to group any number of items into a single compound value.
+Syntactically, a tuple is a comma-separated sequence of values.
+Although it is not necessary, it is conventional to enclose tuples in parentheses:</p>
+
+<div id="tuplesecondexample" class="pywindow" >
+
+<div id="tuplesecondexample_code_div" style="display: block">
+<textarea rows="1" id="tuplesecondexample_code" class="active_code" prefixcode="undefined">
+julia = ("Julia", "Roberts", 1967, "Duplicity", 2009, "Actress", "Atlanta, Georgia")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplesecondexample_code'] = false;
+pythonTool.readOnlyFlags['tuplesecondexample_code'] = true;
+</script>
+
+<div id='tuplesecondexample_error'></div>
+<pre id="tuplesecondexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Tuples are useful for representing what other languages often call <em>records</em> &#8212;
+some related information that belongs together, like your student record.  There is
+no description of what each of these fields means, but we can guess.  A tuple
+lets us &#8220;chunk&#8221; together related information and use it as a single thing.</p>
+<p>Tuples support the same sequence operations as strings. The index operator
+selects an element from a tuple.</p>
+
+<div id="tuplesaccessexample" class="pywindow" >
+
+<div id="tuplesaccessexample_code_div" style="display: block">
+<textarea rows="2" id="tuplesaccessexample_code" class="active_code" prefixcode="undefined">
+julia = ("Julia", "Roberts", 1967, "Duplicity", 2009, "Actress", "Atlanta, Georgia")
+print(julia[2])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplesaccessexample_code'] = true;
+pythonTool.readOnlyFlags['tuplesaccessexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tuplesaccessexample_runb" onclick="pythonTool.runit('tuplesaccessexample_code','tuplesaccessexample_pre','tuplesaccessexample_error','tuplesaccessexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tuplesaccessexample_code','tuplesaccessexample_pre','tuplesaccessexample_error','tuplesaccessexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tuplesaccessexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="tuplesaccessexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tuplesaccessexample_suffix" style="display:none">
+</pre>
+<pre id="tuplesaccessexample_pre" class="active_out">
+
+</pre>
+
+<div id="tuplesaccessexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>But if we try to use item assignment to modify one of the elements of the
+tuple, we get an error:</p>
+
+<div id="tuplesmutateexample" class="pywindow" >
+
+<div id="tuplesmutateexample_code_div" style="display: block">
+<textarea rows="2" id="tuplesmutateexample_code" class="active_code" prefixcode="undefined">
+julia = ("Julia", "Roberts", 1967, "Duplicity", 2009, "Actress", "Atlanta, Georgia")
+julia[0] = "X"</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplesmutateexample_code'] = true;
+pythonTool.readOnlyFlags['tuplesmutateexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tuplesmutateexample_runb" onclick="pythonTool.runit('tuplesmutateexample_code','tuplesmutateexample_pre','tuplesmutateexample_error','tuplesmutateexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tuplesmutateexample_code','tuplesmutateexample_pre','tuplesmutateexample_error','tuplesmutateexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tuplesmutateexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="tuplesmutateexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tuplesmutateexample_suffix" style="display:none">
+</pre>
+<pre id="tuplesmutateexample_pre" class="active_out">
+
+</pre>
+
+<div id="tuplesmutateexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>So like strings, tuples are immutable.  Once Python has created a tuple
+in memory, it cannot be changed.</p>
+<p>Of course, even if we can&#8217;t modify the
+elements of a tuple, we can always make the <tt class="docutils literal"><span class="pre">julia</span></tt> variable reference
+a new tuple holding different information.  To construct the new tuple,
+it is convenient that we can slice parts of the old tuple and join up the
+bits to make the new tuple.  So  if <tt class="docutils literal"><span class="pre">julia</span></tt> has a new recent film, we could
+change her variable to reference a new tuple that used some information
+from the old one:</p>
+
+<div id="tuplesupdateexample" class="pywindow" >
+
+<div id="tuplesupdateexample_code_div" style="display: block">
+<textarea rows="3" id="tuplesupdateexample_code" class="active_code" prefixcode="undefined">
+julia = ("Julia", "Roberts", 1967, "Duplicity", 2009, "Actress", "Atlanta, Georgia")
+julia = julia[:3] + ("Eat Pray Love", 2010) + julia[5:]
+print(julia)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplesupdateexample_code'] = true;
+pythonTool.readOnlyFlags['tuplesupdateexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tuplesupdateexample_runb" onclick="pythonTool.runit('tuplesupdateexample_code','tuplesupdateexample_pre','tuplesupdateexample_error','tuplesupdateexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tuplesupdateexample_code','tuplesupdateexample_pre','tuplesupdateexample_error','tuplesupdateexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tuplesupdateexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="tuplesupdateexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tuplesupdateexample_suffix" style="display:none">
+</pre>
+<pre id="tuplesupdateexample_pre" class="active_out">
+
+</pre>
+
+<div id="tuplesupdateexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>To create a tuple with a single element (but you&#8217;re probably not likely
+to do that too often), we have to include the final comma, because without
+the final comma, Python treats the <tt class="docutils literal"><span class="pre">(5)</span></tt> below as an integer in parentheses:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; tup = (5,)
+&gt;&gt;&gt; type(tup)
+&lt;class &#39;tuple&#39;&gt;
+&gt;&gt;&gt; x = (5)
+&gt;&gt;&gt; type(x)
+&lt;class &#39;int&#39;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tuple-assignment">
+<span id="index-1"></span><h2>8.2. Tuple assignment<a class="headerlink" href="#tuple-assignment" title="Permalink to this headline">¶</a></h2>
+<p>Python has a very powerful <strong>tuple assignment</strong> feature that allows a tuple of variables
+on the left of an assignment to be assigned values from a tuple
+on the right of the assignment.</p>
+
+<div id="tuplesassignexample" class="pywindow" >
+
+<div id="tuplesassignexample_code_div" style="display: block">
+<textarea rows="10" id="tuplesassignexample_code" class="active_code" prefixcode="undefined">
+julia = ("Julia", "Roberts", 1967, "Duplicity", 2009, "Actress", "Atlanta, Georgia")
+(name, surname, bYear, movie, mYear, profession, birthplace) = julia
+
+print(name)
+print(surname)
+print(bYear)
+print(movie)
+print(mYear)
+print(profession)
+print(birthplace)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplesassignexample_code'] = true;
+pythonTool.readOnlyFlags['tuplesassignexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tuplesassignexample_runb" onclick="pythonTool.runit('tuplesassignexample_code','tuplesassignexample_pre','tuplesassignexample_error','tuplesassignexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tuplesassignexample_code','tuplesassignexample_pre','tuplesassignexample_error','tuplesassignexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tuplesassignexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="tuplesassignexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tuplesassignexample_suffix" style="display:none">
+</pre>
+<pre id="tuplesassignexample_pre" class="active_out">
+
+</pre>
+
+<div id="tuplesassignexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This does the equivalent of seven assignment statements, all on one easy line.
+One requirement is that the number of variables on the left must match the number
+of elements in the tuple.</p>
+<p>One way to think of tuple assignment is as tuple packing/unpacking.
+In tuple packing, the values are &#8216;packed&#8217; together in a
+tuple. In tuple unpacking, the values in a tuple are &#8216;unpacked&#8217;
+into individual variables.</p>
+
+<div id="tuplepacking" class="pywindow" >
+
+<div id="tuplepacking_code_div" style="display: block">
+<textarea rows="6" id="tuplepacking_code" class="active_code" prefixcode="undefined">
+b = ("Bob", 19, "CS")       # tuple packing
+(name, age, studies) = b    # tuple unpacking
+
+print(name)
+print(age)
+print(studies)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tuplepacking_code'] = true;
+pythonTool.readOnlyFlags['tuplepacking_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tuplepacking_runb" onclick="pythonTool.runit('tuplepacking_code','tuplepacking_pre','tuplepacking_error','tuplepacking_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tuplepacking_code','tuplepacking_pre','tuplepacking_error','tuplepacking_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tuplepacking_error'></div>
+
+<div style="text-align: center">
+<canvas id="tuplepacking_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tuplepacking_suffix" style="display:none">
+</pre>
+<pre id="tuplepacking_pre" class="active_out">
+
+</pre>
+
+<div id="tuplepacking_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Once in a while, it is useful to swap the values of two variables.  With
+conventional assignment statements, we have to use a temporary variable. For
+example, to swap <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt>:</p>
+
+<div id="swapugly" class="pywindow" >
+
+<div id="swapugly_code_div" style="display: block">
+<textarea rows="9" id="swapugly_code" class="active_code" prefixcode="undefined">
+a = 3
+b = 5
+
+# use a temporary variable to swap the values of a and b
+temp = a
+a = b
+b = temp
+
+print("a="+str(a)+" b="+str(b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['swapugly_code'] = true;
+pythonTool.readOnlyFlags['swapugly_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="swapugly_runb" onclick="pythonTool.runit('swapugly_code','swapugly_pre','swapugly_error','swapugly_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('swapugly_code','swapugly_pre','swapugly_error','swapugly_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='swapugly_error'></div>
+
+<div style="text-align: center">
+<canvas id="swapugly_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="swapugly_suffix" style="display:none">
+</pre>
+<pre id="swapugly_pre" class="active_out">
+
+</pre>
+
+<div id="swapugly_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Tuple assignment solves this problem neatly:</p>
+
+<div id="swapnice" class="pywindow" >
+
+<div id="swapnice_code_div" style="display: block">
+<textarea rows="7" id="swapnice_code" class="active_code" prefixcode="undefined">
+a = 3
+b = 5
+
+# swap using tuples
+(a,b) = (b,a)
+
+print("a="+str(a)+" b="+str(b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['swapnice_code'] = true;
+pythonTool.readOnlyFlags['swapnice_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="swapnice_runb" onclick="pythonTool.runit('swapnice_code','swapnice_pre','swapnice_error','swapnice_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('swapnice_code','swapnice_pre','swapnice_error','swapnice_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='swapnice_error'></div>
+
+<div style="text-align: center">
+<canvas id="swapnice_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="swapnice_suffix" style="display:none">
+</pre>
+<pre id="swapnice_pre" class="active_out">
+
+</pre>
+
+<div id="swapnice_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The left side is a tuple of variables; the right side is a tuple of values.
+Each value is assigned to its respective variable. All the expressions on the
+right side are evaluated before any of the assignments. This feature makes
+tuple assignment quite versatile.</p>
+<p>Naturally, the number of variables on the left and the number of values on the
+right have to be the same &#8212; if you try to run the code below, you&#8217;ll get an error:</p>
+
+<div id="tupleassignmenterror" class="pywindow" >
+
+<div id="tupleassignmenterror_code_div" style="display: block">
+<textarea rows="1" id="tupleassignmenterror_code" class="active_code" prefixcode="undefined">
+(a,b,c,d) = (1,2,3)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['tupleassignmenterror_code'] = true;
+pythonTool.readOnlyFlags['tupleassignmenterror_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="tupleassignmenterror_runb" onclick="pythonTool.runit('tupleassignmenterror_code','tupleassignmenterror_pre','tupleassignmenterror_error','tupleassignmenterror_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('tupleassignmenterror_code','tupleassignmenterror_pre','tupleassignmenterror_error','tupleassignmenterror_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='tupleassignmenterror_error'></div>
+
+<div style="text-align: center">
+<canvas id="tupleassignmenterror_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="tupleassignmenterror_suffix" style="display:none">
+</pre>
+<pre id="tupleassignmenterror_pre" class="active_out">
+
+</pre>
+
+<div id="tupleassignmenterror_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<span class="target" id="index-2"></span></div>
+<div class="section" id="tuples-as-return-values">
+<span id="index-3"></span><h2>8.3. Tuples as return values<a class="headerlink" href="#tuples-as-return-values" title="Permalink to this headline">¶</a></h2>
+<p>Functions can always only return a single value, but by making that value a tuple,
+we can effectively group together as many values
+as we like, and return them together.   This is very useful &#8212; we often want to
+know some batsman&#8217;s highest and lowest score, or we want to find the mean and the standard
+deviation, or we want to know the year, the month, and the day, or if we&#8217;re doing some
+some ecological modeling we may want to know the number of rabbits and the number
+of wolves on an island at a given time.</p>
+<p>For example, we could write a function that returns both the area and the circumference
+of a circle of radius r:</p>
+
+<div id="circlecircumarea" class="pywindow" >
+
+<div id="circlecircumarea_code_div" style="display: block">
+<textarea rows="9" id="circlecircumarea_code" class="active_code" prefixcode="undefined">
+import math
+
+def circum_area(r):
+    """ Return (circumference, area) of a circle of radius r """
+    c = 2 * math.pi * r
+    a = math.pi * r * r
+    return (c, a)
+
+print(circum_area(10))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['circlecircumarea_code'] = true;
+pythonTool.readOnlyFlags['circlecircumarea_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="circlecircumarea_runb" onclick="pythonTool.runit('circlecircumarea_code','circlecircumarea_pre','circlecircumarea_error','circlecircumarea_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circlecircumarea_code','circlecircumarea_pre','circlecircumarea_error','circlecircumarea_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='circlecircumarea_error'></div>
+
+<div style="text-align: center">
+<canvas id="circlecircumarea_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="circlecircumarea_suffix" style="display:none">
+</pre>
+<pre id="circlecircumarea_pre" class="active_out">
+
+</pre>
+
+<div id="circlecircumarea_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="list-and-tuple-values">
+<span id="index-4"></span><h2>8.4. List  and Tuple values<a class="headerlink" href="#list-and-tuple-values" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to create a new list; the simplest is to enclose the
+elements in square brackets (<tt class="docutils literal"><span class="pre">[</span></tt> and <tt class="docutils literal"><span class="pre">]</span></tt>):</p>
+
+<div id="listcreation1" class="pywindow" >
+
+<div id="listcreation1_code_div" style="display: block">
+<textarea rows="2" id="listcreation1_code" class="active_code" prefixcode="undefined">
+ps = [10, 20, 30, 40]
+qs = ["spam", "bungee", "swallow"]</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listcreation1_code'] = false;
+pythonTool.readOnlyFlags['listcreation1_code'] = true;
+</script>
+
+<div id='listcreation1_error'></div>
+<pre id="listcreation1_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The first example is a list of four integers. The second is a list of three
+strings. The elements of a list don&#8217;t have to be the same type.  The following
+list contains a string, a float, an integer, and
+(amazingly) another list:</p>
+
+<div id="listcreation2" class="pywindow" >
+
+<div id="listcreation2_code_div" style="display: block">
+<textarea rows="1" id="listcreation2_code" class="active_code" prefixcode="undefined">
+zs = ["hello", 2.0, 5, [10, 20]]</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listcreation2_code'] = false;
+pythonTool.readOnlyFlags['listcreation2_code'] = true;
+</script>
+
+<div id='listcreation2_error'></div>
+<pre id="listcreation2_suffix" style="display:none">
+</pre>
+</div>
+
+<p>A list within another list is said to be <strong>nested</strong>.</p>
+<p>Finally, a list with no elements is called an empty list,
+and is denoted <tt class="docutils literal"><span class="pre">[]</span></tt>.</p>
+<p>We can do more complicated things too. For example, we can make a list of tuples,
+where one of the items in the tuple iss itself a list:</p>
+
+<div id="listcreation3" class="pywindow" >
+
+<div id="listcreation3_code_div" style="display: block">
+<textarea rows="6" id="listcreation3_code" class="active_code" prefixcode="undefined">
+students = [
+  ("John", ["CompSci", "Physics"]),
+  ("Vusi", ["Maths", "CompSci", "Stats"]),
+  ("Jess", ["CompSci", "Accounting", "Economics", "Management"]),
+  ("Sarah", ["InfSys", "Accounting", "Economics", "CommLaw"]),
+  ("Zuki", ["Sociology", "Economics", "Law", "Stats", "Music"])]</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listcreation3_code'] = false;
+pythonTool.readOnlyFlags['listcreation3_code'] = true;
+</script>
+
+<div id='listcreation3_error'></div>
+<pre id="listcreation3_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Tuples items can themselves be other tuples.  For example, we could improve
+the information about our movie stars to hold the full date of birth rather
+than just the year, and we could have a list of some of her movies and dates that they
+were made, and so on:</p>
+
+<div id="listcreation4" class="pywindow" >
+
+<div id="listcreation4_code_div" style="display: block">
+<textarea rows="9" id="listcreation4_code" class="active_code" prefixcode="undefined">
+julia_more_info = ( ("Julia", "Roberts"), (8, "October", 1967),
+                    "Actress", ("Atlanta", "Georgia"),
+                    [ ("Duplicity", 2009),
+                      ("Notting Hill", 1999),
+                      ("Pretty Woman", 1990),
+                      ("Erin Brockovich", 2000),
+                      ("Eat Pray Love", 2010),
+                      ("Mona Lisa Smile", 2003),
+                      ("Oceans Twelve", 2004) ])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listcreation4_code'] = false;
+pythonTool.readOnlyFlags['listcreation4_code'] = true;
+</script>
+
+<div id='listcreation4_error'></div>
+<pre id="listcreation4_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Notice in this case that the tuple has just five elements &#8212; but each of those in turn
+can be another tuple, a list, a string, or any other kind of Python value.
+This property is known as being <strong>heterogeneous</strong>, meaning that it can
+be composed of elements of different types.</p>
+<span class="target" id="accessing-elements"></span></div>
+<div class="section" id="index-5">
+<span id="id1"></span><h2>8.5. Accessing elements<a class="headerlink" href="#index-5" title="Permalink to this headline">¶</a></h2>
+<p>The syntax for accessing the elements of a list is the same as the syntax for
+accessing the characters of a string or a tuple &#8212; the index operator: <tt class="docutils literal"><span class="pre">[]</span></tt> (not to
+be confused with an empty list). The expression inside the brackets specifies
+the index. Remember that the indices start at 0:</p>
+
+<div id="listaccessing1" class="pywindow" >
+
+<div id="listaccessing1_code_div" style="display: block">
+<textarea rows="3" id="listaccessing1_code" class="active_code" prefixcode="undefined">
+numbers = [17, 5]
+a = numbers[0]
+print(a)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listaccessing1_code'] = true;
+pythonTool.readOnlyFlags['listaccessing1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listaccessing1_runb" onclick="pythonTool.runit('listaccessing1_code','listaccessing1_pre','listaccessing1_error','listaccessing1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listaccessing1_code','listaccessing1_pre','listaccessing1_error','listaccessing1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listaccessing1_error'></div>
+
+<div style="text-align: center">
+<canvas id="listaccessing1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listaccessing1_suffix" style="display:none">
+</pre>
+<pre id="listaccessing1_pre" class="active_out">
+
+</pre>
+
+<div id="listaccessing1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Any expression evaluating to an integer can be used as an index:</p>
+
+<div id="listaccessing2" class="pywindow" >
+
+<div id="listaccessing2_code_div" style="display: block">
+<textarea rows="3" id="listaccessing2_code" class="active_code" prefixcode="undefined">
+numbers = [17, 5]
+b = numbers[9-8]
+print(b)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listaccessing2_code'] = true;
+pythonTool.readOnlyFlags['listaccessing2_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listaccessing2_runb" onclick="pythonTool.runit('listaccessing2_code','listaccessing2_pre','listaccessing2_error','listaccessing2_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listaccessing2_code','listaccessing2_pre','listaccessing2_error','listaccessing2_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listaccessing2_error'></div>
+
+<div style="text-align: center">
+<canvas id="listaccessing2_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listaccessing2_suffix" style="display:none">
+</pre>
+<pre id="listaccessing2_pre" class="active_out">
+
+</pre>
+
+<div id="listaccessing2_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If you try to access or assign to an element that does not exist, you get a runtime
+error:</p>
+
+<div id="listaccessing4" class="pywindow" >
+
+<div id="listaccessing4_code_div" style="display: block">
+<textarea rows="3" id="listaccessing4_code" class="active_code" prefixcode="undefined">
+numbers = [17, 5]
+d = numbers[2]    # will give an error
+print(d)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listaccessing4_code'] = true;
+pythonTool.readOnlyFlags['listaccessing4_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listaccessing4_runb" onclick="pythonTool.runit('listaccessing4_code','listaccessing4_pre','listaccessing4_error','listaccessing4_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listaccessing4_code','listaccessing4_pre','listaccessing4_error','listaccessing4_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listaccessing4_error'></div>
+
+<div style="text-align: center">
+<canvas id="listaccessing4_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listaccessing4_suffix" style="display:none">
+</pre>
+<pre id="listaccessing4_pre" class="active_out">
+
+</pre>
+
+<div id="listaccessing4_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It is common to use a loop variable as a list index.</p>
+
+<div id="listtraversaldumb" class="pywindow" >
+
+<div id="listtraversaldumb_code_div" style="display: block">
+<textarea rows="4" id="listtraversaldumb_code" class="active_code" prefixcode="undefined">
+horsemen = ["war", "famine", "pestilence", "death"]
+
+for i in [0, 1, 2, 3]:
+    print(horsemen[i])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listtraversaldumb_code'] = true;
+pythonTool.readOnlyFlags['listtraversaldumb_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listtraversaldumb_runb" onclick="pythonTool.runit('listtraversaldumb_code','listtraversaldumb_pre','listtraversaldumb_error','listtraversaldumb_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listtraversaldumb_code','listtraversaldumb_pre','listtraversaldumb_error','listtraversaldumb_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listtraversaldumb_error'></div>
+
+<div style="text-align: center">
+<canvas id="listtraversaldumb_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listtraversaldumb_suffix" style="display:none">
+</pre>
+<pre id="listtraversaldumb_pre" class="active_out">
+
+</pre>
+
+<div id="listtraversaldumb_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Each time through the loop, the variable <tt class="docutils literal"><span class="pre">i</span></tt> is used as an index into the
+list, printing the <tt class="docutils literal"><span class="pre">i</span></tt>&#8216;th element. This pattern of computation is called a
+<strong>list traversal</strong>.</p>
+<p>The above sample doesn&#8217;t need or use the index <tt class="docutils literal"><span class="pre">i</span></tt> for anything besides getting
+the items from the list, so this more direct version &#8212; where the <tt class="docutils literal"><span class="pre">for</span></tt> loop gets
+the items &#8212; might be preferred:</p>
+
+<div id="listtraversalsmart" class="pywindow" >
+
+<div id="listtraversalsmart_code_div" style="display: block">
+<textarea rows="4" id="listtraversalsmart_code" class="active_code" prefixcode="undefined">
+horsemen = ["war", "famine", "pestilence", "death"]
+
+for h in horsemen:
+    print(h)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listtraversalsmart_code'] = true;
+pythonTool.readOnlyFlags['listtraversalsmart_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listtraversalsmart_runb" onclick="pythonTool.runit('listtraversalsmart_code','listtraversalsmart_pre','listtraversalsmart_error','listtraversalsmart_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listtraversalsmart_code','listtraversalsmart_pre','listtraversalsmart_error','listtraversalsmart_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listtraversalsmart_error'></div>
+
+<div style="text-align: center">
+<canvas id="listtraversalsmart_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listtraversalsmart_suffix" style="display:none">
+</pre>
+<pre id="listtraversalsmart_pre" class="active_out">
+
+</pre>
+
+<div id="listtraversalsmart_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The function <tt class="docutils literal"><span class="pre">len</span></tt> returns the length of a list, which is equal to the number
+of its elements. If you are going to use an integer index to access the list,
+it is a good idea to use this value as the upper bound of a
+loop instead of a constant. That way, if the size of the list changes, you
+won&#8217;t have to go through the program changing all the loops; they will work
+correctly for any size list:</p>
+
+<div id="listtraversalokay" class="pywindow" >
+
+<div id="listtraversalokay_code_div" style="display: block">
+<textarea rows="4" id="listtraversalokay_code" class="active_code" prefixcode="undefined">
+horsemen = ["war", "famine", "pestilence", "death"]
+
+for i in range(len(horsemen)):
+    print(horsemen[i])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listtraversalokay_code'] = true;
+pythonTool.readOnlyFlags['listtraversalokay_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listtraversalokay_runb" onclick="pythonTool.runit('listtraversalokay_code','listtraversalokay_pre','listtraversalokay_error','listtraversalokay_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listtraversalokay_code','listtraversalokay_pre','listtraversalokay_error','listtraversalokay_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listtraversalokay_error'></div>
+
+<div style="text-align: center">
+<canvas id="listtraversalokay_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listtraversalokay_suffix" style="display:none">
+</pre>
+<pre id="listtraversalokay_pre" class="active_out">
+
+</pre>
+
+<div id="listtraversalokay_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The last time the body of the loop is executed, <tt class="docutils literal"><span class="pre">i</span></tt> is <tt class="docutils literal"><span class="pre">len(horsemen)</span> <span class="pre">-</span> <span class="pre">1</span></tt>,
+which is the index of the last element. (But the version without the index
+looks even better now!)</p>
+<p>Although a list can contain another list, the nested list still counts as a
+single element in its parent list. The length of this list is 4:</p>
+
+<div id="listlengthexample" class="pywindow" >
+
+<div id="listlengthexample_code_div" style="display: block">
+<textarea rows="1" id="listlengthexample_code" class="active_code" prefixcode="undefined">
+print(len(["car makers", 1, ["Ford", "Toyota", "BMW"], [1, 2, 3]]))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listlengthexample_code'] = true;
+pythonTool.readOnlyFlags['listlengthexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listlengthexample_runb" onclick="pythonTool.runit('listlengthexample_code','listlengthexample_pre','listlengthexample_error','listlengthexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listlengthexample_code','listlengthexample_pre','listlengthexample_error','listlengthexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listlengthexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listlengthexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listlengthexample_suffix" style="display:none">
+</pre>
+<pre id="listlengthexample_pre" class="active_out">
+
+</pre>
+
+<div id="listlengthexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p><tt class="docutils literal"><span class="pre">in</span></tt> and <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> are Boolean operators that test membership in a sequence. We
+used them previously with strings, but they also work with lists and
+other sequences:</p>
+
+<div id="listmembershipexample" class="pywindow" >
+
+<div id="listmembershipexample_code_div" style="display: block">
+<textarea rows="4" id="listmembershipexample_code" class="active_code" prefixcode="undefined">
+horsemen = ["war", "famine", "pestilence", "death"]
+print("pestilence" in horsemen)  # True
+print("debauchery" in horsemen)  # False
+print("debauchery" not in horsemen)   # False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listmembershipexample_code'] = true;
+pythonTool.readOnlyFlags['listmembershipexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listmembershipexample_runb" onclick="pythonTool.runit('listmembershipexample_code','listmembershipexample_pre','listmembershipexample_error','listmembershipexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listmembershipexample_code','listmembershipexample_pre','listmembershipexample_error','listmembershipexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listmembershipexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listmembershipexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listmembershipexample_suffix" style="display:none">
+</pre>
+<pre id="listmembershipexample_pre" class="active_out">
+
+</pre>
+
+<div id="listmembershipexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="list-operations">
+<span id="index-6"></span><h2>8.6. List operations<a class="headerlink" href="#list-operations" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">+</span></tt> operator concatenates lists:</p>
+
+<div id="listconcatexample" class="pywindow" >
+
+<div id="listconcatexample_code_div" style="display: block">
+<textarea rows="4" id="listconcatexample_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = [4, 5, 6]
+c = a + b
+print(c)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listconcatexample_code'] = true;
+pythonTool.readOnlyFlags['listconcatexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listconcatexample_runb" onclick="pythonTool.runit('listconcatexample_code','listconcatexample_pre','listconcatexample_error','listconcatexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listconcatexample_code','listconcatexample_pre','listconcatexample_error','listconcatexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listconcatexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listconcatexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listconcatexample_suffix" style="display:none">
+</pre>
+<pre id="listconcatexample_pre" class="active_out">
+
+</pre>
+
+<div id="listconcatexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Similarly, the <tt class="docutils literal"><span class="pre">*</span></tt> operator repeats a list a given number of times:</p>
+
+<div id="listrepeatexample" class="pywindow" >
+
+<div id="listrepeatexample_code_div" style="display: block">
+<textarea rows="5" id="listrepeatexample_code" class="active_code" prefixcode="undefined">
+a = [0]
+b = [0] * 4
+print(b)
+c = [1, 2, 3] * 3
+print(c)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listrepeatexample_code'] = true;
+pythonTool.readOnlyFlags['listrepeatexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listrepeatexample_runb" onclick="pythonTool.runit('listrepeatexample_code','listrepeatexample_pre','listrepeatexample_error','listrepeatexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listrepeatexample_code','listrepeatexample_pre','listrepeatexample_error','listrepeatexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listrepeatexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listrepeatexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listrepeatexample_suffix" style="display:none">
+</pre>
+<pre id="listrepeatexample_pre" class="active_out">
+
+</pre>
+
+<div id="listrepeatexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The first example repeats <tt class="docutils literal"><span class="pre">[0]</span></tt> four times. The second example repeats the
+list <tt class="docutils literal"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></tt> three times.</p>
+<p>The slice operations we saw previously with strings let us work with sublists:</p>
+
+<div id="listslicingexample" class="pywindow" >
+
+<div id="listslicingexample_code_div" style="display: block">
+<textarea rows="5" id="listslicingexample_code" class="active_code" prefixcode="undefined">
+aList = ["a", "b", "c", "d", "e", "f"]
+print(aList[1:3])
+print(aList[:4])
+print(aList[3:])
+print(aList[:])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listslicingexample_code'] = true;
+pythonTool.readOnlyFlags['listslicingexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listslicingexample_runb" onclick="pythonTool.runit('listslicingexample_code','listslicingexample_pre','listslicingexample_error','listslicingexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listslicingexample_code','listslicingexample_pre','listslicingexample_error','listslicingexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listslicingexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listslicingexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listslicingexample_suffix" style="display:none">
+</pre>
+<pre id="listslicingexample_pre" class="active_out">
+
+</pre>
+
+<div id="listslicingexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<span class="target" id="index-7"></span></div>
+<div class="section" id="lists-are-mutable">
+<span id="index-8"></span><h2>8.7. Lists are mutable<a class="headerlink" href="#lists-are-mutable" title="Permalink to this headline">¶</a></h2>
+<p>Unlike strings and tuples, lists are <strong>mutable</strong>, which means we can change their
+elements. Using the index operator on the left side of an assignment, we can
+update one of the elements:</p>
+
+<div id="listmutateexample" class="pywindow" >
+
+<div id="listmutateexample_code_div" style="display: block">
+<textarea rows="4" id="listmutateexample_code" class="active_code" prefixcode="undefined">
+fruit = ["banana", "apple", "quince"]
+fruit[0] = "pear"
+fruit[2] = "orange"
+print(fruit)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listmutateexample_code'] = true;
+pythonTool.readOnlyFlags['listmutateexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listmutateexample_runb" onclick="pythonTool.runit('listmutateexample_code','listmutateexample_pre','listmutateexample_error','listmutateexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listmutateexample_code','listmutateexample_pre','listmutateexample_error','listmutateexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listmutateexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listmutateexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listmutateexample_suffix" style="display:none">
+</pre>
+<pre id="listmutateexample_pre" class="active_out">
+
+</pre>
+
+<div id="listmutateexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The bracket operator applied to a list can appear anywhere in an expression.
+When it appears on the left side of an assignment, it changes one of the
+elements in the list, so the first element of <tt class="docutils literal"><span class="pre">fruit</span></tt> has been changed from
+<tt class="docutils literal"><span class="pre">&quot;banana&quot;</span></tt> to <tt class="docutils literal"><span class="pre">&quot;pear&quot;</span></tt>, and the last from <tt class="docutils literal"><span class="pre">&quot;quince&quot;</span></tt> to <tt class="docutils literal"><span class="pre">&quot;orange&quot;</span></tt>. An
+assignment to an element of a list is called <strong>item assignment</strong>. Item
+assignment does not work for strings:</p>
+
+<div id="stringmutatebreaks" class="pywindow" >
+
+<div id="stringmutatebreaks_code_div" style="display: block">
+<textarea rows="3" id="stringmutatebreaks_code" class="active_code" prefixcode="undefined">
+myString = "TEST"
+myString[2] = "X"
+print(myString)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringmutatebreaks_code'] = true;
+pythonTool.readOnlyFlags['stringmutatebreaks_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringmutatebreaks_runb" onclick="pythonTool.runit('stringmutatebreaks_code','stringmutatebreaks_pre','stringmutatebreaks_error','stringmutatebreaks_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringmutatebreaks_code','stringmutatebreaks_pre','stringmutatebreaks_error','stringmutatebreaks_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringmutatebreaks_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringmutatebreaks_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringmutatebreaks_suffix" style="display:none">
+</pre>
+<pre id="stringmutatebreaks_pre" class="active_out">
+
+</pre>
+
+<div id="stringmutatebreaks_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>but it does for lists:</p>
+
+<div id="listmutateworks" class="pywindow" >
+
+<div id="listmutateworks_code_div" style="display: block">
+<textarea rows="3" id="listmutateworks_code" class="active_code" prefixcode="undefined">
+myList = ["T", "E", "S", "T"]
+myList[2] = "X"
+print(myList)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listmutateworks_code'] = true;
+pythonTool.readOnlyFlags['listmutateworks_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listmutateworks_runb" onclick="pythonTool.runit('listmutateworks_code','listmutateworks_pre','listmutateworks_error','listmutateworks_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listmutateworks_code','listmutateworks_pre','listmutateworks_error','listmutateworks_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listmutateworks_error'></div>
+
+<div style="text-align: center">
+<canvas id="listmutateworks_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listmutateworks_suffix" style="display:none">
+</pre>
+<pre id="listmutateworks_pre" class="active_out">
+
+</pre>
+
+<div id="listmutateworks_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>With the slice operator we can update a whole sublist at once:</p>
+
+<div id="listadvslice1" class="pywindow" >
+
+<div id="listadvslice1_code_div" style="display: block">
+<textarea rows="3" id="listadvslice1_code" class="active_code" prefixcode="undefined">
+aList = ["a", "b", "c", "d", "e", "f"]
+aList[1:3] = ["x", "y"]
+print(aList)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listadvslice1_code'] = true;
+pythonTool.readOnlyFlags['listadvslice1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listadvslice1_runb" onclick="pythonTool.runit('listadvslice1_code','listadvslice1_pre','listadvslice1_error','listadvslice1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listadvslice1_code','listadvslice1_pre','listadvslice1_error','listadvslice1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listadvslice1_error'></div>
+
+<div style="text-align: center">
+<canvas id="listadvslice1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listadvslice1_suffix" style="display:none">
+</pre>
+<pre id="listadvslice1_pre" class="active_out">
+
+</pre>
+
+<div id="listadvslice1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We can also remove elements from a list by assigning an empty list to them:</p>
+
+<div id="listadvslice2" class="pywindow" >
+
+<div id="listadvslice2_code_div" style="display: block">
+<textarea rows="3" id="listadvslice2_code" class="active_code" prefixcode="undefined">
+aList = ["a", "b", "c", "d", "e", "f"]
+aList[1:3] = []
+print(aList)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listadvslice2_code'] = true;
+pythonTool.readOnlyFlags['listadvslice2_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listadvslice2_runb" onclick="pythonTool.runit('listadvslice2_code','listadvslice2_pre','listadvslice2_error','listadvslice2_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listadvslice2_code','listadvslice2_pre','listadvslice2_error','listadvslice2_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listadvslice2_error'></div>
+
+<div style="text-align: center">
+<canvas id="listadvslice2_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listadvslice2_suffix" style="display:none">
+</pre>
+<pre id="listadvslice2_pre" class="active_out">
+
+</pre>
+
+<div id="listadvslice2_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>And we can add elements to a list by squeezing them into an empty slice at the
+desired location:</p>
+
+<div id="listadvslice3" class="pywindow" >
+
+<div id="listadvslice3_code_div" style="display: block">
+<textarea rows="5" id="listadvslice3_code" class="active_code" prefixcode="undefined">
+aList = ["a", "d", "f"]
+aList[1:1] = ["b", "c"]
+print(aList)
+aList[4:4] = ["e"]
+print(aList)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listadvslice3_code'] = true;
+pythonTool.readOnlyFlags['listadvslice3_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listadvslice3_runb" onclick="pythonTool.runit('listadvslice3_code','listadvslice3_pre','listadvslice3_error','listadvslice3_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listadvslice3_code','listadvslice3_pre','listadvslice3_error','listadvslice3_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listadvslice3_error'></div>
+
+<div style="text-align: center">
+<canvas id="listadvslice3_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listadvslice3_suffix" style="display:none">
+</pre>
+<pre id="listadvslice3_pre" class="active_out">
+
+</pre>
+
+<div id="listadvslice3_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Using slices to delete list elements can be error-prone.
+Python provides an alternative that is more readable.
+The <tt class="docutils literal"><span class="pre">del</span></tt> statement removes an element from a list:</p>
+
+<div id="listdelete1" class="pywindow" >
+
+<div id="listdelete1_code_div" style="display: block">
+<textarea rows="3" id="listdelete1_code" class="active_code" prefixcode="undefined">
+a = ["one", "two", "three"]
+del a[1]
+print(a)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listdelete1_code'] = true;
+pythonTool.readOnlyFlags['listdelete1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listdelete1_runb" onclick="pythonTool.runit('listdelete1_code','listdelete1_pre','listdelete1_error','listdelete1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listdelete1_code','listdelete1_pre','listdelete1_error','listdelete1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listdelete1_error'></div>
+
+<div style="text-align: center">
+<canvas id="listdelete1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listdelete1_suffix" style="display:none">
+</pre>
+<pre id="listdelete1_pre" class="active_out">
+
+</pre>
+
+<div id="listdelete1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>As you might expect, <tt class="docutils literal"><span class="pre">del</span></tt> causes a runtime
+error if the index is out of range.</p>
+<p>You can also use <tt class="docutils literal"><span class="pre">del</span></tt> with a slice to delete a sublist:</p>
+
+<div id="listdelete2" class="pywindow" >
+
+<div id="listdelete2_code_div" style="display: block">
+<textarea rows="3" id="listdelete2_code" class="active_code" prefixcode="undefined">
+aList = ["a", "b", "c", "d", "e", "f"]
+del aList[1:5]
+print(aList)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listdelete2_code'] = true;
+pythonTool.readOnlyFlags['listdelete2_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listdelete2_runb" onclick="pythonTool.runit('listdelete2_code','listdelete2_pre','listdelete2_error','listdelete2_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listdelete2_code','listdelete2_pre','listdelete2_error','listdelete2_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listdelete2_error'></div>
+
+<div style="text-align: center">
+<canvas id="listdelete2_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listdelete2_suffix" style="display:none">
+</pre>
+<pre id="listdelete2_pre" class="active_out">
+
+</pre>
+
+<div id="listdelete2_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>As usual, the sublist selected by slice contains all the elements up to, but not including, the second
+index.</p>
+</div>
+<div class="section" id="objects-and-references">
+<span id="index-9"></span><h2>8.8. Objects and references<a class="headerlink" href="#objects-and-references" title="Permalink to this headline">¶</a></h2>
+<p>After we execute these assignment statements</p>
+
+<div id="duplicateassignex" class="pywindow" >
+
+<div id="duplicateassignex_code_div" style="display: block">
+<textarea rows="2" id="duplicateassignex_code" class="active_code" prefixcode="undefined">
+a = "banana"
+b = "banana"</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['duplicateassignex_code'] = false;
+pythonTool.readOnlyFlags['duplicateassignex_code'] = true;
+</script>
+
+<div id='duplicateassignex_error'></div>
+<pre id="duplicateassignex_suffix" style="display:none">
+</pre>
+</div>
+
+<p>we know that <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> will refer to a string object with the letters
+<tt class="docutils literal"><span class="pre">&quot;banana&quot;</span></tt>. But we don&#8217;t know yet whether they point to the <em>same</em> string object.</p>
+<p>There are two possible ways the Python interpreter could arrange its memory:</p>
+<blockquote>
+<div><img alt="List illustration" src="_images/list1.png" />
+</div></blockquote>
+<p>In one case, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> refer to two different objects that have the same
+value. In the second case, they refer to the same object.</p>
+<p>We can test whether two names refer to the same object using the <tt class="docutils literal"><span class="pre">is</span></tt>
+operator:</p>
+
+<div id="dupassigntest" class="pywindow" >
+
+<div id="dupassigntest_code_div" style="display: block">
+<textarea rows="3" id="dupassigntest_code" class="active_code" prefixcode="undefined">
+a = "banana"
+b = "banana"
+print(a is b)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dupassigntest_code'] = true;
+pythonTool.readOnlyFlags['dupassigntest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dupassigntest_runb" onclick="pythonTool.runit('dupassigntest_code','dupassigntest_pre','dupassigntest_error','dupassigntest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dupassigntest_code','dupassigntest_pre','dupassigntest_error','dupassigntest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dupassigntest_error'></div>
+
+<div style="text-align: center">
+<canvas id="dupassigntest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dupassigntest_suffix" style="display:none">
+</pre>
+<pre id="dupassigntest_pre" class="active_out">
+
+</pre>
+
+<div id="dupassigntest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This tells us that both <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> refer to the same object, and that it
+is the second of the two state snapshots that accurately describes the relationship.</p>
+<p>Since strings are <em>immutable</em>, Python optimizes resources by making two names
+that refer to the same string value refer to the same object.</p>
+<p>This is not the case with lists:</p>
+
+<div id="duplisttest" class="pywindow" >
+
+<div id="duplisttest_code_div" style="display: block">
+<textarea rows="4" id="duplisttest_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = [1, 2, 3]
+print("Do they look the same? " + str(a==b))
+print("Are they the same? " + str(a is b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['duplisttest_code'] = true;
+pythonTool.readOnlyFlags['duplisttest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="duplisttest_runb" onclick="pythonTool.runit('duplisttest_code','duplisttest_pre','duplisttest_error','duplisttest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('duplisttest_code','duplisttest_pre','duplisttest_error','duplisttest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='duplisttest_error'></div>
+
+<div style="text-align: center">
+<canvas id="duplisttest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="duplisttest_suffix" style="display:none">
+</pre>
+<pre id="duplisttest_pre" class="active_out">
+
+</pre>
+
+<div id="duplisttest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The state snapshot here looks like this:</p>
+<blockquote>
+<div><img alt="State snapshot for equal different lists" src="_images/mult_references2.png" />
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> have the same value but do not refer to the same object.</p>
+<p>Since variables refer to objects, if we assign one variable to another, both
+variables refer to the same object:</p>
+
+<div id="samelisttest" class="pywindow" >
+
+<div id="samelisttest_code_div" style="display: block">
+<textarea rows="4" id="samelisttest_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = a
+print("Do they look the same? " + str(a==b))
+print("Are they the same? " + str(a is b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['samelisttest_code'] = true;
+pythonTool.readOnlyFlags['samelisttest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="samelisttest_runb" onclick="pythonTool.runit('samelisttest_code','samelisttest_pre','samelisttest_error','samelisttest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('samelisttest_code','samelisttest_pre','samelisttest_error','samelisttest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='samelisttest_error'></div>
+
+<div style="text-align: center">
+<canvas id="samelisttest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="samelisttest_suffix" style="display:none">
+</pre>
+<pre id="samelisttest_pre" class="active_out">
+
+</pre>
+
+<div id="samelisttest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>In this case, the state snapshot looks like this:</p>
+<blockquote>
+<div><img alt="State snapshot for multiple references (aliases) to a list" src="_images/mult_references3.png" />
+</div></blockquote>
+<p>Because the same list has two different names, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt>, we say that it
+is <strong>aliased</strong>. Changes made with one alias affect the other:</p>
+
+<div id="samelistmodify" class="pywindow" >
+
+<div id="samelistmodify_code_div" style="display: block">
+<textarea rows="4" id="samelistmodify_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = a
+b[0] = 5
+print(a)   # changing b also changes a, since a and b are the same list</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['samelistmodify_code'] = true;
+pythonTool.readOnlyFlags['samelistmodify_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="samelistmodify_runb" onclick="pythonTool.runit('samelistmodify_code','samelistmodify_pre','samelistmodify_error','samelistmodify_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('samelistmodify_code','samelistmodify_pre','samelistmodify_error','samelistmodify_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='samelistmodify_error'></div>
+
+<div style="text-align: center">
+<canvas id="samelistmodify_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="samelistmodify_suffix" style="display:none">
+</pre>
+<pre id="samelistmodify_pre" class="active_out">
+
+</pre>
+
+<div id="samelistmodify_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Although this behavior can be useful, it is sometimes unexpected or
+undesirable. In general, it is safer to avoid aliasing when you are working
+with mutable objects (i.e. lists at this point in our textbook,
+but we&#8217;ll meet more mutable objects
+as we cover classes and objects, dictionaries and sets).
+Of course, for immutable objects (i.e. strings, tuples), there&#8217;s no problem &#8212; it is
+just not possible to change something and get a surprise when you access an alias name.
+That&#8217;s why Python is free to alias strings (and any other immutable kinds of data)
+when it sees an opportunity to economize.</p>
+<p>If we want to modify a list and also keep a copy of the original, we need to be
+able to make a copy of the list itself, not just the reference. This process is
+sometimes called <strong>cloning</strong>, to avoid the ambiguity of the word copy.</p>
+<p>The easiest way to clone a list is to use the slice operator:</p>
+
+<div id="clonelisttest" class="pywindow" >
+
+<div id="clonelisttest_code_div" style="display: block">
+<textarea rows="5" id="clonelisttest_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = a[:]
+print("a is "+str(a)+" and b is "+str(b))
+print("Do they look the same? " + str(a==b))
+print("Are they the same? " + str(a is b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['clonelisttest_code'] = true;
+pythonTool.readOnlyFlags['clonelisttest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="clonelisttest_runb" onclick="pythonTool.runit('clonelisttest_code','clonelisttest_pre','clonelisttest_error','clonelisttest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('clonelisttest_code','clonelisttest_pre','clonelisttest_error','clonelisttest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='clonelisttest_error'></div>
+
+<div style="text-align: center">
+<canvas id="clonelisttest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="clonelisttest_suffix" style="display:none">
+</pre>
+<pre id="clonelisttest_pre" class="active_out">
+
+</pre>
+
+<div id="clonelisttest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Taking any slice of <tt class="docutils literal"><span class="pre">a</span></tt> creates a new list. In this case the slice happens to
+consist of the whole list.  So now the relationship is like this:</p>
+<blockquote>
+<div><img alt="State snapshot for equal different lists" src="_images/mult_references2.png" />
+</div></blockquote>
+<p>Now we are free to make changes to <tt class="docutils literal"><span class="pre">b</span></tt> without worrying that we&#8217;ll inadvertently be
+changing <tt class="docutils literal"><span class="pre">a</span></tt>:</p>
+
+<div id="clonemodifytest" class="pywindow" >
+
+<div id="clonemodifytest_code_div" style="display: block">
+<textarea rows="5" id="clonemodifytest_code" class="active_code" prefixcode="undefined">
+a = [1, 2, 3]
+b = a[:]
+print("a is "+str(a)+" and b is "+str(b))
+b[0] = 5
+print("a is "+str(a)+" and b is "+str(b))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['clonemodifytest_code'] = true;
+pythonTool.readOnlyFlags['clonemodifytest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="clonemodifytest_runb" onclick="pythonTool.runit('clonemodifytest_code','clonemodifytest_pre','clonemodifytest_error','clonemodifytest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('clonemodifytest_code','clonemodifytest_pre','clonemodifytest_error','clonemodifytest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='clonemodifytest_error'></div>
+
+<div style="text-align: center">
+<canvas id="clonemodifytest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="clonemodifytest_suffix" style="display:none">
+</pre>
+<pre id="clonemodifytest_pre" class="active_out">
+
+</pre>
+
+<div id="clonemodifytest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="lists-and-for-loops">
+<span id="index-10"></span><h2>8.9. Lists and <tt class="docutils literal"><span class="pre">for</span></tt> loops<a class="headerlink" href="#lists-and-for-loops" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">for</span></tt> loop also works with lists, as we&#8217;ve already seen. The generalized syntax of a <tt class="docutils literal"><span class="pre">for</span></tt>
+loop is:</p>
+
+<div id="forgeneralsyntax" class="pywindow" >
+
+<div id="forgeneralsyntax_code_div" style="display: block">
+<textarea rows="2" id="forgeneralsyntax_code" class="active_code" prefixcode="undefined">
+for VARIABLE in LIST:
+    BODY</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['forgeneralsyntax_code'] = false;
+pythonTool.readOnlyFlags['forgeneralsyntax_code'] = true;
+</script>
+
+<div id='forgeneralsyntax_error'></div>
+<pre id="forgeneralsyntax_suffix" style="display:none">
+</pre>
+</div>
+
+<p>So, as we&#8217;ve seen</p>
+
+<div id="partyinviteredux" class="pywindow" >
+
+<div id="partyinviteredux_code_div" style="display: block">
+<textarea rows="3" id="partyinviteredux_code" class="active_code" prefixcode="undefined">
+friends = ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]
+for friend in friends:
+    print(friend)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['partyinviteredux_code'] = true;
+pythonTool.readOnlyFlags['partyinviteredux_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="partyinviteredux_runb" onclick="pythonTool.runit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='partyinviteredux_error'></div>
+
+<div style="text-align: center">
+<canvas id="partyinviteredux_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="partyinviteredux_suffix" style="display:none">
+</pre>
+<pre id="partyinviteredux_pre" class="active_out">
+
+</pre>
+
+<div id="partyinviteredux_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It almost reads like English: For (every) friend in (the list of) friends,
+print (the name of the) friend.</p>
+<p>Any list expression can be used in a <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+
+<div id="forloopmultsof3" class="pywindow" >
+
+<div id="forloopmultsof3_code_div" style="display: block">
+<textarea rows="3" id="forloopmultsof3_code" class="active_code" prefixcode="undefined">
+for number in range(20):
+    if number % 3 == 0:
+        print(number)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['forloopmultsof3_code'] = true;
+pythonTool.readOnlyFlags['forloopmultsof3_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="forloopmultsof3_runb" onclick="pythonTool.runit('forloopmultsof3_code','forloopmultsof3_pre','forloopmultsof3_error','forloopmultsof3_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('forloopmultsof3_code','forloopmultsof3_pre','forloopmultsof3_error','forloopmultsof3_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='forloopmultsof3_error'></div>
+
+<div style="text-align: center">
+<canvas id="forloopmultsof3_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="forloopmultsof3_suffix" style="display:none">
+</pre>
+<pre id="forloopmultsof3_pre" class="active_out">
+
+</pre>
+
+<div id="forloopmultsof3_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+
+<div id="forloopfruits" class="pywindow" >
+
+<div id="forloopfruits_code_div" style="display: block">
+<textarea rows="2" id="forloopfruits_code" class="active_code" prefixcode="undefined">
+for fruit in ["banana", "apple", "quince"]:
+    print("I like to eat " + fruit + "s!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['forloopfruits_code'] = true;
+pythonTool.readOnlyFlags['forloopfruits_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="forloopfruits_runb" onclick="pythonTool.runit('forloopfruits_code','forloopfruits_pre','forloopfruits_error','forloopfruits_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('forloopfruits_code','forloopfruits_pre','forloopfruits_error','forloopfruits_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='forloopfruits_error'></div>
+
+<div style="text-align: center">
+<canvas id="forloopfruits_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="forloopfruits_suffix" style="display:none">
+</pre>
+<pre id="forloopfruits_pre" class="active_out">
+
+</pre>
+
+<div id="forloopfruits_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The first example prints all the multiples of 3 between 0 and 19. The second
+example expresses enthusiasm for various fruits.</p>
+<p>Since lists are mutable, we often want to traverse a list, changing
+each of its elements. The following squares all the numbers in the list <tt class="docutils literal"><span class="pre">xs</span></tt>:</p>
+
+<div id="squarelistexample" class="pywindow" >
+
+<div id="squarelistexample_code_div" style="display: block">
+<textarea rows="4" id="squarelistexample_code" class="active_code" prefixcode="undefined">
+xs = [1, 2, 3, 4, 5]
+for i in range(len(xs)):
+    xs[i] = xs[i]**2
+print(xs)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['squarelistexample_code'] = true;
+pythonTool.readOnlyFlags['squarelistexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="squarelistexample_runb" onclick="pythonTool.runit('squarelistexample_code','squarelistexample_pre','squarelistexample_error','squarelistexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('squarelistexample_code','squarelistexample_pre','squarelistexample_error','squarelistexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='squarelistexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="squarelistexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="squarelistexample_suffix" style="display:none">
+</pre>
+<pre id="squarelistexample_pre" class="active_out">
+
+</pre>
+
+<div id="squarelistexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Take a moment to think about <tt class="docutils literal"><span class="pre">range(len(xs))</span></tt> until you understand how
+it works.</p>
+<p>Sometimes we are interested in both the <em>value</em> of an item (we want to
+square that value) and its <em>index</em> (so that we can assign the new value to that position).
+This pattern is common enough that Python provides a nicer way to implement it:
+<tt class="docutils literal"><span class="pre">enumerate</span></tt> generates pairs of both (index, value) during
+the list traversal. Try this next example to see more clearly how <tt class="docutils literal"><span class="pre">enumerate</span></tt>
+works:</p>
+
+<div id="enumerateexample" class="pywindow" >
+
+<div id="enumerateexample_code_div" style="display: block">
+<textarea rows="2" id="enumerateexample_code" class="active_code" prefixcode="undefined">
+for (i, v) in enumerate(["banana", "apple", "pear", "lemon"]):
+    print(str(i)+" "+str(v))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['enumerateexample_code'] = true;
+pythonTool.readOnlyFlags['enumerateexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="enumerateexample_runb" onclick="pythonTool.runit('enumerateexample_code','enumerateexample_pre','enumerateexample_error','enumerateexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('enumerateexample_code','enumerateexample_pre','enumerateexample_error','enumerateexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='enumerateexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="enumerateexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="enumerateexample_suffix" style="display:none">
+</pre>
+<pre id="enumerateexample_pre" class="active_out">
+
+</pre>
+
+<div id="enumerateexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="list-methods">
+<span id="index-11"></span><h2>8.10. List methods<a class="headerlink" href="#list-methods" title="Permalink to this headline">¶</a></h2>
+<p>The dot operator can also be used to access built-in methods of list objects.  We&#8217;ll
+start with the most useful method for adding something onto the end of an existing list:</p>
+
+<div id="listappendexample" class="pywindow" >
+
+<div id="listappendexample_code_div" style="display: block">
+<textarea rows="8" id="listappendexample_code" class="active_code" prefixcode="undefined">
+mylist = []
+mylist.append(5)   # add 5 to list
+print(mylist)
+mylist.append(27)  # add 27 to list
+print(mylist)
+mylist.append(3)   # add 3 and 12 to list
+mylist.append(12)
+print(mylist)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listappendexample_code'] = true;
+pythonTool.readOnlyFlags['listappendexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listappendexample_runb" onclick="pythonTool.runit('listappendexample_code','listappendexample_pre','listappendexample_error','listappendexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listappendexample_code','listappendexample_pre','listappendexample_error','listappendexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listappendexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="listappendexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listappendexample_suffix" style="display:none">
+</pre>
+<pre id="listappendexample_pre" class="active_out">
+
+</pre>
+
+<div id="listappendexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p><tt class="docutils literal"><span class="pre">append</span></tt> is a list method which adds the argument passed to it to the end of
+the list. We&#8217;ll use it heavily when we&#8217;re creating new lists.
+Continuing with this example, we show several other list methods:</p>
+
+<div id="listappendcontinued" class="pywindow" >
+
+<div id="listappendcontinued_code_div" style="display: block">
+<textarea rows="27" id="listappendcontinued_code" class="active_code" prefixcode="undefined">
+mylist = []
+mylist.append(5)   # add 5 to list
+print(mylist)
+mylist.append(27)  # add 27 to list
+print(mylist)
+mylist.append(3)   # add 3 and 12 to list
+mylist.append(12)
+print(mylist)
+print("Insert a 12 in position 1")
+mylist.insert(1, 12)
+print(mylist)
+print("Count the number of 12s in the list")
+print(mylist.count(12))
+print("Add an entire list onto the end of the list")
+mylist.extend([5, 9, 5, 11])   # Put whole list onto end of mylist
+print(mylist)
+print("Find the first index of 9 in the list")
+print(mylist.index(9))   # Find index of first 9 in mylist
+print("Reverse the list")
+mylist.reverse()
+print(mylist)
+print("Sort the list")
+mylist.sort()
+print(mylist)
+print("Remove the first 12 from the list")
+mylist.remove(12)             # Remove the first 12 in the list
+print(mylist)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listappendcontinued_code'] = true;
+pythonTool.readOnlyFlags['listappendcontinued_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listappendcontinued_runb" onclick="pythonTool.runit('listappendcontinued_code','listappendcontinued_pre','listappendcontinued_error','listappendcontinued_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listappendcontinued_code','listappendcontinued_pre','listappendcontinued_error','listappendcontinued_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listappendcontinued_error'></div>
+
+<div style="text-align: center">
+<canvas id="listappendcontinued_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listappendcontinued_suffix" style="display:none">
+</pre>
+<pre id="listappendcontinued_pre" class="active_out">
+
+</pre>
+
+<div id="listappendcontinued_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Experiment and play with the list methods shown here, and read their documentation until
+you feel confident that you understand how they work.</p>
+<span class="target" id="index-12"></span></div>
+<div class="section" id="list-parameters">
+<span id="pure-func-mod"></span><span id="index-13"></span><h2>8.11. List parameters<a class="headerlink" href="#list-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Passing a list as an argument actually passes a reference to the list, not a
+copy or clone of the list. So parameter passing creates an alias for you: the caller
+has one variable referencing the list, and the called function has an alias (a new variable pointing to the same list), but there
+is only one underlying list object.</p>
+<p>For example, the function below takes a list as an
+argument and multiplies each element in the list by 2:</p>
+
+<div id="doublestuff" class="pywindow" >
+
+<div id="doublestuff_code_div" style="display: block">
+<textarea rows="8" id="doublestuff_code" class="active_code" prefixcode="undefined">
+def double_stuff(a_list):
+    """ Overwrite each element in a_list with double its value. """
+    for (idx, val) in enumerate(a_list):
+        a_list[idx] = 2 * val
+
+things = [2, 5, 9]
+double_stuff(things)
+print(things)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['doublestuff_code'] = true;
+pythonTool.readOnlyFlags['doublestuff_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="doublestuff_runb" onclick="pythonTool.runit('doublestuff_code','doublestuff_pre','doublestuff_error','doublestuff_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('doublestuff_code','doublestuff_pre','doublestuff_error','doublestuff_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='doublestuff_error'></div>
+
+<div style="text-align: center">
+<canvas id="doublestuff_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="doublestuff_suffix" style="display:none">
+</pre>
+<pre id="doublestuff_pre" class="active_out">
+
+</pre>
+
+<div id="doublestuff_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>In the function above, the parameter
+<tt class="docutils literal"><span class="pre">a_list</span></tt> and the variable <tt class="docutils literal"><span class="pre">things</span></tt> are aliases for the
+same object.  So before any changes to the elements in the list, the state snapshot
+looks like this:</p>
+<blockquote>
+<div><img alt="State snapshot for multiple references to a list as a parameter" src="_images/mult_references4.png" />
+</div></blockquote>
+<p>If a function modifies the items of a list parameter, the caller sees the change.</p>
+<p>Functions which take lists as arguments and change them during execution are
+called <strong>modifiers</strong> and the changes they make are called <strong>side effects</strong>.</p>
+<p>A <strong>pure function</strong> does not produce side effects. It communicates with the
+calling program only through parameters, which it does not modify, and a return
+value. Here is <tt class="docutils literal"><span class="pre">double_stuff</span></tt> written as a pure function:</p>
+
+<div id="doublestuffpure" class="pywindow" >
+
+<div id="doublestuffpure_code_div" style="display: block">
+<textarea rows="15" id="doublestuffpure_code" class="active_code" prefixcode="undefined">
+def double_stuff(a_list):
+    """ Return a new list which contains
+        doubles of the elements in a_list.
+    """
+    newList = []    # create an empty list to store the result
+    for value in a_list:
+        # append double the entry in a_list to newList
+        newElem = 2 * value
+        newList.append(newElem)
+    return newList
+
+things = [2, 5, 9]
+xs = double_stuff(things)
+print("things: "+str(things))   # things is unchanged
+print("xs: "+str(xs))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['doublestuffpure_code'] = true;
+pythonTool.readOnlyFlags['doublestuffpure_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="doublestuffpure_runb" onclick="pythonTool.runit('doublestuffpure_code','doublestuffpure_pre','doublestuffpure_error','doublestuffpure_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('doublestuffpure_code','doublestuffpure_pre','doublestuffpure_error','doublestuffpure_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='doublestuffpure_error'></div>
+
+<div style="text-align: center">
+<canvas id="doublestuffpure_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="doublestuffpure_suffix" style="display:none">
+</pre>
+<pre id="doublestuffpure_pre" class="active_out">
+
+</pre>
+
+<div id="doublestuffpure_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice that this version of <tt class="docutils literal"><span class="pre">double_stuff</span></tt> does not change its arguments:</p>
+<p>An early rule we saw for assignment said &#8220;first evaluate the right hand side, then
+assign the resulting value to the variable&#8221;.  So it is quite safe to assign the function
+result to the same variable that was passed to the function:</p>
+
+<div id="doublestuffself" class="pywindow" >
+
+<div id="doublestuffself_code_div" style="display: block">
+<textarea rows="14" id="doublestuffself_code" class="active_code" prefixcode="undefined">
+def double_stuff(a_list):
+    """ Return a new list which contains
+        doubles of the elements in a_list.
+    """
+    newList = []    # create an empty list to store the result
+    for value in a_list:
+        # append double the entry in a_list to newList
+        newElem = 2 * value
+        newList.append(newElem)
+    return newList
+
+things = [2, 5, 9]
+things = double_stuff(things)
+print(things)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['doublestuffself_code'] = true;
+pythonTool.readOnlyFlags['doublestuffself_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="doublestuffself_runb" onclick="pythonTool.runit('doublestuffself_code','doublestuffself_pre','doublestuffself_error','doublestuffself_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('doublestuffself_code','doublestuffself_pre','doublestuffself_error','doublestuffself_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='doublestuffself_error'></div>
+
+<div style="text-align: center">
+<canvas id="doublestuffself_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="doublestuffself_suffix" style="display:none">
+</pre>
+<pre id="doublestuffself_pre" class="active_out">
+
+</pre>
+
+<div id="doublestuffself_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<div class="admonition-which-style-is-better admonition">
+<p class="first admonition-title">Which style is better?</p>
+<p>Anything that can be done with modifiers can also be done with pure functions.
+In fact, some programming languages only allow pure functions. There is some
+evidence that programs that use pure functions are faster to develop and less
+error-prone than programs that use modifiers. Nevertheless, modifiers are
+convenient at times, and in some cases, functional programs are less efficient.</p>
+<p class="last">In general, we recommend that you write pure functions whenever it is
+reasonable to do so and resort to modifiers only if there is a compelling
+advantage. This approach might be called a <em>functional programming style</em>.</p>
+</div>
+<p>The pure version of <tt class="docutils literal"><span class="pre">double_stuff</span></tt> above made use of an
+important <strong>pattern</strong> for your toolbox. Whenever you need to
+write a function that creates and returns a list, the pattern is
+usually:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>initialize a result variable to be an empty list
+loop
+   create a new element
+   append it to result
+return the result
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="strings-and-lists">
+<span id="index-14"></span><h2>8.12. Strings and lists<a class="headerlink" href="#strings-and-lists" title="Permalink to this headline">¶</a></h2>
+<p>Two of the most useful methods on strings involve conversion to
+and from lists of substrings.
+The <tt class="docutils literal"><span class="pre">split</span></tt> method (which we&#8217;ve already seen)
+breaks a string into a list of words.  By
+default, any number of whitespace characters is considered a word boundary:</p>
+
+<div id="stringlistsplitex" class="pywindow" >
+
+<div id="stringlistsplitex_code_div" style="display: block">
+<textarea rows="3" id="stringlistsplitex_code" class="active_code" prefixcode="undefined">
+song = "The rain in Spain..."
+wds = song.split()
+print(wds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringlistsplitex_code'] = true;
+pythonTool.readOnlyFlags['stringlistsplitex_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringlistsplitex_runb" onclick="pythonTool.runit('stringlistsplitex_code','stringlistsplitex_pre','stringlistsplitex_error','stringlistsplitex_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringlistsplitex_code','stringlistsplitex_pre','stringlistsplitex_error','stringlistsplitex_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringlistsplitex_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringlistsplitex_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringlistsplitex_suffix" style="display:none">
+</pre>
+<pre id="stringlistsplitex_pre" class="active_out">
+
+</pre>
+
+<div id="stringlistsplitex_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>An optional argument called a <strong>delimiter</strong> can be used to specify which
+string to use as the boundary marker between substrings.
+The following example uses the string <tt class="docutils literal"><span class="pre">ai</span></tt> as the delimiter:</p>
+
+<div id="stringlistsplitoptex" class="pywindow" >
+
+<div id="stringlistsplitoptex_code_div" style="display: block">
+<textarea rows="3" id="stringlistsplitoptex_code" class="active_code" prefixcode="undefined">
+song = "The rain in Spain..."
+wds = song.split("ai")
+print(wds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringlistsplitoptex_code'] = true;
+pythonTool.readOnlyFlags['stringlistsplitoptex_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringlistsplitoptex_runb" onclick="pythonTool.runit('stringlistsplitoptex_code','stringlistsplitoptex_pre','stringlistsplitoptex_error','stringlistsplitoptex_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringlistsplitoptex_code','stringlistsplitoptex_pre','stringlistsplitoptex_error','stringlistsplitoptex_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringlistsplitoptex_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringlistsplitoptex_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringlistsplitoptex_suffix" style="display:none">
+</pre>
+<pre id="stringlistsplitoptex_pre" class="active_out">
+
+</pre>
+
+<div id="stringlistsplitoptex_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice that the delimiter doesn&#8217;t appear in the result.</p>
+<p>The inverse of the <tt class="docutils literal"><span class="pre">split</span></tt> method is <tt class="docutils literal"><span class="pre">join</span></tt>.  You choose a
+desired <strong>separator</strong> string, (often called the <em>glue</em>)
+and join the list with the glue between each of the elements:</p>
+
+<div id="stringjoinex" class="pywindow" >
+
+<div id="stringjoinex_code_div" style="display: block">
+<textarea rows="4" id="stringjoinex_code" class="active_code" prefixcode="undefined">
+wds = ['The', 'rain', 'in', 'Spain...']
+glue = ';'
+s = glue.join(wds)
+print(s)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringjoinex_code'] = true;
+pythonTool.readOnlyFlags['stringjoinex_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringjoinex_runb" onclick="pythonTool.runit('stringjoinex_code','stringjoinex_pre','stringjoinex_error','stringjoinex_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringjoinex_code','stringjoinex_pre','stringjoinex_error','stringjoinex_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringjoinex_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringjoinex_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringjoinex_suffix" style="display:none">
+</pre>
+<pre id="stringjoinex_pre" class="active_out">
+
+</pre>
+
+<div id="stringjoinex_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The list that you glue together (<tt class="docutils literal"><span class="pre">wds</span></tt> in this example) is not modified.  Also, as these
+next examples show, you can use empty glue or multi-character strings as glue:</p>
+
+<div id="stringjoinweirdglue" class="pywindow" >
+
+<div id="stringjoinweirdglue_code_div" style="display: block">
+<textarea rows="10" id="stringjoinweirdglue_code" class="active_code" prefixcode="undefined">
+wds = ['The', 'rain', 'in', 'Spain...']
+glue1 = ' '
+s1 = glue1.join(wds)
+print(s1)
+glue2 = ' --- '
+s2 = glue2.join(wds)
+print(s2)
+glue3 = ''
+s3 = glue3.join(wds)
+print(s3)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringjoinweirdglue_code'] = true;
+pythonTool.readOnlyFlags['stringjoinweirdglue_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringjoinweirdglue_runb" onclick="pythonTool.runit('stringjoinweirdglue_code','stringjoinweirdglue_pre','stringjoinweirdglue_error','stringjoinweirdglue_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringjoinweirdglue_code','stringjoinweirdglue_pre','stringjoinweirdglue_error','stringjoinweirdglue_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringjoinweirdglue_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringjoinweirdglue_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringjoinweirdglue_suffix" style="display:none">
+</pre>
+<pre id="stringjoinweirdglue_pre" class="active_out">
+
+</pre>
+
+<div id="stringjoinweirdglue_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Python has a built-in type conversion function called
+<tt class="docutils literal"><span class="pre">list</span></tt> that tries to turn whatever you give it
+into a list.</p>
+
+<div id="wordtolistexample" class="pywindow" >
+
+<div id="wordtolistexample_code_div" style="display: block">
+<textarea rows="4" id="wordtolistexample_code" class="active_code" prefixcode="undefined">
+xs = list("Crunchy Frog")
+print(xs)
+phrase = "".join(xs)
+print(phrase)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['wordtolistexample_code'] = true;
+pythonTool.readOnlyFlags['wordtolistexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="wordtolistexample_runb" onclick="pythonTool.runit('wordtolistexample_code','wordtolistexample_pre','wordtolistexample_error','wordtolistexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('wordtolistexample_code','wordtolistexample_pre','wordtolistexample_error','wordtolistexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='wordtolistexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="wordtolistexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="wordtolistexample_suffix" style="display:none">
+</pre>
+<pre id="wordtolistexample_pre" class="active_out">
+
+</pre>
+
+<div id="wordtolistexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="nested-lists">
+<span id="index-15"></span><h2>8.13. Nested lists<a class="headerlink" href="#nested-lists" title="Permalink to this headline">¶</a></h2>
+<p>A nested list is a list that appears as an element in another list. In this
+list, the element with index 3 is a nested list:</p>
+
+<div id="nestedlistdeclaration" class="pywindow" >
+
+<div id="nestedlistdeclaration_code_div" style="display: block">
+<textarea rows="1" id="nestedlistdeclaration_code" class="active_code" prefixcode="undefined">
+nested = ["hello", 2.0, 5, [10, 20]]</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['nestedlistdeclaration_code'] = false;
+pythonTool.readOnlyFlags['nestedlistdeclaration_code'] = true;
+</script>
+
+<div id='nestedlistdeclaration_error'></div>
+<pre id="nestedlistdeclaration_suffix" style="display:none">
+</pre>
+</div>
+
+<p>If we output the element at index 3, we get:</p>
+
+<div id="nestedlistusage" class="pywindow" >
+
+<div id="nestedlistusage_code_div" style="display: block">
+<textarea rows="2" id="nestedlistusage_code" class="active_code" prefixcode="undefined">
+nested = ["hello", 2.0, 5, [10, 20]]
+print(nested[3])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['nestedlistusage_code'] = true;
+pythonTool.readOnlyFlags['nestedlistusage_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="nestedlistusage_runb" onclick="pythonTool.runit('nestedlistusage_code','nestedlistusage_pre','nestedlistusage_error','nestedlistusage_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('nestedlistusage_code','nestedlistusage_pre','nestedlistusage_error','nestedlistusage_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='nestedlistusage_error'></div>
+
+<div style="text-align: center">
+<canvas id="nestedlistusage_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="nestedlistusage_suffix" style="display:none">
+</pre>
+<pre id="nestedlistusage_pre" class="active_out">
+
+</pre>
+
+<div id="nestedlistusage_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>To extract an element from the nested list, we can proceed in two steps:</p>
+
+<div id="nestedlistevallong" class="pywindow" >
+
+<div id="nestedlistevallong_code_div" style="display: block">
+<textarea rows="3" id="nestedlistevallong_code" class="active_code" prefixcode="undefined">
+nested = ["hello", 2.0, 5, [10, 20]]
+elem = nested[3]
+print(elem[1])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['nestedlistevallong_code'] = true;
+pythonTool.readOnlyFlags['nestedlistevallong_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="nestedlistevallong_runb" onclick="pythonTool.runit('nestedlistevallong_code','nestedlistevallong_pre','nestedlistevallong_error','nestedlistevallong_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('nestedlistevallong_code','nestedlistevallong_pre','nestedlistevallong_error','nestedlistevallong_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='nestedlistevallong_error'></div>
+
+<div style="text-align: center">
+<canvas id="nestedlistevallong_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="nestedlistevallong_suffix" style="display:none">
+</pre>
+<pre id="nestedlistevallong_pre" class="active_out">
+
+</pre>
+
+<div id="nestedlistevallong_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Or we can combine them:</p>
+
+<div id="nestedlistevalquick" class="pywindow" >
+
+<div id="nestedlistevalquick_code_div" style="display: block">
+<textarea rows="2" id="nestedlistevalquick_code" class="active_code" prefixcode="undefined">
+nested = ["hello", 2.0, 5, [10, 20]]
+print(nested[3][1])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['nestedlistevalquick_code'] = true;
+pythonTool.readOnlyFlags['nestedlistevalquick_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="nestedlistevalquick_runb" onclick="pythonTool.runit('nestedlistevalquick_code','nestedlistevalquick_pre','nestedlistevalquick_error','nestedlistevalquick_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('nestedlistevalquick_code','nestedlistevalquick_pre','nestedlistevalquick_error','nestedlistevalquick_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='nestedlistevalquick_error'></div>
+
+<div style="text-align: center">
+<canvas id="nestedlistevalquick_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="nestedlistevalquick_suffix" style="display:none">
+</pre>
+<pre id="nestedlistevalquick_pre" class="active_out">
+
+</pre>
+
+<div id="nestedlistevalquick_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Bracket operators evaluate from left to right, so this expression gets the
+3&#8217;th element of <tt class="docutils literal"><span class="pre">nested</span></tt> and extracts the 1&#8217;th element from it.</p>
+<p>Nested lists are often used to represent matrices. For example, the matrix:</p>
+<blockquote>
+<div><img alt="_images/matrix2.png" src="_images/matrix2.png" />
+</div></blockquote>
+<p>might be represented as:</p>
+
+<div id="matrixdeclaration" class="pywindow" >
+
+<div id="matrixdeclaration_code_div" style="display: block">
+<textarea rows="1" id="matrixdeclaration_code" class="active_code" prefixcode="undefined">
+mx = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['matrixdeclaration_code'] = false;
+pythonTool.readOnlyFlags['matrixdeclaration_code'] = true;
+</script>
+
+<div id='matrixdeclaration_error'></div>
+<pre id="matrixdeclaration_suffix" style="display:none">
+</pre>
+</div>
+
+<p><tt class="docutils literal"><span class="pre">mx</span></tt> is a list with three elements, where each element is a row of the
+matrix. We can select an entire row from the matrix in the usual way:</p>
+
+<div id="matrixrow" class="pywindow" >
+
+<div id="matrixrow_code_div" style="display: block">
+<textarea rows="2" id="matrixrow_code" class="active_code" prefixcode="undefined">
+mx = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(mx[1])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['matrixrow_code'] = true;
+pythonTool.readOnlyFlags['matrixrow_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="matrixrow_runb" onclick="pythonTool.runit('matrixrow_code','matrixrow_pre','matrixrow_error','matrixrow_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('matrixrow_code','matrixrow_pre','matrixrow_error','matrixrow_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='matrixrow_error'></div>
+
+<div style="text-align: center">
+<canvas id="matrixrow_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="matrixrow_suffix" style="display:none">
+</pre>
+<pre id="matrixrow_pre" class="active_out">
+
+</pre>
+
+<div id="matrixrow_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Or we can extract a single element from the matrix using the double-index form:</p>
+
+<div id="matrixelement" class="pywindow" >
+
+<div id="matrixelement_code_div" style="display: block">
+<textarea rows="2" id="matrixelement_code" class="active_code" prefixcode="undefined">
+mx = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(mx[1][2])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['matrixelement_code'] = true;
+pythonTool.readOnlyFlags['matrixelement_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="matrixelement_runb" onclick="pythonTool.runit('matrixelement_code','matrixelement_pre','matrixelement_error','matrixelement_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('matrixelement_code','matrixelement_pre','matrixelement_error','matrixelement_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='matrixelement_error'></div>
+
+<div style="text-align: center">
+<canvas id="matrixelement_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="matrixelement_suffix" style="display:none">
+</pre>
+<pre id="matrixelement_pre" class="active_out">
+
+</pre>
+
+<div id="matrixelement_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The first index selects the row, and the second index selects the column.
+Although this way of representing matrices is common, it is not the only
+possibility. A small variation is to use a list of columns instead of a list of
+rows. Later we will see a more radical alternative using a dictionary.</p>
+</div>
+<div class="section" id="glossary">
+<span id="index-16"></span><h2>8.14. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-aliases">aliases</dt>
+<dd>Multiple variables that contain references to the same object.</dd>
+<dt id="term-clone">clone</dt>
+<dd>To create a new object that has the same value as an existing object.
+Copying a reference to an object creates an alias but doesn&#8217;t clone the
+object.</dd>
+<dt id="term-data-structure">data structure</dt>
+<dd>An organization of data for the purpose of making it easier to use.</dd>
+<dt id="term-delimiter">delimiter</dt>
+<dd>A character or string used to indicate where a string should be split.</dd>
+<dt id="term-element">element</dt>
+<dd>One of the values in a list (or other sequence). The bracket operator
+selects elements of a list.  Also called <em>item</em>.</dd>
+<dt id="term-immutable-data-value">immutable data value</dt>
+<dd>A data value which cannot be modified.  Assignments to elements or
+slices (sub-parts) of immutable values cause a runtime error.</dd>
+<dt id="term-index">index</dt>
+<dd>An integer value that indicates the position of an item in a list.
+Indexes start from 0.</dd>
+<dt id="term-item">item</dt>
+<dd>See <em>element</em>.</dd>
+<dt id="term-list">list</dt>
+<dd>A collection of values, each in a fixed position within the list.
+Like other types <tt class="docutils literal"><span class="pre">str</span></tt>, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt>, etc. there is also a
+<tt class="docutils literal"><span class="pre">list</span></tt> type-converter function that tries to turn whatever argument
+you give it into a list.</dd>
+<dt id="term-list-traversal">list traversal</dt>
+<dd>The sequential accessing of each element in a list.</dd>
+<dt id="term-modifier">modifier</dt>
+<dd>A function which changes its arguments inside the function body. Only
+mutable types can be changed by modifiers.</dd>
+<dt id="term-mutable-data-value">mutable data value</dt>
+<dd>A data value which can be modified. The types of all mutable values
+are compound types.  Lists and dictionaries are mutable; strings
+and tuples are not.</dd>
+<dt id="term-nested-list">nested list</dt>
+<dd>A list that is an element of another list.</dd>
+<dt id="term-object">object</dt>
+<dd>A thing to which a variable can refer.</dd>
+<dt id="term-pattern">pattern</dt>
+<dd>A sequence of statements, or a style of coding something that has
+general applicability in a number of different situations.  Part of
+becoming a mature Computer Scientist is to learn and establish the
+patterns and algorithms that form your toolkit.  Patterns often
+correspond to your &#8220;mental chunking&#8221;.</dd>
+<dt id="term-promise">promise</dt>
+<dd>An object that promises to do some work or deliver some values if
+they&#8217;re eventually needed, but it lazily puts off doing the work immediately.
+Calling <tt class="docutils literal"><span class="pre">range</span></tt> produces a promise.</dd>
+<dt id="term-pure-function">pure function</dt>
+<dd>A function which has no side effects. Pure functions only make changes
+to the calling program through their return values.</dd>
+<dt id="term-sequence">sequence</dt>
+<dd>Any of the data types that consist of an ordered collection of elements, with
+each element identified by an index.</dd>
+<dt id="term-side-effect">side effect</dt>
+<dd>A change in the state of a program made by calling a function. Side
+effects can only be produced by modifiers.</dd>
+<dt id="term-step-size">step size</dt>
+<dd>The interval between successive elements of a linear sequence. The
+third (and optional argument) to the <tt class="docutils literal"><span class="pre">range</span></tt> function is called the
+step size.  If not specified, it defaults to 1.</dd>
+<dt id="term-tuple">tuple</dt>
+<dd>An immutable data value that contains related elements. Tuples are used
+to group together related data, such as a person&#8217;s name, their age,
+and their gender.</dd>
+<dt id="term-tuple-assignment">tuple assignment</dt>
+<dd>An assignment to all of the elements in a tuple using a single
+assignment statement. Tuple assignment occurs <em>simultaneously</em> rather than
+in sequence, making it useful for swapping values.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="files.html" title="9. Files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="strings.html" title="7. Strings"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>10. Dictionaries &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="GNU Free Documentation License" href="fdl-1.3.html" />
+    <link rel="prev" title="9. Files" href="files.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="files.html" title="9. Files"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="dictionaries">
+<h1>10. Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><p>All of the compound data types we have studied in detail so far &#8212; strings,
+lists, and tuples &#8212; are sequence types, which use integers as indices to access
+the values they contain within them.</p>
+<p><strong>Dictionaries</strong> are yet another kind of compound type. They are Python&#8217;s
+built-in <strong>mapping type</strong>. They map <strong>keys</strong>, which can be any immutable type,
+to <strong>values</strong>, which can be any type (heterogeneous), just like the elements
+of a list or tuple. In other programming languages, they are called <em>associative
+arrays</em> since they associate a key with a value.</p>
+<p>As an example, we will create a dictionary to translate English words into
+Spanish. For this dictionary, the keys are strings.</p>
+<p>One way to create a dictionary is to start with the empty dictionary and add
+<strong>key:value pairs</strong>. The empty dictionary is denoted <tt class="docutils literal"><span class="pre">{}</span></tt>:</p>
+
+<div id="dictexampledef" class="pywindow" >
+
+<div id="dictexampledef_code_div" style="display: block">
+<textarea rows="3" id="dictexampledef_code" class="active_code" prefixcode="undefined">
+eng2sp = {}
+eng2sp["one"] = "uno"
+eng2sp["two"] = "dos"</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictexampledef_code'] = false;
+pythonTool.readOnlyFlags['dictexampledef_code'] = true;
+</script>
+
+<div id='dictexampledef_error'></div>
+<pre id="dictexampledef_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The first assignment creates a dictionary named <tt class="docutils literal"><span class="pre">eng2sp</span></tt>; the other
+assignments add new key:value pairs to the dictionary. We can print the current
+value of the dictionary in the usual way:</p>
+
+<div id="dictexampleoutput" class="pywindow" >
+
+<div id="dictexampleoutput_code_div" style="display: block">
+<textarea rows="4" id="dictexampleoutput_code" class="active_code" prefixcode="undefined">
+eng2sp = {}
+eng2sp["one"] = "uno"
+eng2sp["two"] = "dos"
+print(eng2sp)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictexampleoutput_code'] = true;
+pythonTool.readOnlyFlags['dictexampleoutput_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictexampleoutput_runb" onclick="pythonTool.runit('dictexampleoutput_code','dictexampleoutput_pre','dictexampleoutput_error','dictexampleoutput_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexampleoutput_code','dictexampleoutput_pre','dictexampleoutput_error','dictexampleoutput_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictexampleoutput_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictexampleoutput_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictexampleoutput_suffix" style="display:none">
+</pre>
+<pre id="dictexampleoutput_pre" class="active_out">
+
+</pre>
+
+<div id="dictexampleoutput_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The key:value pairs of the dictionary are separated by commas. Each pair
+contains a key and a value separated by a colon.</p>
+<p>Another way to create a dictionary is to provide a list of key:value pairs
+using the same syntax as the previous output:</p>
+
+<div id="dictexampleallatonce" class="pywindow" >
+
+<div id="dictexampleallatonce_code_div" style="display: block">
+<textarea rows="2" id="dictexampleallatonce_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictexampleallatonce_code'] = true;
+pythonTool.readOnlyFlags['dictexampleallatonce_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictexampleallatonce_runb" onclick="pythonTool.runit('dictexampleallatonce_code','dictexampleallatonce_pre','dictexampleallatonce_error','dictexampleallatonce_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexampleallatonce_code','dictexampleallatonce_pre','dictexampleallatonce_error','dictexampleallatonce_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictexampleallatonce_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictexampleallatonce_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictexampleallatonce_suffix" style="display:none">
+</pre>
+<pre id="dictexampleallatonce_pre" class="active_out">
+
+</pre>
+
+<div id="dictexampleallatonce_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It doesn&#8217;t matter what order we write the pairs. The values in a dictionary are
+accessed with keys, not with indices, so there is no need to care about
+ordering.</p>
+<p>Here is how we use a key to look up the corresponding value:</p>
+
+<div id="dictexamplelookup" class="pywindow" >
+
+<div id="dictexamplelookup_code_div" style="display: block">
+<textarea rows="2" id="dictexamplelookup_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp["two"])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictexamplelookup_code'] = true;
+pythonTool.readOnlyFlags['dictexamplelookup_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictexamplelookup_runb" onclick="pythonTool.runit('dictexamplelookup_code','dictexamplelookup_pre','dictexamplelookup_error','dictexamplelookup_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexamplelookup_code','dictexamplelookup_pre','dictexamplelookup_error','dictexamplelookup_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictexamplelookup_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictexamplelookup_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictexamplelookup_suffix" style="display:none">
+</pre>
+<pre id="dictexamplelookup_pre" class="active_out">
+
+</pre>
+
+<div id="dictexamplelookup_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The key <tt class="docutils literal"><span class="pre">&quot;two&quot;</span></tt> yields the value <tt class="docutils literal"><span class="pre">&quot;dos&quot;</span></tt>.</p>
+<p>Lists, tuples, and strings have been called <em>sequences</em>, because their items
+occur in order.  The dictionary is the first compound type that we&#8217;ve
+seen that is not a sequence, so we can&#8217;t index or slice a dictionary.</p>
+<div class="section" id="dictionary-operations">
+<span id="index-1"></span><h2>10.1. Dictionary operations<a class="headerlink" href="#dictionary-operations" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">del</span></tt> statement removes a key:value pair from a dictionary. For example,
+the following dictionary contains the names of various fruits and the number of
+each fruit in stock:</p>
+
+<div id="dictfruitexample" class="pywindow" >
+
+<div id="dictfruitexample_code_div" style="display: block">
+<textarea rows="2" id="dictfruitexample_code" class="active_code" prefixcode="undefined">
+inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+print(inventory)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictfruitexample_code'] = true;
+pythonTool.readOnlyFlags['dictfruitexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitexample_runb" onclick="pythonTool.runit('dictfruitexample_code','dictfruitexample_pre','dictfruitexample_error','dictfruitexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitexample_code','dictfruitexample_pre','dictfruitexample_error','dictfruitexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictfruitexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictfruitexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictfruitexample_suffix" style="display:none">
+</pre>
+<pre id="dictfruitexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictfruitexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If someone buys all of the pears, we can remove the entry from the dictionary:</p>
+
+<div id="dictfruitdelexample" class="pywindow" >
+
+<div id="dictfruitdelexample_code_div" style="display: block">
+<textarea rows="4" id="dictfruitdelexample_code" class="active_code" prefixcode="undefined">
+inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+print(inventory)
+del inventory["pears"]
+print(inventory)  # now there are no pears</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictfruitdelexample_code'] = true;
+pythonTool.readOnlyFlags['dictfruitdelexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitdelexample_runb" onclick="pythonTool.runit('dictfruitdelexample_code','dictfruitdelexample_pre','dictfruitdelexample_error','dictfruitdelexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitdelexample_code','dictfruitdelexample_pre','dictfruitdelexample_error','dictfruitdelexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictfruitdelexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictfruitdelexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictfruitdelexample_suffix" style="display:none">
+</pre>
+<pre id="dictfruitdelexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictfruitdelexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Or if we&#8217;re expecting more pears soon, we might just change the value
+associated with pears:</p>
+
+<div id="dictfruitzeroexample" class="pywindow" >
+
+<div id="dictfruitzeroexample_code_div" style="display: block">
+<textarea rows="4" id="dictfruitzeroexample_code" class="active_code" prefixcode="undefined">
+inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+print(inventory)
+inventory["pears"] = 0
+print(inventory)  # now there are 0 pears</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictfruitzeroexample_code'] = true;
+pythonTool.readOnlyFlags['dictfruitzeroexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitzeroexample_runb" onclick="pythonTool.runit('dictfruitzeroexample_code','dictfruitzeroexample_pre','dictfruitzeroexample_error','dictfruitzeroexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitzeroexample_code','dictfruitzeroexample_pre','dictfruitzeroexample_error','dictfruitzeroexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictfruitzeroexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictfruitzeroexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictfruitzeroexample_suffix" style="display:none">
+</pre>
+<pre id="dictfruitzeroexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictfruitzeroexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>A new shipment of bananas arriving could be handled like this:</p>
+
+<div id="dictfruitincexample" class="pywindow" >
+
+<div id="dictfruitincexample_code_div" style="display: block">
+<textarea rows="4" id="dictfruitincexample_code" class="active_code" prefixcode="undefined">
+inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+print(inventory)
+inventory["bananas"] += 200
+print(inventory)  # now there are more bananas</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictfruitincexample_code'] = true;
+pythonTool.readOnlyFlags['dictfruitincexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitincexample_runb" onclick="pythonTool.runit('dictfruitincexample_code','dictfruitincexample_pre','dictfruitincexample_error','dictfruitincexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitincexample_code','dictfruitincexample_pre','dictfruitincexample_error','dictfruitincexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictfruitincexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictfruitincexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictfruitincexample_suffix" style="display:none">
+</pre>
+<pre id="dictfruitincexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictfruitincexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">len</span></tt> function also works on dictionaries; it returns the number
+of key:value pairs:</p>
+
+<div id="dictfruitlenexample" class="pywindow" >
+
+<div id="dictfruitlenexample_code_div" style="display: block">
+<textarea rows="2" id="dictfruitlenexample_code" class="active_code" prefixcode="undefined">
+inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+print(len(inventory))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictfruitlenexample_code'] = true;
+pythonTool.readOnlyFlags['dictfruitlenexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitlenexample_runb" onclick="pythonTool.runit('dictfruitlenexample_code','dictfruitlenexample_pre','dictfruitlenexample_error','dictfruitlenexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitlenexample_code','dictfruitlenexample_pre','dictfruitlenexample_error','dictfruitlenexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictfruitlenexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictfruitlenexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictfruitlenexample_suffix" style="display:none">
+</pre>
+<pre id="dictfruitlenexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictfruitlenexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="dictionary-methods">
+<h2>10.2. Dictionary methods<a class="headerlink" href="#dictionary-methods" title="Permalink to this headline">¶</a></h2>
+<p>Dictionaries have a number of useful built-in methods.</p>
+<p>The <tt class="docutils literal"><span class="pre">keys</span></tt> method returns what Python 3 calls a <strong>view</strong> of its underlying keys.
+A view object has some similarities to the <tt class="docutils literal"><span class="pre">range</span></tt> object we saw earlier &#8212;
+it is a lazy promise, to deliver its elements when they&#8217;re needed by the
+rest of the program.  We can iterate over the view, or turn the view into a
+list like this:</p>
+
+<div id="dictexamplekeys" class="pywindow" >
+
+<div id="dictexamplekeys_code_div" style="display: block">
+<textarea rows="7" id="dictexamplekeys_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+
+for k in eng2sp.keys():   # The order of the k's is not defined
+    print("Got key "+str(k)+" which maps to value "+str(eng2sp[k]))
+
+ks = list(eng2sp.keys())
+print(ks)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictexamplekeys_code'] = true;
+pythonTool.readOnlyFlags['dictexamplekeys_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictexamplekeys_runb" onclick="pythonTool.runit('dictexamplekeys_code','dictexamplekeys_pre','dictexamplekeys_error','dictexamplekeys_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexamplekeys_code','dictexamplekeys_pre','dictexamplekeys_error','dictexamplekeys_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictexamplekeys_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictexamplekeys_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictexamplekeys_suffix" style="display:none">
+</pre>
+<pre id="dictexamplekeys_pre" class="active_out">
+
+</pre>
+
+<div id="dictexamplekeys_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It is so common to iterate over the keys in a dictionary that we can
+omit the <tt class="docutils literal"><span class="pre">keys</span></tt> method call in the <tt class="docutils literal"><span class="pre">for</span></tt> loop &#8212; iterating over
+a dictionary implicitly iterates over its keys:</p>
+
+<div id="dictloopkeys" class="pywindow" >
+
+<div id="dictloopkeys_code_div" style="display: block">
+<textarea rows="4" id="dictloopkeys_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+
+for k in eng2sp:   # loop over keys of eng2sp
+    print("Got key "+str(k)+" which maps to value "+str(eng2sp[k]))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictloopkeys_code'] = true;
+pythonTool.readOnlyFlags['dictloopkeys_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictloopkeys_runb" onclick="pythonTool.runit('dictloopkeys_code','dictloopkeys_pre','dictloopkeys_error','dictloopkeys_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictloopkeys_code','dictloopkeys_pre','dictloopkeys_error','dictloopkeys_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictloopkeys_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictloopkeys_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictloopkeys_suffix" style="display:none">
+</pre>
+<pre id="dictloopkeys_pre" class="active_out">
+
+</pre>
+
+<div id="dictloopkeys_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">values</span></tt> method is similar; it returns a view object which can be turned
+into a list:</p>
+
+<div id="dictprintvalues" class="pywindow" >
+
+<div id="dictprintvalues_code_div" style="display: block">
+<textarea rows="2" id="dictprintvalues_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp.values())</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictprintvalues_code'] = true;
+pythonTool.readOnlyFlags['dictprintvalues_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictprintvalues_runb" onclick="pythonTool.runit('dictprintvalues_code','dictprintvalues_pre','dictprintvalues_error','dictprintvalues_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictprintvalues_code','dictprintvalues_pre','dictprintvalues_error','dictprintvalues_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictprintvalues_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictprintvalues_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictprintvalues_suffix" style="display:none">
+</pre>
+<pre id="dictprintvalues_pre" class="active_out">
+
+</pre>
+
+<div id="dictprintvalues_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">items</span></tt> method also returns a view, which promises a list of tuples &#8212; one
+tuple for each key:value pair:</p>
+
+<div id="dictprintpairs" class="pywindow" >
+
+<div id="dictprintpairs_code_div" style="display: block">
+<textarea rows="2" id="dictprintpairs_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp.items())</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictprintpairs_code'] = true;
+pythonTool.readOnlyFlags['dictprintpairs_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictprintpairs_runb" onclick="pythonTool.runit('dictprintpairs_code','dictprintpairs_pre','dictprintpairs_error','dictprintpairs_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictprintpairs_code','dictprintpairs_pre','dictprintpairs_error','dictprintpairs_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictprintpairs_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictprintpairs_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictprintpairs_suffix" style="display:none">
+</pre>
+<pre id="dictprintpairs_pre" class="active_out">
+
+</pre>
+
+<div id="dictprintpairs_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Tuples are often useful for getting both the key and the value at the same
+time while we are looping:</p>
+
+<div id="dictforlooppairs" class="pywindow" >
+
+<div id="dictforlooppairs_code_div" style="display: block">
+<textarea rows="3" id="dictforlooppairs_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+for (k,v) in eng2sp.items():
+    print("Got "+str(k)+" that maps to "+str(v))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictforlooppairs_code'] = true;
+pythonTool.readOnlyFlags['dictforlooppairs_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictforlooppairs_runb" onclick="pythonTool.runit('dictforlooppairs_code','dictforlooppairs_pre','dictforlooppairs_error','dictforlooppairs_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictforlooppairs_code','dictforlooppairs_pre','dictforlooppairs_error','dictforlooppairs_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictforlooppairs_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictforlooppairs_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictforlooppairs_suffix" style="display:none">
+</pre>
+<pre id="dictforlooppairs_pre" class="active_out">
+
+</pre>
+
+<div id="dictforlooppairs_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">in</span></tt> and <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> operators can test if a key is in the dictionary:</p>
+
+<div id="dictkeytest" class="pywindow" >
+
+<div id="dictkeytest_code_div" style="display: block">
+<textarea rows="4" id="dictkeytest_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print("one" in eng2sp)  # should be True
+print("six" in eng2sp)  # should be False
+print("tres" in eng2sp) # should be False -- only looks at keys</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictkeytest_code'] = true;
+pythonTool.readOnlyFlags['dictkeytest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictkeytest_runb" onclick="pythonTool.runit('dictkeytest_code','dictkeytest_pre','dictkeytest_error','dictkeytest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictkeytest_code','dictkeytest_pre','dictkeytest_error','dictkeytest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictkeytest_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictkeytest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictkeytest_suffix" style="display:none">
+</pre>
+<pre id="dictkeytest_pre" class="active_out">
+
+</pre>
+
+<div id="dictkeytest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Looking up a non-existent key in a dictionary causes a runtime error:</p>
+
+<div id="dictkeyerror" class="pywindow" >
+
+<div id="dictkeyerror_code_div" style="display: block">
+<textarea rows="2" id="dictkeyerror_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp["dog"])   # will generate an error since "dog" is not a key</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictkeyerror_code'] = true;
+pythonTool.readOnlyFlags['dictkeyerror_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictkeyerror_runb" onclick="pythonTool.runit('dictkeyerror_code','dictkeyerror_pre','dictkeyerror_error','dictkeyerror_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictkeyerror_code','dictkeyerror_pre','dictkeyerror_error','dictkeyerror_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictkeyerror_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictkeyerror_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictkeyerror_suffix" style="display:none">
+</pre>
+<pre id="dictkeyerror_pre" class="active_out">
+
+</pre>
+
+<div id="dictkeyerror_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We can get around this error by using the <tt class="docutils literal"><span class="pre">get</span></tt> method. This method will return the associated value if the key is in the dictionary, but we can tell it to return something else if the key is not in the dictionary:</p>
+
+<div id="dictgetexample" class="pywindow" >
+
+<div id="dictgetexample_code_div" style="display: block">
+<textarea rows="3" id="dictgetexample_code" class="active_code" prefixcode="undefined">
+eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+print(eng2sp.get("three","Not in dictionary!"))  # will print three's value
+print(eng2sp.get("dog","Not in dictionary!"))   # will print the message</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictgetexample_code'] = true;
+pythonTool.readOnlyFlags['dictgetexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictgetexample_runb" onclick="pythonTool.runit('dictgetexample_code','dictgetexample_pre','dictgetexample_error','dictgetexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictgetexample_code','dictgetexample_pre','dictgetexample_error','dictgetexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictgetexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictgetexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictgetexample_suffix" style="display:none">
+</pre>
+<pre id="dictgetexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictgetexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="aliasing-and-copying">
+<span id="index-2"></span><h2>10.3. Aliasing and copying<a class="headerlink" href="#aliasing-and-copying" title="Permalink to this headline">¶</a></h2>
+<p>As in the case of lists, because dictionaries are mutable, we need to be
+aware of aliasing.  Whenever
+two variables refer to the same object, changes to one affect the other.</p>
+<p>If we want to modify a dictionary and keep a copy of the original, use the
+<tt class="docutils literal"><span class="pre">copy</span></tt> method. For example, <tt class="docutils literal"><span class="pre">opposites</span></tt> is a dictionary that contains pairs
+of opposites:</p>
+
+<div id="dictaliasexample" class="pywindow" >
+
+<div id="dictaliasexample_code_div" style="display: block">
+<textarea rows="3" id="dictaliasexample_code" class="active_code" prefixcode="undefined">
+opposites = {"up": "down", "right": "wrong", "yes": "no"}
+alias = opposites
+copy = opposites.copy()  # Shallow copy</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictaliasexample_code'] = false;
+pythonTool.readOnlyFlags['dictaliasexample_code'] = true;
+</script>
+
+<div id='dictaliasexample_error'></div>
+<pre id="dictaliasexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p><tt class="docutils literal"><span class="pre">alias</span></tt> and <tt class="docutils literal"><span class="pre">opposites</span></tt> refer to the same object; <tt class="docutils literal"><span class="pre">copy</span></tt> refers to a
+fresh copy of the same dictionary. If we modify <tt class="docutils literal"><span class="pre">alias</span></tt>, <tt class="docutils literal"><span class="pre">opposites</span></tt> is
+also changed:</p>
+
+<div id="dictchangedexample" class="pywindow" >
+
+<div id="dictchangedexample_code_div" style="display: block">
+<textarea rows="5" id="dictchangedexample_code" class="active_code" prefixcode="undefined">
+opposites = {"up": "down", "right": "wrong", "yes": "no"}
+alias = opposites
+alias["right"] = "left"
+print(alias)
+print(opposites)  # changing the alias also changed the original</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictchangedexample_code'] = true;
+pythonTool.readOnlyFlags['dictchangedexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictchangedexample_runb" onclick="pythonTool.runit('dictchangedexample_code','dictchangedexample_pre','dictchangedexample_error','dictchangedexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictchangedexample_code','dictchangedexample_pre','dictchangedexample_error','dictchangedexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictchangedexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictchangedexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictchangedexample_suffix" style="display:none">
+</pre>
+<pre id="dictchangedexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictchangedexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If we modify <tt class="docutils literal"><span class="pre">copy</span></tt>, <tt class="docutils literal"><span class="pre">opposites</span></tt> is unchanged:</p>
+
+<div id="dictunchangedexample" class="pywindow" >
+
+<div id="dictunchangedexample_code_div" style="display: block">
+<textarea rows="5" id="dictunchangedexample_code" class="active_code" prefixcode="undefined">
+opposites = {"up": "down", "right": "wrong", "yes": "no"}
+copy = opposites.copy()
+copy["right"] = "left"
+print(copy)
+print(opposites)  # changing the copy did not change the original</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['dictunchangedexample_code'] = true;
+pythonTool.readOnlyFlags['dictunchangedexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="dictunchangedexample_runb" onclick="pythonTool.runit('dictunchangedexample_code','dictunchangedexample_pre','dictunchangedexample_error','dictunchangedexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictunchangedexample_code','dictunchangedexample_pre','dictunchangedexample_error','dictunchangedexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='dictunchangedexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="dictunchangedexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="dictunchangedexample_suffix" style="display:none">
+</pre>
+<pre id="dictunchangedexample_pre" class="active_out">
+
+</pre>
+
+<div id="dictunchangedexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="counting-letters">
+<h2>10.4. Counting letters<a class="headerlink" href="#counting-letters" title="Permalink to this headline">¶</a></h2>
+<p>Given a string, we might wish to compute a
+<strong>frequency table</strong> of the letters in the string &#8212; that is, how many times each letter
+appears.</p>
+<p>Such a frequency table might be useful for compressing a text file. Because different
+letters appear with different frequencies, we can compress a file by using
+shorter codes for common letters and longer codes for letters that appear less
+frequently.</p>
+<p>Dictionaries provide an elegant way to generate a frequency table:</p>
+
+<div id="freqtable" class="pywindow" >
+
+<div id="freqtable_code_div" style="display: block">
+<textarea rows="4" id="freqtable_code" class="active_code" prefixcode="undefined">
+letterCounts = {}
+for letter in "Mississippi":
+    letterCounts[letter] = letterCounts.get(letter, 0) + 1
+print(letterCounts)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['freqtable_code'] = true;
+pythonTool.readOnlyFlags['freqtable_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="freqtable_runb" onclick="pythonTool.runit('freqtable_code','freqtable_pre','freqtable_error','freqtable_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('freqtable_code','freqtable_pre','freqtable_error','freqtable_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='freqtable_error'></div>
+
+<div style="text-align: center">
+<canvas id="freqtable_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="freqtable_suffix" style="display:none">
+</pre>
+<pre id="freqtable_pre" class="active_out">
+
+</pre>
+
+<div id="freqtable_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We start with an empty dictionary. For each letter in the string, we find the
+current count (possibly zero) and increment it. At the end, the dictionary
+contains pairs of letters and their frequencies.</p>
+<p>It might be more appealing to display the frequency table in alphabetical order. We
+can do that with the <tt class="docutils literal"><span class="pre">items</span></tt> and <tt class="docutils literal"><span class="pre">sort</span></tt> methods:</p>
+
+<div id="freqtablesorted" class="pywindow" >
+
+<div id="freqtablesorted_code_div" style="display: block">
+<textarea rows="6" id="freqtablesorted_code" class="active_code" prefixcode="undefined">
+letterCounts = {}
+for letter in "Mississippi":
+    letterCounts[letter] = letterCounts.get(letter, 0) + 1
+letterItems = list(letterCounts.items())
+letterItems.sort()
+print(letterItems)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['freqtablesorted_code'] = true;
+pythonTool.readOnlyFlags['freqtablesorted_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="freqtablesorted_runb" onclick="pythonTool.runit('freqtablesorted_code','freqtablesorted_pre','freqtablesorted_error','freqtablesorted_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('freqtablesorted_code','freqtablesorted_pre','freqtablesorted_error','freqtablesorted_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='freqtablesorted_error'></div>
+
+<div style="text-align: center">
+<canvas id="freqtablesorted_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="freqtablesorted_suffix" style="display:none">
+</pre>
+<pre id="freqtablesorted_pre" class="active_out">
+
+</pre>
+
+<div id="freqtablesorted_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice in the first line we had to call the type conversion function <tt class="docutils literal"><span class="pre">list</span></tt>.
+That turns the promise we get from <tt class="docutils literal"><span class="pre">items</span></tt> into a list, a step that is
+needed before we can use the list&#8217;s <tt class="docutils literal"><span class="pre">sort</span></tt> method.</p>
+</div>
+<div class="section" id="glossary">
+<h2>10.5. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-dictionary">dictionary</dt>
+<dd>A collection of key:value pairs that maps from keys to values. The keys
+can be any immutable value, and the associated value can be of any type.</dd>
+<dt id="term-immutable-data-value">immutable data value</dt>
+<dd>A data value which cannot be modified.  Assignments to elements or
+slices (sub-parts) of immutable values cause a runtime error.</dd>
+<dt id="term-key">key</dt>
+<dd>A data item that is <em>mapped to</em> a value in a dictionary. Keys are used
+to look up values in a dictionary. Each key must be unique
+across the dictionary.</dd>
+<dt id="term-key-value-pair">key:value pair</dt>
+<dd>One of the pairs of items in a dictionary. Values are looked up in a
+dictionary by key.</dd>
+<dt id="term-mapping-type">mapping type</dt>
+<dd>A mapping type is a data type comprised of a collection of keys and
+associated values. Python&#8217;s only built-in mapping type is the
+dictionary.  Dictionaries implement the
+<a class="reference external" href="http://en.wikipedia.org/wiki/Associative_array">associative array</a>
+abstract data type.</dd>
+<dt id="term-mutable-data-value">mutable data value</dt>
+<dd>A data value which can be modified. The types of all mutable values
+are compound types.  Lists and dictionaries are mutable; strings
+and tuples are not.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="files.html" title="9. Files"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

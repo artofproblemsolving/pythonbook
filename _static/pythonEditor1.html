@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Python Editor</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
+	<link rel="stylesheet" href="codemirrorEdited.css">
+	<style type="text/css">
+		.error {background-color:#fdd;}
+	</style>
+	<script src="codemirror.js" type="text/javascript"></script> 
+	<script src="python.js" type="text/javascript"></script> 
+	<script src="matchbrackets.js" type="text/javascript"></script> 
+	<script src="active-line.js" type="text/javascript"></script> 
+	<script src="skulpt.min.js" type="text/javascript"></script> 
+	<script src="skulpt-stdlib.js" type="text/javascript"></script> 
+
+	<script src="aopsmods.js" type="text/javascript"></script>
+</head>
+<body>
+	
+	<header>
+		<nav>
+		</nav>
+	</header>
+	
+	<section id="contents">
+		<h3>Try This</h3> 
+
+		<form> 
+		<textarea id="yourcode" class="active_code" prefixcode="undefined" cols="40" rows="10">import turtle
+t = turtle.Turtle()
+# comment comment
+"""string string string"""
+for c in ['red', 'green', 'yellow', 'blue']:
+    t.color(c)
+    t.forward(75)
+    t.left(90)
+
+print "Hello World"
+
+print("My first program adds two numbers, 2 and 3:")
+print(2 + 3)
+print(6/4)
+print(6//4)
+a = 5
+b = 2
+a /= b
+print(a)
+print("Hi.  This / might be an issue.")
+print([1,2,3])
+print(range(1,5))</textarea><br /> 
+		<button type="button" onclick="runit('yourcode','output','myErrorDiv','mycanvas')">Run</button> 
+		</form> 
+		<pre id="output" style="background-color:#eee;" > </pre> 
+		<!-- If you want turtle graphics include a canvas -->
+		<div id="myErrorDiv"></div>
+		<canvas id="mycanvas" height="400" width="400" style="border:solid 1px;" >
+		</canvas> 
+		
+		<form>
+		<textarea id="example2" class="active_code" prefixcode="undefined" cols="40" rows="10">
+totalSecs = int(input("How many seconds, in total?"))
+hours = totalSecs // 3600
+secsStillRemaining = totalSecs % 3600
+minutes =  secsStillRemaining // 60
+secsFinallyRemaining = secsStillRemaining  % 60
+
+print("Hrs=", hours, "  mins=", minutes,
+						 "secs=", secsFinallyRemaining)
+		</textarea><br />
+		<button type="button" onclick="runit('example2','out2','error2','canvas2')">Run</button>
+		</form>
+		<pre id="out2" style="background-color:#eee;"> </pre>
+		<div id="error2"></div>
+        <canvas id="canvas2" height="0" width="0"></canvas>
+		
+	</section>
+	
+	<footer>
+		<p></p>
+	</footer>
+</body>
+</html>

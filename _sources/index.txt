@@ -1,0 +1,77 @@
+How to Think Like a Computer Scientist
+======================================
+
+.. image:: _static/gasp_lessons.png
+    :alt: GASP Logo
+
+Learning with Python 3 (AoPS Edition)
+-------------------------------------
+
+Version date: February 2014 
+
+by AoPS Incorporated
+
+  (based on 3rd edition by Peter Wentworth, Jeffrey Elkner, Allen B. Downey, and Chris Meyers)
+
+  (based on 2nd edition by Jeffrey Elkner, Allen B. Downey, and Chris Meyers)
+  
+Corresponding author: classes@artofproblemsolving.com
+  
+* `Copyright Notice <copyright.html>`__ 
+* `History <history.html>`__
+* `Foreword-AoPS Edition <foreword-aops.html>`__
+
+Frontmatter from the previous edition:
+`Foreword <foreword.html>`__ --- `Preface <preface.html>`__ --- `Contributor List <contrib.html>`__
+
+..
+
+
+* `Chapter 1 <way_of_the_program.html>`__ *The way of the program*
+* `Chapter 2 <variables_expressions_statements.html>`__ *Variables, expressions, and statements*
+* `Chapter 3 <hello_little_turtles.html>`__ *Hello, little turtles!*  
+* `Chapter 4 <functions.html>`__ *Functions*
+* `Chapter 5 <conditionals.html>`__ *Conditionals*
+* `Chapter 6 <iteration.html>`__ *Flow of Control*
+* `Chapter 7 <strings.html>`__ *Strings*
+* `Chapter 8 <liststuples.html>`__ *Lists and Tuples*
+* `Chapter 9 <files.html>`__ *Files*
+* `Chapter 10 <dictionaries.html>`__ *Dictionaries*
+
+..
+
+* `GNU Free Document License <fdl-1.3.html>`__ 
+* `Ebook source code repository <TBD>`__
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    copyright.rst
+    history.rst
+    foreword-aops.rst
+    foreword.rst
+    preface.rst
+    contrib.rst
+
+.. toctree::
+    :maxdepth: 1
+    :numbered:
+    :hidden:
+
+    way_of_the_program.rst
+    variables_expressions_statements.rst
+    hello_little_turtles.rst
+    functions.rst
+    conditionals.rst
+    iteration.rst
+    strings.rst
+    liststuples.rst
+    files.rst
+    dictionaries.rst
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    fdl-1.3.rst

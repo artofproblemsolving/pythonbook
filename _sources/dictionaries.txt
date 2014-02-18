@@ -1,0 +1,365 @@
+..  Copyright (C) 2014 AoPS Incorporated
+..  Copyright (C)  Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with Invariant Sections being Foreword, Preface, and Contributor List, no
+    Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+    included in the section entitled "GNU Free Documentation License".
+
+
+|          
+    
+Dictionaries
+============
+
+.. index:: dictionary, mapping type, key, value, key:value pair
+
+.. Key uniqueness isn't talked about in this chapter. The only place its
+   mentioned is in the glossary for the term key.
+
+All of the compound data types we have studied in detail so far --- strings,
+lists, and tuples --- are sequence types, which use integers as indices to access
+the values they contain within them.
+
+**Dictionaries** are yet another kind of compound type. They are Python's
+built-in **mapping type**. They map **keys**, which can be any immutable type,
+to **values**, which can be any type (heterogeneous), just like the elements
+of a list or tuple. In other programming languages, they are called *associative
+arrays* since they associate a key with a value.
+
+As an example, we will create a dictionary to translate English words into
+Spanish. For this dictionary, the keys are strings.
+
+One way to create a dictionary is to start with the empty dictionary and add
+**key:value pairs**. The empty dictionary is denoted ``{}``:
+
+.. activecode:: dictexampledef
+   :nolinenums:
+   :norun:
+        
+   eng2sp = {}
+   eng2sp["one"] = "uno"
+   eng2sp["two"] = "dos"
+
+The first assignment creates a dictionary named ``eng2sp``; the other
+assignments add new key:value pairs to the dictionary. We can print the current
+value of the dictionary in the usual way:
+
+.. activecode:: dictexampleoutput
+        
+   eng2sp = {}
+   eng2sp["one"] = "uno"
+   eng2sp["two"] = "dos"
+   print(eng2sp)
+
+The key:value pairs of the dictionary are separated by commas. Each pair
+contains a key and a value separated by a colon.
+
+..
+	.. admonition:: Hashing
+
+		The order of the pairs may not be what was expected. Python uses
+		complex algorithms, designed for very fast access, to determine
+		where the key:value pairs are stored in a dictionary. For our
+		purposes we can think of this ordering as unpredictable.
+
+		You also might wonder why we use dictionaries at all when the same
+		concept of mapping a key to a value could be implemented using a
+		list of tuples:
+
+		.. sourcecode:: python3
+
+			>>> {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+			{'pears': 217, 'apples': 430, 'oranges': 525, 'bananas': 312}
+			>>> [('apples', 430), ('bananas', 312), ('oranges', 525), ('pears', 217)]
+			[('apples', 430), ('bananas', 312), ('oranges', 525), ('pears', 217)]
+
+		The reason is dictionaries are very fast, implemented using a
+		technique called hashing, which allows us to access a value very
+		quickly. By contrast, the list of tuples implementation is slow. If
+		we wanted to find a value associated with a key, we would have to
+		iterate over every tuple, checking the 0th element. What if the key
+		wasn't even in the list? We would have to get to the end of it to
+		find out.
+
+Another way to create a dictionary is to provide a list of key:value pairs
+using the same syntax as the previous output:
+
+.. activecode:: dictexampleallatonce
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp)
+
+It doesn't matter what order we write the pairs. The values in a dictionary are
+accessed with keys, not with indices, so there is no need to care about
+ordering.
+
+Here is how we use a key to look up the corresponding value:
+
+.. activecode:: dictexamplelookup
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp["two"])
+
+The key ``"two"`` yields the value ``"dos"``.
+
+Lists, tuples, and strings have been called *sequences*, because their items
+occur in order.  The dictionary is the first compound type that we've
+seen that is not a sequence, so we can't index or slice a dictionary. 
+
+.. index:: del statement, statement; del
+
+Dictionary operations
+---------------------
+
+The ``del`` statement removes a key:value pair from a dictionary. For example,
+the following dictionary contains the names of various fruits and the number of
+each fruit in stock:
+
+.. activecode:: dictfruitexample
+        
+   inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+   print(inventory)
+
+If someone buys all of the pears, we can remove the entry from the dictionary:
+
+.. activecode:: dictfruitdelexample
+        
+   inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+   print(inventory)
+   del inventory["pears"]
+   print(inventory)  # now there are no pears
+
+Or if we're expecting more pears soon, we might just change the value
+associated with pears:
+
+.. activecode:: dictfruitzeroexample
+        
+   inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+   print(inventory)
+   inventory["pears"] = 0
+   print(inventory)  # now there are 0 pears
+    
+A new shipment of bananas arriving could be handled like this:
+
+.. activecode:: dictfruitincexample
+        
+   inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+   print(inventory)
+   inventory["bananas"] += 200
+   print(inventory)  # now there are more bananas
+
+The ``len`` function also works on dictionaries; it returns the number
+of key:value pairs:
+
+.. activecode:: dictfruitlenexample
+        
+   inventory = {"apples": 430, "bananas": 312, "oranges": 525, "pears": 217}
+   print(len(inventory))
+
+Dictionary methods
+------------------
+
+Dictionaries have a number of useful built-in methods.
+
+The ``keys`` method returns what Python 3 calls a **view** of its underlying keys.  
+A view object has some similarities to the ``range`` object we saw earlier ---
+it is a lazy promise, to deliver its elements when they're needed by the 
+rest of the program.  We can iterate over the view, or turn the view into a 
+list like this:
+
+.. activecode:: dictexamplekeys
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+
+   for k in eng2sp.keys():   # The order of the k's is not defined
+       print("Got key "+str(k)+" which maps to value "+str(eng2sp[k]))     
+
+   ks = list(eng2sp.keys())
+   print(ks)
+    
+It is so common to iterate over the keys in a dictionary that we can
+omit the ``keys`` method call in the ``for`` loop --- iterating over
+a dictionary implicitly iterates over its keys:
+
+.. activecode:: dictloopkeys
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+
+   for k in eng2sp:   # loop over keys of eng2sp
+       print("Got key "+str(k)+" which maps to value "+str(eng2sp[k]))     
+       
+
+The ``values`` method is similar; it returns a view object which can be turned
+into a list:  
+
+.. activecode:: dictprintvalues
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp.values())
+
+The ``items`` method also returns a view, which promises a list of tuples --- one 
+tuple for each key:value pair:
+
+.. activecode:: dictprintpairs
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp.items())
+    
+Tuples are often useful for getting both the key and the value at the same
+time while we are looping:
+
+.. activecode:: dictforlooppairs
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   for (k,v) in eng2sp.items():
+       print("Got "+str(k)+" that maps to "+str(v))
+           
+
+    
+The ``in`` and ``not in`` operators can test if a key is in the dictionary:
+
+.. activecode:: dictkeytest
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print("one" in eng2sp)  # should be True
+   print("six" in eng2sp)  # should be False
+   print("tres" in eng2sp) # should be False -- only looks at keys
+     
+
+Looking up a non-existent key in a dictionary causes a runtime error:
+
+.. activecode:: dictkeyerror
+        
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp["dog"])   # will generate an error since "dog" is not a key
+
+We can get around this error by using the ``get`` method. This method will return the associated value if the key is in the dictionary, but we can tell it to return something else if the key is not in the dictionary:
+
+.. activecode:: dictgetexample
+
+   eng2sp = {"one": "uno", "two": "dos", "three": "tres"}
+   print(eng2sp.get("three","Not in dictionary!"))  # will print three's value
+   print(eng2sp.get("dog","Not in dictionary!"))   # will print the message
+
+
+.. index:: aliases
+
+Aliasing and copying
+--------------------
+
+As in the case of lists, because dictionaries are mutable, we need to be 
+aware of aliasing.  Whenever
+two variables refer to the same object, changes to one affect the other.
+
+If we want to modify a dictionary and keep a copy of the original, use the
+``copy`` method. For example, ``opposites`` is a dictionary that contains pairs
+of opposites:
+
+.. activecode:: dictaliasexample
+   :nolinenums:
+   :norun:
+
+   opposites = {"up": "down", "right": "wrong", "yes": "no"}
+   alias = opposites
+   copy = opposites.copy()  # Shallow copy
+
+``alias`` and ``opposites`` refer to the same object; ``copy`` refers to a
+fresh copy of the same dictionary. If we modify ``alias``, ``opposites`` is
+also changed:
+
+.. activecode:: dictchangedexample
+
+   opposites = {"up": "down", "right": "wrong", "yes": "no"}
+   alias = opposites
+   alias["right"] = "left"
+   print(alias)
+   print(opposites)  # changing the alias also changed the original
+
+If we modify ``copy``, ``opposites`` is unchanged:
+
+.. activecode:: dictunchangedexample
+
+   opposites = {"up": "down", "right": "wrong", "yes": "no"}
+   copy = opposites.copy()
+   copy["right"] = "left"
+   print(copy)
+   print(opposites)  # changing the copy did not change the original
+
+Counting letters
+----------------
+
+Given a string, we might wish to compute a 
+**frequency table** of the letters in the string --- that is, how many times each letter
+appears.
+
+Such a frequency table might be useful for compressing a text file. Because different
+letters appear with different frequencies, we can compress a file by using
+shorter codes for common letters and longer codes for letters that appear less
+frequently.
+
+Dictionaries provide an elegant way to generate a frequency table:
+
+.. activecode:: freqtable
+        
+   letterCounts = {}
+   for letter in "Mississippi":
+       letterCounts[letter] = letterCounts.get(letter, 0) + 1
+   print(letterCounts)
+
+We start with an empty dictionary. For each letter in the string, we find the
+current count (possibly zero) and increment it. At the end, the dictionary
+contains pairs of letters and their frequencies.
+
+It might be more appealing to display the frequency table in alphabetical order. We
+can do that with the ``items`` and ``sort`` methods:
+
+.. activecode:: freqtablesorted
+        
+   letterCounts = {}
+   for letter in "Mississippi":
+       letterCounts[letter] = letterCounts.get(letter, 0) + 1
+   letterItems = list(letterCounts.items())
+   letterItems.sort()
+   print(letterItems)
+
+Notice in the first line we had to call the type conversion function ``list``.
+That turns the promise we get from ``items`` into a list, a step that is 
+needed before we can use the list's ``sort`` method. 
+
+Glossary
+--------
+
+.. glossary::
+       
+    dictionary
+        A collection of key:value pairs that maps from keys to values. The keys
+        can be any immutable value, and the associated value can be of any type.
+
+    immutable data value
+        A data value which cannot be modified.  Assignments to elements or
+        slices (sub-parts) of immutable values cause a runtime error.
+
+    key
+        A data item that is *mapped to* a value in a dictionary. Keys are used
+        to look up values in a dictionary. Each key must be unique
+        across the dictionary.
+
+    key:value pair
+        One of the pairs of items in a dictionary. Values are looked up in a
+        dictionary by key.
+        
+    mapping type
+        A mapping type is a data type comprised of a collection of keys and
+        associated values. Python's only built-in mapping type is the
+        dictionary.  Dictionaries implement the
+        `associative array <http://en.wikipedia.org/wiki/Associative_array>`__
+        abstract data type.
+
+    mutable data value
+        A data value which can be modified. The types of all mutable values 
+        are compound types.  Lists and dictionaries are mutable; strings
+        and tuples are not.
+
+

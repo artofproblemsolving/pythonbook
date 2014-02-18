@@ -1,0 +1,308 @@
+..  Copyright (C) 2014 AoPS Incorporated
+..  Copyright (C) Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with Invariant Sections being Foreword, Preface, and Contributor List, no
+    Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+    included in the section entitled "GNU Free Documentation License".
+ 
+|    
+    
+Files
+=====
+
+.. index:: file, handle, file handle   
+    
+About files
+-----------
+
+While a program is running, its data is stored in *random access memory* (RAM).
+RAM is fast and inexpensive, but it is also **volatile**, which means that when
+the program ends, or the computer shuts down, data in RAM disappears. To make
+data available the next time the computer is turned on and the program
+is started, it has to be written to a **non-volatile** storage medium,
+such a hard drive, usb drive, or DVD.
+
+Data on non-volatile storage media is stored in named locations on the media
+called **files**. By reading and writing files, programs can save information
+between program runs.
+
+Working with files is a lot like working with a notebook. To use a notebook,
+it has to be opened. When done, it has to be closed.  While the
+notebook is open, it can either be read from or written to. In either case,
+the notebook holder knows where they are. They can read the whole notebook in its
+natural order or they can skip around.
+
+All of this applies to files as well. To open a file, we specify its name and
+indicate whether we want to read or write. 
+
+   .. admonition:: Files don't play nice with our ebook
+
+      In every other chapter of our ebook, you can run Python code directly in the book.
+      However, in this chapter, you can't, because files don't really work all that well
+      in the ebook. So you'll need to cut-and-paste the code samples over to IDLE in order
+      to run the examples in this chapter.
+
+Writing our first file
+----------------------
+
+Let's begin with a simple program that writes three lines of text into a file:   
+
+.. activecode:: filefirstexample
+   :norun:
+        
+   myfile = open("test.txt", "w")
+   myfile.write("My first file written from Python\n")
+   myfile.write("---------------------------------\n")
+   myfile.write("Hello, world!\n")
+   myfile.close()
+
+Opening a file creates what we call a file **handle**. In this example, the variable ``myfile``
+refers to the new handle object.  Our program calls methods on the handle, and this makes
+changes to the actual file which is usually located on our disk.  
+
+On line 1, the open function takes two arguments. The first is the name of the file, and
+the second is the **mode**. Mode ``"w"`` means that we are opening the file for
+writing.
+
+With mode ``"w"``, if there is no file named ``test.txt`` on the disk,
+it will be created. If there already is one, it will be replaced by the
+file we are writing.
+
+To put data in the file we invoke the ``write`` method on the handle, shown
+in lines 2, 3 and 4 above.  In bigger programs, lines 2--4 will usually be
+replaced by a loop that writes many more lines into the file.
+
+Closing the file handle (line 5) tells the system that we are done writing and makes
+the disk file available for reading by other programs (or by our own program).    
+
+
+    .. admonition:: A handle is somewhat like a TV remote control
+
+        We're all familiar with a remote control for a TV.  We perform operations on
+        the remote control --- switch channels, change the volume, etc.  But the real action
+        happens on the TV.  So, by simple analogy, we'd call the remote control our `handle`
+        to the underlying TV.
+        
+        Sometimes we want to emphasize the difference --- the file handle is not the same
+        as the file, and the remote control is not the same as the TV.  
+        But at other times we prefer to treat them as a single mental chunk, or abstraction, 
+        and we'll just say "close the file", or "flip the TV channel". 
+
+
+
+Reading a file line-at-a-time
+-----------------------------
+
+Now that the file exists on our disk, we can open it, this time for reading, and read all
+the lines in the file, one at a time. This time, the mode argument is ``"r"`` for reading:
+
+.. activecode:: readfirstexample
+   :norun:
+              
+   mynewhandle = open("test.txt", "r")
+   while True:                            # Keep reading forever
+       theline = mynewhandle.readline()   # Try to read next line
+       if len(theline) == 0:              # If there are no more lines 
+           break                          #     leave the loop 
+
+       # Now process the line we've just read 
+       print(theline, end="")
+
+   mynewhandle.close()
+        
+This is a handy pattern for our toolbox. In bigger programs, we'd
+squeeze more extensive logic into the body of the loop at line 8 ---
+for example, if each line of the file contained the name and email address
+of one of our friends, perhaps we'd split the line into some pieces and 
+call a function to send the friend a party invitation. 
+
+On line 8 we suppress the newline character that ``print``
+usually appends to our strings.  Why?  This is because the string already
+has its own newline:  the ``readline`` method in line 3 returns everything
+up to *and including* the newline character.  This also explains the
+end-of-file detection logic: when there are no more lines to be
+read from the file, ``readline`` returns an empty string --- one that does not
+even have a newline at the end, hence its length is 0.
+
+    .. admonition::  Fail first ...
+
+        In our sample case here, we have three lines in the file, yet
+        we enter the loop *four* times.  In Python, you only learn that
+        the file has no more lines by failure to read another line.  
+        In some other programming languages 
+        (e.g. Pascal), things are different: there you read three lines,
+        but you have what is called *look ahead* --- after reading the third 
+        line you already know that there are no more lines in the file.  
+        You're not even allowed to try to read the fourth line. 
+        
+        So the templates for working line-at-a-time in Pascal and Python are
+        subtly different!   
+
+        When you transfer your Python skills to your next computer language,
+        be sure to ask how you'll know when the file has ended: is the style
+        in the language "try, and after you fail you'll know", or is
+        it "look ahead"?
+
+You can also use a ``for`` loop to read from a file. Each time we execute the loop, the
+loop variable (``theline`` in the example below) will be the next line of the file. The 
+``for`` loop will automatically end after the final line of the file is read.
+
+.. activecode:: read secondexample
+   :norun:
+              
+   mynewhandle = open("test.txt", "r")
+   for theline in mynewhandle:    # get the next line
+       # Now process the line we've just read 
+       print(theline, end="")
+
+   mynewhandle.close()
+ 
+     
+If we try to open a file that doesn't exist, we get an error:
+
+    .. code-block:: none
+        
+        >>> mynewhandle = open("wharrah.txt", "r")
+        IOError: [Errno 2] No such file or directory: "wharrah.txt"
+
+Turning a file into a list of lines
+-----------------------------------
+
+It is often useful to fetch data from
+a disk file and turn it into a list of lines.  Suppose we have a
+file containing our friends and their email addresses, one per line
+in the file.  But we'd like the lines sorted into
+alphabetical order.  A good plan is to read everything into a
+list of lines, then sort the list, and then write the sorted list 
+back to another file:
+
+.. activecode:: sortfileexample
+   :norun:
+              
+   f = open("friends.txt", "r")
+   xs = f.readlines()   # reads the whole file at once into a list
+   f.close()
+
+   xs.sort()   # sorts the list
+
+   # now write the sorted list to a new file
+   g = open("sortedfriends.txt", "w")
+   for v in xs:
+       g.write(v)
+   g.close()
+        
+The ``readlines`` method in line 2 reads all the lines and
+returns a list of the strings.  
+
+We could have used the template from the previous section to read each line
+one-at-a-time, and to build up the list ourselves, but it is a lot easier
+to use the method that the Python implementors gave us! 
+        
+        
+
+.. admonition:: Your file paths may need to be explicitly named.
+
+   In the above examples, we're assuming that the file we're reading from is 
+   in the same directory as your Python source code.  If this is
+   not the case, you may need to provide a full or a relative path to the file.  On Windows, a full
+   path could look like ``"C:\\temp\\somefile.txt"``, while on a Unix system the full path could be
+   ``"/home/jimmy/somefile.txt"``.
+   
+
+.. index:: file; text,  text file
+
+An example
+----------
+
+Many useful line-processing programs will read a text file line-at-a-time and do some minor
+processing as they write the lines to an output file.  They might number the
+lines in the output file, or insert extra blank lines after every 60 lines to
+make it convenient for printing on sheets of paper, or extract some specific
+columns only from each line in the source file, or only print lines that 
+contain a specific substring.  We call this kind of program a **filter**. 
+
+Here is a filter that copies one file to another, 
+omitting any lines that begin with ``#``:
+
+.. activecode:: filefilterexample
+   :norun:
+        
+   def filter(oldfile, newfile):
+       # open the files
+       infile = open(oldfile, "r")
+       outfile = open(newfile, "w")
+       # process the files
+       for text in infile:
+           if text[0] == "#":
+               continue   # skip any lines that start with "#"
+           outfile.write(text)   # write any other lines to outfile
+       # close the files
+       infile.close()
+       outfile.close()
+
+The ``continue`` statement at line 8 skips over the remaining lines in
+the current iteration of the loop, but the loop will still iterate.  
+
+Let's consider one more case: suppose our original file contained empty
+lines.  At line 6 above, would this program find the first empty line in the
+file, and terminate immediately?   No!  Recall that ``readline`` always 
+includes the newline character in the string it returns.  It is only when we 
+try to read *beyond* the end of the file that we get back the empty string of length 0.  
+
+.. index:: directory
+
+
+Glossary
+--------
+
+.. glossary::
+
+
+    delimiter
+        A sequence of one or more characters used to specify the boundary
+        between separate parts of text.
+
+    directory
+        A named collection of files, also called a folder.  Directories can
+        contain files and other directories, which are referred to as
+        *subdirectories* of the directory that contains them.
+
+    file
+        A named entity, usually stored on a hard drive, floppy disk, or CD-ROM,
+        that contains a stream of characters.
+
+    file system
+        A method for naming, accessing, and organizing files and the data they
+        contain. 
+        
+    handle
+        An object in our program that is connected to an underlying resource (e.g. a file).
+        The file handle lets our program manipulate/read/write/close the actual 
+        file that is on our disk.
+            
+    mode
+        A distinct method of operation within a computer program.  Files in
+        Python can be opened in one of four modes: read (``"r"``), write
+        (``"w"``), append (``"a"``), and read and write (``"+"``).
+     
+    non-volatile memory
+        Memory that can maintain its state without power. Hard drives, flash
+        drives, and rewritable compact disks (CD-RW) are each examples of
+        non-volatile memory.
+
+    path
+        A sequence of directory names that specifies the exact location of a
+        file.
+        
+    text file
+        A file that contains printable characters organized into lines
+        separated by newline characters.
+        
+    volatile memory
+        Memory which requires an electrical current to maintain state. The
+        *main memory* or RAM of a computer is volatile.  Information stored in
+        RAM is lost when the computer is turned off.
+ 
+   

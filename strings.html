@@ -1,0 +1,1624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Strings &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="8. Lists and Tuples" href="liststuples.html" />
+    <link rel="prev" title="6. Flow of Control" href="iteration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="liststuples.html" title="8. Lists and Tuples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="iteration.html" title="6. Flow of Control"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="strings">
+<h1>7. Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-compound-data-type">
+<span id="index-0"></span><h2>7.1. A compound data type<a class="headerlink" href="#a-compound-data-type" title="Permalink to this headline">¶</a></h2>
+<p>So far we have seen built-in types like <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt>,
+<tt class="docutils literal"><span class="pre">bool</span></tt>, <tt class="docutils literal"><span class="pre">str</span></tt>, and we&#8217;ve also seen lists.
+Strings and lists are different from the others because they
+are made up of smaller pieces.  In the case of strings, they&#8217;re made up of smaller
+strings each containing one <strong>character</strong>.</p>
+<p>Types that comprise smaller pieces are called <strong>compound data types</strong>.
+Depending on what we are doing, we may want to treat a compound data type as a
+single thing, or we may want to access its parts.</p>
+</div>
+<div class="section" id="working-with-strings-as-single-things">
+<h2>7.2. Working with strings as single things<a class="headerlink" href="#working-with-strings-as-single-things" title="Permalink to this headline">¶</a></h2>
+<p>We previously saw that each turtle instance has its own attributes and
+a number of methods that can be applied to the instance.  For example,
+we could set the turtle&#8217;s color, and we wrote <tt class="docutils literal"><span class="pre">tess.turn(90)</span></tt>.</p>
+<p>Just like a turtle, a string is also an object.  So each string instance
+has its own attributes and methods.</p>
+<p>For example:</p>
+
+<div id="stringfirstexample" class="pywindow" >
+
+<div id="stringfirstexample_code_div" style="display: block">
+<textarea rows="3" id="stringfirstexample_code" class="active_code" prefixcode="undefined">
+ss = "Hello, World!"
+tt = ss.upper()
+print(tt)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringfirstexample_code'] = true;
+pythonTool.readOnlyFlags['stringfirstexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringfirstexample_runb" onclick="pythonTool.runit('stringfirstexample_code','stringfirstexample_pre','stringfirstexample_error','stringfirstexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringfirstexample_code','stringfirstexample_pre','stringfirstexample_error','stringfirstexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringfirstexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringfirstexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringfirstexample_suffix" style="display:none">
+</pre>
+<pre id="stringfirstexample_pre" class="active_out">
+
+</pre>
+
+<div id="stringfirstexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p><tt class="docutils literal"><span class="pre">upper</span></tt> is a method that can be invoked on any string object
+to create a new string, in which all the
+characters are in uppercase.  (The original string <tt class="docutils literal"><span class="pre">ss</span></tt> remains unchanged.)</p>
+<p>There are also methods such as <tt class="docutils literal"><span class="pre">lower</span></tt>, <tt class="docutils literal"><span class="pre">capitalize</span></tt>, and
+<tt class="docutils literal"><span class="pre">swapcase</span></tt> that do other interesting stuff.</p>
+<p>To learn what methods are available, you can consult the Help documentation: type <tt class="docutils literal"><span class="pre">help(str)</span></tt> at the IDLE shell prompt.</p>
+</div>
+<div class="section" id="working-with-the-parts-of-a-string">
+<h2>7.3. Working with the parts of a string<a class="headerlink" href="#working-with-the-parts-of-a-string" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>indexing operator</strong> selects a single character substring from a string. We enclose the <strong>index</strong> of the character that we want in square brackets:</p>
+
+<div id="stringchar1extract" class="pywindow" >
+
+<div id="stringchar1extract_code_div" style="display: block">
+<textarea rows="3" id="stringchar1extract_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+m = fruit[1]
+print(m)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringchar1extract_code'] = true;
+pythonTool.readOnlyFlags['stringchar1extract_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringchar1extract_runb" onclick="pythonTool.runit('stringchar1extract_code','stringchar1extract_pre','stringchar1extract_error','stringchar1extract_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringchar1extract_code','stringchar1extract_pre','stringchar1extract_error','stringchar1extract_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringchar1extract_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringchar1extract_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringchar1extract_suffix" style="display:none">
+</pre>
+<pre id="stringchar1extract_pre" class="active_out">
+
+</pre>
+
+<div id="stringchar1extract_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The expression <tt class="docutils literal"><span class="pre">fruit[1]</span></tt> selects character number 1 from <tt class="docutils literal"><span class="pre">fruit</span></tt>, and creates a new
+string containing just this one character. The variable <tt class="docutils literal"><span class="pre">m</span></tt> refers to the result.</p>
+<p>But remember: computer scientists always start counting
+from zero! The letter at subscript position zero of <tt class="docutils literal"><span class="pre">&quot;banana&quot;</span></tt> is <tt class="docutils literal"><span class="pre">b</span></tt>.  So at
+position <tt class="docutils literal"><span class="pre">[1]</span></tt> we have the letter <tt class="docutils literal"><span class="pre">a</span></tt>.</p>
+<p>If we want to access the zero-eth letter of a string, we just place 0,
+or any expression that evaluates to 0, inbetween the brackets:</p>
+
+<div id="stringchar0extract" class="pywindow" >
+
+<div id="stringchar0extract_code_div" style="display: block">
+<textarea rows="3" id="stringchar0extract_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+m = fruit[0]
+print(m)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringchar0extract_code'] = true;
+pythonTool.readOnlyFlags['stringchar0extract_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringchar0extract_runb" onclick="pythonTool.runit('stringchar0extract_code','stringchar0extract_pre','stringchar0extract_error','stringchar0extract_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringchar0extract_code','stringchar0extract_pre','stringchar0extract_error','stringchar0extract_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringchar0extract_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringchar0extract_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringchar0extract_suffix" style="display:none">
+</pre>
+<pre id="stringchar0extract_pre" class="active_out">
+
+</pre>
+
+<div id="stringchar0extract_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The expression in brackets is called an <strong>index</strong>. An index specifies a member
+of an ordered collection, in this case the collection of characters in the string. The index
+<em>indicates</em> which one you want, hence the name. It can be any integer
+expression.</p>
+<p>We can use <tt class="docutils literal"><span class="pre">enumerate</span></tt> to visualize the indices:</p>
+
+<div id="stringcharallextract" class="pywindow" >
+
+<div id="stringcharallextract_code_div" style="display: block">
+<textarea rows="2" id="stringcharallextract_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+print(list(enumerate(fruit)))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringcharallextract_code'] = true;
+pythonTool.readOnlyFlags['stringcharallextract_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringcharallextract_runb" onclick="pythonTool.runit('stringcharallextract_code','stringcharallextract_pre','stringcharallextract_error','stringcharallextract_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcharallextract_code','stringcharallextract_pre','stringcharallextract_error','stringcharallextract_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringcharallextract_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringcharallextract_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringcharallextract_suffix" style="display:none">
+</pre>
+<pre id="stringcharallextract_pre" class="active_out">
+
+</pre>
+
+<div id="stringcharallextract_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Do not worry about <tt class="docutils literal"><span class="pre">enumerate</span></tt> at this point, we will see more of it
+in the chapter on lists.</p>
+<p>Note that indexing returns a <em>string</em> &#8212; Python has no special type for a single character.
+It is just a string of length 1.</p>
+<p>We&#8217;ve also seen lists previously.  The same indexing notation works to extract elements from
+a list:</p>
+
+<div id="listextractexamples" class="pywindow" >
+
+<div id="listextractexamples_code_div" style="display: block">
+<textarea rows="4" id="listextractexamples_code" class="active_code" prefixcode="undefined">
+prime_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+print(prime_nums[4])  # should print 11
+friends = ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]
+print(friends[3])  # should print Angelina</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['listextractexamples_code'] = true;
+pythonTool.readOnlyFlags['listextractexamples_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="listextractexamples_runb" onclick="pythonTool.runit('listextractexamples_code','listextractexamples_pre','listextractexamples_error','listextractexamples_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listextractexamples_code','listextractexamples_pre','listextractexamples_error','listextractexamples_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='listextractexamples_error'></div>
+
+<div style="text-align: center">
+<canvas id="listextractexamples_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="listextractexamples_suffix" style="display:none">
+</pre>
+<pre id="listextractexamples_pre" class="active_out">
+
+</pre>
+
+<div id="listextractexamples_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="length">
+<span id="index-1"></span><h2>7.4. Length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">len</span></tt> function, when applied to a string, returns the number of characters in a string:</p>
+
+<div id="lengthex1" class="pywindow" >
+
+<div id="lengthex1_code_div" style="display: block">
+<textarea rows="2" id="lengthex1_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+print(len(fruit))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['lengthex1_code'] = true;
+pythonTool.readOnlyFlags['lengthex1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="lengthex1_runb" onclick="pythonTool.runit('lengthex1_code','lengthex1_pre','lengthex1_error','lengthex1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lengthex1_code','lengthex1_pre','lengthex1_error','lengthex1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='lengthex1_error'></div>
+
+<div style="text-align: center">
+<canvas id="lengthex1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="lengthex1_suffix" style="display:none">
+</pre>
+<pre id="lengthex1_pre" class="active_out">
+
+</pre>
+
+<div id="lengthex1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>To get the last letter of a string, you might be tempted to try something like
+this:</p>
+
+<div id="lastcharexbad" class="pywindow" >
+
+<div id="lastcharexbad_code_div" style="display: block">
+<textarea rows="3" id="lastcharexbad_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+sz = len(fruit)
+print(fruit[sz])   # will generate error</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['lastcharexbad_code'] = true;
+pythonTool.readOnlyFlags['lastcharexbad_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexbad_runb" onclick="pythonTool.runit('lastcharexbad_code','lastcharexbad_pre','lastcharexbad_error','lastcharexbad_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexbad_code','lastcharexbad_pre','lastcharexbad_error','lastcharexbad_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='lastcharexbad_error'></div>
+
+<div style="text-align: center">
+<canvas id="lastcharexbad_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="lastcharexbad_suffix" style="display:none">
+</pre>
+<pre id="lastcharexbad_pre" class="active_out">
+
+</pre>
+
+<div id="lastcharexbad_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>That won&#8217;t work. It causes the runtime error
+<tt class="docutils literal"><span class="pre">IndexError:</span> <span class="pre">string</span> <span class="pre">index</span> <span class="pre">out</span> <span class="pre">of</span> <span class="pre">range</span></tt>. The reason is that there is no
+character at index position 6 in <tt class="docutils literal"><span class="pre">&quot;banana&quot;</span></tt>.
+Because we start counting at zero, the six indexes are
+numbered 0 to 5. To get the last character, we have to subtract 1 from
+the length of <tt class="docutils literal"><span class="pre">fruit</span></tt>:</p>
+
+<div id="lastcharexgood" class="pywindow" >
+
+<div id="lastcharexgood_code_div" style="display: block">
+<textarea rows="3" id="lastcharexgood_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+sz = len(fruit)
+print(fruit[sz-1])   # will print last character of fruit</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['lastcharexgood_code'] = true;
+pythonTool.readOnlyFlags['lastcharexgood_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexgood_runb" onclick="pythonTool.runit('lastcharexgood_code','lastcharexgood_pre','lastcharexgood_error','lastcharexgood_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexgood_code','lastcharexgood_pre','lastcharexgood_error','lastcharexgood_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='lastcharexgood_error'></div>
+
+<div style="text-align: center">
+<canvas id="lastcharexgood_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="lastcharexgood_suffix" style="display:none">
+</pre>
+<pre id="lastcharexgood_pre" class="active_out">
+
+</pre>
+
+<div id="lastcharexgood_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Alternatively, we can use <strong>negative indices</strong>, which count backward from the
+end of the string. The expression <tt class="docutils literal"><span class="pre">fruit[-1]</span></tt> yields the last letter,
+<tt class="docutils literal"><span class="pre">fruit[-2]</span></tt> yields the second to last, and so on.</p>
+
+<div id="lastcharexbetter" class="pywindow" >
+
+<div id="lastcharexbetter_code_div" style="display: block">
+<textarea rows="2" id="lastcharexbetter_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+print(fruit[-1])   # will print last character of fruit</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['lastcharexbetter_code'] = true;
+pythonTool.readOnlyFlags['lastcharexbetter_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexbetter_runb" onclick="pythonTool.runit('lastcharexbetter_code','lastcharexbetter_pre','lastcharexbetter_error','lastcharexbetter_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexbetter_code','lastcharexbetter_pre','lastcharexbetter_error','lastcharexbetter_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='lastcharexbetter_error'></div>
+
+<div style="text-align: center">
+<canvas id="lastcharexbetter_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="lastcharexbetter_suffix" style="display:none">
+</pre>
+<pre id="lastcharexbetter_pre" class="active_out">
+
+</pre>
+
+<div id="lastcharexbetter_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>As you might have guessed, indexing with a negative index also works like this for lists.</p>
+<span class="target" id="index-2"></span></div>
+<div class="section" id="traversal-and-the-for-loop">
+<span id="index-3"></span><h2>7.5. Traversal and the <tt class="docutils literal"><span class="pre">for</span></tt> loop<a class="headerlink" href="#traversal-and-the-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>A lot of computations involve processing a string one character at a time.
+Often they start at the beginning, select each character in turn, do something
+to it, and continue until the end. This pattern of processing is called a
+<strong>traversal</strong>. One way to encode a traversal is with a <tt class="docutils literal"><span class="pre">while</span></tt> statement:</p>
+
+<div id="stringtraversallong" class="pywindow" >
+
+<div id="stringtraversallong_code_div" style="display: block">
+<textarea rows="6" id="stringtraversallong_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+ix = 0
+while ix < len(fruit):
+    letter = fruit[ix]
+    print(letter)
+    ix += 1</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringtraversallong_code'] = true;
+pythonTool.readOnlyFlags['stringtraversallong_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringtraversallong_runb" onclick="pythonTool.runit('stringtraversallong_code','stringtraversallong_pre','stringtraversallong_error','stringtraversallong_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringtraversallong_code','stringtraversallong_pre','stringtraversallong_error','stringtraversallong_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringtraversallong_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringtraversallong_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringtraversallong_suffix" style="display:none">
+</pre>
+<pre id="stringtraversallong_pre" class="active_out">
+
+</pre>
+
+<div id="stringtraversallong_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This loop traverses the string and displays each letter on a line by itself.
+The loop condition is <tt class="docutils literal"><span class="pre">ix</span> <span class="pre">&lt;</span> <span class="pre">len(fruit)</span></tt>, so when <tt class="docutils literal"><span class="pre">ix</span></tt> is equal to the
+length of the string, the condition is false, and the body of the loop is not
+executed. The last character accessed is the one with the index
+<tt class="docutils literal"><span class="pre">len(fruit)-1</span></tt>, which is the last character in the string.</p>
+<p>But we&#8217;ve previously seen how the <tt class="docutils literal"><span class="pre">for</span></tt> loop can easily iterate over
+the elements in a list, and it can do so for strings as well:</p>
+
+<div id="stringtraversalquick" class="pywindow" >
+
+<div id="stringtraversalquick_code_div" style="display: block">
+<textarea rows="3" id="stringtraversalquick_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+for letter in fruit:
+    print(letter)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringtraversalquick_code'] = true;
+pythonTool.readOnlyFlags['stringtraversalquick_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringtraversalquick_runb" onclick="pythonTool.runit('stringtraversalquick_code','stringtraversalquick_pre','stringtraversalquick_error','stringtraversalquick_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringtraversalquick_code','stringtraversalquick_pre','stringtraversalquick_error','stringtraversalquick_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringtraversalquick_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringtraversalquick_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringtraversalquick_suffix" style="display:none">
+</pre>
+<pre id="stringtraversalquick_pre" class="active_out">
+
+</pre>
+
+<div id="stringtraversalquick_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Each time through the loop, the next character in the string is assigned to the
+variable <tt class="docutils literal"><span class="pre">letter</span></tt>. The loop continues until no characters are left. Here we
+can see the expressive power the <tt class="docutils literal"><span class="pre">for</span></tt> loop gives us compared to the
+while loop when traversing a string.</p>
+<p>The following example shows how to use concatenation and a <tt class="docutils literal"><span class="pre">for</span></tt> loop to
+generate an abecedarian series. Abecedarian refers to a series or list in which
+the elements appear in alphabetical order. For example, in Robert McCloskey&#8217;s
+book <em>Make Way for Ducklings</em>, the names of the ducklings are Jack, Kack, Lack,
+Mack, Nack, Ouack, Pack, and Quack.  This loop outputs these names (well, mostly) in order:</p>
+
+<div id="ducklings" class="pywindow" >
+
+<div id="ducklings_code_div" style="display: block">
+<textarea rows="4" id="ducklings_code" class="active_code" prefixcode="undefined">
+prefixes = "JKLMNOPQ"
+suffix = "ack"
+for p in prefixes:
+    print(p + suffix)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ducklings_code'] = true;
+pythonTool.readOnlyFlags['ducklings_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="ducklings_runb" onclick="pythonTool.runit('ducklings_code','ducklings_pre','ducklings_error','ducklings_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ducklings_code','ducklings_pre','ducklings_error','ducklings_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='ducklings_error'></div>
+
+<div style="text-align: center">
+<canvas id="ducklings_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="ducklings_suffix" style="display:none">
+</pre>
+<pre id="ducklings_pre" class="active_out">
+
+</pre>
+
+<div id="ducklings_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>It doesn&#8217;t quick work, because Ouack and Quack need an extra &#8220;u&#8221;. We can fix it with an <tt class="docutils literal"><span class="pre">if</span></tt>-<tt class="docutils literal"><span class="pre">else</span></tt> statement:</p>
+
+<div id="ducklingsfixed" class="pywindow" >
+
+<div id="ducklingsfixed_code_div" style="display: block">
+<textarea rows="7" id="ducklingsfixed_code" class="active_code" prefixcode="undefined">
+prefixes = "JKLMNOPQ"
+suffix = "ack"
+for p in prefixes:
+    if p == "O" or p == "Q":
+        print(p + "u" + suffix)
+    else:
+        print(p + suffix)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['ducklingsfixed_code'] = true;
+pythonTool.readOnlyFlags['ducklingsfixed_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="ducklingsfixed_runb" onclick="pythonTool.runit('ducklingsfixed_code','ducklingsfixed_pre','ducklingsfixed_error','ducklingsfixed_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ducklingsfixed_code','ducklingsfixed_pre','ducklingsfixed_error','ducklingsfixed_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='ducklingsfixed_error'></div>
+
+<div style="text-align: center">
+<canvas id="ducklingsfixed_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="ducklingsfixed_suffix" style="display:none">
+</pre>
+<pre id="ducklingsfixed_pre" class="active_out">
+
+</pre>
+
+<div id="ducklingsfixed_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="slices">
+<span id="index-4"></span><h2>7.6. Slices<a class="headerlink" href="#slices" title="Permalink to this headline">¶</a></h2>
+<p>A <em>substring</em> of a string is obtained by taking a <strong>slice</strong>.   Similarly, we can
+slice a list to refer to some sublist of the items in the list:</p>
+
+<div id="slicefirstexample" class="pywindow" >
+
+<div id="slicefirstexample_code_div" style="display: block">
+<textarea rows="6" id="slicefirstexample_code" class="active_code" prefixcode="undefined">
+s = "Pirates of the Caribbean"
+print(s[0:7])
+print(s[11:14])
+print(s[15:24])
+friends = ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]
+print(friends[2:4])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['slicefirstexample_code'] = true;
+pythonTool.readOnlyFlags['slicefirstexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="slicefirstexample_runb" onclick="pythonTool.runit('slicefirstexample_code','slicefirstexample_pre','slicefirstexample_error','slicefirstexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('slicefirstexample_code','slicefirstexample_pre','slicefirstexample_error','slicefirstexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='slicefirstexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="slicefirstexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="slicefirstexample_suffix" style="display:none">
+</pre>
+<pre id="slicefirstexample_pre" class="active_out">
+
+</pre>
+
+<div id="slicefirstexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The operator <tt class="docutils literal"><span class="pre">[n:m]</span></tt> returns the part of the string from the n&#8217;th character
+to the m&#8217;th character, including the first but excluding the last. This
+behavior makes sense if you imagine the indices
+pointing <em>between</em> the characters, as in the following diagram:</p>
+<blockquote>
+<div><img alt="'banana' string" src="_images/banana.png" />
+</div></blockquote>
+<p>If you imagine this as a piece of paper, the slice operator <tt class="docutils literal"><span class="pre">[n:m]</span></tt> copies out
+the part of the paper between the <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> positions.  Provided <tt class="docutils literal"><span class="pre">m</span></tt> and <tt class="docutils literal"><span class="pre">n</span></tt> are
+both within the bounds of the string, your result will be of length (m-n).</p>
+<p>Three tricks are added to this: if you omit the first index (before the colon),
+the slice starts at the beginning of the string (or list). If you omit the second index,
+the slice extends to the end of the string (or list). Similarly, if you provide value for
+<tt class="docutils literal"><span class="pre">n</span></tt> that is bigger than the length of the string (or list), the slice will take all the
+values up to the end. (It won&#8217;t give an &#8220;out of range&#8221; error like the normal indexing operation
+does.)   Thus:</p>
+
+<div id="slicesecondexample" class="pywindow" >
+
+<div id="slicesecondexample_code_div" style="display: block">
+<textarea rows="4" id="slicesecondexample_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+print(fruit[:3])
+print(fruit[3:])
+print(fruit[3:999])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['slicesecondexample_code'] = true;
+pythonTool.readOnlyFlags['slicesecondexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="slicesecondexample_runb" onclick="pythonTool.runit('slicesecondexample_code','slicesecondexample_pre','slicesecondexample_error','slicesecondexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('slicesecondexample_code','slicesecondexample_pre','slicesecondexample_error','slicesecondexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='slicesecondexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="slicesecondexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="slicesecondexample_suffix" style="display:none">
+</pre>
+<pre id="slicesecondexample_pre" class="active_out">
+
+</pre>
+
+<div id="slicesecondexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>What do you think <tt class="docutils literal"><span class="pre">s[:]</span></tt> means?   What about <tt class="docutils literal"><span class="pre">friends[4:]</span></tt>?  (Try it in the above examples and see!)</p>
+</div>
+<div class="section" id="string-comparison">
+<span id="index-5"></span><h2>7.7. String comparison<a class="headerlink" href="#string-comparison" title="Permalink to this headline">¶</a></h2>
+<p>The comparison operators work on strings. To see if two strings are equal:</p>
+
+<div id="stringcomp1" class="pywindow" >
+
+<div id="stringcomp1_code_div" style="display: block">
+<textarea rows="3" id="stringcomp1_code" class="active_code" prefixcode="undefined">
+word = "banana"
+if word == "banana":
+    print("Yes, we have no bananas!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringcomp1_code'] = true;
+pythonTool.readOnlyFlags['stringcomp1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringcomp1_runb" onclick="pythonTool.runit('stringcomp1_code','stringcomp1_pre','stringcomp1_error','stringcomp1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcomp1_code','stringcomp1_pre','stringcomp1_error','stringcomp1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringcomp1_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringcomp1_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringcomp1_suffix" style="display:none">
+</pre>
+<pre id="stringcomp1_pre" class="active_out">
+
+</pre>
+
+<div id="stringcomp1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Other comparison operations are useful for putting words in
+<em>lexicographical</em> order:</p>
+
+<div id="stringcomplex" class="pywindow" >
+
+<div id="stringcomplex_code_div" style="display: block">
+<textarea rows="7" id="stringcomplex_code" class="active_code" prefixcode="undefined">
+word = "apple"
+if word < "banana":
+    print("Your word, " + word + ", comes before banana.")
+elif word > "banana":
+    print("Your word, " + word + ", comes after banana.")
+else:
+    print("Yes, we have no bananas!")</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringcomplex_code'] = true;
+pythonTool.readOnlyFlags['stringcomplex_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stringcomplex_runb" onclick="pythonTool.runit('stringcomplex_code','stringcomplex_pre','stringcomplex_error','stringcomplex_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcomplex_code','stringcomplex_pre','stringcomplex_error','stringcomplex_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stringcomplex_error'></div>
+
+<div style="text-align: center">
+<canvas id="stringcomplex_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stringcomplex_suffix" style="display:none">
+</pre>
+<pre id="stringcomplex_pre" class="active_out">
+
+</pre>
+
+<div id="stringcomplex_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This is similar to the alphabetical order you would use with a dictionary,
+except that all the uppercase letters come before all the lowercase letters. Try changing <tt class="docutils literal"><span class="pre">word</span></tt> to &#8220;Zebra&#8221; (with a capital &#8220;Z&#8221;) in the above code, and see what happens.</p>
+<p>A common way to address this problem is to convert strings to a standard
+format, such as all lowercase, before performing the comparison. A more
+difficult problem is making the program realize that zebras are not fruit.</p>
+</div>
+<div class="section" id="strings-are-immutable">
+<span id="index-6"></span><h2>7.8. Strings are immutable<a class="headerlink" href="#strings-are-immutable" title="Permalink to this headline">¶</a></h2>
+<p>It is tempting to use the <tt class="docutils literal"><span class="pre">[]</span></tt> operator on the left side of an assignment,
+with the intention of changing a character in a string.  For example:</p>
+
+<div id="changelettererror" class="pywindow" >
+
+<div id="changelettererror_code_div" style="display: block">
+<textarea rows="3" id="changelettererror_code" class="active_code" prefixcode="undefined">
+greeting = "Hello, world!"
+greeting[0] = 'J'            # ERROR!
+print(greeting)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['changelettererror_code'] = true;
+pythonTool.readOnlyFlags['changelettererror_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="changelettererror_runb" onclick="pythonTool.runit('changelettererror_code','changelettererror_pre','changelettererror_error','changelettererror_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('changelettererror_code','changelettererror_pre','changelettererror_error','changelettererror_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='changelettererror_error'></div>
+
+<div style="text-align: center">
+<canvas id="changelettererror_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="changelettererror_suffix" style="display:none">
+</pre>
+<pre id="changelettererror_pre" class="active_out">
+
+</pre>
+
+<div id="changelettererror_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Instead of producing the output <tt class="docutils literal"><span class="pre">Jello,</span> <span class="pre">world!</span></tt>, this code produces the
+runtime error <tt class="docutils literal"><span class="pre">TypeError:</span> <span class="pre">'str'</span> <span class="pre">object</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">support</span> <span class="pre">item</span> <span class="pre">assignment</span></tt>.</p>
+<p>Strings are <strong>immutable</strong>, which means you can&#8217;t change an existing string. The
+best you can do is create a new string that is a variation on the original:</p>
+
+<div id="changelettercorrect" class="pywindow" >
+
+<div id="changelettercorrect_code_div" style="display: block">
+<textarea rows="3" id="changelettercorrect_code" class="active_code" prefixcode="undefined">
+greeting = "Hello, world!"
+newGreeting = "J" + greeting[1:]
+print(newGreeting)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['changelettercorrect_code'] = true;
+pythonTool.readOnlyFlags['changelettercorrect_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="changelettercorrect_runb" onclick="pythonTool.runit('changelettercorrect_code','changelettercorrect_pre','changelettercorrect_error','changelettercorrect_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('changelettercorrect_code','changelettercorrect_pre','changelettercorrect_error','changelettercorrect_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='changelettercorrect_error'></div>
+
+<div style="text-align: center">
+<canvas id="changelettercorrect_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="changelettercorrect_suffix" style="display:none">
+</pre>
+<pre id="changelettercorrect_pre" class="active_out">
+
+</pre>
+
+<div id="changelettercorrect_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The solution here is to concatenate a new first letter onto a slice of
+<tt class="docutils literal"><span class="pre">greeting</span></tt>. This operation has no effect on the original string.</p>
+</div>
+<div class="section" id="the-in-and-not-in-operators">
+<span id="index-7"></span><h2>7.9. The <tt class="docutils literal"><span class="pre">in</span></tt> and <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> operators<a class="headerlink" href="#the-in-and-not-in-operators" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">in</span></tt> operator tests for membership. When both of the arguments to <tt class="docutils literal"><span class="pre">in</span></tt>
+are strings, <tt class="docutils literal"><span class="pre">in</span></tt> checks whether the left argument is a substring of the right
+argument.</p>
+
+<div id="stringinexamples" class="pywindow" >
+
+<div id="stringinexamples_code_div" style="display: block">
+<textarea rows="8" id="stringinexamples_code" class="active_code" prefixcode="undefined">
+>>> "p" in "apple"
+True
+>>> "i" in "apple"
+False
+>>> "ap" in "apple"
+True
+>>> "pa" in "apple"
+False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringinexamples_code'] = false;
+pythonTool.readOnlyFlags['stringinexamples_code'] = true;
+</script>
+
+<div id='stringinexamples_error'></div>
+<pre id="stringinexamples_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Note that a string is a substring of itself, and the empty string is a
+substring of any other string. (Also note that computer scientists
+like to think about these edge cases quite carefully!)</p>
+
+<div id="stringinmoreexamples" class="pywindow" >
+
+<div id="stringinmoreexamples_code_div" style="display: block">
+<textarea rows="8" id="stringinmoreexamples_code" class="active_code" prefixcode="undefined">
+>>> "a" in "a"
+True
+>>> "apple" in "apple"
+True
+>>> "" in "a"
+True
+>>> "" in "apple"
+True</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringinmoreexamples_code'] = false;
+pythonTool.readOnlyFlags['stringinmoreexamples_code'] = true;
+</script>
+
+<div id='stringinmoreexamples_error'></div>
+<pre id="stringinmoreexamples_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> operator returns the logical opposite results of <tt class="docutils literal"><span class="pre">in</span></tt>:</p>
+
+<div id="stringinonemoreexample" class="pywindow" >
+
+<div id="stringinonemoreexample_code_div" style="display: block">
+<textarea rows="2" id="stringinonemoreexample_code" class="active_code" prefixcode="undefined">
+>>> "x" not in "apple"
+True</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stringinonemoreexample_code'] = false;
+pythonTool.readOnlyFlags['stringinonemoreexample_code'] = true;
+</script>
+
+<div id='stringinonemoreexample_error'></div>
+<pre id="stringinonemoreexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Combining the <tt class="docutils literal"><span class="pre">in</span></tt> operator with string concatenation using <tt class="docutils literal"><span class="pre">+</span></tt>, we can
+write a function that removes all the vowels from a string:</p>
+
+<div id="removevowels" class="pywindow" >
+
+<div id="removevowels_code_div" style="display: block">
+<textarea rows="10" id="removevowels_code" class="active_code" prefixcode="undefined">
+def remove_vowels(s):
+    ''' returns string with vowels removed from s '''
+    vowels = "aeiouAEIOU"
+    sWithoutVowels = ""
+    for x in s:
+        if x not in vowels:
+            sWithoutVowels += x
+    return sWithoutVowels
+
+print(remove_vowels("compsci"))  # should print "cmpsc"</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['removevowels_code'] = true;
+pythonTool.readOnlyFlags['removevowels_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="removevowels_runb" onclick="pythonTool.runit('removevowels_code','removevowels_pre','removevowels_error','removevowels_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('removevowels_code','removevowels_pre','removevowels_error','removevowels_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='removevowels_error'></div>
+
+<div style="text-align: center">
+<canvas id="removevowels_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="removevowels_suffix" style="display:none">
+</pre>
+<pre id="removevowels_pre" class="active_out">
+
+</pre>
+
+<div id="removevowels_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="a-find-function">
+<span id="index-8"></span><h2>7.10. A <tt class="docutils literal"><span class="pre">find</span></tt> function<a class="headerlink" href="#a-find-function" title="Permalink to this headline">¶</a></h2>
+<p>What does the following function do?</p>
+
+<div id="findcharacter" class="pywindow" >
+
+<div id="findcharacter_code_div" style="display: block">
+<textarea rows="16" id="findcharacter_code" class="active_code" prefixcode="undefined">
+def find(strng, ch):
+    """
+     Find and return the index of ch in strng.
+     Return -1 if ch does not occur in strng.
+    """
+    ix = 0
+    while ix < len(strng):
+        if strng[ix] == ch:
+            return ix
+        ix += 1
+    return -1
+
+print(find("Compsci","p"))
+print(find("Compsci","C"))
+print(find("Compsci","i"))
+print(find("Compsci","x"))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['findcharacter_code'] = true;
+pythonTool.readOnlyFlags['findcharacter_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="findcharacter_runb" onclick="pythonTool.runit('findcharacter_code','findcharacter_pre','findcharacter_error','findcharacter_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('findcharacter_code','findcharacter_pre','findcharacter_error','findcharacter_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='findcharacter_error'></div>
+
+<div style="text-align: center">
+<canvas id="findcharacter_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="findcharacter_suffix" style="display:none">
+</pre>
+<pre id="findcharacter_pre" class="active_out">
+
+</pre>
+
+<div id="findcharacter_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>In a sense, <tt class="docutils literal"><span class="pre">find</span></tt> is the opposite of the indexing operator. Instead of taking
+an index and extracting the corresponding character, it takes a character and
+finds the index where that character appears. If the character is not found,
+the function returns <tt class="docutils literal"><span class="pre">-1</span></tt>.</p>
+<p>This is another example where we see a <tt class="docutils literal"><span class="pre">return</span></tt> statement inside a loop.
+If <tt class="docutils literal"><span class="pre">strng[ix]</span> <span class="pre">==</span> <span class="pre">ch</span></tt>, the function returns immediately, breaking out of
+the loop prematurely.</p>
+<p>If the character doesn&#8217;t appear in the string, then the program exits the loop
+normally and returns <tt class="docutils literal"><span class="pre">-1</span></tt>.</p>
+<p>This pattern of computation is sometimes called a <strong>eureka traversal</strong> or
+<strong>short-circuit evaluation</strong>,  because as soon as we find what we are looking for,
+we can cry &#8220;Eureka!&#8221;, take the short-circuit, and stop looking.</p>
+</div>
+<div class="section" id="looping-and-counting">
+<span id="index-9"></span><h2>7.11. Looping and counting<a class="headerlink" href="#looping-and-counting" title="Permalink to this headline">¶</a></h2>
+<p>The following program counts the number of times the letter <tt class="docutils literal"><span class="pre">a</span></tt> appears in a
+string, and is another example of the counter pattern introduced in
+<a class="reference internal" href="iteration.html#counting"><em>Counting digits</em></a>:</p>
+
+<div id="countingletters" class="pywindow" >
+
+<div id="countingletters_code_div" style="display: block">
+<textarea rows="8" id="countingletters_code" class="active_code" prefixcode="undefined">
+def count_a(text):
+    count = 0
+    for c in text:
+        if c == "a":
+            count += 1
+    return(count)
+
+print(count_a("banana"))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['countingletters_code'] = true;
+pythonTool.readOnlyFlags['countingletters_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="countingletters_runb" onclick="pythonTool.runit('countingletters_code','countingletters_pre','countingletters_error','countingletters_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingletters_code','countingletters_pre','countingletters_error','countingletters_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='countingletters_error'></div>
+
+<div style="text-align: center">
+<canvas id="countingletters_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="countingletters_suffix" style="display:none">
+</pre>
+<pre id="countingletters_pre" class="active_out">
+
+</pre>
+
+<div id="countingletters_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="optional-parameters">
+<span id="index-10"></span><span id="id1"></span><h2>7.12. Optional parameters<a class="headerlink" href="#optional-parameters" title="Permalink to this headline">¶</a></h2>
+<p>To find the locations of the second or third occurrence of a character in a
+string, we can modify the <tt class="docutils literal"><span class="pre">find</span></tt> function, adding a third parameter for the
+starting position in the search string:</p>
+
+<div id="letterfindbetter" class="pywindow" >
+
+<div id="letterfindbetter_code_div" style="display: block">
+<textarea rows="9" id="letterfindbetter_code" class="active_code" prefixcode="undefined">
+def find2(strng, ch, start):
+    ix = start
+    while ix < len(strng):
+        if strng[ix] == ch:
+            return ix
+        ix += 1
+    return -1
+
+print(find2("banana", "a", 2))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['letterfindbetter_code'] = true;
+pythonTool.readOnlyFlags['letterfindbetter_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbetter_runb" onclick="pythonTool.runit('letterfindbetter_code','letterfindbetter_pre','letterfindbetter_error','letterfindbetter_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbetter_code','letterfindbetter_pre','letterfindbetter_error','letterfindbetter_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='letterfindbetter_error'></div>
+
+<div style="text-align: center">
+<canvas id="letterfindbetter_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="letterfindbetter_suffix" style="display:none">
+</pre>
+<pre id="letterfindbetter_pre" class="active_out">
+
+</pre>
+
+<div id="letterfindbetter_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The call <tt class="docutils literal"><span class="pre">find2(&quot;banana&quot;,</span> <span class="pre">&quot;a&quot;,</span> <span class="pre">2)</span></tt> now returns <tt class="docutils literal"><span class="pre">3</span></tt>, the index of the first
+occurrence of &#8220;a&#8221; in &#8220;banana&#8221; starting the search at index 2. What does
+<tt class="docutils literal"><span class="pre">find2(&quot;banana&quot;,</span> <span class="pre">&quot;n&quot;,</span> <span class="pre">3)</span></tt> return? If you said, 4, there is a good chance you
+understand how <tt class="docutils literal"><span class="pre">find2</span></tt> works.</p>
+<p>Better still, we can combine <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">find2</span></tt> using an
+<strong>optional parameter</strong>:</p>
+
+<div id="letterfindbest" class="pywindow" >
+
+<div id="letterfindbest_code_div" style="display: block">
+<textarea rows="10" id="letterfindbest_code" class="active_code" prefixcode="undefined">
+def find(strng, ch, start=0):
+    ix = start
+    while ix < len(strng):
+        if strng[ix] == ch:
+            return ix
+        ix += 1
+    return -1
+
+print(find("banana", "a"))
+print(find("banana", "a", 2))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['letterfindbest_code'] = true;
+pythonTool.readOnlyFlags['letterfindbest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbest_runb" onclick="pythonTool.runit('letterfindbest_code','letterfindbest_pre','letterfindbest_error','letterfindbest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbest_code','letterfindbest_pre','letterfindbest_error','letterfindbest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='letterfindbest_error'></div>
+
+<div style="text-align: center">
+<canvas id="letterfindbest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="letterfindbest_suffix" style="display:none">
+</pre>
+<pre id="letterfindbest_pre" class="active_out">
+
+</pre>
+
+<div id="letterfindbest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>When a function has an optional parameter, the caller <cite>may</cite> provide a
+matching argument. If the third argument is provided to <tt class="docutils literal"><span class="pre">find</span></tt>, it gets assigned
+to <tt class="docutils literal"><span class="pre">start</span></tt>.  But if the caller leaves the argument out, then start is given
+a default value indicated by the assignment <tt class="docutils literal"><span class="pre">start=0</span></tt> in the function definition.</p>
+<p>So the call <tt class="docutils literal"><span class="pre">find(&quot;banana&quot;,</span> <span class="pre">&quot;a&quot;,</span> <span class="pre">2)</span></tt> to this version of <tt class="docutils literal"><span class="pre">find</span></tt> behaves just
+like <tt class="docutils literal"><span class="pre">find2</span></tt>, while in the call <tt class="docutils literal"><span class="pre">find(&quot;banana&quot;,</span> <span class="pre">&quot;a&quot;)</span></tt>, <tt class="docutils literal"><span class="pre">start</span></tt> will be
+set to the <strong>default value</strong> of <tt class="docutils literal"><span class="pre">0</span></tt>.</p>
+<p>Adding another optional parameter to <tt class="docutils literal"><span class="pre">find</span></tt> makes it search from a starting
+position, up to but not including the end position:</p>
+
+<div id="letterfindbestest" class="pywindow" >
+
+<div id="letterfindbestest_code_div" style="display: block">
+<textarea rows="16" id="letterfindbestest_code" class="active_code" prefixcode="undefined">
+def find(strng, ch, start=0, end=None):
+    ix = start
+    if end is None:
+        end = len(strng)
+    while ix < end:
+        if strng[ix] == ch:
+            return ix
+        ix += 1
+    return -1
+
+ss = "Python strings have some interesting methods."
+print(find(ss, "s"))
+print(find(ss, "s", 7))
+print(find(ss, "s", 8))
+print(find(ss, "s", 8, 13))
+print(find(ss, "."))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['letterfindbestest_code'] = true;
+pythonTool.readOnlyFlags['letterfindbestest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbestest_runb" onclick="pythonTool.runit('letterfindbestest_code','letterfindbestest_pre','letterfindbestest_error','letterfindbestest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbestest_code','letterfindbestest_pre','letterfindbestest_error','letterfindbestest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='letterfindbestest_error'></div>
+
+<div style="text-align: center">
+<canvas id="letterfindbestest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="letterfindbestest_suffix" style="display:none">
+</pre>
+<pre id="letterfindbestest_pre" class="active_out">
+
+</pre>
+
+<div id="letterfindbestest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The optional value for <tt class="docutils literal"><span class="pre">end</span></tt> is interesting: we give it a default value <tt class="docutils literal"><span class="pre">None</span></tt> if the
+caller does not supply any argument.  In the body of the function we test what <tt class="docutils literal"><span class="pre">end</span></tt> is,
+and if the caller did not supply any argument, we reassign <tt class="docutils literal"><span class="pre">end</span></tt> to be the length of the string.
+If the caller has supplied an argument for <tt class="docutils literal"><span class="pre">end</span></tt>, however, the caller&#8217;s value will be used in the loop.</p>
+<p>The semantics of <tt class="docutils literal"><span class="pre">start</span></tt> and <tt class="docutils literal"><span class="pre">end</span></tt> in this function are precisely the same as they are in
+the <tt class="docutils literal"><span class="pre">range</span></tt> function.</p>
+</div>
+<div class="section" id="the-built-in-find-method">
+<span id="index-11"></span><h2>7.13. The built-in <tt class="docutils literal"><span class="pre">find</span></tt> method<a class="headerlink" href="#the-built-in-find-method" title="Permalink to this headline">¶</a></h2>
+<p>Now that we&#8217;ve done all this work to write a powerful <tt class="docutils literal"><span class="pre">find</span></tt> function, we can reveal that
+strings already have their own built-in <tt class="docutils literal"><span class="pre">find</span></tt> method.  It can do everything
+that our code can do, and more!</p>
+
+<div id="builtinletterfind" class="pywindow" >
+
+<div id="builtinletterfind_code_div" style="display: block">
+<textarea rows="6" id="builtinletterfind_code" class="active_code" prefixcode="undefined">
+ss = "Python strings have some interesting methods."
+print(ss.find("s"))
+print(ss.find("s", 7))
+print(ss.find("s", 8))
+print(ss.find("s", 8, 13))
+print(ss.find("."))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['builtinletterfind_code'] = true;
+pythonTool.readOnlyFlags['builtinletterfind_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="builtinletterfind_runb" onclick="pythonTool.runit('builtinletterfind_code','builtinletterfind_pre','builtinletterfind_error','builtinletterfind_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('builtinletterfind_code','builtinletterfind_pre','builtinletterfind_error','builtinletterfind_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='builtinletterfind_error'></div>
+
+<div style="text-align: center">
+<canvas id="builtinletterfind_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="builtinletterfind_suffix" style="display:none">
+</pre>
+<pre id="builtinletterfind_pre" class="active_out">
+
+</pre>
+
+<div id="builtinletterfind_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The built-in <tt class="docutils literal"><span class="pre">find</span></tt> method is more general than our version. It can find
+substrings, not just single characters:</p>
+
+<div id="findsubstring" class="pywindow" >
+
+<div id="findsubstring_code_div" style="display: block">
+<textarea rows="3" id="findsubstring_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+print(fruit.find("nan"))
+print(fruit.find("na", 3))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['findsubstring_code'] = true;
+pythonTool.readOnlyFlags['findsubstring_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="findsubstring_runb" onclick="pythonTool.runit('findsubstring_code','findsubstring_pre','findsubstring_error','findsubstring_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('findsubstring_code','findsubstring_pre','findsubstring_error','findsubstring_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='findsubstring_error'></div>
+
+<div style="text-align: center">
+<canvas id="findsubstring_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="findsubstring_suffix" style="display:none">
+</pre>
+<pre id="findsubstring_pre" class="active_out">
+
+</pre>
+
+<div id="findsubstring_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Usually we&#8217;d prefer to use the methods that Python provides rather than reinvent
+our own equivalents. But many of the built-in functions and methods make good
+teaching exercises, and the underlying techniques you learn are your building blocks
+to becoming a proficient programmer.</p>
+</div>
+<div class="section" id="the-split-method">
+<h2>7.14. The <tt class="docutils literal"><span class="pre">split</span></tt> method<a class="headerlink" href="#the-split-method" title="Permalink to this headline">¶</a></h2>
+<p>One of the most useful methods on strings is the <tt class="docutils literal"><span class="pre">split</span></tt> method:
+it splits a single multi-word string into a list of individual words, removing
+all the whitespace between them.  (Whitespace means any tabs, newlines, or spaces.)
+This allows us to read input as a single string,
+and split it into words.</p>
+
+<div id="splitstring" class="pywindow" >
+
+<div id="splitstring_code_div" style="display: block">
+<textarea rows="3" id="splitstring_code" class="active_code" prefixcode="undefined">
+ss = "Well I never did said Alice"
+wds = ss.split()
+print(wds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['splitstring_code'] = true;
+pythonTool.readOnlyFlags['splitstring_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="splitstring_runb" onclick="pythonTool.runit('splitstring_code','splitstring_pre','splitstring_error','splitstring_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('splitstring_code','splitstring_pre','splitstring_error','splitstring_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='splitstring_error'></div>
+
+<div style="text-align: center">
+<canvas id="splitstring_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="splitstring_suffix" style="display:none">
+</pre>
+<pre id="splitstring_pre" class="active_out">
+
+</pre>
+
+<div id="splitstring_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="cleaning-up-your-strings">
+<h2>7.15. Cleaning up your strings<a class="headerlink" href="#cleaning-up-your-strings" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll often work with strings that contain punctuation, or tab and newline characters,
+especially, as we&#8217;ll see in a future chapter, when we read our text from files or from
+the Internet. But if we&#8217;re writing a program, say, to count word frequencies or check the
+spelling of each word, we&#8217;d prefer to strip off these unwanted characters.</p>
+<p>We&#8217;ll show just one example of how to strip punctuation from a string.
+Remember that strings are immutable, so we cannot change the string with the
+punctuation &#8212; we need to traverse the original string and create a new string,
+omitting any punctuation:</p>
+
+<div id="strippuncok" class="pywindow" >
+
+<div id="strippuncok_code_div" style="display: block">
+<textarea rows="11" id="strippuncok_code" class="active_code" prefixcode="undefined">
+punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+def remove_punctuation(s):
+    sWithoutPunct = ""
+    for letter in s:
+        if letter not in punctuation:
+            sWithoutPunct += letter
+    return sWithoutPunct
+
+sentence = "Hello, I'm Python -- pleased to meet you!"
+print(remove_punctuation(sentence))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['strippuncok_code'] = true;
+pythonTool.readOnlyFlags['strippuncok_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="strippuncok_runb" onclick="pythonTool.runit('strippuncok_code','strippuncok_pre','strippuncok_error','strippuncok_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('strippuncok_code','strippuncok_pre','strippuncok_error','strippuncok_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='strippuncok_error'></div>
+
+<div style="text-align: center">
+<canvas id="strippuncok_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="strippuncok_suffix" style="display:none">
+</pre>
+<pre id="strippuncok_pre" class="active_out">
+
+</pre>
+
+<div id="strippuncok_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Composing together this function and the <tt class="docutils literal"><span class="pre">split</span></tt> method from the previous section
+makes a useful combination &#8212; we&#8217;ll clean out the punctuation, and
+<tt class="docutils literal"><span class="pre">split</span></tt> will clean out the newlines and tabs while turning the string into
+a list of words:</p>
+
+<div id="stripstory" class="pywindow" >
+
+<div id="stripstory_code_div" style="display: block">
+<textarea rows="21" id="stripstory_code" class="active_code" prefixcode="undefined">
+punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+def remove_punctuation(s):
+    sWithoutPunct = ""
+    for letter in s:
+        if letter not in punctuation:
+            sWithoutPunct += letter
+    return sWithoutPunct
+
+my_story = """
+Pythons are constrictors, which means that they will 'squeeze' the life
+out of their prey. They coil themselves around their prey and with
+each breath the creature takes the snake will squeeze a little tighter
+until they stop breathing completely. Once the heart stops the prey
+is swallowed whole. The entire animal is digested in the snake's
+stomach except for fur or feathers. What do you think happens to the fur,
+feathers, beaks, and eggshells? The 'extra stuff' gets passed out as ---
+you guessed it --- snake POOP! """
+
+wds = remove_punctuation(my_story).split()
+print(wds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['stripstory_code'] = true;
+pythonTool.readOnlyFlags['stripstory_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="stripstory_runb" onclick="pythonTool.runit('stripstory_code','stripstory_pre','stripstory_error','stripstory_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stripstory_code','stripstory_pre','stripstory_error','stripstory_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='stripstory_error'></div>
+
+<div style="text-align: center">
+<canvas id="stripstory_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="stripstory_suffix" style="display:none">
+</pre>
+<pre id="stripstory_pre" class="active_out">
+
+</pre>
+
+<div id="stripstory_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>(The output of the above program is way to long to fit in the window. Trust us &#8212; it prints a list of all the words in the story.)</p>
+<p>There are other useful string methods, but this book isn&#8217;t intended to
+be a reference manual. On the other hand, the <em>Python Library Reference</em>
+is. Along with a wealth of other documentation, it is available at
+the <a class="reference external" href="http://www.python.org">Python website</a>.</p>
+</div>
+<div class="section" id="summary">
+<span id="index-12"></span><h2>7.16. Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>This chapter introduced a lot of new ideas.  The following summary
+may prove helpful in remembering what you learned.</p>
+<dl class="glossary docutils">
+<dt id="term-indexing">indexing (<tt class="docutils literal"><span class="pre">[]</span></tt>)</dt>
+<dd>Access a single character in a string using its position (starting from
+0).  Example: <tt class="docutils literal"><span class="pre">&quot;This&quot;[2]</span></tt> evaluates to <tt class="docutils literal"><span class="pre">&quot;i&quot;</span></tt>.</dd>
+<dt id="term-length-function-len">length function (<tt class="docutils literal"><span class="pre">len</span></tt>)</dt>
+<dd>Returns the number of characters in a string.  Example:
+<tt class="docutils literal"><span class="pre">len(&quot;happy&quot;)</span></tt> evaluates to <tt class="docutils literal"><span class="pre">5</span></tt>.</dd>
+<dt id="term-for-loop-traversal-for">for loop traversal (<tt class="docutils literal"><span class="pre">for</span></tt>)</dt>
+<dd><p class="first"><em>Traversing</em> a string means accessing each character in the string, one
+at a time.  For example, the following for loop:</p>
+<blockquote>
+<div><div class="highlight-python3"><div class="highlight"><pre><span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="s">&quot;Example&quot;</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p class="last">executes the body of the loop 7 times with different values of <tt class="docutils literal"><span class="pre">ch</span></tt> each time.</p>
+</dd>
+<dt id="term-slicing">slicing (<tt class="docutils literal"><span class="pre">[:]</span></tt>)</dt>
+<dd>A <em>slice</em> is a substring of a string. Example: <tt class="docutils literal"><span class="pre">'bananas</span> <span class="pre">and</span>
+<span class="pre">cream'[3:6]</span></tt> evaluates to <tt class="docutils literal"><span class="pre">ana</span></tt> (so does <tt class="docutils literal"><span class="pre">'bananas</span> <span class="pre">and</span>
+<span class="pre">cream'[1:4]</span></tt>).</dd>
+<dt id="term-string-comparison">string comparison (<tt class="docutils literal"><span class="pre">&gt;,</span> <span class="pre">&lt;,</span> <span class="pre">&gt;=,</span> <span class="pre">&lt;=,</span> <span class="pre">==,</span> <span class="pre">!=</span></tt>)</dt>
+<dd>The six common comparison operators work with strings, evaluating according to
+<cite>lexicographical</cite> order.  Examples:
+<tt class="docutils literal"><span class="pre">&quot;apple&quot;</span> <span class="pre">&lt;</span> <span class="pre">&quot;banana&quot;</span></tt> evaluates to <tt class="docutils literal"><span class="pre">True</span></tt>.  <tt class="docutils literal"><span class="pre">&quot;Zeta&quot;</span> <span class="pre">&lt;</span> <span class="pre">&quot;Appricot&quot;</span></tt>
+evaluates to <tt class="docutils literal"><span class="pre">False</span></tt>.  <tt class="docutils literal"><span class="pre">&quot;Zebra&quot;</span> <span class="pre">&lt;=</span> <span class="pre">&quot;aardvark&quot;</span></tt> evaluates to
+<tt class="docutils literal"><span class="pre">True</span></tt> because all upper case letters precede lower case letters.</dd>
+<dt id="term-in-and-not-in-operator-in-not-in">in and not in operator (<tt class="docutils literal"><span class="pre">in</span></tt>, <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt>)</dt>
+<dd>The <tt class="docutils literal"><span class="pre">in</span></tt> operator tests for membership. In the case of
+strings, it tests whether one string is contained inside another
+string.  Examples: <tt class="docutils literal"><span class="pre">&quot;heck&quot;</span> <span class="pre">in</span> <span class="pre">&quot;I'll</span> <span class="pre">be</span> <span class="pre">checking</span> <span class="pre">for</span> <span class="pre">you.&quot;</span></tt>
+evaluates to <tt class="docutils literal"><span class="pre">True</span></tt>.  <tt class="docutils literal"><span class="pre">&quot;cheese&quot;</span> <span class="pre">in</span> <span class="pre">&quot;I'll</span> <span class="pre">be</span> <span class="pre">checking</span> <span class="pre">for</span>
+<span class="pre">you.&quot;</span></tt> evaluates to <tt class="docutils literal"><span class="pre">False</span></tt>.</dd>
+</dl>
+</div>
+<div class="section" id="glossary">
+<h2>7.17. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-compound-data-type">compound data type</dt>
+<dd>A data type in which the values are made up of components, or elements,
+that are themselves values.</dd>
+<dt id="term-default-value">default value</dt>
+<dd>The value given to an optional parameter if no argument for it is
+provided in the function call.</dd>
+<dt id="term-docstring">docstring</dt>
+<dd>A string constant on the first line of a function or module definition
+(and as we will see later, in class and method definitions as well).
+Docstrings provide a convenient way to associate documentation with
+code. Docstrings are also used by programming tools to provide interactive help.</dd>
+<dt id="term-dot-notation">dot notation</dt>
+<dd>Use of the <strong>dot operator</strong>, <tt class="docutils literal"><span class="pre">.</span></tt>, to access methods and attributes of an object.</dd>
+<dt id="term-immutable-data-value">immutable data value</dt>
+<dd>A data value which cannot be modified.  Assignments to elements or
+slices (sub-parts) of immutable values cause a runtime error.</dd>
+<dt id="term-index">index</dt>
+<dd>A variable or value used to select a member of an ordered collection, such as
+a character from a string, or an element from a list.</dd>
+<dt id="term-mutable-data-value">mutable data value</dt>
+<dd>A data value which can be modified. The types of all mutable values
+are compound types.  Lists and dictionaries are mutable; strings
+and tuples are not.</dd>
+<dt id="term-optional-parameter">optional parameter</dt>
+<dd>A parameter written in a function header with an assignment to a
+default value which it will receive if no corresponding argument is
+given for it in the function call.</dd>
+<dt id="term-short-circuit-evaluation">short-circuit evaluation</dt>
+<dd>A style of programming that shortcuts extra work as soon as the
+outcome is know with certainty. In this chapter our <tt class="docutils literal"><span class="pre">find</span></tt>
+function returned as soon as it found what it was looking for; it
+didn&#8217;t traverse all the rest of the items in the string.</dd>
+<dt id="term-slice">slice</dt>
+<dd>A part of a string (substring) specified by a range of indices. More
+generally, a subsequence of any sequence type in Python can be created
+using the slice operator (<tt class="docutils literal"><span class="pre">sequence[start:stop]</span></tt>).</dd>
+<dt id="term-traverse">traverse</dt>
+<dd>To iterate through the elements of a collection, performing a similar
+operation on each.</dd>
+<dt id="term-whitespace">whitespace</dt>
+<dd>Any of the characters that move the cursor without printing visible
+characters. The constant <tt class="docutils literal"><span class="pre">string.whitespace</span></tt> contains all the
+white-space characters.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="liststuples.html" title="8. Lists and Tuples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="iteration.html" title="6. Flow of Control"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

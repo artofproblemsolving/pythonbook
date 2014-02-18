@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>9. Files &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="10. Dictionaries" href="dictionaries.html" />
+    <link rel="prev" title="8. Lists and Tuples" href="liststuples.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dictionaries.html" title="10. Dictionaries"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="liststuples.html" title="8. Lists and Tuples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="files">
+<h1>9. Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-files">
+<span id="index-0"></span><h2>9.1. About files<a class="headerlink" href="#about-files" title="Permalink to this headline">¶</a></h2>
+<p>While a program is running, its data is stored in <em>random access memory</em> (RAM).
+RAM is fast and inexpensive, but it is also <strong>volatile</strong>, which means that when
+the program ends, or the computer shuts down, data in RAM disappears. To make
+data available the next time the computer is turned on and the program
+is started, it has to be written to a <strong>non-volatile</strong> storage medium,
+such a hard drive, usb drive, or DVD.</p>
+<p>Data on non-volatile storage media is stored in named locations on the media
+called <strong>files</strong>. By reading and writing files, programs can save information
+between program runs.</p>
+<p>Working with files is a lot like working with a notebook. To use a notebook,
+it has to be opened. When done, it has to be closed.  While the
+notebook is open, it can either be read from or written to. In either case,
+the notebook holder knows where they are. They can read the whole notebook in its
+natural order or they can skip around.</p>
+<p>All of this applies to files as well. To open a file, we specify its name and
+indicate whether we want to read or write.</p>
+<blockquote>
+<div><div class="admonition-files-don-t-play-nice-with-our-ebook admonition">
+<p class="first admonition-title">Files don&#8217;t play nice with our ebook</p>
+<p class="last">In every other chapter of our ebook, you can run Python code directly in the book.
+However, in this chapter, you can&#8217;t, because files don&#8217;t really work all that well
+in the ebook. So you&#8217;ll need to cut-and-paste the code samples over to IDLE in order
+to run the examples in this chapter.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="writing-our-first-file">
+<h2>9.2. Writing our first file<a class="headerlink" href="#writing-our-first-file" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s begin with a simple program that writes three lines of text into a file:</p>
+
+<div id="filefirstexample" class="pywindow" >
+
+<div id="filefirstexample_code_div" style="display: block">
+<textarea rows="5" id="filefirstexample_code" class="active_code" prefixcode="undefined">
+myfile = open("test.txt", "w")
+myfile.write("My first file written from Python\n")
+myfile.write("---------------------------------\n")
+myfile.write("Hello, world!\n")
+myfile.close()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['filefirstexample_code'] = true;
+pythonTool.readOnlyFlags['filefirstexample_code'] = true;
+</script>
+
+<div id='filefirstexample_error'></div>
+<pre id="filefirstexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Opening a file creates what we call a file <strong>handle</strong>. In this example, the variable <tt class="docutils literal"><span class="pre">myfile</span></tt>
+refers to the new handle object.  Our program calls methods on the handle, and this makes
+changes to the actual file which is usually located on our disk.</p>
+<p>On line 1, the open function takes two arguments. The first is the name of the file, and
+the second is the <strong>mode</strong>. Mode <tt class="docutils literal"><span class="pre">&quot;w&quot;</span></tt> means that we are opening the file for
+writing.</p>
+<p>With mode <tt class="docutils literal"><span class="pre">&quot;w&quot;</span></tt>, if there is no file named <tt class="docutils literal"><span class="pre">test.txt</span></tt> on the disk,
+it will be created. If there already is one, it will be replaced by the
+file we are writing.</p>
+<p>To put data in the file we invoke the <tt class="docutils literal"><span class="pre">write</span></tt> method on the handle, shown
+in lines 2, 3 and 4 above.  In bigger programs, lines 2&#8211;4 will usually be
+replaced by a loop that writes many more lines into the file.</p>
+<p>Closing the file handle (line 5) tells the system that we are done writing and makes
+the disk file available for reading by other programs (or by our own program).</p>
+<blockquote>
+<div><div class="admonition-a-handle-is-somewhat-like-a-tv-remote-control admonition">
+<p class="first admonition-title">A handle is somewhat like a TV remote control</p>
+<p>We&#8217;re all familiar with a remote control for a TV.  We perform operations on
+the remote control &#8212; switch channels, change the volume, etc.  But the real action
+happens on the TV.  So, by simple analogy, we&#8217;d call the remote control our <cite>handle</cite>
+to the underlying TV.</p>
+<p class="last">Sometimes we want to emphasize the difference &#8212; the file handle is not the same
+as the file, and the remote control is not the same as the TV.
+But at other times we prefer to treat them as a single mental chunk, or abstraction,
+and we&#8217;ll just say &#8220;close the file&#8221;, or &#8220;flip the TV channel&#8221;.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="reading-a-file-line-at-a-time">
+<h2>9.3. Reading a file line-at-a-time<a class="headerlink" href="#reading-a-file-line-at-a-time" title="Permalink to this headline">¶</a></h2>
+<p>Now that the file exists on our disk, we can open it, this time for reading, and read all
+the lines in the file, one at a time. This time, the mode argument is <tt class="docutils literal"><span class="pre">&quot;r&quot;</span></tt> for reading:</p>
+
+<div id="readfirstexample" class="pywindow" >
+
+<div id="readfirstexample_code_div" style="display: block">
+<textarea rows="10" id="readfirstexample_code" class="active_code" prefixcode="undefined">
+mynewhandle = open("test.txt", "r")
+while True:                            # Keep reading forever
+    theline = mynewhandle.readline()   # Try to read next line
+    if len(theline) == 0:              # If there are no more lines
+        break                          #     leave the loop
+
+    # Now process the line we've just read
+    print(theline, end="")
+
+mynewhandle.close()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['readfirstexample_code'] = true;
+pythonTool.readOnlyFlags['readfirstexample_code'] = true;
+</script>
+
+<div id='readfirstexample_error'></div>
+<pre id="readfirstexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>This is a handy pattern for our toolbox. In bigger programs, we&#8217;d
+squeeze more extensive logic into the body of the loop at line 8 &#8212;
+for example, if each line of the file contained the name and email address
+of one of our friends, perhaps we&#8217;d split the line into some pieces and
+call a function to send the friend a party invitation.</p>
+<p>On line 8 we suppress the newline character that <tt class="docutils literal"><span class="pre">print</span></tt>
+usually appends to our strings.  Why?  This is because the string already
+has its own newline:  the <tt class="docutils literal"><span class="pre">readline</span></tt> method in line 3 returns everything
+up to <em>and including</em> the newline character.  This also explains the
+end-of-file detection logic: when there are no more lines to be
+read from the file, <tt class="docutils literal"><span class="pre">readline</span></tt> returns an empty string &#8212; one that does not
+even have a newline at the end, hence its length is 0.</p>
+<blockquote>
+<div><div class="admonition-fail-first admonition">
+<p class="first admonition-title">Fail first ...</p>
+<p>In our sample case here, we have three lines in the file, yet
+we enter the loop <em>four</em> times.  In Python, you only learn that
+the file has no more lines by failure to read another line.
+In some other programming languages
+(e.g. Pascal), things are different: there you read three lines,
+but you have what is called <em>look ahead</em> &#8212; after reading the third
+line you already know that there are no more lines in the file.
+You&#8217;re not even allowed to try to read the fourth line.</p>
+<p>So the templates for working line-at-a-time in Pascal and Python are
+subtly different!</p>
+<p class="last">When you transfer your Python skills to your next computer language,
+be sure to ask how you&#8217;ll know when the file has ended: is the style
+in the language &#8220;try, and after you fail you&#8217;ll know&#8221;, or is
+it &#8220;look ahead&#8221;?</p>
+</div>
+</div></blockquote>
+<p>You can also use a <tt class="docutils literal"><span class="pre">for</span></tt> loop to read from a file. Each time we execute the loop, the
+loop variable (<tt class="docutils literal"><span class="pre">theline</span></tt> in the example below) will be the next line of the file. The
+<tt class="docutils literal"><span class="pre">for</span></tt> loop will automatically end after the final line of the file is read.</p>
+
+<div id="read" class="pywindow" >
+
+<div id="read_code_div" style="display: block">
+<textarea rows="6" id="read_code" class="active_code" prefixcode="undefined">
+mynewhandle = open("test.txt", "r")
+for theline in mynewhandle:    # get the next line
+    # Now process the line we've just read
+    print(theline, end="")
+
+mynewhandle.close()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['read_code'] = true;
+pythonTool.readOnlyFlags['read_code'] = true;
+</script>
+
+<div id='read_error'></div>
+<pre id="read_suffix" style="display:none">
+</pre>
+</div>
+
+<p>If we try to open a file that doesn&#8217;t exist, we get an error:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; mynewhandle = open(&quot;wharrah.txt&quot;, &quot;r&quot;)
+IOError: [Errno 2] No such file or directory: &quot;wharrah.txt&quot;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="turning-a-file-into-a-list-of-lines">
+<h2>9.4. Turning a file into a list of lines<a class="headerlink" href="#turning-a-file-into-a-list-of-lines" title="Permalink to this headline">¶</a></h2>
+<p>It is often useful to fetch data from
+a disk file and turn it into a list of lines.  Suppose we have a
+file containing our friends and their email addresses, one per line
+in the file.  But we&#8217;d like the lines sorted into
+alphabetical order.  A good plan is to read everything into a
+list of lines, then sort the list, and then write the sorted list
+back to another file:</p>
+
+<div id="sortfileexample" class="pywindow" >
+
+<div id="sortfileexample_code_div" style="display: block">
+<textarea rows="11" id="sortfileexample_code" class="active_code" prefixcode="undefined">
+f = open("friends.txt", "r")
+xs = f.readlines()   # reads the whole file at once into a list
+f.close()
+
+xs.sort()   # sorts the list
+
+# now write the sorted list to a new file
+g = open("sortedfriends.txt", "w")
+for v in xs:
+    g.write(v)
+g.close()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['sortfileexample_code'] = true;
+pythonTool.readOnlyFlags['sortfileexample_code'] = true;
+</script>
+
+<div id='sortfileexample_error'></div>
+<pre id="sortfileexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">readlines</span></tt> method in line 2 reads all the lines and
+returns a list of the strings.</p>
+<p>We could have used the template from the previous section to read each line
+one-at-a-time, and to build up the list ourselves, but it is a lot easier
+to use the method that the Python implementors gave us!</p>
+<div class="admonition-your-file-paths-may-need-to-be-explicitly-named admonition">
+<p class="first admonition-title">Your file paths may need to be explicitly named.</p>
+<p class="last">In the above examples, we&#8217;re assuming that the file we&#8217;re reading from is
+in the same directory as your Python source code.  If this is
+not the case, you may need to provide a full or a relative path to the file.  On Windows, a full
+path could look like <tt class="docutils literal"><span class="pre">&quot;C:\\temp\\somefile.txt&quot;</span></tt>, while on a Unix system the full path could be
+<tt class="docutils literal"><span class="pre">&quot;/home/jimmy/somefile.txt&quot;</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="an-example">
+<span id="index-1"></span><h2>9.5. An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<p>Many useful line-processing programs will read a text file line-at-a-time and do some minor
+processing as they write the lines to an output file.  They might number the
+lines in the output file, or insert extra blank lines after every 60 lines to
+make it convenient for printing on sheets of paper, or extract some specific
+columns only from each line in the source file, or only print lines that
+contain a specific substring.  We call this kind of program a <strong>filter</strong>.</p>
+<p>Here is a filter that copies one file to another,
+omitting any lines that begin with <tt class="docutils literal"><span class="pre">#</span></tt>:</p>
+
+<div id="filefilterexample" class="pywindow" >
+
+<div id="filefilterexample_code_div" style="display: block">
+<textarea rows="12" id="filefilterexample_code" class="active_code" prefixcode="undefined">
+def filter(oldfile, newfile):
+    # open the files
+    infile = open(oldfile, "r")
+    outfile = open(newfile, "w")
+    # process the files
+    for text in infile:
+        if text[0] == "#":
+            continue   # skip any lines that start with "#"
+        outfile.write(text)   # write any other lines to outfile
+    # close the files
+    infile.close()
+    outfile.close()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['filefilterexample_code'] = true;
+pythonTool.readOnlyFlags['filefilterexample_code'] = true;
+</script>
+
+<div id='filefilterexample_error'></div>
+<pre id="filefilterexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">continue</span></tt> statement at line 8 skips over the remaining lines in
+the current iteration of the loop, but the loop will still iterate.</p>
+<p>Let&#8217;s consider one more case: suppose our original file contained empty
+lines.  At line 6 above, would this program find the first empty line in the
+file, and terminate immediately?   No!  Recall that <tt class="docutils literal"><span class="pre">readline</span></tt> always
+includes the newline character in the string it returns.  It is only when we
+try to read <em>beyond</em> the end of the file that we get back the empty string of length 0.</p>
+</div>
+<div class="section" id="glossary">
+<span id="index-2"></span><h2>9.6. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-delimiter">delimiter</dt>
+<dd>A sequence of one or more characters used to specify the boundary
+between separate parts of text.</dd>
+<dt id="term-directory">directory</dt>
+<dd>A named collection of files, also called a folder.  Directories can
+contain files and other directories, which are referred to as
+<em>subdirectories</em> of the directory that contains them.</dd>
+<dt id="term-file">file</dt>
+<dd>A named entity, usually stored on a hard drive, floppy disk, or CD-ROM,
+that contains a stream of characters.</dd>
+<dt id="term-file-system">file system</dt>
+<dd>A method for naming, accessing, and organizing files and the data they
+contain.</dd>
+<dt id="term-handle">handle</dt>
+<dd>An object in our program that is connected to an underlying resource (e.g. a file).
+The file handle lets our program manipulate/read/write/close the actual
+file that is on our disk.</dd>
+<dt id="term-mode">mode</dt>
+<dd>A distinct method of operation within a computer program.  Files in
+Python can be opened in one of four modes: read (<tt class="docutils literal"><span class="pre">&quot;r&quot;</span></tt>), write
+(<tt class="docutils literal"><span class="pre">&quot;w&quot;</span></tt>), append (<tt class="docutils literal"><span class="pre">&quot;a&quot;</span></tt>), and read and write (<tt class="docutils literal"><span class="pre">&quot;+&quot;</span></tt>).</dd>
+<dt id="term-non-volatile-memory">non-volatile memory</dt>
+<dd>Memory that can maintain its state without power. Hard drives, flash
+drives, and rewritable compact disks (CD-RW) are each examples of
+non-volatile memory.</dd>
+<dt id="term-path">path</dt>
+<dd>A sequence of directory names that specifies the exact location of a
+file.</dd>
+<dt id="term-text-file">text file</dt>
+<dd>A file that contains printable characters organized into lines
+separated by newline characters.</dd>
+<dt id="term-volatile-memory">volatile memory</dt>
+<dd>Memory which requires an electrical current to maintain state. The
+<em>main memory</em> or RAM of a computer is volatile.  Information stored in
+RAM is lost when the computer is turned off.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dictionaries.html" title="10. Dictionaries"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="liststuples.html" title="8. Lists and Tuples"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

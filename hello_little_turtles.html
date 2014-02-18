@@ -1,0 +1,1180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Hello, little turtles! &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="4. Functions" href="functions.html" />
+    <link rel="prev" title="2. Variables, expressions and statements" href="variables_expressions_statements.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="4. Functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="variables_expressions_statements.html" title="2. Variables, expressions and statements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="hello-little-turtles">
+<h1>3. Hello, little turtles!<a class="headerlink" href="#hello-little-turtles" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">There are many <em>modules</em> in Python that provide very powerful features that we
+can use in our own programs.  Some of these can send email, or fetch web pages.
+The one we&#8217;ll look at in this chapter allows us to create turtles and get them
+to draw shapes and patterns.</p>
+<p>The turtles are fun, but the real purpose of the chapter is to teach ourselves
+a little more Python, and to develop our theme of <em>computational thinking</em>,
+or <em>thinking like a computer scientist</em>.  Most of the Python covered here
+will be explored in more depth later.</p>
+<div class="section" id="our-first-turtle-program">
+<span id="index-1"></span><h2>3.1. Our first turtle program<a class="headerlink" href="#our-first-turtle-program" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s write a couple of lines of Python program to create a new
+turtle and start drawing a rectangle. (We&#8217;ll call the variable that
+refers to our first turtle <tt class="docutils literal"><span class="pre">alex</span></tt>, but we can choose another
+name if we follow the naming rules from the previous chapter).</p>
+
+<div id="firstturtle" class="pywindow" >
+
+<div id="firstturtle_code_div" style="display: block">
+<textarea rows="9" id="firstturtle_code" class="active_code" prefixcode="undefined">
+import turtle             # Allows us to use turtles
+wn = turtle.Screen()      # Creates a playground for turtles
+alex = turtle.Turtle()    # Create a turtle, assign to alex
+
+alex.forward(50)          # Tell alex to move forward by 50 units
+alex.left(90)             # Tell alex to turn left by 90 degrees
+alex.forward(30)          # Complete the second side of a rectangle
+
+wn.mainloop()             # Wait for user to close window</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['firstturtle_code'] = true;
+pythonTool.readOnlyFlags['firstturtle_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="firstturtle_runb" onclick="pythonTool.runit('firstturtle_code','firstturtle_pre','firstturtle_error','firstturtle_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstturtle_code','firstturtle_pre','firstturtle_error','firstturtle_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='firstturtle_error'></div>
+
+<div style="text-align: center">
+<canvas id="firstturtle_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="firstturtle_suffix" style="display:none">
+</pre>
+<pre id="firstturtle_pre" class="active_out">
+
+</pre>
+
+<div id="firstturtle_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If you copy and paste this program into a new IDLE module, and run it, it doesn&#8217;t run in the shell like our programs so far: instead, a new window pops up! (If you run it here in the ebook by clicking the &#8220;Run&#8221; button, a simulation of this window will appear within the book.)</p>
+<p>Here are a couple of things we&#8217;ll need to understand about this program. (Don&#8217;t worry if you don&#8217;t understand them all now&#8212;we&#8217;ll cover them in more detail as we work through the book.)</p>
+<p>The first line tells Python to load a module named <tt class="docutils literal"><span class="pre">turtle</span></tt>.
+That module brings us two new types that we can use:
+the <tt class="docutils literal"><span class="pre">Turtle</span></tt> type, and the <tt class="docutils literal"><span class="pre">Screen</span></tt> type.  The dot
+notation <tt class="docutils literal"><span class="pre">turtle.Turtle</span></tt> means <em>&#8220;The Turtle type that is defined within
+the turtle module&#8221;</em>.   (Remember that Python is case sensitive, so the
+module name, with a lowercase <cite>t</cite>, is different from the type <tt class="docutils literal"><span class="pre">Turtle</span></tt>.)</p>
+<p>We then create and open what it calls a screen (we would prefer to call it
+a window), which we assign to variable <tt class="docutils literal"><span class="pre">wn</span></tt>. Every window contains
+a <strong>canvas</strong>, which is the area inside the window on which we can draw.</p>
+<p>In line 3 we create a turtle. The variable <tt class="docutils literal"><span class="pre">alex</span></tt> is made to refer to this turtle.</p>
+<p>So these first three lines have set things up, we&#8217;re ready to get our turtle to draw on our canvas.</p>
+<p>In lines 5-7, we instruct the <strong>object</strong> <tt class="docutils literal"><span class="pre">alex</span></tt> to move, and to turn. We
+do this by <strong>invoking</strong>, or activating, <tt class="docutils literal"><span class="pre">alex</span></tt>&#8216;s <strong>methods</strong> &#8212; these are
+the instructions that all turtles know how to respond to.</p>
+<p>The last line plays a part too: the <tt class="docutils literal"><span class="pre">wn</span></tt> variable refers to
+the window shown above. When we invoke its <tt class="docutils literal"><span class="pre">mainloop</span></tt> method, it enters
+a state where it waits for events (like keypresses, or mouse movement and clicks).
+The program will terminate when the user closes the window.  (Note: in our ebook, you can&#8217;t &#8220;close&#8221; the turtle window once it&#8217;s open. The <tt class="docutils literal"><span class="pre">wn.mainloop()</span></tt> line is there for when you run the program on your own computer inside of IDLE. If you leave it out, then your turtle program will never terminate, and you&#8217;ll have to shut down IDLE to continue working.)</p>
+<p>An object can have various methods &#8212; things it can do &#8212; and it can also have
+<strong>attributes</strong> (sometimes called <em>properties</em>).  For example, each turtle has
+a <em>color</em> attribute.  The method invocation
+<tt class="docutils literal"><span class="pre">alex.color(&quot;red&quot;)</span></tt> will make <tt class="docutils literal"><span class="pre">alex</span></tt> red, and drawing will be red too.</p>
+<p>The color of the turtle, the width of its pen, the position of the
+turtle within the window, which way it is facing, and so on are all part of its
+current <strong>state</strong>.   Similarly, the window object has a background color, and
+some text in the title bar, and a size and position on the screen.  These are all
+part of the state of the window object.</p>
+<p>Quite a number of methods exist that allow us to modify the turtle and the
+window objects.  We&#8217;ll just show a couple. In this program we&#8217;ve only commented those
+lines that are different from the previous example (and we&#8217;ve used a different
+variable name for this turtle):</p>
+
+<div id="secondturtle" class="pywindow" >
+
+<div id="secondturtle_code_div" style="display: block">
+<textarea rows="14" id="secondturtle_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()
+wn.bgcolor("lightgreen")      # Set the window background color
+wn.title("Hello, Tess!")      # Set the window title
+
+tess = turtle.Turtle()
+tess.color("blue")            # Tell tess to change her color
+tess.pensize(3)               # Tell tess to set her pen width
+
+tess.forward(50)
+tess.left(120)
+tess.forward(50)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['secondturtle_code'] = true;
+pythonTool.readOnlyFlags['secondturtle_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="secondturtle_runb" onclick="pythonTool.runit('secondturtle_code','secondturtle_pre','secondturtle_error','secondturtle_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('secondturtle_code','secondturtle_pre','secondturtle_error','secondturtle_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='secondturtle_error'></div>
+
+<div style="text-align: center">
+<canvas id="secondturtle_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="secondturtle_suffix" style="display:none">
+</pre>
+<pre id="secondturtle_pre" class="active_out">
+
+</pre>
+
+<div id="secondturtle_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>When we run this program, a new window pops up. (Note: in this ebook, the turtle windows don&#8217;t have titles, so the line <tt class="docutils literal"><span class="pre">wn.title(&quot;Hello,</span> <span class="pre">Tess!&quot;)</span></tt> does nothing. But if you copy and paste this program into a module on your compute and run it in IDLE, you&#8217;ll see that the title bar of the window says <tt class="docutils literal"><span class="pre">Hello,</span> <span class="pre">Tess!</span></tt>.)</p>
+</div>
+<div class="section" id="instances-a-herd-of-turtles">
+<span id="index-2"></span><h2>3.2. Instances &#8212; a herd of turtles<a class="headerlink" href="#instances-a-herd-of-turtles" title="Permalink to this headline">¶</a></h2>
+<p>Just like we can have many different integers in a program, we can have many turtles.
+Each of them is called an <strong>instance</strong>.  Each instance has its own attributes and
+methods &#8212; so <tt class="docutils literal"><span class="pre">alex</span></tt> might draw with a thin black pen and be at some position,
+while <tt class="docutils literal"><span class="pre">tess</span></tt> might be going in her own direction with a fat pink pen.</p>
+
+<div id="twoturtles" class="pywindow" >
+
+<div id="twoturtles_code_div" style="display: block">
+<textarea rows="31" id="twoturtles_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()         # Set up the window and its attributes
+wn.bgcolor("lightgreen")
+wn.title("Tess & Alex")
+
+tess = turtle.Turtle()       # Create tess and set some attributes
+tess.color("hotpink")
+tess.pensize(5)
+
+alex = turtle.Turtle()       # Create alex
+
+tess.forward(80)             # Make tess draw equilateral triangle
+tess.left(120)
+tess.forward(80)
+tess.left(120)
+tess.forward(80)
+tess.left(120)               # Complete the triangle
+
+tess.right(180)              # Turn tess around
+tess.forward(80)             # Move her away from the origin
+
+alex.forward(50)             # Make alex draw a square
+alex.left(90)
+alex.forward(50)
+alex.left(90)
+alex.forward(50)
+alex.left(90)
+alex.forward(50)
+alex.left(90)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['twoturtles_code'] = true;
+pythonTool.readOnlyFlags['twoturtles_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="twoturtles_runb" onclick="pythonTool.runit('twoturtles_code','twoturtles_pre','twoturtles_error','twoturtles_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twoturtles_code','twoturtles_pre','twoturtles_error','twoturtles_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='twoturtles_error'></div>
+
+<div style="text-align: center">
+<canvas id="twoturtles_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="twoturtles_suffix" style="display:none">
+</pre>
+<pre id="twoturtles_pre" class="active_out">
+
+</pre>
+
+<div id="twoturtles_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Here are some observations about this program:</p>
+<ul class="simple">
+<li>There are 360 degrees in a full circle.  If we add up all the turns that a turtle makes,
+<em>no matter what steps occurred between the turns</em>, we can easily figure out if they
+add up to some multiple of 360.  This should convince us that <tt class="docutils literal"><span class="pre">alex</span></tt> is facing in
+exactly the same direction as he was when he was first created. (Geometry
+conventions have 0 degrees facing East, and that is the case here too!)</li>
+<li>We could have left out the last turn for <tt class="docutils literal"><span class="pre">alex</span></tt>, but that would not have been
+as satisfying.  If we&#8217;re asked to draw a closed shape like a
+square or a rectangle, it is a good idea to
+complete all the turns and to leave the turtle back where it started, facing the
+same direction as it started in.
+This makes reasoning about the program and composing chunks of code into bigger programs
+easier for us humans!</li>
+<li>We did the same with <tt class="docutils literal"><span class="pre">tess</span></tt>: she drew her triangle, and turned through a full 360 degrees.
+Then we turned her around and moved her aside.  Even the blank line 18
+is a hint about how the programmer&#8217;s <em>mental chunking</em> is working:
+in big terms, <tt class="docutils literal"><span class="pre">tess</span></tt>&#8216; movements were chunked as &#8220;draw the triangle&#8221;
+(lines 12-17) and then &#8220;move away from the origin&#8221; (lines 19 and 20).</li>
+<li>One of the key uses for comments is to record our mental chunking, and big ideas.
+They&#8217;re not always explicit in the code.</li>
+<li>And, uh-huh, two turtles may not be enough for a herd. But the important idea is that the
+turtle module gives us a kind of factory that lets us create as many turtles as we
+need. Each instance has its own state and behavior.</li>
+</ul>
+</div>
+<div class="section" id="the-for-loop">
+<span id="index-3"></span><h2>3.3. The <strong>for</strong> loop<a class="headerlink" href="#the-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>When we drew the square, it was quite tedious.  We had to explicitly repeat the steps of
+moving and turning four times.  If we were drawing a hexagon, or an octogon,
+or a polygon with 42 sides, it would have been worse.</p>
+<p>So a basic building block of all programs is to be able to repeat some code, over and
+over again.</p>
+<p>Python&#8217;s <strong>for</strong> loop solves this for us.   Let&#8217;s say we have some friends, and
+we&#8217;d like to send them each an email inviting them to our party.  We don&#8217;t
+quite know how to send email yet, so for the moment we&#8217;ll just print a message for each friend:</p>
+
+<div id="partyinvites" class="pywindow" >
+
+<div id="partyinvites_code_div" style="display: block">
+<textarea rows="4" id="partyinvites_code" class="active_code" prefixcode="undefined">
+for f in ["Joe","Zoe","Brad","Angelina","Zuki","Thandi","Paris"]:
+    invite = "Hi " + f + ". Please come to my party on Saturday!"
+    print(invite)
+# more code can follow here ...</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['partyinvites_code'] = true;
+pythonTool.readOnlyFlags['partyinvites_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="partyinvites_runb" onclick="pythonTool.runit('partyinvites_code','partyinvites_pre','partyinvites_error','partyinvites_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('partyinvites_code','partyinvites_pre','partyinvites_error','partyinvites_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='partyinvites_error'></div>
+
+<div style="text-align: center">
+<canvas id="partyinvites_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="partyinvites_suffix" style="display:none">
+</pre>
+<pre id="partyinvites_pre" class="active_out">
+
+</pre>
+
+<div id="partyinvites_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<ul class="simple">
+<li>The variable <tt class="docutils literal"><span class="pre">f</span></tt> in the <tt class="docutils literal"><span class="pre">for</span></tt> statement at line 1 is called the <strong>loop variable</strong>.
+We could have chosen any other variable name instead.</li>
+<li>Lines 2 and 3 are the <strong>loop body</strong>.  The loop body is always
+indented. The convention is to use 4 spaces of indentation for our loop bodies. The indentation determines exactly what statements are &#8220;in the body of the loop&#8221;.</li>
+<li>On each <em>iteration</em> or <em>pass</em> of the loop, first a check is done to see if there are
+still more items to be processed.  If there are none left (this is called
+the <strong>terminating condition</strong> of the loop), the loop has finished.
+Program execution continues at the next statement after the loop body, (e.g. in this case
+the next statement below the comment in line 4).</li>
+<li>If there are items still to be processed, the loop variable is updated to refer to the
+next item in the list.  This means, in this case, that the loop body is executed
+here 7 times, and each time <tt class="docutils literal"><span class="pre">f</span></tt> will refer to a different friend.</li>
+<li>At the end of each execution of the body of the loop, Python returns
+to the <tt class="docutils literal"><span class="pre">for</span></tt> statement, to see if there are more items to be handled, and to assign the
+next one to <tt class="docutils literal"><span class="pre">f</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="flow-of-execution-of-the-for-loop">
+<span id="index-4"></span><h2>3.4. Flow of Execution of the for loop<a class="headerlink" href="#flow-of-execution-of-the-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>As a program executes, the interpreter always keeps track of which statement is
+about to be executed.  We call this the <strong>control flow</strong>, of the <strong>flow of execution</strong>
+of the program.  When humans execute programs, they often use their finger to point
+to each statement in turn.  So we could think of control flow as &#8220;Python&#8217;s moving finger&#8221;.</p>
+<p>Control flow until now has been strictly
+top to bottom, one statement at a time.  The <tt class="docutils literal"><span class="pre">for</span></tt> loop changes this.</p>
+<div class="admonition-flowchart-of-a-for-loop admonition">
+<p class="first admonition-title">Flowchart of a <strong>for</strong> loop</p>
+<p>Control flow is often easy to visualize and understand if we draw a flowchart.
+This shows the exact steps and logic of how the <tt class="docutils literal"><span class="pre">for</span></tt> statement executes.</p>
+<a class="last reference internal image-reference" href="_images/flowchart_for.png"><img alt="_images/flowchart_for.png" src="_images/flowchart_for.png" style="height: 420px;" /></a>
+</div>
+</div>
+<div class="section" id="the-loop-simplifies-our-turtle-program">
+<span id="index-5"></span><h2>3.5. The loop simplifies our turtle program<a class="headerlink" href="#the-loop-simplifies-our-turtle-program" title="Permalink to this headline">¶</a></h2>
+<p>To draw a square we&#8217;d like to do the same thing four times &#8212; move the turtle, and turn.
+We previously used 8 lines to have <tt class="docutils literal"><span class="pre">alex</span></tt> draw the four sides of a square.
+This does exactly the same, but using just three lines:</p>
+
+<div id="turtlesquare" class="pywindow" >
+
+<div id="turtlesquare_code_div" style="display: block">
+<textarea rows="9" id="turtlesquare_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()         # Set up the window and its attributes
+alex = turtle.Turtle()       # Create alex
+
+for i in [0,1,2,3]:          # Draw the four sides of the square
+    alex.forward(50)
+    alex.left(90)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlesquare_code'] = true;
+pythonTool.readOnlyFlags['turtlesquare_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquare_runb" onclick="pythonTool.runit('turtlesquare_code','turtlesquare_pre','turtlesquare_error','turtlesquare_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquare_code','turtlesquare_pre','turtlesquare_error','turtlesquare_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlesquare_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlesquare_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlesquare_suffix" style="display:none">
+</pre>
+<pre id="turtlesquare_pre" class="active_out">
+
+</pre>
+
+<div id="turtlesquare_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Some observations:</p>
+<ul class="simple">
+<li>While &#8220;saving some lines of code&#8221; might be convenient, it is not the big deal here.
+What is much more important is that we&#8217;ve found a &#8220;repeating pattern&#8221; of statements,
+and reorganized our program to repeat the pattern.  Finding the chunks and somehow
+getting our programs arranged around those chunks is a vital
+skill in computational thinking.</li>
+<li>The values [0,1,2,3] were provided to make the loop body execute 4 times.
+We could
+have used any four values, but these are the conventional ones to use.  In fact, they are
+so popular that Python gives us special built-in <tt class="docutils literal"><span class="pre">range</span></tt> objects:</li>
+</ul>
+
+<div id="forloopexamples" class="pywindow" >
+
+<div id="forloopexamples_code_div" style="display: block">
+<textarea rows="6" id="forloopexamples_code" class="active_code" prefixcode="undefined">
+for i in range(4):
+    # Executes the body with i = 0, then 1, then 2, then 3
+    print("i = "+str(i))
+for x in range(10):
+    # Sets x to each of ... [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    print("x = "+str(x))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['forloopexamples_code'] = true;
+pythonTool.readOnlyFlags['forloopexamples_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="forloopexamples_runb" onclick="pythonTool.runit('forloopexamples_code','forloopexamples_pre','forloopexamples_error','forloopexamples_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('forloopexamples_code','forloopexamples_pre','forloopexamples_error','forloopexamples_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='forloopexamples_error'></div>
+
+<div style="text-align: center">
+<canvas id="forloopexamples_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="forloopexamples_suffix" style="display:none">
+</pre>
+<pre id="forloopexamples_pre" class="active_out">
+
+</pre>
+
+<div id="forloopexamples_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<ul class="simple">
+<li>Computer scientists like to count from 0!</li>
+<li><tt class="docutils literal"><span class="pre">range</span></tt> can deliver a sequence of values to the loop variable in the <tt class="docutils literal"><span class="pre">for</span></tt> loop.
+They start at 0, and in these cases do not include the 4 or the 10.</li>
+<li>Our little trick earlier to make sure that <tt class="docutils literal"><span class="pre">alex</span></tt> did the final turn to complete
+360 degrees has paid off: if we had not done that, then we would not have been
+able to use a loop for the fourth side of the square.
+It would have become a &#8220;special case&#8221;,
+different from the other sides.  When possible, we&#8217;d much prefer to make
+our code fit a general pattern, rather than have to create a special case.</li>
+</ul>
+<p>So to repeat something four times, a good Python programmer would do this:</p>
+
+<div id="forloopalex" class="pywindow" >
+
+<div id="forloopalex_code_div" style="display: block">
+<textarea rows="3" id="forloopalex_code" class="active_code" prefixcode="undefined">
+for i in range(4):
+    alex.forward(50)
+    alex.left(90)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['forloopalex_code'] = false;
+pythonTool.readOnlyFlags['forloopalex_code'] = true;
+</script>
+
+<div id='forloopalex_error'></div>
+<pre id="forloopalex_suffix" style="display:none">
+</pre>
+</div>
+
+<p>By now you should be able to see how to change our previous program so that
+<tt class="docutils literal"><span class="pre">tess</span></tt> can also use a <tt class="docutils literal"><span class="pre">for</span></tt> loop to draw her equilateral triangle.</p>
+<p>But now, what would happen if we made the change below? Try to figure out what&#8217;s going to happen, then run the code to see if you&#8217;re right!</p>
+
+<div id="turtlesquarefourcolors" class="pywindow" >
+
+<div id="turtlesquarefourcolors_code_div" style="display: block">
+<textarea rows="10" id="turtlesquarefourcolors_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()         # Set up the window and its attributes
+alex = turtle.Turtle()       # Create alex
+
+for c in ["yellow", "red", "purple", "blue"]:
+    alex.color(c)
+    alex.forward(50)
+    alex.left(90)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlesquarefourcolors_code'] = true;
+pythonTool.readOnlyFlags['turtlesquarefourcolors_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolors_runb" onclick="pythonTool.runit('turtlesquarefourcolors_code','turtlesquarefourcolors_pre','turtlesquarefourcolors_error','turtlesquarefourcolors_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefourcolors_code','turtlesquarefourcolors_pre','turtlesquarefourcolors_error','turtlesquarefourcolors_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlesquarefourcolors_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlesquarefourcolors_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlesquarefourcolors_suffix" style="display:none">
+</pre>
+<pre id="turtlesquarefourcolors_pre" class="active_out">
+
+</pre>
+
+<div id="turtlesquarefourcolors_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>A variable can also be assigned a value that is a list.  So lists can also be used in
+more general situations, not only in the <tt class="docutils literal"><span class="pre">for</span></tt> loop.  The code above could be rewritten like this:</p>
+
+<div id="turtlesquarefourcolorlist" class="pywindow" >
+
+<div id="turtlesquarefourcolorlist_code_div" style="display: block">
+<textarea rows="11" id="turtlesquarefourcolorlist_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()         # Set up the window and its attributes
+alex = turtle.Turtle()       # Create alex
+
+clrs = ["yellow", "red", "purple", "blue"]
+for c in clrs:
+    alex.color(c)
+    alex.forward(50)
+    alex.left(90)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlesquarefourcolorlist_code'] = true;
+pythonTool.readOnlyFlags['turtlesquarefourcolorlist_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolorlist_runb" onclick="pythonTool.runit('turtlesquarefourcolorlist_code','turtlesquarefourcolorlist_pre','turtlesquarefourcolorlist_error','turtlesquarefourcolorlist_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefourcolorlist_code','turtlesquarefourcolorlist_pre','turtlesquarefourcolorlist_error','turtlesquarefourcolorlist_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlesquarefourcolorlist_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlesquarefourcolorlist_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlesquarefourcolorlist_suffix" style="display:none">
+</pre>
+<pre id="turtlesquarefourcolorlist_pre" class="active_out">
+
+</pre>
+
+<div id="turtlesquarefourcolorlist_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="a-few-more-turtle-methods-and-tricks">
+<h2>3.6. A few more turtle methods and tricks<a class="headerlink" href="#a-few-more-turtle-methods-and-tricks" title="Permalink to this headline">¶</a></h2>
+<p>Turtle methods can use negative angles or distances.  So <tt class="docutils literal"><span class="pre">tess.forward(-100)</span></tt>
+will move <tt class="docutils literal"><span class="pre">tess</span></tt> backwards, and <tt class="docutils literal"><span class="pre">tess.left(-30)</span></tt> turns her to the right.  Additionally,
+because there are 360 degrees in a circle, turning 30 to the left will get <tt class="docutils literal"><span class="pre">tess</span></tt> facing
+in the same direction as turning 330 to the right!  (The on-screen animation will differ,
+though &#8212; you will be able to tell if <tt class="docutils literal"><span class="pre">tess</span></tt> is turning clockwise or counter-clockwise!)</p>
+<p>This suggests that we don&#8217;t need both a left and a right turn method &#8212; we could be
+minimalists, and just have one method.  There is also a <em>backward</em>
+method.  (If you are very nerdy, you might enjoy saying <tt class="docutils literal"><span class="pre">alex.backward(-100)</span></tt> to
+move <tt class="docutils literal"><span class="pre">alex</span></tt> forward!)</p>
+<p>Part of <em>thinking like a computer scientist</em> is to understand more of the structure and rich
+relationships in our field.  So revising a few basic facts about
+geometry and number lines, and spotting the relationships between left, right,
+backward, forward, negative and positive distances or angles values is a good start
+if we&#8217;re going to play with turtles.</p>
+<p>A turtle&#8217;s pen can be picked up or put down.  This allows us to move a turtle
+to a different place without drawing a line.   The methods are</p>
+
+<div id="penupexample" class="pywindow" >
+
+<div id="penupexample_code_div" style="display: block">
+<textarea rows="9" id="penupexample_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()         # Set up the window and its attributes
+alex = turtle.Turtle()       # Create alex
+
+alex.penup()
+alex.forward(100)     # This moves alex, but no line is drawn
+alex.pendown()
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['penupexample_code'] = true;
+pythonTool.readOnlyFlags['penupexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="penupexample_runb" onclick="pythonTool.runit('penupexample_code','penupexample_pre','penupexample_error','penupexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('penupexample_code','penupexample_pre','penupexample_error','penupexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='penupexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="penupexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="penupexample_suffix" style="display:none">
+</pre>
+<pre id="penupexample_pre" class="active_out">
+
+</pre>
+
+<div id="penupexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Every turtle can have its own shape.  The shapes available are <tt class="docutils literal"><span class="pre">arrow</span></tt>, <tt class="docutils literal"><span class="pre">blank</span></tt>, <tt class="docutils literal"><span class="pre">circle</span></tt>, <tt class="docutils literal"><span class="pre">classic</span></tt>, <tt class="docutils literal"><span class="pre">square</span></tt>, <tt class="docutils literal"><span class="pre">triangle</span></tt>, <tt class="docutils literal"><span class="pre">turtle</span></tt>.</p>
+
+<div id="firstturtleshape" class="pywindow" >
+
+<div id="firstturtleshape_code_div" style="display: block">
+<textarea rows="11" id="firstturtleshape_code" class="active_code" prefixcode="undefined">
+import turtle             # Allows us to use turtles
+wn = turtle.Screen()      # Creates a playground for turtles
+alex = turtle.Turtle()    # Create a turtle, assign to alex
+
+alex.shape("turtle")      # Shape alex to look like a turtle
+
+alex.forward(50)          # Tell alex to move forward by 50 units
+alex.left(90)             # Tell alex to turn by 90 degrees
+alex.forward(30)          # Complete the second side of a rectangle
+
+wn.mainloop()             # Wait for user to close window</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['firstturtleshape_code'] = true;
+pythonTool.readOnlyFlags['firstturtleshape_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="firstturtleshape_runb" onclick="pythonTool.runit('firstturtleshape_code','firstturtleshape_pre','firstturtleshape_error','firstturtleshape_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstturtleshape_code','firstturtleshape_pre','firstturtleshape_error','firstturtleshape_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='firstturtleshape_error'></div>
+
+<div style="text-align: center">
+<canvas id="firstturtleshape_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="firstturtleshape_suffix" style="display:none">
+</pre>
+<pre id="firstturtleshape_pre" class="active_out">
+
+</pre>
+
+<div id="firstturtleshape_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We can speed up or slow down the turtle&#8217;s animation speed. (Animation controls how
+quickly the turtle turns and moves forward).  Speed settings can be set
+between 1 (slowest) to 10 (fastest).  But if we set the speed to 0, it has
+a special meaning &#8212; turn off animation and go as fast as possible.</p>
+
+<div id="speeddisplay" class="pywindow" >
+
+<div id="speeddisplay_code_div" style="display: block">
+<textarea rows="1" id="speeddisplay_code" class="active_code" prefixcode="undefined">
+alex.speed(10)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['speeddisplay_code'] = false;
+pythonTool.readOnlyFlags['speeddisplay_code'] = true;
+</script>
+
+<div id='speeddisplay_error'></div>
+<pre id="speeddisplay_suffix" style="display:none">
+</pre>
+</div>
+
+<p>A turtle can &#8220;stamp&#8221; its footprint onto the canvas,
+and this will remain after the turtle has moved somewhere else.
+Stamping works, even when the pen is up.</p>
+<p>Let&#8217;s do an example that shows off some of these new features all together:</p>
+
+<div id="turtlefeatureexample" class="pywindow" >
+
+<div id="turtlefeatureexample_code_div" style="display: block">
+<textarea rows="16" id="turtlefeatureexample_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()
+wn.bgcolor("lightgreen")
+tess = turtle.Turtle()
+tess.shape("turtle")
+tess.color("blue")
+
+tess.penup()
+size = 20
+for i in range(30):
+    tess.stamp()             # Leave an impression on the canvas
+    size = size + 3          # Increase the size on every iteration
+    tess.forward(size)       # Move tess along
+    tess.right(24)           #  ...  and turn her
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlefeatureexample_code'] = true;
+pythonTool.readOnlyFlags['turtlefeatureexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlefeatureexample_runb" onclick="pythonTool.runit('turtlefeatureexample_code','turtlefeatureexample_pre','turtlefeatureexample_error','turtlefeatureexample_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlefeatureexample_code','turtlefeatureexample_pre','turtlefeatureexample_error','turtlefeatureexample_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlefeatureexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlefeatureexample_canvas" class="ac-canvas" height="800" width="800" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlefeatureexample_suffix" style="display:none">
+</pre>
+<pre id="turtlefeatureexample_pre" class="active_out">
+
+</pre>
+
+<div id="turtlefeatureexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Be careful now!   How many times was the body of the loop executed?   How many turtle
+images do we see on the screen?  All except one of the shapes we see on the screen here
+are footprints created by <tt class="docutils literal"><span class="pre">stamp</span></tt>.  But the program still only has <em>one</em> turtle
+instance &#8212; can you figure out which one here is the real <tt class="docutils literal"><span class="pre">tess</span></tt>?  (Hint: if you&#8217;re not
+sure, write a new line of code after the <tt class="docutils literal"><span class="pre">for</span></tt> loop to change <tt class="docutils literal"><span class="pre">tess</span></tt>&#8216; color,
+or to put her pen down and draw a line, or to change her shape, etc.)</p>
+</div>
+<div class="section" id="a-turtle-bar-chart">
+<span id="index-6"></span><h2>3.7. A Turtle Bar Chart<a class="headerlink" href="#a-turtle-bar-chart" title="Permalink to this headline">¶</a></h2>
+<p>Here are even more new tricks for our turtles:</p>
+<ul class="simple">
+<li>We can get a turtle to display text on the canvas at the turtle&#8217;s current position.  The method to do that is called <tt class="docutils literal"><span class="pre">write</span></tt>:</li>
+</ul>
+
+<div id="turtlewrite" class="pywindow" >
+
+<div id="turtlewrite_code_div" style="display: block">
+<textarea rows="11" id="turtlewrite_code" class="active_code" prefixcode="undefined">
+import turtle             # Allows us to use turtles
+wn = turtle.Screen()      # Creates a playground for turtles
+alex = turtle.Turtle()    # Create a turtle, assign to alex
+
+alex.forward(50)          # Tell alex to move forward by 50 units
+alex.left(90)             # Tell alex to turn by 90 degrees
+alex.forward(30)          # Complete the second side of a rectangle
+
+alex.write("Hi there!")   # Write a message
+
+wn.mainloop()             # Wait for user to close window</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlewrite_code'] = true;
+pythonTool.readOnlyFlags['turtlewrite_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlewrite_runb" onclick="pythonTool.runit('turtlewrite_code','turtlewrite_pre','turtlewrite_error','turtlewrite_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlewrite_code','turtlewrite_pre','turtlewrite_error','turtlewrite_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlewrite_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlewrite_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlewrite_suffix" style="display:none">
+</pre>
+<pre id="turtlewrite_pre" class="active_out">
+
+</pre>
+
+<div id="turtlewrite_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<ul class="simple">
+<li>We can fill a shape (circle, semicircle, triangle, etc.) with a color.  It is a two-step process.
+First we call the method <tt class="docutils literal"><span class="pre">alex.begin_fill()</span></tt>, then we draw the shape, then we call <tt class="docutils literal"><span class="pre">alex.end_fill()</span></tt>.  Below is an example of this using our square example from earlier.</li>
+</ul>
+
+<div id="turtlesquarefill" class="pywindow" >
+
+<div id="turtlesquarefill_code_div" style="display: block">
+<textarea rows="11" id="turtlesquarefill_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()        # Set up the window and its attributes
+alex = turtle.Turtle()      # Create alex
+
+alex.begin_fill()           # Start of the region to fill
+for i in range(4):          # Draw the four sides of the square
+    alex.forward(50)
+    alex.left(90)
+alex.end_fill()             # Fill the region
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlesquarefill_code'] = true;
+pythonTool.readOnlyFlags['turtlesquarefill_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefill_runb" onclick="pythonTool.runit('turtlesquarefill_code','turtlesquarefill_pre','turtlesquarefill_error','turtlesquarefill_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefill_code','turtlesquarefill_pre','turtlesquarefill_error','turtlesquarefill_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlesquarefill_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlesquarefill_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlesquarefill_suffix" style="display:none">
+</pre>
+<pre id="turtlesquarefill_pre" class="active_out">
+
+</pre>
+
+<div id="turtlesquarefill_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<ul class="simple">
+<li>We&#8217;ve previously set the color of our turtle &#8212; we can now also set its fill color, which need not
+be the same as the turtle and the pen color.  We use the <tt class="docutils literal"><span class="pre">fillcolor</span></tt> method to set the
+turtle&#8217;s fill color:</li>
+</ul>
+
+<div id="turtlesquarecolorfill" class="pywindow" >
+
+<div id="turtlesquarecolorfill_code_div" style="display: block">
+<textarea rows="13" id="turtlesquarecolorfill_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()        # Set up the window and its attributes
+alex = turtle.Turtle()      # Create alex
+alex.color("blue")          # Set pen color to blue
+alex.fillcolor("red")       # Set fill color to red
+
+alex.begin_fill()           # Start of the region to fill
+for i in range(4):          # Draw the four sides of the square
+    alex.forward(50)
+    alex.left(90)
+alex.end_fill()             # Fill the region
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlesquarecolorfill_code'] = true;
+pythonTool.readOnlyFlags['turtlesquarecolorfill_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarecolorfill_runb" onclick="pythonTool.runit('turtlesquarecolorfill_code','turtlesquarecolorfill_pre','turtlesquarecolorfill_error','turtlesquarecolorfill_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarecolorfill_code','turtlesquarecolorfill_pre','turtlesquarecolorfill_error','turtlesquarecolorfill_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlesquarecolorfill_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlesquarecolorfill_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlesquarecolorfill_suffix" style="display:none">
+</pre>
+<pre id="turtlesquarecolorfill_pre" class="active_out">
+
+</pre>
+
+<div id="turtlesquarecolorfill_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Ok, so can we get tess to draw a bar chart?  Let us start with some data to be charted,</p>
+<p><tt class="docutils literal"><span class="pre">xs</span> <span class="pre">=</span> <span class="pre">[48,</span> <span class="pre">117,</span> <span class="pre">200,</span> <span class="pre">240,</span> <span class="pre">160,</span> <span class="pre">260,</span> <span class="pre">220]</span></tt></p>
+<p>Corresponding to each data measurement, we&#8217;ll draw a simple rectangle of that height, with a fixed width.  We&#8217;re showing off a new programming concept called a <em>function</em> in the example below: we&#8217;re defining the function <tt class="docutils literal"><span class="pre">draw_bar</span></tt> to draw a bar of our graph. We&#8217;ll generally want to use a function to encode a complicated task that we&#8217;ll want to repeat many times (like drawing a bar in a bar graph). Don&#8217;t worry too much about the syntax of functions right now &#8212; we&#8217;re going to discuss functions in a lot more detail in the next chapter.</p>
+
+<div id="turtlebarchart1" class="pywindow" >
+
+<div id="turtlebarchart1_code_div" style="display: block">
+<textarea rows="22" id="turtlebarchart1_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()
+wn.bgcolor("lightgreen")
+tess = turtle.Turtle()
+tess.color("blue")
+
+def draw_bar(t, height):
+    """ Get turtle t to draw one bar, of height. """
+    t.left(90)
+    t.forward(height)     # Draw up the left side
+    t.right(90)
+    t.forward(40)         # Width of bar, along the top
+    t.right(90)
+    t.forward(height)     # And down again!
+    t.left(90)            # Put the turtle facing the way we found it.
+    t.forward(10)         # Leave small gap after each bar
+
+xs = [48, 117, 200, 240, 160, 260, 220] # our data
+for v in xs:              # Draw a bar for each number in the data
+    draw_bar(tess, v)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlebarchart1_code'] = true;
+pythonTool.readOnlyFlags['turtlebarchart1_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart1_runb" onclick="pythonTool.runit('turtlebarchart1_code','turtlebarchart1_pre','turtlebarchart1_error','turtlebarchart1_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart1_code','turtlebarchart1_pre','turtlebarchart1_error','turtlebarchart1_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlebarchart1_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlebarchart1_canvas" class="ac-canvas" height="600" width="800" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlebarchart1_suffix" style="display:none">
+</pre>
+<pre id="turtlebarchart1_pre" class="active_out">
+
+</pre>
+
+<div id="turtlebarchart1_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Ok, not fantasically impressive, but it is a nice start!  The important thing here
+was the mental chunking, or how we broke the problem into smaller pieces. Our chunk
+is to draw one bar, and we wrote a function to do that. Then, for the whole
+chart, we repeatedly called our function.</p>
+<p>Next, at the top of each bar, we&#8217;ll print the value of the data.
+We&#8217;ll do this in the body of <tt class="docutils literal"><span class="pre">draw_bar</span></tt>, by adding   <tt class="docutils literal"><span class="pre">t.write('</span>&nbsp; <span class="pre">'</span> <span class="pre">+</span> <span class="pre">str(height))</span></tt>
+as the new third line of the body.
+We&#8217;ve put a little space in front of the number, and turned the
+number into a string.  Without this extra space we tend
+to cramp our text awkwardly against the bar to the left.
+The result looks a lot better now:</p>
+
+<div id="turtlebarchart2" class="pywindow" >
+
+<div id="turtlebarchart2_code_div" style="display: block">
+<textarea rows="23" id="turtlebarchart2_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()
+wn.bgcolor("lightgreen")
+tess = turtle.Turtle()
+tess.color("blue")
+
+def draw_bar(t, height):
+    """ Get turtle t to draw one bar, of height. """
+    t.left(90)
+    t.forward(height)     # Draw up the left side
+    t.write("  " + str(height))  # Write the data
+    t.right(90)
+    t.forward(40)         # Width of bar, along the top
+    t.right(90)
+    t.forward(height)     # And down again!
+    t.left(90)            # Put the turtle facing the way we found it.
+    t.forward(10)         # Leave small gap after each bar
+
+xs = [48, 117, 200, 240, 160, 260, 220] # our data
+for v in xs:              # Draw a bar for each number in the data
+    draw_bar(tess, v)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlebarchart2_code'] = true;
+pythonTool.readOnlyFlags['turtlebarchart2_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart2_runb" onclick="pythonTool.runit('turtlebarchart2_code','turtlebarchart2_pre','turtlebarchart2_error','turtlebarchart2_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart2_code','turtlebarchart2_pre','turtlebarchart2_error','turtlebarchart2_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlebarchart2_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlebarchart2_canvas" class="ac-canvas" height="600" width="800" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlebarchart2_suffix" style="display:none">
+</pre>
+<pre id="turtlebarchart2_pre" class="active_out">
+
+</pre>
+
+<div id="turtlebarchart2_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>And now we&#8217;ll add code to fill each bar.  Our final program now looks like this:</p>
+
+<div id="turtlebarchart3" class="pywindow" >
+
+<div id="turtlebarchart3_code_div" style="display: block">
+<textarea rows="26" id="turtlebarchart3_code" class="active_code" prefixcode="undefined">
+import turtle
+wn = turtle.Screen()
+wn.bgcolor("lightgreen")
+tess = turtle.Turtle()
+tess.color("blue")
+tess.fillcolor("red")
+
+def draw_bar(t, height):
+    """ Get turtle t to draw one bar, of height. """
+    t.begin_fill()        # Start of the fill area
+    t.left(90)
+    t.forward(height)     # Draw up the left side
+    t.write("  " + str(height))  # Write the data
+    t.right(90)
+    t.forward(40)         # Width of bar, along the top
+    t.right(90)
+    t.forward(height)     # And down again!
+    t.left(90)            # Put the turtle facing the way we found it.
+    t.end_fill()          # Fill in the bar
+    t.forward(10)         # Leave small gap after each bar
+
+xs = [48, 117, 200, 240, 160, 260, 220] # our data
+for v in xs:              # Draw a bar for each number in the data
+    draw_bar(tess, v)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlebarchart3_code'] = true;
+pythonTool.readOnlyFlags['turtlebarchart3_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart3_runb" onclick="pythonTool.runit('turtlebarchart3_code','turtlebarchart3_pre','turtlebarchart3_error','turtlebarchart3_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart3_code','turtlebarchart3_pre','turtlebarchart3_error','turtlebarchart3_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='turtlebarchart3_error'></div>
+
+<div style="text-align: center">
+<canvas id="turtlebarchart3_canvas" class="ac-canvas" height="600" width="800" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="turtlebarchart3_suffix" style="display:none">
+</pre>
+<pre id="turtlebarchart3_pre" class="active_out">
+
+</pre>
+
+<div id="turtlebarchart3_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Mmm.  Perhaps the bars should not be joined to each other at the bottom.  We&#8217;ll need to pick up the pen while making the gap between the bars.  We&#8217;ll leave that as an exercise for you!</p>
+</div>
+<div class="section" id="glossary">
+<h2>3.8. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-attribute">attribute</dt>
+<dd>Some state or value that belongs to a particular object.  For example, <tt class="docutils literal"><span class="pre">tess</span></tt> has
+a color.</dd>
+<dt id="term-canvas">canvas</dt>
+<dd>A surface within a window where drawing takes place.</dd>
+<dt id="term-control-flow">control flow</dt>
+<dd>See <em>flow of execution</em> in the next chapter.</dd>
+<dt id="term-for-loop">for loop</dt>
+<dd>A statement in Python for convenient repetition of statements in the <em>body</em> of the loop.</dd>
+<dt id="term-loop-body">loop body</dt>
+<dd>Any number of statements nested inside a loop. The nesting is indicated
+by the fact that the statements are indented under the for loop statement.</dd>
+<dt id="term-loop-variable">loop variable</dt>
+<dd>A variable used as part of a for loop. It is assigned a different value on
+each iteration of the loop.</dd>
+<dt id="term-instance">instance</dt>
+<dd>An object of a certain type, or class.  <tt class="docutils literal"><span class="pre">tess</span></tt> and <tt class="docutils literal"><span class="pre">alex</span></tt> are different instances of
+the class <tt class="docutils literal"><span class="pre">Turtle</span></tt>.</dd>
+<dt id="term-method">method</dt>
+<dd>A function that is attached to an object.  Invoking or activating the method
+causes the object to respond in some way, e.g. <tt class="docutils literal"><span class="pre">forward</span></tt> is the method
+when we say <tt class="docutils literal"><span class="pre">tess.forward(100)</span></tt>.</dd>
+<dt id="term-invoke">invoke</dt>
+<dd>An object has methods.  We use the verb invoke to mean <em>activate the
+method</em>.  Invoking a method is done by putting parentheses after the method
+name, with some possible arguments.  So  <tt class="docutils literal"><span class="pre">tess.forward()</span></tt> is an invocation
+of the <tt class="docutils literal"><span class="pre">forward</span></tt> method.</dd>
+<dt id="term-module">module</dt>
+<dd>A file containing Python definitions and statements intended for use in other
+Python programs. The contents of a module are made available to the other
+program by using the <tt class="docutils literal"><span class="pre">import</span></tt> statement.</dd>
+<dt id="term-object">object</dt>
+<dd>A &#8220;thing&#8221; to which a variable can refer.  This could be a screen window,
+or one of the turtles we have created.</dd>
+<dt id="term-range">range</dt>
+<dd>A built-in function in Python for generating sequences of integers.  It is especially
+useful when we need to write a for loop that executes a fixed number of times.</dd>
+<dt id="term-terminating-condition">terminating condition</dt>
+<dd>A condition that occurs which causes a loop to stop repeating its body.
+In the <tt class="docutils literal"><span class="pre">for</span></tt> loops we saw in this chapter, the terminating condition
+has been when there are no more elements to assign to the loop variable.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="4. Functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="variables_expressions_statements.html" title="2. Variables, expressions and statements"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. Functions &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="5. Conditionals" href="conditionals.html" />
+    <link rel="prev" title="3. Hello, little turtles!" href="hello_little_turtles.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="conditionals.html" title="5. Conditionals"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hello_little_turtles.html" title="3. Hello, little turtles!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="functions">
+<h1>4. Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="index-0">
+<span id="id1"></span><h2>4.1. Functions<a class="headerlink" href="#index-0" title="Permalink to this headline">¶</a></h2>
+<p>In Python, a <strong>function</strong> is a named sequence of statements
+that belong together.  Their primary purpose is to help us
+organize programs into chunks that match how we think about
+the problem.</p>
+<p>The syntax for a <strong>function definition</strong> is:</p>
+
+<div id="functiondef" class="pywindow" >
+
+<div id="functiondef_code_div" style="display: block">
+<textarea rows="2" id="functiondef_code" class="active_code" prefixcode="undefined">
+def NAME( PARAMETERS ):
+    STATEMENTS</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['functiondef_code'] = false;
+pythonTool.readOnlyFlags['functiondef_code'] = true;
+</script>
+
+<div id='functiondef_error'></div>
+<pre id="functiondef_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We can make up any names we want for the functions we create, except that
+we can&#8217;t use a name that is a Python keyword, and the names must follow the rules
+for legal identifiers. By convention, we like to use all lowercase for function names,
+with words separated by underscores, such as <tt class="docutils literal"><span class="pre">draw_square</span></tt>.</p>
+<p>There can be any number of statements inside the function, but they have to be
+indented from the <tt class="docutils literal"><span class="pre">def</span></tt>. In the examples in this book, we will use the
+standard indentation of four spaces. Function definitions are the second of
+several <strong>compound statements</strong> we will see, all of which have the same
+pattern:</p>
+<ol class="arabic simple">
+<li>A header line which begins with a keyword and ends with a colon.</li>
+<li>A <strong>body</strong> consisting of one or more Python statements, each
+indented the same amount &#8212; we strongly recommend 4 spaces &#8212; from
+the header line.</li>
+</ol>
+<p>We&#8217;ve already seen the <tt class="docutils literal"><span class="pre">for</span></tt> loop which follows this pattern.</p>
+<p>So looking again at the function definition, the keyword in the header is <tt class="docutils literal"><span class="pre">def</span></tt>, which is
+followed by the name of the function and some <em>parameters</em> enclosed in
+parentheses. The parameter list may be empty, or it may contain any number of
+parameters separated from one another by commas. In either case, the parentheses are required.
+The parameters specifies what information, if any, we have to provide in order to use the new function.</p>
+<p>Suppose we&#8217;re working with turtles, and a common operation we need is to draw
+squares.   &#8220;Draw a square&#8221; is an <em>abstraction</em>, or a mental
+chunk, of a number of smaller steps.  So let&#8217;s write a function to capture the pattern
+of this &#8220;building block&#8221;:</p>
+
+<div id="drawsquarefunc" class="pywindow" >
+
+<div id="drawsquarefunc_code_div" style="display: block">
+<textarea rows="16" id="drawsquarefunc_code" class="active_code" prefixcode="undefined">
+import turtle
+
+def draw_square(t, sz):
+    """Make turtle t draw a square of sz."""
+    for i in range(4):
+        t.forward(sz)
+        t.left(90)
+
+wn = turtle.Screen()        # Set up the window and its attributes
+wn.bgcolor("lightgreen")
+wn.title("Alex meets a function")
+
+alex = turtle.Turtle()      # Create alex
+draw_square(alex, 50)       # Call the function to draw the square
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['drawsquarefunc_code'] = true;
+pythonTool.readOnlyFlags['drawsquarefunc_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="drawsquarefunc_runb" onclick="pythonTool.runit('drawsquarefunc_code','drawsquarefunc_pre','drawsquarefunc_error','drawsquarefunc_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('drawsquarefunc_code','drawsquarefunc_pre','drawsquarefunc_error','drawsquarefunc_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='drawsquarefunc_error'></div>
+
+<div style="text-align: center">
+<canvas id="drawsquarefunc_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="drawsquarefunc_suffix" style="display:none">
+</pre>
+<pre id="drawsquarefunc_pre" class="active_out">
+
+</pre>
+
+<div id="drawsquarefunc_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This function is named <tt class="docutils literal"><span class="pre">draw_square</span></tt>.  It has two parameters: one to tell
+the function which turtle to move around, and the other to tell it the size
+of the square we want drawn.   Make sure you know where the body of the function
+ends &#8212; it depends on the indentation, and the blank lines don&#8217;t count for
+this purpose!</p>
+<div class="admonition-docstrings-for-documentation admonition">
+<p class="first admonition-title">Docstrings for documentation</p>
+<p>If the first thing after the function header is a string, it is
+treated as a <strong>docstring</strong> and gets special treatment in Python and
+in some programming tools. For example, when we when we type <tt class="docutils literal"><span class="pre">help('funcname')</span></tt>
+in the IDLE shell (where &#8220;funcname&#8221; is the name of the function), we get a message telling us what arguments the function takes, and it shows
+us any other text contained in the docstring. For example, type <tt class="docutils literal"><span class="pre">help('print')</span></tt>
+in the IDLE shell and read the message that you get.</p>
+<p>Docstrings are the key way to document our functions in Python and
+the documentation part is important. Because whoever calls our
+function shouldn&#8217;t have to need to know what is going on in the
+function or how it works; they just need to know what arguments our
+function takes, what it does, and what the expected result is.
+Enough to be able to use the function without having to look
+underneath. This goes back to the concept of abstraction of which
+we&#8217;ll talk more about.</p>
+<p>Docstrings are usually formed using triple-quoted strings as they
+allow us to easily expand the docstring later on should we want to
+write more than a one-liner.</p>
+<p class="last">Just to differentiate from comments, a string at the start of a
+function (a docstring) is retrievable by Python tools <em>at runtime</em>.
+By contrast, comments are completely eliminated when the program is
+parsed.</p>
+</div>
+<p>Defining a new function does not make the function run. To do that we need a
+<strong>function call</strong>. We&#8217;ve already seen how to call some built-in functions like
+<strong>print</strong>, <strong>range</strong> and <strong>int</strong>. Function calls contain the name of the function being
+executed followed by a list of values, called <em>arguments</em>, which are assigned
+to the parameters in the function definition.  So in line 14 of the program above, we call the function, and pass <tt class="docutils literal"><span class="pre">alex</span></tt> as the turtle to be manipulated,
+and 50 as the size of the square we want. While the function is executing, then, the
+variable <tt class="docutils literal"><span class="pre">sz</span></tt> refers to the value 50, and the variable <tt class="docutils literal"><span class="pre">t</span></tt> refers to the same
+turtle instance that the variable <tt class="docutils literal"><span class="pre">alex</span></tt> refers to.</p>
+<p>Once we&#8217;ve defined a function, we can call it as often as we like, and its
+statements will be executed each time we call it.  And we could use it to get
+any of our turtles to draw a square.   In the next example, we&#8217;ve changed the <tt class="docutils literal"><span class="pre">draw_square</span></tt>
+function a little, and we get tess to draw 15 squares, with some variations.</p>
+
+<div id="drawmultisquare" class="pywindow" >
+
+<div id="drawmultisquare_code_div" style="display: block">
+<textarea rows="23" id="drawmultisquare_code" class="active_code" prefixcode="undefined">
+import turtle
+
+def draw_multicolor_square(t, sz):
+    """Make turtle t draw a multi-color square of sz."""
+    for i in ["red", "purple", "hotpink", "blue"]:
+        t.color(i)
+        t.forward(sz)
+        t.left(90)
+
+wn = turtle.Screen()        # Set up the window and its attributes
+wn.bgcolor("lightgreen")
+
+tess = turtle.Turtle()      # Create tess and set some attributes
+tess.pensize(3)
+
+size = 20                   # Size of the smallest square
+for i in range(15):
+    draw_multicolor_square(tess, size)
+    size = size + 10        # Increase the size for next time
+    tess.forward(10)        # Move tess along a little
+    tess.right(18)          #    and give her some turn
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['drawmultisquare_code'] = true;
+pythonTool.readOnlyFlags['drawmultisquare_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="drawmultisquare_runb" onclick="pythonTool.runit('drawmultisquare_code','drawmultisquare_pre','drawmultisquare_error','drawmultisquare_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('drawmultisquare_code','drawmultisquare_pre','drawmultisquare_error','drawmultisquare_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='drawmultisquare_error'></div>
+
+<div style="text-align: center">
+<canvas id="drawmultisquare_canvas" class="ac-canvas" height="500" width="500" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="drawmultisquare_suffix" style="display:none">
+</pre>
+<pre id="drawmultisquare_pre" class="active_out">
+
+</pre>
+
+<div id="drawmultisquare_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="functions-can-call-other-functions">
+<h2>4.2. Functions can call other functions<a class="headerlink" href="#functions-can-call-other-functions" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s assume now we want a function to draw a rectangle.  We need to be able to call
+the function with different arguments for width and height.  And, unlike the case of the
+square, we cannot repeat the same thing 4 times, because the four sides are not equal.</p>
+<p>So we eventually come up with this rather nice code that can draw a rectangle.</p>
+
+<div id="rectangleexample" class="pywindow" >
+
+<div id="rectangleexample_code_div" style="display: block">
+<textarea rows="7" id="rectangleexample_code" class="active_code" prefixcode="undefined">
+def draw_rectangle(t, w, h):
+    """Get turtle t to draw a rectangle of width w and height h."""
+    for i in range(2):
+        t.forward(w)
+        t.left(90)
+        t.forward(h)
+        t.left(90)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['rectangleexample_code'] = false;
+pythonTool.readOnlyFlags['rectangleexample_code'] = true;
+</script>
+
+<div id='rectangleexample_error'></div>
+<pre id="rectangleexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The parameter names are deliberately chosen as single letters to ensure they&#8217;re not misunderstood.
+In real programs, once we&#8217;ve had more experience, we will insist on better variable names than this.
+But the point is that the program doesn&#8217;t &#8220;understand&#8221; that we&#8217;re drawing a rectangle, or that the
+parameters represent the width and the height.  Concepts like rectangle, width, and height are
+the meaning we humans have, not concepts that the program or the computer understands.</p>
+<p><em>Thinking like a computer scientist</em> involves looking for patterns and
+relationships.  In the code above, we&#8217;ve done that to some extent.  We did not just draw four sides.
+Instead, we spotted that we could draw the rectangle as two halves, and used a loop to
+repeat that pattern twice.</p>
+<p>But now we might spot that a square is a special kind of rectangle.
+We already have a function that draws a rectangle, so we can use that to draw
+our square.</p>
+
+<div id="squareexample" class="pywindow" >
+
+<div id="squareexample_code_div" style="display: block">
+<textarea rows="2" id="squareexample_code" class="active_code" prefixcode="undefined">
+def draw_square(tx, sz):        # A new version of draw_square
+    draw_rectangle(tx, sz, sz)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['squareexample_code'] = false;
+pythonTool.readOnlyFlags['squareexample_code'] = true;
+</script>
+
+<div id='squareexample_error'></div>
+<pre id="squareexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>There are some points worth noting here:</p>
+<ul class="simple">
+<li>Functions can call other functions.</li>
+<li>Rewriting <tt class="docutils literal"><span class="pre">draw_square</span></tt> like this captures the relationship
+that we&#8217;ve spotted between squares and rectangles.</li>
+<li>A caller of this function might say <tt class="docutils literal"><span class="pre">draw_square(tess,</span> <span class="pre">50)</span></tt>.  The parameters
+of this function, <tt class="docutils literal"><span class="pre">tx</span></tt> and <tt class="docutils literal"><span class="pre">sz</span></tt>, are assigned the values of the tess object, and
+the int 50 respectively.</li>
+<li>In the body of the function they are just like any other variable.</li>
+<li>When the call is made to <tt class="docutils literal"><span class="pre">draw_rectangle</span></tt>, the values in variables <tt class="docutils literal"><span class="pre">tx</span></tt> and <tt class="docutils literal"><span class="pre">sz</span></tt>
+are fetched first, then the call happens.  So as we enter the top of
+function <tt class="docutils literal"><span class="pre">draw_rectangle</span></tt>, its variable <tt class="docutils literal"><span class="pre">t</span></tt> is assigned the tess object, and <tt class="docutils literal"><span class="pre">w</span></tt> and
+<tt class="docutils literal"><span class="pre">h</span></tt> in that function are both given the value 50.</li>
+</ul>
+<p>So far, it may not be clear why it is worth the trouble to create all of these
+new functions. Actually, there are a lot of reasons, but this example
+demonstrates two:</p>
+<ol class="arabic simple">
+<li>Creating a new function gives us an opportunity to name a group of
+statements. Functions can simplify a program by hiding a complex computation
+behind a single command. The function (including its name) can capture our
+mental chunking, or <em>abstraction</em>, of the problem.</li>
+<li>Creating a new function can make a program smaller by eliminating repetitive
+code.</li>
+</ol>
+<p>As we might expect, we have to create a function before we can execute it.
+In other words, the function definition has to be executed before the
+function is called.</p>
+</div>
+<div class="section" id="flow-of-execution">
+<span id="index-1"></span><h2>4.3. Flow of execution<a class="headerlink" href="#flow-of-execution" title="Permalink to this headline">¶</a></h2>
+<p>In order to ensure that a function is defined before its first use, we have to
+know the order in which statements are executed, which is called the <strong>flow of
+execution</strong>.   We&#8217;ve already talked about this a little in the previous chapter.</p>
+<p>Execution always begins at the first statement of the program.  Statements are
+executed one at a time, in order from top to bottom.</p>
+<p>Function definitions do not alter the flow of execution of the program, but
+remember that statements inside the function are not executed until the
+function is called. Although it is not common, we can define one function
+inside another. In this case, the inner definition isn&#8217;t executed until the
+outer function is called.</p>
+<p>Function calls are like a detour in the flow of execution. Instead of going to
+the next statement, the flow jumps to the first line of the called function,
+executes all the statements there, and then comes back to pick up where it left
+off.</p>
+<p>That sounds simple enough, until we remember that one function can call
+another. While in the middle of one function, the program might have to execute
+the statements in another function. But while executing that new function, the
+program might have to execute yet another function!</p>
+<p>Fortunately, Python is adept at keeping track of where it is, so each time a
+function completes, the program picks up where it left off in the function that
+called it. When it gets to the end of the program, it terminates.</p>
+<p>What&#8217;s the moral of this sordid tale? When we read a program, don&#8217;t read from
+top to bottom. Instead, follow the flow of execution.</p>
+</div>
+<div class="section" id="functions-that-require-arguments">
+<span id="index-2"></span><h2>4.4. Functions that require arguments<a class="headerlink" href="#functions-that-require-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Most functions require arguments: the arguments provide for generalization.
+For example, if we want to find the absolute value of a number, we have
+to indicate what the number is. Python has a built-in function for
+computing the absolute value:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; abs(5)
+5
+&gt;&gt;&gt; abs(-5)
+5
+</pre></div>
+</div>
+</div></blockquote>
+<p>In this example, the arguments to the <tt class="docutils literal"><span class="pre">abs</span></tt> function are 5 and -5.</p>
+<p>Some functions take more than one argument. For example the built-in function
+<tt class="docutils literal"><span class="pre">pow</span></tt> takes two arguments, the base and the exponent. Inside the function,
+the values that are passed get assigned to variables called <strong>parameters</strong>.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; pow(2, 3)
+8
+&gt;&gt;&gt; pow(7, 4)
+2401
+</pre></div>
+</div>
+</div></blockquote>
+<p>Another built-in function that takes more than one argument is <tt class="docutils literal"><span class="pre">max</span></tt>.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; max(7, 11)
+11
+&gt;&gt;&gt; max(4, 1, 17, 2, 12)
+17
+&gt;&gt;&gt; max(3 * 11, 5**3, 512 - 9, 1024**0)
+503
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">max</span></tt> can be passed any number of arguments, separated by commas, and will
+return the largest value passed. The arguments can be either simple values or
+expressions. In the last example, 503 is returned, since it is larger than 33,
+125, and 1.</p>
+</div>
+<div class="section" id="functions-that-return-values">
+<h2>4.5. Functions that return values<a class="headerlink" href="#functions-that-return-values" title="Permalink to this headline">¶</a></h2>
+<p>All the functions in the previous section return values.
+Furthermore, functions like <tt class="docutils literal"><span class="pre">range</span></tt>, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">abs</span></tt> all return values that
+can be used to build more complex expressions.</p>
+<p>So an important difference between these functions and one like <tt class="docutils literal"><span class="pre">draw_square</span></tt> is that
+<tt class="docutils literal"><span class="pre">draw_square</span></tt> was not executed because we wanted it to compute a value &#8212; on the contrary,
+we wrote <tt class="docutils literal"><span class="pre">draw_square</span></tt> because we wanted it to execute a sequence of steps that caused
+the turtle to draw.</p>
+<p>A function that returns a value is called a <strong>fruitful function</strong> in this book.
+The opposite of a fruitful function is <strong>void function</strong> &#8212; one that is not executed
+for its resulting value, but is executed because it does something useful. (Languages
+like Java, C#, C and C++ use the term &#8220;void function&#8221;, other languages like Pascal
+call it a <strong>procedure</strong>.) Even though void functions are not executed
+for their resulting value, Python always wants to return something.  So if the programmer
+doesn&#8217;t arrange to return a value, Python will automatically return the value <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<p>How do we write our own fruitful function?  Below is
+the standard formula for compound interest, which we&#8217;ll now write as a fruitful function:</p>
+<blockquote>
+<div><img alt="_images/compoundInterest.png" src="_images/compoundInterest.png" />
+</div></blockquote>
+
+<div id="compoundinterest" class="pywindow" >
+
+<div id="compoundinterest_code_div" style="display: block">
+<textarea rows="12" id="compoundinterest_code" class="active_code" prefixcode="undefined">
+def final_amt(p, r, n, t):
+    """
+    Apply the compound interest formula to p
+    to produce the final amount.
+    """
+    a = p * (1 + r/n) ** (n*t)
+    return a         # This is new, and makes the function fruitful.
+
+# now that we have the function above, let us call it.
+toInvest = float(input("How much do you want to invest?"))
+fnl = final_amt(toInvest, 0.08, 12, 5)
+print("At the end of the period you will have " + str(fnl))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['compoundinterest_code'] = true;
+pythonTool.readOnlyFlags['compoundinterest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="compoundinterest_runb" onclick="pythonTool.runit('compoundinterest_code','compoundinterest_pre','compoundinterest_error','compoundinterest_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('compoundinterest_code','compoundinterest_pre','compoundinterest_error','compoundinterest_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='compoundinterest_error'></div>
+
+<div style="text-align: center">
+<canvas id="compoundinterest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="compoundinterest_suffix" style="display:none">
+</pre>
+<pre id="compoundinterest_pre" class="active_out">
+
+</pre>
+
+<div id="compoundinterest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<ul>
+<li><p class="first">The <strong>return</strong> statement is followed an expression (<tt class="docutils literal"><span class="pre">a</span></tt> in this case). This expression will be
+evaluated and returned to the caller as the &#8220;fruit&#8221; of calling this function.</p>
+</li>
+<li><p class="first">We prompted the user for the principal amount.  The type of <tt class="docutils literal"><span class="pre">toInvest</span></tt> is a string, but
+we need a number before we can work with it.  Because it is money, and could have decimal places,
+we&#8217;ve used the <tt class="docutils literal"><span class="pre">float</span></tt> type converter function to parse the string and return a float.</p>
+</li>
+<li><p class="first">Notice how we entered the arguments for 8% interest, compounded 12 times per year, for 5 years.</p>
+</li>
+<li><p class="first">When we run this, if you use 10000 as your input, you&#8217;ll get the output</p>
+<blockquote>
+<div><p><em>At the end of the period you&#8217;ll have 14898.457083</em></p>
+</div></blockquote>
+<p>This is a bit messy with all these decimal places, but remember that
+Python doesn&#8217;t understand that we&#8217;re working with money: it just does the calculation to
+the best of its ability, without rounding.</p>
+</li>
+<li><p class="first">The line <tt class="docutils literal"><span class="pre">toInvest</span> <span class="pre">=</span> <span class="pre">float(input(&quot;How</span> <span class="pre">much</span> <span class="pre">do</span> <span class="pre">you</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">invest?&quot;))</span></tt>
+also shows yet another example
+of <em>composition</em> &#8212; we can call a function like <tt class="docutils literal"><span class="pre">float</span></tt>, and its arguments
+can be the results of other function calls (like <tt class="docutils literal"><span class="pre">input</span></tt>) that we&#8217;ve called along the way.</p>
+</li>
+</ul>
+<p>Notice something else very important here. The name of the variable we pass as an
+argument &#8212; <tt class="docutils literal"><span class="pre">toInvest</span></tt> &#8212; has nothing to do with the name of the parameter
+&#8212; <tt class="docutils literal"><span class="pre">p</span></tt>.  It is as if  <tt class="docutils literal"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">toInvest</span></tt> is executed when <tt class="docutils literal"><span class="pre">final_amt</span></tt> is called.
+It doesn&#8217;t matter what the value was named in
+the caller, in <tt class="docutils literal"><span class="pre">final_amt</span></tt> its name is <tt class="docutils literal"><span class="pre">p</span></tt>.</p>
+<p>These short variable names are getting quite tricky, so perhaps we&#8217;d prefer one of these
+versions instead:</p>
+
+<div id="finalamtimproves" class="pywindow" >
+
+<div id="finalamtimproves_code_div" style="display: block">
+<textarea rows="9" id="finalamtimproves_code" class="active_code" prefixcode="undefined">
+def final_amt_v2(principalAmount, nominalPercentageRate,
+                     numTimesPerYear, years):
+    a = principalAmount * (1 + nominalPercentageRate /
+              numTimesPerYear) ** (numTimesPerYear*years)
+    return a
+
+def final_amt_v3(amt, rate, compounded, years):
+    a = amt * (1 + rate/compounded) ** (componded*years)
+    return a</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['finalamtimproves_code'] = false;
+pythonTool.readOnlyFlags['finalamtimproves_code'] = true;
+</script>
+
+<div id='finalamtimproves_error'></div>
+<pre id="finalamtimproves_suffix" style="display:none">
+</pre>
+</div>
+
+<p>They all do the same thing.   Use your judgement to write code that can be best
+understood by other humans!
+Short variable names are more economical and sometimes make
+code easier to read:
+E = mc<sup>2</sup> would not be nearly so memorable if Einstein had
+used longer variable names!  If you do prefer short names,
+make sure you also have some comments to enlighten the reader
+about what the variables are used for.</p>
+</div>
+<div class="section" id="variables-and-parameters-are-local">
+<span id="index-3"></span><h2>4.6. Variables and parameters are local<a class="headerlink" href="#variables-and-parameters-are-local" title="Permalink to this headline">¶</a></h2>
+<p>When we create a <strong>local variable</strong> inside a function, it only exists inside
+the function, and we cannot use it outside. For example, consider again this function:</p>
+
+<div id="localvarexample" class="pywindow" >
+
+<div id="localvarexample_code_div" style="display: block">
+<textarea rows="3" id="localvarexample_code" class="active_code" prefixcode="undefined">
+def final_amt(p, r, n, t):
+    a = p * (1 + r/n) ** (n*t)
+    return a</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['localvarexample_code'] = false;
+pythonTool.readOnlyFlags['localvarexample_code'] = true;
+</script>
+
+<div id='localvarexample_error'></div>
+<pre id="localvarexample_suffix" style="display:none">
+</pre>
+</div>
+
+<p>If we try to use <tt class="docutils literal"><span class="pre">a</span></tt>, outside the function, we&#8217;ll get an error:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
+      File &quot;&lt;pyshell#12&gt;&quot;, line 1, in &lt;module&gt;
+        a
+NameError: name &#39;a&#39; is not defined
+</pre></div>
+</div>
+</div></blockquote>
+<p>The variable <tt class="docutils literal"><span class="pre">a</span></tt> is local to <tt class="docutils literal"><span class="pre">final_amt</span></tt>, and is not visible
+outside the function.</p>
+<p>Additionally, <tt class="docutils literal"><span class="pre">a</span></tt> only exists while the function is being executed &#8212;
+we call this its <strong>lifetime</strong>.
+When the execution of the function terminates,
+the local variables  are destroyed.</p>
+<p>Parameters are also local, and act like local variables.
+For example, the lifetimes of <tt class="docutils literal"><span class="pre">p</span></tt>, <tt class="docutils literal"><span class="pre">r</span></tt>, <tt class="docutils literal"><span class="pre">n</span></tt>, <tt class="docutils literal"><span class="pre">t</span></tt> begin when <tt class="docutils literal"><span class="pre">final_amt</span></tt> is called,
+and the lifetime ends when the function completes its execution.</p>
+<p>So it is not possible for a function to set some local variable to a
+value, complete its execution, and then when it is called again next
+time, recover the local variable.  Each call of the function creates
+new local variables, and their lifetimes expire when the function returns
+to the caller.</p>
+</div>
+<div class="section" id="turtles-revisited">
+<span id="index-4"></span><h2>4.7. Turtles Revisited<a class="headerlink" href="#turtles-revisited" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have fruitful functions, we can focus our attention on
+reorganizing our code so that it fits more nicely into our mental chunks.
+This process of rearrangement is called <strong>refactoring</strong> the code.</p>
+<p>Two things we&#8217;re always going to want to do when working with turtles
+is to create the window for the turtle, and to create one or more turtles.
+For example, we could write some functions to make these tasks easier in future:</p>
+
+<div id="turtlechunks" class="pywindow" >
+
+<div id="turtlechunks_code_div" style="display: block">
+<textarea rows="20" id="turtlechunks_code" class="active_code" prefixcode="undefined">
+def make_window(colr, ttle):
+    """
+     Set up the window with the given background color and title.
+     Returns the new window.
+    """
+    w = turtle.Screen()
+    w.bgcolor(colr)
+    w.title(ttle)
+    return w
+
+
+def make_turtle(colr, sz):
+    """
+     Set up a turtle with the given color and pensize.
+     Returns the new turtle.
+    """
+    t = turtle.Turtle()
+    t.color(colr)
+    t.pensize(sz)
+    return t</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlechunks_code'] = false;
+pythonTool.readOnlyFlags['turtlechunks_code'] = true;
+</script>
+
+<div id='turtlechunks_error'></div>
+<pre id="turtlechunks_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Then we could make new turtles easily, like so:</p>
+
+<div id="turtlecreates" class="pywindow" >
+
+<div id="turtlecreates_code_div" style="display: block">
+<textarea rows="4" id="turtlecreates_code" class="active_code" prefixcode="undefined">
+wn = make_window("lightgreen", "Tess and Alex dancing")
+tess = make_turtle("hotpink", 5)
+alex = make_turtle("black", 1)
+dave = make_turtle("yellow", 2)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlecreates_code'] = false;
+pythonTool.readOnlyFlags['turtlecreates_code'] = true;
+</script>
+
+<div id='turtlecreates_error'></div>
+<pre id="turtlecreates_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The trick about refactoring code is to anticipate which things we are likely to want to change
+each time we call the function: these should become the parameters, or changeable parts,
+of the functions we write.</p>
+<span class="target" id="index-5"></span></div>
+<div class="section" id="return-values">
+<span id="index-6"></span><h2>4.8. Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h2>
+<p>The built-in functions we have used, such as <tt class="docutils literal"><span class="pre">abs</span></tt>, <tt class="docutils literal"><span class="pre">pow</span></tt>, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">max</span></tt>, and <tt class="docutils literal"><span class="pre">range</span></tt>,
+have produced results. Calling each of these functions generates a value, which
+we usually assign to a variable or use as part of an expression.</p>
+
+<div id="buildinfuncsex" class="pywindow" >
+
+<div id="buildinfuncsex_code_div" style="display: block">
+<textarea rows="2" id="buildinfuncsex_code" class="active_code" prefixcode="undefined">
+biggest = max(3, 7, 2, 5)
+x = abs(3 - 11) + 10</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['buildinfuncsex_code'] = false;
+pythonTool.readOnlyFlags['buildinfuncsex_code'] = true;
+</script>
+
+<div id='buildinfuncsex_error'></div>
+<pre id="buildinfuncsex_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We also wrote our own function to return the final amount for a compound interest calculation.</p>
+<p>We are going to write more functions that return values, which we
+will call <em>fruitful functions</em>, for want of a better name.  The first example
+is <tt class="docutils literal"><span class="pre">area</span></tt>, which returns the area of a circle with the given radius:</p>
+
+<div id="areaofcircle" class="pywindow" >
+
+<div id="areaofcircle_code_div" style="display: block">
+<textarea rows="3" id="areaofcircle_code" class="active_code" prefixcode="undefined">
+def area(radius):
+    b = 3.14159 * radius**2
+    return b</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['areaofcircle_code'] = false;
+pythonTool.readOnlyFlags['areaofcircle_code'] = true;
+</script>
+
+<div id='areaofcircle_error'></div>
+<pre id="areaofcircle_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We have seen the <tt class="docutils literal"><span class="pre">return</span></tt> statement before: in a fruitful function the
+<tt class="docutils literal"><span class="pre">return</span></tt> statement includes a <strong>return value</strong>. This statement means: evaluate
+the return expression, and then return it immediately as the result (the fruit)
+of this function.  The expression provided can be arbitrarily complicated,
+so we could have written this function like this:</p>
+
+<div id="areaofcircle2" class="pywindow" >
+
+<div id="areaofcircle2_code_div" style="display: block">
+<textarea rows="2" id="areaofcircle2_code" class="active_code" prefixcode="undefined">
+def area(radius):
+    return 3.14159 * radius * radius</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['areaofcircle2_code'] = false;
+pythonTool.readOnlyFlags['areaofcircle2_code'] = true;
+</script>
+
+<div id='areaofcircle2_error'></div>
+<pre id="areaofcircle2_suffix" style="display:none">
+</pre>
+</div>
+
+<p>On the other hand, <strong>temporary variables</strong> like <tt class="docutils literal"><span class="pre">b</span></tt> above often make debugging
+easier.</p>
+</div>
+<div class="section" id="program-development">
+<span id="index-7"></span><h2>4.9. Program development<a class="headerlink" href="#program-development" title="Permalink to this headline">¶</a></h2>
+<p>At this point, you should be able to look at complete functions and tell what
+they do. Also, you have already written some
+small functions. As you write larger functions, you might start to have more
+difficulty, especially with runtime and semantic errors.</p>
+<p>To deal with increasingly complex programs, we are going to suggest a technique
+called <strong>incremental development</strong>. The goal of incremental development is to
+avoid long debugging sessions by adding and testing only a small amount of code
+at a time.</p>
+<p>As an example, suppose we want to find the distance between two points, given
+by the coordinates (x<sub>1</sub>, y<sub>1</sub>) and
+(x<sub>2</sub>, y<sub>2</sub>).  By the Pythagorean theorem, the distance is:</p>
+<blockquote>
+<div><img alt="Distance formula" src="_images/distance_formula.png" />
+</div></blockquote>
+<p>Don&#8217;t worry if you don&#8217;t know this formula or how to prove it. We&#8217;re just going to worry about how to implement it in Python.</p>
+<p>The first step is to consider what a <tt class="docutils literal"><span class="pre">distance</span></tt> function should look like in
+Python. In other words, what are the inputs (parameters) and what is the output
+(return value)?</p>
+<p>In this case, the two points are the inputs, which we can represent using four
+parameters. The return value is the distance, which is a floating-point value.</p>
+<p>Already we can write an outline of the function that captures our thinking so far:</p>
+
+<div id="distancepart1a" class="pywindow" >
+
+<div id="distancepart1a_code_div" style="display: block">
+<textarea rows="2" id="distancepart1a_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+   return 0.0</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart1a_code'] = true;
+pythonTool.readOnlyFlags['distancepart1a_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart1a_runb" onclick="pythonTool.runit('distancepart1a_code','distancepart1a_pre','distancepart1a_error','distancepart1a_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart1a_code','distancepart1a_pre','distancepart1a_error','distancepart1a_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart1a_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart1a_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart1a_suffix" style="display:none">
+</pre>
+<pre id="distancepart1a_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart1a_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Obviously, this version of the function doesn&#8217;t compute distances; it always
+returns zero. But it is syntactically correct, and it will run, which means
+that we can test it before we make it more complicated.</p>
+<p>To test the new function, we call it with sample values:</p>
+
+<div id="distancepart1b" class="pywindow" >
+
+<div id="distancepart1b_code_div" style="display: block">
+<textarea rows="4" id="distancepart1b_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    return 0.0
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart1b_code'] = true;
+pythonTool.readOnlyFlags['distancepart1b_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart1b_runb" onclick="pythonTool.runit('distancepart1b_code','distancepart1b_pre','distancepart1b_error','distancepart1b_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart1b_code','distancepart1b_pre','distancepart1b_error','distancepart1b_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart1b_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart1b_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart1b_suffix" style="display:none">
+</pre>
+<pre id="distancepart1b_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart1b_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We chose these values so that the horizontal distance equals 3 and the vertical
+distance equals 4; that way, the result is 5 (the hypotenuse of a 3-4-5
+triangle). When testing a function, it is useful to know the right answer.</p>
+<p>At this point we have confirmed that the function is syntactically correct, and
+we can start adding lines of code. After each incremental change, we test the
+function again. If an error occurs at any point, we know where it must be &#8212; in
+the last line we added.</p>
+<p>A logical first step in the computation is to find the differences
+x<sub>2</sub>- x<sub>1</sub> and y<sub>2</sub>- y<sub>1</sub>.  We will
+refer to those values using temporary variables named <tt class="docutils literal"><span class="pre">dx</span></tt> and <tt class="docutils literal"><span class="pre">dy</span></tt>.</p>
+
+<div id="distancepart2a" class="pywindow" >
+
+<div id="distancepart2a_code_div" style="display: block">
+<textarea rows="6" id="distancepart2a_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    return 0.0
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart2a_code'] = true;
+pythonTool.readOnlyFlags['distancepart2a_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart2a_runb" onclick="pythonTool.runit('distancepart2a_code','distancepart2a_pre','distancepart2a_error','distancepart2a_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart2a_code','distancepart2a_pre','distancepart2a_error','distancepart2a_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart2a_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart2a_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart2a_suffix" style="display:none">
+</pre>
+<pre id="distancepart2a_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart2a_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If we call the function with the arguments shown above, when the flow of execution
+gets to the return statement, <tt class="docutils literal"><span class="pre">dx</span></tt> should be 3 and <tt class="docutils literal"><span class="pre">dy</span></tt> should be 4.
+We can check that this is the case by putting in temporary <tt class="docutils literal"><span class="pre">print</span></tt> statements in the function, like so:</p>
+
+<div id="distancepart2b" class="pywindow" >
+
+<div id="distancepart2b_code_div" style="display: block">
+<textarea rows="8" id="distancepart2b_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    print("dx = "+str(dx))
+    print("dy = "+str(dy))
+    return 0.0
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart2b_code'] = true;
+pythonTool.readOnlyFlags['distancepart2b_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart2b_runb" onclick="pythonTool.runit('distancepart2b_code','distancepart2b_pre','distancepart2b_error','distancepart2b_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart2b_code','distancepart2b_pre','distancepart2b_error','distancepart2b_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart2b_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart2b_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart2b_suffix" style="display:none">
+</pre>
+<pre id="distancepart2b_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart2b_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Now we can confirm that the function is getting the right parameters and performing the first
+computation correctly. If not, there are only a few lines to check.  Once we&#8217;re sure that
+<tt class="docutils literal"><span class="pre">dx</span></tt> and <tt class="docutils literal"><span class="pre">dy</span></tt> are working correctly, we should remove the temporary <tt class="docutils literal"><span class="pre">print</span></tt> statements &#8212; we don&#8217;t want them in our final program.</p>
+<p>Next we compute the sum of squares of <tt class="docutils literal"><span class="pre">dx</span></tt> and <tt class="docutils literal"><span class="pre">dy</span></tt>:</p>
+
+<div id="distancepart3a" class="pywindow" >
+
+<div id="distancepart3a_code_div" style="display: block">
+<textarea rows="7" id="distancepart3a_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx*dx + dy*dy
+    return 0.0
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart3a_code'] = true;
+pythonTool.readOnlyFlags['distancepart3a_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart3a_runb" onclick="pythonTool.runit('distancepart3a_code','distancepart3a_pre','distancepart3a_error','distancepart3a_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart3a_code','distancepart3a_pre','distancepart3a_error','distancepart3a_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart3a_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart3a_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart3a_suffix" style="display:none">
+</pre>
+<pre id="distancepart3a_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart3a_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Again, we could put in a temporary <tt class="docutils literal"><span class="pre">print</span></tt> statement, then run the program at this stage and check the value of <tt class="docutils literal"><span class="pre">dsquared</span></tt> (which
+should be 25):</p>
+
+<div id="distancepart3b" class="pywindow" >
+
+<div id="distancepart3b_code_div" style="display: block">
+<textarea rows="8" id="distancepart3b_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx*dx + dy*dy
+    print("dsquared = "+str(dsquared))
+    return 0.0
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancepart3b_code'] = true;
+pythonTool.readOnlyFlags['distancepart3b_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart3b_runb" onclick="pythonTool.runit('distancepart3b_code','distancepart3b_pre','distancepart3b_error','distancepart3b_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart3b_code','distancepart3b_pre','distancepart3b_error','distancepart3b_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancepart3b_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancepart3b_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancepart3b_suffix" style="display:none">
+</pre>
+<pre id="distancepart3b_pre" class="active_out">
+
+</pre>
+
+<div id="distancepart3b_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Finally, using the fractional exponent <tt class="docutils literal"><span class="pre">0.5</span></tt> to find the square root,
+we compute and return the result:</p>
+
+<div id="distancefinal" class="pywindow" >
+
+<div id="distancefinal_code_div" style="display: block">
+<textarea rows="8" id="distancefinal_code" class="active_code" prefixcode="undefined">
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx*dx + dy*dy
+    result = dsquared**0.5
+    return result
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancefinal_code'] = true;
+pythonTool.readOnlyFlags['distancefinal_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancefinal_runb" onclick="pythonTool.runit('distancefinal_code','distancefinal_pre','distancefinal_error','distancefinal_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancefinal_code','distancefinal_pre','distancefinal_error','distancefinal_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancefinal_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancefinal_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancefinal_suffix" style="display:none">
+</pre>
+<pre id="distancefinal_pre" class="active_out">
+
+</pre>
+
+<div id="distancefinal_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If that works correctly, you are done. Otherwise, you might want to inspect the
+value of <tt class="docutils literal"><span class="pre">result</span></tt> before the return statement.</p>
+<p>When you start out, you might add only a line or two of code at a time. As you
+gain more experience, you might find yourself writing and debugging bigger
+conceptual chunks. Either way, stepping through your code one line at a time and
+verifying that each step matches your expectations can save you a lot of
+debugging time.  As you improve your programming skills you should find yourself
+managing bigger and bigger chunks: this is very similar to the way we learned to read
+letters, syllables, words, phrases, sentences, paragraphs, etc., or the way we learn
+to chunk music &#8212; from individual notes to chords, bars, phrases, and so on.</p>
+<p>The key aspects of the process are:</p>
+<ol class="arabic simple">
+<li>Start with a working skeleton program and make small incremental changes. At any
+point, if there is an error, you will know exactly where it is.</li>
+<li>Use temporary variables to refer to intermediate values so that you
+can easily inspect and check them.</li>
+<li>Once the program is working, relax, sit back, and play around with your options.
+(There is interesting research that links &#8220;playfulness&#8221; to better understanding,
+better learning, more enjoyment, and a more positive mindset about
+what you can achieve &#8212; so spend some time fiddling around!)
+You might want to consolidate multiple statements into one bigger compound expression,
+or rename the variables you&#8217;ve used, or see if you can make the function shorter.
+A good guideline is to aim for making code as easy as possible for others to read.</li>
+</ol>
+<p>Here is another version of the function.  It makes use of a square root function
+that is in the <tt class="docutils literal"><span class="pre">math</span></tt> module.  Which do you
+prefer?  Which looks &#8220;closer&#8221; to the Pythagorean formula we started out with?</p>
+
+<div id="distancefancy" class="pywindow" >
+
+<div id="distancefancy_code_div" style="display: block">
+<textarea rows="6" id="distancefancy_code" class="active_code" prefixcode="undefined">
+import math
+
+def distance(x1, y1, x2, y2):
+    return math.sqrt((x2-x1)**2 + (y2-y1)**2)
+
+print(distance(1,2,4,6))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['distancefancy_code'] = true;
+pythonTool.readOnlyFlags['distancefancy_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="distancefancy_runb" onclick="pythonTool.runit('distancefancy_code','distancefancy_pre','distancefancy_error','distancefancy_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancefancy_code','distancefancy_pre','distancefancy_error','distancefancy_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='distancefancy_error'></div>
+
+<div style="text-align: center">
+<canvas id="distancefancy_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="distancefancy_suffix" style="display:none">
+</pre>
+<pre id="distancefancy_pre" class="active_out">
+
+</pre>
+
+<div id="distancefancy_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p id="index-8">As we saw in the example above, a powerful technique for debugging is to insert extra <tt class="docutils literal"><span class="pre">print</span></tt> functions
+in carefully selected places in your code.  Then, by inspecting the output
+of the program, you can check whether the algorithm is doing what you expect
+it to.  Be clear about the following, however:</p>
+<ul>
+<li><p class="first">You must have a clear solution to the problem, and must know what should
+happen before you can debug a program.  Work on <em>solving</em> the problem
+on a piece of paper (perhaps using a flowchart to record the steps you take)
+<em>before</em> you concern yourself with
+writing code.  Writing a program doesn&#8217;t solve the problem &#8212; it simply <em>automates</em>
+the manual steps you would take. So first make sure you have
+a pen-and-paper manual solution that works.
+Programming then is about making those manual steps happen automatically.</p>
+</li>
+<li><p class="first">Do not write <strong>chatterbox</strong> functions.  A chatterbox is a fruitful
+function that, in addition to its primary task, also asks the user for input,
+or prints output, when it would be more useful
+if it simply shut up and did its work quietly.</p>
+<p>For example, we&#8217;ve seen built-in functions like <tt class="docutils literal"><span class="pre">range</span></tt>,
+<tt class="docutils literal"><span class="pre">max</span></tt> and <tt class="docutils literal"><span class="pre">abs</span></tt>.  None of these would be useful building blocks for other
+programs if they prompted the user for input, or printed their results while
+they performed their tasks.</p>
+<p>So a good tip is to avoid calling <tt class="docutils literal"><span class="pre">print</span></tt> and <tt class="docutils literal"><span class="pre">input</span></tt> functions inside
+fruitful functions, <em>unless the primary purpose of your function is to
+perform input and output</em>.  The exception
+to this rule is to temporarily sprinkle some calls to <tt class="docutils literal"><span class="pre">print</span></tt> into
+your code to help debug and understand what is happening when the code runs,
+but these will then be removed once you get things working.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="glossary">
+<h2>4.10. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-argument">argument</dt>
+<dd>A value provided to a function when the function is called. This value
+is assigned to the corresponding parameter in the function.  The argument
+can be the result of an expression which may involve operators,
+operands and calls to other fruitful functions.</dd>
+<dt id="term-body">body</dt>
+<dd>The second part of a compound statement. The body consists of a
+sequence of statements all indented the same amount from the beginning
+of the header.  The standard amount of indentation used within the
+Python community is 4 spaces.</dd>
+<dt id="term-chatterbox-function">chatterbox function</dt>
+<dd>A function which interacts with the user (using <tt class="docutils literal"><span class="pre">input</span></tt> or <tt class="docutils literal"><span class="pre">print</span></tt>) when
+it should not. Silent functions that just convert their input arguments into
+their output results are usually the most useful ones.</dd>
+<dt id="term-composition-of-functions">composition (of functions)</dt>
+<dd>Calling one function from within the body of another, or using the
+return value of one function as an argument to the call of another.</dd>
+<dt id="term-compound-statement">compound statement</dt>
+<dd><p class="first">A statement that consists of two parts:</p>
+<ol class="arabic simple">
+<li>header - which begins with a keyword determining the statement
+type, and ends with a colon.</li>
+<li>body - containing one or more statements indented the same amount
+from the header.</li>
+</ol>
+<p>The syntax of a compound statement looks like this:</p>
+<blockquote class="last">
+<div><div class="highlight-none"><div class="highlight"><pre>keyword ... :
+    statement
+    statement ...
+</pre></div>
+</div>
+</div></blockquote>
+</dd>
+<dt id="term-dead-code">dead code</dt>
+<dd>Part of a program that can never be executed, often because it appears
+after a <tt class="docutils literal"><span class="pre">return</span></tt> statement.</dd>
+<dt id="term-docstring">docstring</dt>
+<dd>A special string that is attached to a function as its <tt class="docutils literal"><span class="pre">__doc__</span></tt> attribute.
+Tools like IDLE can use docstrings to provide documentation or hints for the programmer.
+When we get to modules, classes, and methods, we&#8217;ll see that docstrings can also be used there.</dd>
+<dt id="term-flow-of-execution">flow of execution</dt>
+<dd>The order in which statements are executed during a program run.</dd>
+<dt id="term-fruitful-function">fruitful function</dt>
+<dd>A function that yields a return value instead of <tt class="docutils literal"><span class="pre">None</span></tt>.</dd>
+<dt id="term-function">function</dt>
+<dd>A named sequence of statements that performs some useful operation.
+Functions may or may not take parameters and may or may not produce a
+result.</dd>
+<dt id="term-function-call">function call</dt>
+<dd>A statement that executes a function. It consists of the name of the
+function followed by a list of arguments enclosed in parentheses.</dd>
+<dt id="term-function-composition">function composition</dt>
+<dd>Using the output from one function call as the input to another.</dd>
+<dt id="term-function-definition">function definition</dt>
+<dd>A statement that creates a new function, specifying its name,
+parameters, and the statements it executes.</dd>
+<dt id="term-13">fruitful function</dt>
+<dd>A function that returns a value when it is called.</dd>
+<dt id="term-header-line">header line</dt>
+<dd>The first part of a compound statement. A header line begins with a keyword and
+ends with a colon (:)</dd>
+<dt id="term-import-statement">import statement</dt>
+<dd>A statement which permits functions and variables defined in another Python
+module to be brought into the environment of another script.  To use the
+features of the turtle, we need to first import the turtle module.</dd>
+<dt id="term-incremental-development">incremental development</dt>
+<dd>A program development plan intended to simplify debugging by adding and
+testing only a small amount of code at a time.</dd>
+<dt id="term-lifetime">lifetime</dt>
+<dd>Variables and objects have lifetimes &#8212; they are created at some point during
+program execution, and will be destroyed at some time.</dd>
+<dt id="term-local-variable">local variable</dt>
+<dd>A variable defined inside a function. A local variable can only be used
+inside its function.  Parameters of a function are also a special kind
+of local variable.</dd>
+<dt id="term-none">None</dt>
+<dd>A special Python value. One use in Python is that it is returned
+by functions that do not execute a return statement with a return argument.</dd>
+<dt id="term-parameter">parameter</dt>
+<dd>A name used inside a function to refer to the value which was passed
+to it as an argument.</dd>
+<dt id="term-refactor">refactor</dt>
+<dd>A fancy word to describe reorganizing our program code, usually to make
+it more understandable.  Typically, we have a program that is already working,
+then we go back to &#8220;tidy it up&#8221;.  It often involves choosing better variable
+names, or spotting repeated patterns and moving that code into a function.</dd>
+<dt id="term-return-value">return value</dt>
+<dd>The value provided as the result of a function call.</dd>
+<dt id="term-scaffolding">scaffolding</dt>
+<dd>Code that is used during program development to assist with development
+and debugging. The unit test code that we added in this chapter are
+examples of scaffolding.</dd>
+<dt id="term-temporary-variable">temporary variable</dt>
+<dd>A variable used to store an intermediate value in a complex
+calculation.</dd>
+<dt id="term-test-suite">test suite</dt>
+<dd>A collection of tests for some code you have written.</dd>
+<dt id="term-traceback">traceback</dt>
+<dd>A list of the functions that are executing, printed when a runtime
+error occurs. A traceback is also commonly refered to as a
+<em>stack trace</em>, since it lists the functions in the order in which they
+are stored in the
+<a class="reference external" href="http://en.wikipedia.org/wiki/Runtime_stack">runtime stack</a>.</dd>
+<dt id="term-unit-testing">unit testing</dt>
+<dd>An automatic procedure used to validate that individual units of code
+are working properly.  Having a test suite is extremely useful when somebody
+modifies or extends the code: it provides a safety net against
+going backwards by putting new bugs into previously working code.
+The term <em>regression</em> testing is often used to capture this idea that we
+don&#8217;t want to go backwards!</dd>
+<dt id="term-void-function">void function</dt>
+<dd>The opposite of a fruitful function: one that does not return a value.  It is
+executed for the work it does, rather than for the value it returns.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="conditionals.html" title="5. Conditionals"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hello_little_turtles.html" title="3. Hello, little turtles!"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

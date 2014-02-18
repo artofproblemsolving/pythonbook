@@ -1,0 +1,1040 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2. Variables, expressions and statements &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/codemirror.js"></script>
+    <script type="text/javascript" src="_static/python.js"></script>
+    <script type="text/javascript" src="_static/matchbrackets.js"></script>
+    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="3. Hello, little turtles!" href="hello_little_turtles.html" />
+    <link rel="prev" title="1. The way of the program" href="way_of_the_program.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hello_little_turtles.html" title="3. Hello, little turtles!"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="way_of_the_program.html" title="1. The way of the program"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="variables-expressions-and-statements">
+<h1>2. Variables, expressions and statements<a class="headerlink" href="#variables-expressions-and-statements" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><div class="section" id="values-and-data-types">
+<span id="values-n-types"></span><span id="index-1"></span><h2>2.1. Values and data types<a class="headerlink" href="#values-and-data-types" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>value</strong> is one of the fundamental things &#8212; like a letter or a number &#8212;
+that a program manipulates. Some of the values we have seen so far are <tt class="docutils literal"><span class="pre">5</span></tt> (the
+result when we added <tt class="docutils literal"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">3</span></tt>), and <tt class="docutils literal"><span class="pre">&quot;Hello,</span> <span class="pre">World!&quot;</span></tt>.</p>
+<p>These values are classified into different <strong>classes</strong>, or <strong>data types</strong>: <tt class="docutils literal"><span class="pre">5</span></tt>
+is an <em>integer</em>, and <tt class="docutils literal"><span class="pre">&quot;Hello,</span> <span class="pre">World!&quot;</span></tt> is a <em>string</em>,
+so-called because it contains a string of
+letters. You (and the interpreter) can identify strings because they are
+enclosed in quotation marks.</p>
+<p>If you are not sure what class a value falls into, Python has a function
+called <strong>type</strong> which can tell you, as in the example below. (Anytime we show you an
+example with lines that start with <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt>, these are examples that you can try in
+the IDLE shell.)</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; type(&quot;Hello, World!&quot;)
+&lt;class &#39;str&#39;&gt;
+&gt;&gt;&gt; type(17)
+&lt;class &#39;int&#39;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Not surprisingly, strings belong to the class <strong>str</strong> and integers belong to the
+class <strong>int</strong>. Less obviously, numbers with a decimal point belong to a class
+called <strong>float</strong>, because these numbers are represented in a format called
+<em>floating-point</em>.  At this stage, you can treat the words <em>class</em> and <em>type</em>
+interchangeably.  (If you continue to take our <em>Intermediate Programming with Python</em> course, we&#8217;ll cover what a <em>class</em> is in much more detail.)</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; type(3.2)
+&lt;class &#39;float&#39;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>What about values like <tt class="docutils literal"><span class="pre">&quot;17&quot;</span></tt> and <tt class="docutils literal"><span class="pre">&quot;3.2&quot;</span></tt>? They look like numbers, but they
+are in quotation marks like strings.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; type(&quot;17&quot;)
+&lt;class &#39;str&#39;&gt;
+&gt;&gt;&gt; type(&quot;3.2&quot;)
+&lt;class &#39;str&#39;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>They&#8217;re strings!</p>
+<p>Strings in Python can be enclosed in either single quotes (<tt class="docutils literal"><span class="pre">'</span></tt>) or double quotes
+(<tt class="docutils literal"><span class="pre">&quot;</span></tt>), or three of each (<tt class="docutils literal"><span class="pre">'''</span></tt> or <tt class="docutils literal"><span class="pre">&quot;&quot;&quot;</span></tt>)</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; type(&#39;This is a string.&#39;)
+&lt;class &#39;str&#39;&gt;
+&gt;&gt;&gt; type(&quot;And so is this.&quot;)
+&lt;class &#39;str&#39;&gt;
+&gt;&gt;&gt; type(&quot;&quot;&quot;and this.&quot;&quot;&quot;)
+&lt;class &#39;str&#39;&gt;
+&gt;&gt;&gt; type(&#39;&#39;&#39;and even this...&#39;&#39;&#39;)
+&lt;class &#39;str&#39;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Double quoted strings can contain single quotes inside them, as in
+<tt class="docutils literal"><span class="pre">&quot;Bruce's</span> <span class="pre">beard&quot;</span></tt>, and single quoted strings can have double quotes
+inside them, as in <tt class="docutils literal"><span class="pre">'The</span> <span class="pre">knights</span> <span class="pre">who</span> <span class="pre">say</span> <span class="pre">&quot;Ni!&quot;'</span></tt>.</p>
+<p>Strings enclosed with three occurrences of either quote symbol are
+called triple quoted strings.  They can
+contain either single or double quotes:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; print(&#39;&#39;&#39;&quot;Oh no&quot;, she exclaimed, &quot;Ben&#39;s bike is broken!&quot;&#39;&#39;&#39;)
+&quot;Oh no&quot;, she exclaimed, &quot;Ben&#39;s bike is broken!&quot;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Triple quoted strings can even span multiple lines:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; message = &quot;&quot;&quot;This message will
+... span several
+... lines.&quot;&quot;&quot;
+&gt;&gt;&gt; print(message)
+This message will
+span several
+lines.
+</pre></div>
+</div>
+</div></blockquote>
+<p>Python doesn&#8217;t care whether you use single or double quotes or
+the three-of-a-kind quotes to surround your strings:
+once it has parsed the text of your program or command, the way it stores the
+value is identical in all cases, and the surrounding quotes are not part of
+the value. But when the interpreter wants to display a string, it has to
+decide which quotes to use to make it look like a string.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; &#39;This is a string.&#39;
+&#39;This is a string.&#39;
+&gt;&gt;&gt; &quot;&quot;&quot;And so is this.&quot;&quot;&quot;
+&#39;And so is this.&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<p>So the Python language designers usually chose to surround their strings
+by single quotes.  What do think would happen if the string already
+contained single quotes?</p>
+<p>When you type a large integer, you might be tempted to use commas between
+groups of three digits, as in <tt class="docutils literal"><span class="pre">42,000</span></tt>. This is not a legal integer in
+Python, but it does mean something else, which is legal:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 42000
+42000
+&gt;&gt;&gt; 42,000
+(42, 0)
+</pre></div>
+</div>
+</div></blockquote>
+<p>Well, that&#8217;s not what we expected at all! Because of the comma, Python chose to
+treat this as a <em>pair</em> of values.  We&#8217;ll come back to learn about pairs later.
+But, for the moment, remember not to put commas or spaces in your integers, no matter
+how big they are. Also revisit what we said in the previous chapter: formal languages are
+strict, the notation is concise, and even the smallest change might
+mean something quite different from what you intended.</p>
+</div>
+<div class="section" id="variables">
+<span id="index-2"></span><h2>2.2. Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<p>One of the most powerful features of a programming language is the ability to
+manipulate <strong>variables</strong>. A variable is a name that refers to a value.</p>
+<p>The <strong>assignment statement</strong> gives a value to a variable:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; message = &quot;What&#39;s up, Doc?&quot;
+&gt;&gt;&gt; n = 17
+&gt;&gt;&gt; pi = 3.14159
+</pre></div>
+</div>
+</div></blockquote>
+<p>This example makes three assignments. The first assigns the string value <tt class="docutils literal"><span class="pre">&quot;What's</span>
+<span class="pre">up,</span> <span class="pre">Doc?&quot;</span></tt> to a variable named <tt class="docutils literal"><span class="pre">message</span></tt>. The second gives the integer
+<tt class="docutils literal"><span class="pre">17</span></tt> to <tt class="docutils literal"><span class="pre">n</span></tt>, and the third assigns the floating-point number <tt class="docutils literal"><span class="pre">3.14159</span></tt> to
+a variable called <tt class="docutils literal"><span class="pre">pi</span></tt>.</p>
+<p>The <strong>assignment token</strong>, <tt class="docutils literal"><span class="pre">=</span></tt>, should not be confused with <em>equals</em>, which uses
+the token <tt class="docutils literal"><span class="pre">==</span></tt>.  The assignment statement assigns a <em>name</em>, on the
+left-hand side of the operator, to a <em>value</em>, on the right-hand side.
+This is why you will get an error if you enter:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 17 = n
+SyntaxError: can&#39;t assign to literal
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">When reading or writing code, say to yourself &#8220;n is assigned 17&#8221;
+or &#8220;n gets the value 17&#8221;.  Don&#8217;t say &#8220;n equals 17&#8221;.</p>
+</div>
+</div></blockquote>
+<p>A common way to represent variables on paper is to write the name with an arrow
+pointing to the variable&#8217;s value. This kind of figure is called a <strong>state
+snapshot</strong> because it shows what state each of the variables is in at a particular
+instant in time.  (Think of it as the variable&#8217;s state of mind).
+This diagram shows the result of executing the assignment statements:</p>
+<blockquote>
+<div><img alt="State snapshot" src="_images/state.png" />
+</div></blockquote>
+<p>If you ask the interpreter to evaluate a variable, it will produce the value that is currently
+linked to the variable:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; message
+&#39;What&#39;s up, Doc?&#39;
+&gt;&gt;&gt; n
+17
+&gt;&gt;&gt; pi
+3.14159
+</pre></div>
+</div>
+</div></blockquote>
+<p>We use variables in a program to &#8220;remember&#8221; things, perhaps the current score at the football game.
+But variables are <em>variable</em>. This means they can change over time, just like the scoreboard at a football game.
+You can assign a value to a variable, and later assign a different value to the same variable.
+(<em>This is different from math. In math, if you give `x` the value 3, it
+cannot change to link to a different value half-way through your calculations!</em>)</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; day = &quot;Thursday&quot;
+&gt;&gt;&gt; day
+&#39;Thursday&#39;
+&gt;&gt;&gt; day = &quot;Friday&quot;
+&gt;&gt;&gt; day
+&#39;Friday&#39;
+&gt;&gt;&gt; day = 21
+&gt;&gt;&gt; day
+21
+</pre></div>
+</div>
+</div></blockquote>
+<p>You&#8217;ll notice we changed the value of <tt class="docutils literal"><span class="pre">day</span></tt> three times, and on the third assignment we even
+made it refer to a value that was of a different type.</p>
+<p>A great deal of programming is about having the computer remember things, for example <em>the number of missed calls on your phone</em>,
+and then arranging to update or change the variable when you miss another call.</p>
+</div>
+<div class="section" id="variable-names-and-keywords">
+<span id="index-3"></span><h2>2.3. Variable names and keywords<a class="headerlink" href="#variable-names-and-keywords" title="Permalink to this headline">¶</a></h2>
+<p><strong>Variable names</strong> can be arbitrarily long. They can contain both letters and
+digits, but they have to begin with a letter or an underscore. Although it is legal to use
+uppercase letters, by convention we don&#8217;t. If you do, remember that case
+matters. <tt class="docutils literal"><span class="pre">Bruce</span></tt> and <tt class="docutils literal"><span class="pre">bruce</span></tt> are different variables.</p>
+<p>The underscore character (<tt class="docutils literal"><span class="pre">_</span></tt>) can appear in a name. It is often used in
+names with multiple words, such as <tt class="docutils literal"><span class="pre">my_name</span></tt> or <tt class="docutils literal"><span class="pre">price_of_tea_in_china</span></tt>.
+For variable names, a common convention is to use something called <em>mixedCase</em>, where
+multiple words are combined together and every word except the first is capitalized. So, for example, using mixedCase we would have the variables <tt class="docutils literal"><span class="pre">myName</span></tt> or <tt class="docutils literal"><span class="pre">priceOfTeaInChina</span></tt>.</p>
+<p>There are some situations in which names beginning with an underscore have
+special meaning, so a safe rule for beginners is to start all names with a letter.</p>
+<p>If you give a variable an illegal name, you get a syntax error:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 76trombones = &quot;big parade&quot;
+SyntaxError: invalid syntax
+&gt;&gt;&gt; more$ = 1000000
+SyntaxError: invalid syntax
+&gt;&gt;&gt; class = &quot;Computer Science 101&quot;
+SyntaxError: invalid syntax
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">76trombones</span></tt> is illegal because it does not begin with a letter.  <tt class="docutils literal"><span class="pre">more$</span></tt>
+is illegal because it contains an illegal character, the dollar sign. But
+what&#8217;s wrong with <tt class="docutils literal"><span class="pre">class</span></tt>?</p>
+<p>It turns out that <tt class="docutils literal"><span class="pre">class</span></tt> is one of the Python <strong>keywords</strong>. Keywords define
+the language&#8217;s syntax rules and structure, and they cannot be used as variable names.</p>
+<p>As of this writing, Python has 33 keywords (and every now and again improvements to Python
+introduce or eliminate one or two):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>False</td>
+<td>def</td>
+<td>if</td>
+<td>raise</td>
+</tr>
+<tr class="row-even"><td>None</td>
+<td>del</td>
+<td>import</td>
+<td>return</td>
+</tr>
+<tr class="row-odd"><td>True</td>
+<td>elif</td>
+<td>in</td>
+<td>try</td>
+</tr>
+<tr class="row-even"><td>and</td>
+<td>else</td>
+<td>is</td>
+<td>while</td>
+</tr>
+<tr class="row-odd"><td>as</td>
+<td>except</td>
+<td>lambda</td>
+<td>with</td>
+</tr>
+<tr class="row-even"><td>assert</td>
+<td>finally</td>
+<td>nonlocal</td>
+<td>yield</td>
+</tr>
+<tr class="row-odd"><td>break</td>
+<td>for</td>
+<td>not</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>class</td>
+<td>from</td>
+<td>or</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>continue</td>
+<td>global</td>
+<td>pass</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>You might want to keep this list handy. You&#8217;ll learn what most of these keywords mean as you progress through this book. You can also type <tt class="docutils literal"><span class="pre">help('keywords')</span></tt> in the shell
+to see a list of the Python keywords. Also, when you type a keyword in IDLE, it should appear in orange. If the interpreter complains about one
+of your variable names and you don&#8217;t know why, see if it is on this list.</p>
+<p>Programmers generally choose names for their variables that are meaningful to
+the human readers of the program &#8212;
+they help the programmer document, or remember, what the variable is used for.</p>
+</div>
+<div class="section" id="statements">
+<span id="index-4"></span><h2>2.4. Statements<a class="headerlink" href="#statements" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>statement</strong> is an instruction that the Python interpreter can execute. We
+have only seen the assignment statement so far.  Some other kinds of statements that
+we&#8217;ll see shortly are <tt class="docutils literal"><span class="pre">while</span></tt> statements, <tt class="docutils literal"><span class="pre">for</span></tt> statements, <tt class="docutils literal"><span class="pre">if</span></tt> statements,
+and <tt class="docutils literal"><span class="pre">import</span></tt> statements.  (There are other kinds too!)</p>
+<p>When you type a statement on the command line, Python executes it.  Statements
+don&#8217;t produce any result.</p>
+</div>
+<div class="section" id="evaluating-expressions">
+<span id="index-5"></span><h2>2.5. Evaluating expressions<a class="headerlink" href="#evaluating-expressions" title="Permalink to this headline">¶</a></h2>
+<p>An <strong>expression</strong> is a combination of values, variables, operators, and calls to functions. If you
+type an expression at the Python prompt, the interpreter <strong>evaluates</strong> it and
+displays the result:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 1 + 1
+2
+&gt;&gt;&gt; len(&quot;hello&quot;)
+5
+</pre></div>
+</div>
+</div></blockquote>
+<p>In this example <tt class="docutils literal"><span class="pre">len</span></tt> is a built-in Python function that returns the number of characters in a string.
+We&#8217;ve previously seen the <tt class="docutils literal"><span class="pre">print</span></tt> and the <tt class="docutils literal"><span class="pre">type</span></tt> functions, so this is our third example of a function!</p>
+<p>The <em>evaluation of an expression</em> produces a value, which is why expressions
+can appear on the right hand side of assignment statements. A value all by
+itself is a simple expression, and so is a variable.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 17
+17
+&gt;&gt;&gt; y = 3.14
+&gt;&gt;&gt; x = len(&quot;hello&quot;)
+&gt;&gt;&gt; x
+5
+&gt;&gt;&gt; y
+3.14
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="operators-and-operands">
+<span id="index-6"></span><h2>2.6. Operators and operands<a class="headerlink" href="#operators-and-operands" title="Permalink to this headline">¶</a></h2>
+<p><strong>Operators</strong> are special tokens that represent computations like addition,
+multiplication and division. The values the operator uses are called <strong>operands</strong>.</p>
+<p>The following are all legal Python expressions whose meaning is more or less
+clear:</p>
+<div class="highlight-python"><pre>20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)</pre>
+</div>
+<p>The tokens <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, and <tt class="docutils literal"><span class="pre">*</span></tt>, and the use of parenthesis for grouping,
+mean in Python what they mean in mathematics. The asterisk (<tt class="docutils literal"><span class="pre">*</span></tt>) is the
+token for multiplication, and <tt class="docutils literal"><span class="pre">**</span></tt> is the token for exponentiation.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 2 ** 3
+8
+&gt;&gt;&gt; 3 ** 2
+9
+</pre></div>
+</div>
+</div></blockquote>
+<p>When a variable name appears in the place of an operand, it is replaced with
+its value before the operation is performed.</p>
+<p>Addition, subtraction, multiplication, and exponentiation all do what you
+expect.</p>
+<p>Example: so let us convert 645 minutes into hours:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; minutes = 645
+&gt;&gt;&gt; hours = minutes / 60
+&gt;&gt;&gt; hours
+10.75
+</pre></div>
+</div>
+</div></blockquote>
+<p>Oops! In Python 3, the division operator <tt class="docutils literal"><span class="pre">/</span></tt> always yields a floating point result.
+What we might have wanted to know was how many <em>whole</em> hours there are, and how many minutes remain.
+Python gives us two different flavors of the division operator.
+The second, called <strong>floor division</strong> uses the token <cite>//</cite>.
+Its result is always a whole number &#8212; and if it has to adjust the number it always
+moves it to the left on the number line.  So <tt class="docutils literal"><span class="pre">6</span> <span class="pre">//</span> <span class="pre">4</span></tt> yields <tt class="docutils literal"><span class="pre">1</span></tt>, but <tt class="docutils literal"><span class="pre">-6</span> <span class="pre">//</span> <span class="pre">4</span></tt> might surprise you!</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 7 / 4
+1.75
+&gt;&gt;&gt; 7 // 4
+1
+&gt;&gt;&gt; minutes = 645
+&gt;&gt;&gt; hours = minutes // 60
+&gt;&gt;&gt; hours
+10
+</pre></div>
+</div>
+</div></blockquote>
+<p>Take care that you choose the correct flavor of the division operator.  If you&#8217;re
+working with expressions where you need floating point values, use the division operator
+that does the division accurately.</p>
+</div>
+<div class="section" id="type-converter-functions">
+<span id="index-7"></span><h2>2.7. Type converter functions<a class="headerlink" href="#type-converter-functions" title="Permalink to this headline">¶</a></h2>
+<p>Here we&#8217;ll look at three more Python functions, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt> and <tt class="docutils literal"><span class="pre">str</span></tt>, which will (attempt to)
+convert their arguments into types <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt> and <tt class="docutils literal"><span class="pre">str</span></tt> respectively.  We call these
+<strong>type converter</strong> functions.</p>
+<p>The <tt class="docutils literal"><span class="pre">int</span></tt> function can take a floating point number or a string, and turn
+it into an int. For floating point numbers, it <em>discards</em> the decimal portion
+of the number &#8212; a process we call <em>truncation towards zero</em> on
+the number line.  Let us see this in action:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; int(3.14)
+3
+&gt;&gt;&gt; int(3.9999)             # This doesn&#39;t round to the closest int!
+3
+&gt;&gt;&gt; int(3.0)
+3
+&gt;&gt;&gt; int(-3.999)             # Note that the result is closer to zero
+-3
+&gt;&gt;&gt; int(minutes / 60)
+10
+&gt;&gt;&gt; int(&quot;2345&quot;)             # Parse a string to produce an int
+2345
+&gt;&gt;&gt; int(17)                 # It even works if arg is already an int
+17
+&gt;&gt;&gt; int(&quot;23 bottles&quot;)
+</pre></div>
+</div>
+</div></blockquote>
+<p>This last case doesn&#8217;t look like a number &#8212; what do we expect?</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
+      File &quot;&lt;pyshell#4&gt;&quot;, line 1, in &lt;module&gt;
+        int(&quot;23 bottles&quot;)
+ValueError: invalid literal for int() with base 10: &#39;23 bottles&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The type converter <tt class="docutils literal"><span class="pre">float</span></tt> can turn an integer, a float, or a syntactically legal
+string into a float:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; float(17)
+17.0
+&gt;&gt;&gt; float(&quot;123.45&quot;)
+123.45
+</pre></div>
+</div>
+</div></blockquote>
+<p>The type converter <tt class="docutils literal"><span class="pre">str</span></tt> turns its argument into a string:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; str(17)
+&#39;17&#39;
+&gt;&gt;&gt; str(123.45)
+&#39;123.45&#39;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="order-of-operations">
+<span id="index-8"></span><h2>2.8. Order of operations<a class="headerlink" href="#order-of-operations" title="Permalink to this headline">¶</a></h2>
+<p>When more than one operator appears in an expression, the order of evaluation
+depends on the <strong>rules of precedence</strong>. Python follows the same precedence
+rules for its mathematical operators that mathematics does. The acronym PEMDAS
+(which some people remember as &#8220;Please Excuse My Dear Aunt Sally&#8221;)
+is a useful way to remember the order of operations:</p>
+<ol class="arabic">
+<li><p class="first"><strong>P</strong>arentheses have the highest precedence and can be used to force an
+expression to evaluate in the order you want. Since expressions in
+parentheses are evaluated first, <tt class="docutils literal"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">(3-1)</span></tt> is 4, and <tt class="docutils literal"><span class="pre">(1+1)**(5-2)</span></tt> is
+8. You can also use parentheses to make an expression easier to read, as in
+<tt class="docutils literal"><span class="pre">(minute</span> <span class="pre">*</span> <span class="pre">100)</span> <span class="pre">/</span> <span class="pre">60</span></tt>, even though it doesn&#8217;t change the result.</p>
+</li>
+<li><p class="first"><strong>E</strong>xponentiation has the next highest precedence, so <tt class="docutils literal"><span class="pre">2**1+1</span></tt> is 3 and
+not 4, and <tt class="docutils literal"><span class="pre">3*1**3</span></tt> is 3 and not 27.</p>
+</li>
+<li><p class="first"><strong>M</strong>ultiplication and both <strong>D</strong>ivision operators have the same precedence, which is
+higher than <strong>A</strong>ddition and <strong>S</strong>ubtraction, which also have the same
+precedence. So <tt class="docutils literal"><span class="pre">2*3-1</span></tt> yields 5 rather than 4, and <tt class="docutils literal"><span class="pre">5-2*2</span></tt> is 1, not 6.</p>
+</li>
+<li><p class="first">Operators with the <em>same</em> precedence are evaluated from left-to-right. In algebra
+we say they are <em>left-associative</em>.  So in
+the expression <tt class="docutils literal"><span class="pre">6-3+2</span></tt>, the subtraction happens first, yielding 3. We then add
+2 to get the result 5. If the operations had been evaluated from
+right to left, the result would have been <tt class="docutils literal"><span class="pre">6-(3+2)</span></tt>, which is 1.  (The acronym
+PEDMAS could mislead you to thinking that division has higher precedence than multiplication,
+and addition is done ahead of subtraction - don&#8217;t be misled.
+Subtraction and addition are at the same precedence, and the left-to-right rule applies.)</p>
+<ul>
+<li><p class="first">An exception to the left-to-right left-associative rule
+is the exponentiation operator <tt class="docutils literal"><span class="pre">**</span></tt>, so a useful hint is to always use
+parentheses to force exactly the order you want when exponentiation is involved:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; 2 ** 3 ** 2     # The right-most ** operator gets done first!
+512
+&gt;&gt;&gt; (2 ** 3) ** 2   # Use parentheses to force the order you want!
+64
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<p>The immediate mode command prompt of Python is great for exploring and experimenting
+with expressions like this.</p>
+</div>
+<div class="section" id="operations-on-strings">
+<span id="index-9"></span><h2>2.9. Operations on strings<a class="headerlink" href="#operations-on-strings" title="Permalink to this headline">¶</a></h2>
+<p>In general, you cannot perform mathematical operations on strings, even if the
+strings look like numbers. The following are illegal (assuming that <tt class="docutils literal"><span class="pre">message</span></tt>
+has type string):</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; message - 1        # Error
+&gt;&gt;&gt; &quot;Hello&quot; / 123      # Error
+&gt;&gt;&gt; message * &quot;Hello&quot;  # Error
+&gt;&gt;&gt; &quot;15&quot; + 2           # Error
+</pre></div>
+</div>
+</div></blockquote>
+<p>Interestingly, the <tt class="docutils literal"><span class="pre">+</span></tt> operator does work with strings, but for strings,
+the <tt class="docutils literal"><span class="pre">+</span></tt> operator represents <strong>concatenation</strong>, not addition.
+Concatenation means joining the two operands by linking them end-to-end. For example:</p>
+
+<div id="twofruits" class="pywindow" >
+
+<div id="twofruits_code_div" style="display: block">
+<textarea rows="3" id="twofruits_code" class="active_code" prefixcode="undefined">
+fruit = "banana"
+baked_good = " nut bread"
+print(fruit + baked_good)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['twofruits_code'] = true;
+pythonTool.readOnlyFlags['twofruits_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="twofruits_runb" onclick="pythonTool.runit('twofruits_code','twofruits_pre','twofruits_error','twofruits_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twofruits_code','twofruits_pre','twofruits_error','twofruits_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='twofruits_error'></div>
+
+<div style="text-align: center">
+<canvas id="twofruits_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="twofruits_suffix" style="display:none">
+</pre>
+<pre id="twofruits_pre" class="active_out">
+
+</pre>
+
+<div id="twofruits_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The output of this program is <tt class="docutils literal"><span class="pre">banana</span> <span class="pre">nut</span> <span class="pre">bread</span></tt>. The space before the word
+<tt class="docutils literal"><span class="pre">nut</span></tt> is part of the string, and is necessary to produce the space between
+the concatenated strings.</p>
+<p>The <tt class="docutils literal"><span class="pre">*</span></tt> operator also works on strings; it performs repetition. For example:</p>
+
+<div id="triplethefun" class="pywindow" >
+
+<div id="triplethefun_code_div" style="display: block">
+<textarea rows="1" id="triplethefun_code" class="active_code" prefixcode="undefined">
+print('Fun' * 3)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['triplethefun_code'] = true;
+pythonTool.readOnlyFlags['triplethefun_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="triplethefun_runb" onclick="pythonTool.runit('triplethefun_code','triplethefun_pre','triplethefun_error','triplethefun_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('triplethefun_code','triplethefun_pre','triplethefun_error','triplethefun_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='triplethefun_error'></div>
+
+<div style="text-align: center">
+<canvas id="triplethefun_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="triplethefun_suffix" style="display:none">
+</pre>
+<pre id="triplethefun_pre" class="active_out">
+
+</pre>
+
+<div id="triplethefun_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>One of the operands has to be a string; the other has to be an integer.</p>
+<p>On one hand, this interpretation of <tt class="docutils literal"><span class="pre">+</span></tt> and <tt class="docutils literal"><span class="pre">*</span></tt> makes sense by analogy with
+addition and multiplication. Just as <tt class="docutils literal"><span class="pre">4*3</span></tt> is equivalent to <tt class="docutils literal"><span class="pre">4+4+4</span></tt>, we
+expect <tt class="docutils literal"><span class="pre">&quot;Fun&quot;*3</span></tt> to be the same as <tt class="docutils literal"><span class="pre">&quot;Fun&quot;+&quot;Fun&quot;+&quot;Fun&quot;</span></tt>, and it is.</p>
+</div>
+<div class="section" id="input">
+<span id="index-10"></span><span id="id1"></span><h2>2.10. Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<p>There is a built-in function in Python for getting input from the user:</p>
+
+<div id="firstinput" class="pywindow" >
+
+<div id="firstinput_code_div" style="display: block">
+<textarea rows="2" id="firstinput_code" class="active_code" prefixcode="undefined">
+n = input("Please enter your name: ")
+print("Hi, " + n)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['firstinput_code'] = true;
+pythonTool.readOnlyFlags['firstinput_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="firstinput_runb" onclick="pythonTool.runit('firstinput_code','firstinput_pre','firstinput_error','firstinput_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstinput_code','firstinput_pre','firstinput_error','firstinput_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='firstinput_error'></div>
+
+<div style="text-align: center">
+<canvas id="firstinput_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="firstinput_suffix" style="display:none">
+</pre>
+<pre id="firstinput_pre" class="active_out">
+
+</pre>
+
+<div id="firstinput_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>When you run this script, the program pauses to receive user input.
+(In this ebook, the program will pop up a separate window to receive your input. In
+IDLE, the input prompt will appear in the shell window.) The user of the program can enter the name, and when this happens
+the text that has been entered is assigned to the variable <tt class="docutils literal"><span class="pre">n</span></tt>.
+This variable is then printed by the <tt class="docutils literal"><span class="pre">print</span></tt> function in line 2.</p>
+<p>Even if you asked the user to enter their age, you would get back a string like <tt class="docutils literal"><span class="pre">&quot;17&quot;</span></tt>.
+It would be your job, as the programmer, to convert that string into a int or a float,
+using the <tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">float</span></tt> converter functions we saw earlier.</p>
+</div>
+<div class="section" id="composition">
+<span id="index-11"></span><h2>2.11. Composition<a class="headerlink" href="#composition" title="Permalink to this headline">¶</a></h2>
+<p>So far, we have looked at the elements of a program &#8212; variables, expressions,
+statements, and function calls &#8212; in isolation, without talking about how to combine them.</p>
+<p>One of the most useful features of programming languages is their ability to
+take small building blocks and <strong>compose</strong> them into larger chunks.</p>
+<p>For example, we know how to get the user to enter some input, we know how to
+convert the string we get into a float, we know how to write a complex expression, and
+we know how to print values. Let&#8217;s put these together in a small four-step program that
+asks the user to input a value for the radius of a circle, and then
+computes the area of the circle from the formula</p>
+<p>Area = pi * r^2</p>
+<p>Firstly, we&#8217;ll do the four steps one at a time:</p>
+
+<div id="circleareafoursteps" class="pywindow" >
+
+<div id="circleareafoursteps_code_div" style="display: block">
+<textarea rows="4" id="circleareafoursteps_code" class="active_code" prefixcode="undefined">
+response = input("What is your radius? ")
+r = float(response)
+area = 3.14159 * r**2
+print("The area is " + str(area))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['circleareafoursteps_code'] = true;
+pythonTool.readOnlyFlags['circleareafoursteps_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="circleareafoursteps_runb" onclick="pythonTool.runit('circleareafoursteps_code','circleareafoursteps_pre','circleareafoursteps_error','circleareafoursteps_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareafoursteps_code','circleareafoursteps_pre','circleareafoursteps_error','circleareafoursteps_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='circleareafoursteps_error'></div>
+
+<div style="text-align: center">
+<canvas id="circleareafoursteps_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="circleareafoursteps_suffix" style="display:none">
+</pre>
+<pre id="circleareafoursteps_pre" class="active_out">
+
+</pre>
+
+<div id="circleareafoursteps_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice that we have to convert the value of the variable <tt class="docutils literal"><span class="pre">area</span></tt> to a string before we can print it. If we don&#8217;t, we get an error:</p>
+
+<div id="circleareaprinterror" class="pywindow" >
+
+<div id="circleareaprinterror_code_div" style="display: block">
+<textarea rows="4" id="circleareaprinterror_code" class="active_code" prefixcode="undefined">
+response = input("What is your radius? ")
+r = float(response)
+area = 3.14159 * r**2
+print("The area is " + area)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['circleareaprinterror_code'] = true;
+pythonTool.readOnlyFlags['circleareaprinterror_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="circleareaprinterror_runb" onclick="pythonTool.runit('circleareaprinterror_code','circleareaprinterror_pre','circleareaprinterror_error','circleareaprinterror_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareaprinterror_code','circleareaprinterror_pre','circleareaprinterror_error','circleareaprinterror_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='circleareaprinterror_error'></div>
+
+<div style="text-align: center">
+<canvas id="circleareaprinterror_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="circleareaprinterror_suffix" style="display:none">
+</pre>
+<pre id="circleareaprinterror_pre" class="active_out">
+
+</pre>
+
+<div id="circleareaprinterror_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We get an error in the above program because Python doesn&#8217;t know how to &#8220;add&#8221; a string and a float. We need to convert the float to a string before we can add (that is, concatenate) it to the string <tt class="docutils literal"><span class="pre">&quot;The</span> <span class="pre">area</span> <span class="pre">is</span> <span class="pre">&quot;</span></tt>.</p>
+<p>Now let&#8217;s compose the first two lines into a single line of code, and compose the
+second two lines into another line of code.</p>
+
+<div id="circleareatwosteps" class="pywindow" >
+
+<div id="circleareatwosteps_code_div" style="display: block">
+<textarea rows="2" id="circleareatwosteps_code" class="active_code" prefixcode="undefined">
+r = float( input("What is your radius? ") )
+print("The area is " + str(3.14159 * r**2))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['circleareatwosteps_code'] = true;
+pythonTool.readOnlyFlags['circleareatwosteps_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="circleareatwosteps_runb" onclick="pythonTool.runit('circleareatwosteps_code','circleareatwosteps_pre','circleareatwosteps_error','circleareatwosteps_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareatwosteps_code','circleareatwosteps_pre','circleareatwosteps_error','circleareatwosteps_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='circleareatwosteps_error'></div>
+
+<div style="text-align: center">
+<canvas id="circleareatwosteps_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="circleareatwosteps_suffix" style="display:none">
+</pre>
+<pre id="circleareatwosteps_pre" class="active_out">
+
+</pre>
+
+<div id="circleareatwosteps_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>If we really wanted to be tricky, we could write it all in one statement:</p>
+
+<div id="circleareaonestep" class="pywindow" >
+
+<div id="circleareaonestep_code_div" style="display: block">
+<textarea rows="1" id="circleareaonestep_code" class="active_code" prefixcode="undefined">
+print("The area is " + str(3.14159 * float(input("What is your radius? "))**2))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['circleareaonestep_code'] = true;
+pythonTool.readOnlyFlags['circleareaonestep_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="circleareaonestep_runb" onclick="pythonTool.runit('circleareaonestep_code','circleareaonestep_pre','circleareaonestep_error','circleareaonestep_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareaonestep_code','circleareaonestep_pre','circleareaonestep_error','circleareaonestep_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='circleareaonestep_error'></div>
+
+<div style="text-align: center">
+<canvas id="circleareaonestep_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="circleareaonestep_suffix" style="display:none">
+</pre>
+<pre id="circleareaonestep_pre" class="active_out">
+
+</pre>
+
+<div id="circleareaonestep_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Such compact code may not be most understandable for humans, but it does
+illustrate how we can compose bigger chunks from our building blocks.</p>
+<p>If you&#8217;re ever in doubt about whether to compose code or fragment it into smaller steps,
+try to make it as simple as you can for the human to follow.  My choice would
+be the first case above, with four separate steps.</p>
+</div>
+<div class="section" id="the-modulus-operator">
+<span id="index-12"></span><h2>2.12. The modulus operator<a class="headerlink" href="#the-modulus-operator" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>modulus operator</strong> works on integers (and integer expressions) and gives
+the remainder when the first number is divided by the second. In Python, the
+modulus operator is a percent sign (<tt class="docutils literal"><span class="pre">%</span></tt>). The syntax is the same as for other
+operators. It has the same precedence as the multiplication operator.</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; q = 7 // 3     # This is integer division operator
+&gt;&gt;&gt; print(q)
+2
+&gt;&gt;&gt; r  = 7 % 3
+&gt;&gt;&gt; print(r)
+1
+</pre></div>
+</div>
+</div></blockquote>
+<p>So 7 divided by 3 is 2 with a remainder of 1.</p>
+<p>The modulus operator turns out to be surprisingly useful. For example, you can
+check whether one number is divisible by another&#8212;if <tt class="docutils literal"><span class="pre">x</span> <span class="pre">%</span> <span class="pre">y</span></tt> is zero, then
+<tt class="docutils literal"><span class="pre">x</span></tt> is divisible by <tt class="docutils literal"><span class="pre">y</span></tt>.</p>
+<p>Also, you can extract the right-most digit or digits from a number.  For
+example, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">%</span> <span class="pre">10</span></tt> yields the right-most digit of <tt class="docutils literal"><span class="pre">x</span></tt> (in base 10).
+Similarly <tt class="docutils literal"><span class="pre">x</span> <span class="pre">%</span> <span class="pre">100</span></tt> yields the last two digits.</p>
+<p>It is also extremely useful for doing conversions, say from seconds,
+to hours, minutes and seconds. So let&#8217;s write a program to ask the user to enter
+some seconds, and we&#8217;ll convert them into hours, minutes, and remaining seconds.</p>
+
+<div id="secondstohours" class="pywindow" >
+
+<div id="secondstohours_code_div" style="display: block">
+<textarea rows="12" id="secondstohours_code" class="active_code" prefixcode="undefined">
+# ask user for the total number of seconds
+totalSecs = int(input("How many seconds, in total?"))
+
+# compute hours, minutes, seconds
+hours = totalSecs // 3600
+secsStillRemaining = totalSecs % 3600
+minutes =  secsStillRemaining // 60
+secsFinallyRemaining = secsStillRemaining  % 60
+
+# print the result
+print("Hrs=" + str(hours) + " Mins=" + str(minutes) +
+        " Secs=" + str(secsFinallyRemaining))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['secondstohours_code'] = true;
+pythonTool.readOnlyFlags['secondstohours_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="secondstohours_runb" onclick="pythonTool.runit('secondstohours_code','secondstohours_pre','secondstohours_error','secondstohours_canvas');">Run</button>
+<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('secondstohours_code','secondstohours_pre','secondstohours_error','secondstohours_canvas')">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='secondstohours_error'></div>
+
+<div style="text-align: center">
+<canvas id="secondstohours_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="secondstohours_suffix" style="display:none">
+</pre>
+<pre id="secondstohours_pre" class="active_out">
+
+</pre>
+
+<div id="secondstohours_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>We see a neat little trick in the above program: the <tt class="docutils literal"><span class="pre">print</span></tt> statement in line 11
+extends over into line 12. This is OK&#8212;when the program runs, Python will figure out that the statement on line 11 hasn&#8217;t finished yet and continues onto line 12. It&#8217;s usually a good idea to indent your second line a bit so that&#8217;s it&#8217;s clear to a human that the previous line hasn&#8217;t finished yet.</p>
+<p>We also see how comments make a long program easier for a human to read. Get in the habit of writing comments as part of your programs!</p>
+</div>
+<div class="section" id="glossary">
+<h2>2.13. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-assignment-statement">assignment statement</dt>
+<dd><p class="first">A statement that assigns a value to a name (variable). To the left of
+the assignment operator, <tt class="docutils literal"><span class="pre">=</span></tt>, is a name. To the right of the
+assignment token is an expression which is evaluated by the Python
+interpreter and then assigned to the name. The difference between the
+left and right hand sides of the assignment statement is often
+confusing to new programmers. In the following assignment:</p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre>n = n + 1
+</pre></div>
+</div>
+</div></blockquote>
+<p class="last"><tt class="docutils literal"><span class="pre">n</span></tt> plays a very different role on each side of the <tt class="docutils literal"><span class="pre">=</span></tt>. On the
+right it is a <em>value</em> and makes up part of the <em>expression</em> which will
+be evaluated by the Python interpreter before assigning it to the name
+on the left.</p>
+</dd>
+<dt id="term-assignment-token">assignment token</dt>
+<dd><tt class="docutils literal"><span class="pre">=</span></tt> is Python&#8217;s assignment token.  Do not confuse it with <em>equals</em>, which
+is an operator for comparing values.</dd>
+<dt id="term-composition">composition</dt>
+<dd>The ability to combine simple expressions and statements into compound
+statements and expressions in order to represent complex computations
+concisely.</dd>
+<dt id="term-concatenate">concatenate</dt>
+<dd>To join two strings end-to-end.</dd>
+<dt id="term-data-type">data type</dt>
+<dd>A set of values. The type of a value determines how it can be used in
+expressions. So far, the types you have seen are integers (<tt class="docutils literal"><span class="pre">int</span></tt>),
+floating-point numbers (<tt class="docutils literal"><span class="pre">float</span></tt>), and strings (<tt class="docutils literal"><span class="pre">str</span></tt>).</dd>
+<dt id="term-evaluate">evaluate</dt>
+<dd>To simplify an expression by performing the operations in order to
+yield a single value.</dd>
+<dt id="term-expression">expression</dt>
+<dd>A combination of variables, operators, and values that represents a
+single result value.</dd>
+<dt id="term-float">float</dt>
+<dd>A Python data type which stores <em>floating-point</em> numbers.
+Floating-point numbers are stored internally in two parts: a <em>base</em> and
+an <em>exponent</em>. When printed in the standard format, they look like
+decimal numbers. Beware of rounding errors when you use <tt class="docutils literal"><span class="pre">float</span></tt>s,
+and remember that they are only approximate values.</dd>
+<dt id="term-floor-division">floor division</dt>
+<dd>An operator (denoted by the token <tt class="docutils literal"><span class="pre">//</span></tt>) that divides one number by another and
+yields an integer, or, if the result is not already an integer, it yields
+the next smallest integer.</dd>
+<dt id="term-int">int</dt>
+<dd>A Python data type that holds positive and negative whole numbers.</dd>
+<dt id="term-keyword">keyword</dt>
+<dd>A reserved word that is used by the compiler to parse program; you
+cannot use keywords like <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">def</span></tt>, and <tt class="docutils literal"><span class="pre">while</span></tt> as variable
+names.</dd>
+<dt id="term-modulus-operator">modulus operator</dt>
+<dd>An operator, denoted with a percent sign ( <tt class="docutils literal"><span class="pre">%</span></tt>), that works on
+integers and yields the remainder when one number is divided by
+another.</dd>
+<dt id="term-operand">operand</dt>
+<dd>One of the values on which an operator operates.</dd>
+<dt id="term-operator">operator</dt>
+<dd>A special symbol that represents a simple computation like addition,
+multiplication, or string concatenation.</dd>
+<dt id="term-rules-of-precedence">rules of precedence</dt>
+<dd>The set of rules governing the order in which expressions involving
+multiple operators and operands are evaluated.</dd>
+<dt id="term-state-snapshot">state snapshot</dt>
+<dd>A graphical representation of a set of variables and the values to
+which they refer, taken at a particular instant during the program&#8217;s execution.</dd>
+<dt id="term-statement">statement</dt>
+<dd>An instruction that the Python interpreter can execute.  So far we have
+only seen the assignment statement, but we will soon meet the <tt class="docutils literal"><span class="pre">import</span></tt>
+statement and the <tt class="docutils literal"><span class="pre">for</span></tt> statement.</dd>
+<dt id="term-str">str</dt>
+<dd>A Python data type that holds a string of characters.</dd>
+<dt id="term-value">value</dt>
+<dd>A number or string (or other things to be named later) that can be
+stored in a variable or computed in an expression.</dd>
+<dt id="term-variable">variable</dt>
+<dd>A name that refers to a value.</dd>
+<dt id="term-variable-name">variable name</dt>
+<dd>A name given to a variable. Variable names in Python consist of a
+sequence of letters (a..z, A..Z, and _) and digits (0..9) that begins
+with a letter.  In best programming practice, variable names should be
+chosen so that they describe their use in the program, making the
+program <em>self documenting</em>.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hello_little_turtles.html" title="3. Hello, little turtles!"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="way_of_the_program.html" title="1. The way of the program"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

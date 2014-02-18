@@ -1,0 +1,6 @@
+History
+=======
+
+* January 2014, *How to Think Like a Computer Scientist: Learning with Python 3, AoPS Edition*, AoPS Incorporated.
+
+* October 2012, *How to Think Like a Computer Scientist: Learning with Python 3, Documentation, Release 3rd edition*, Peter Wentworth, Jeffrey Elkner, Allen B. Downey, Chris Meyers.

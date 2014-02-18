@@ -1,0 +1,807 @@
+..  Copyright (C) 2014, AoPS Incorporated
+..  Copyright (C)  Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with Invariant Sections being Foreword, Preface, and Contributor List, no
+    Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+    included in the section entitled "GNU Free Documentation License".
+
+|
+    
+Strings
+=======
+
+.. index:: compound data type, character, subscript operator, index
+
+A compound data type
+--------------------
+
+So far we have seen built-in types like ``int``, ``float``, 
+``bool``, ``str``, and we've also seen lists. 
+Strings and lists are different from the others because they
+are made up of smaller pieces.  In the case of strings, they're made up of smaller
+strings each containing one **character**.  
+
+Types that comprise smaller pieces are called **compound data types**.
+Depending on what we are doing, we may want to treat a compound data type as a
+single thing, or we may want to access its parts. 
+
+Working with strings as single things
+-------------------------------------
+
+We previously saw that each turtle instance has its own attributes and 
+a number of methods that can be applied to the instance.  For example,
+we could set the turtle's color, and we wrote ``tess.turn(90)``.  
+
+Just like a turtle, a string is also an object.  So each string instance 
+has its own attributes and methods.  
+
+For example:
+
+.. activecode:: stringfirstexample
+
+   ss = "Hello, World!"
+   tt = ss.upper()
+   print(tt)
+
+``upper`` is a method that can be invoked on any string object 
+to create a new string, in which all the 
+characters are in uppercase.  (The original string ``ss`` remains unchanged.)
+
+There are also methods such as ``lower``, ``capitalize``, and
+``swapcase`` that do other interesting stuff.
+
+To learn what methods are available, you can consult the Help documentation: type ``help(str)`` at the IDLE shell prompt.  
+
+
+Working with the parts of a string
+----------------------------------
+
+The **indexing operator** selects a single character substring from a string. We enclose the **index** of the character that we want in square brackets:
+
+.. activecode:: stringchar1extract
+
+   fruit = "banana"
+   m = fruit[1]
+   print(m)
+        
+The expression ``fruit[1]`` selects character number 1 from ``fruit``, and creates a new
+string containing just this one character. The variable ``m`` refers to the result. 
+
+But remember: computer scientists always start counting
+from zero! The letter at subscript position zero of ``"banana"`` is ``b``.  So at
+position ``[1]`` we have the letter ``a``.
+
+If we want to access the zero-eth letter of a string, we just place 0,
+or any expression that evaluates to 0, inbetween the brackets:
+
+.. activecode:: stringchar0extract
+
+   fruit = "banana"
+   m = fruit[0]
+   print(m)
+
+The expression in brackets is called an **index**. An index specifies a member
+of an ordered collection, in this case the collection of characters in the string. The index
+*indicates* which one you want, hence the name. It can be any integer
+expression.
+
+We can use ``enumerate`` to visualize the indices:
+
+.. activecode:: stringcharallextract
+
+   fruit = "banana"
+   print(list(enumerate(fruit)))
+
+Do not worry about ``enumerate`` at this point, we will see more of it
+in the chapter on lists.
+
+Note that indexing returns a *string* --- Python has no special type for a single character.
+It is just a string of length 1.
+
+We've also seen lists previously.  The same indexing notation works to extract elements from
+a list: 
+
+.. activecode:: listextractexamples
+
+   prime_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+   print(prime_nums[4])  # should print 11
+   friends = ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]
+   print(friends[3])  # should print Angelina
+
+.. index::
+    single: len function
+    single: function; len
+    single: runtime error
+    single: negative index
+    single: index; negative
+
+Length
+------
+
+The ``len`` function, when applied to a string, returns the number of characters in a string:
+
+.. activecode:: lengthex1
+
+   fruit = "banana"
+   print(len(fruit))
+
+To get the last letter of a string, you might be tempted to try something like
+this:
+
+.. activecode:: lastcharexbad
+
+   fruit = "banana"
+   sz = len(fruit)
+   print(fruit[sz])   # will generate error
+
+That won't work. It causes the runtime error
+``IndexError: string index out of range``. The reason is that there is no
+character at index position 6 in ``"banana"``. 
+Because we start counting at zero, the six indexes are
+numbered 0 to 5. To get the last character, we have to subtract 1 from
+the length of ``fruit``:
+
+.. activecode:: lastcharexgood
+
+   fruit = "banana"
+   sz = len(fruit)
+   print(fruit[sz-1])   # will print last character of fruit
+
+Alternatively, we can use **negative indices**, which count backward from the
+end of the string. The expression ``fruit[-1]`` yields the last letter,
+``fruit[-2]`` yields the second to last, and so on.
+
+.. activecode:: lastcharexbetter
+
+   fruit = "banana"
+   print(fruit[-1])   # will print last character of fruit
+
+As you might have guessed, indexing with a negative index also works like this for lists. 
+
+..
+   We won't use negative indexes in the rest of these notes --- not many computer languages
+   use this idiom, and you'll probably be better off avoiding it. But there is plenty of
+   Python code out on the Internet that will use this trick, so it is best to know that it exists. 
+
+.. index:: traversal, for loop, concatenation, abecedarian series
+
+.. index::
+    single: McCloskey, Robert
+    single: Make Way for Ducklings    
+
+Traversal and the ``for`` loop
+------------------------------
+
+A lot of computations involve processing a string one character at a time.
+Often they start at the beginning, select each character in turn, do something
+to it, and continue until the end. This pattern of processing is called a
+**traversal**. One way to encode a traversal is with a ``while`` statement:
+
+.. activecode:: stringtraversallong
+             
+   fruit = "banana"
+   ix = 0
+   while ix < len(fruit):
+       letter = fruit[ix]
+       print(letter)
+       ix += 1
+
+This loop traverses the string and displays each letter on a line by itself.
+The loop condition is ``ix < len(fruit)``, so when ``ix`` is equal to the
+length of the string, the condition is false, and the body of the loop is not
+executed. The last character accessed is the one with the index
+``len(fruit)-1``, which is the last character in the string.
+
+But we've previously seen how the ``for`` loop can easily iterate over
+the elements in a list, and it can do so for strings as well:
+
+.. activecode:: stringtraversalquick
+       
+   fruit = "banana"
+   for letter in fruit:
+       print(letter)
+
+Each time through the loop, the next character in the string is assigned to the
+variable ``letter``. The loop continues until no characters are left. Here we
+can see the expressive power the ``for`` loop gives us compared to the
+while loop when traversing a string.
+
+The following example shows how to use concatenation and a ``for`` loop to
+generate an abecedarian series. Abecedarian refers to a series or list in which
+the elements appear in alphabetical order. For example, in Robert McCloskey's
+book *Make Way for Ducklings*, the names of the ducklings are Jack, Kack, Lack,
+Mack, Nack, Ouack, Pack, and Quack.  This loop outputs these names (well, mostly) in order:
+
+.. activecode:: ducklings
+        
+   prefixes = "JKLMNOPQ"
+   suffix = "ack"
+   for p in prefixes:
+       print(p + suffix)
+
+It doesn't quick work, because Ouack and Quack need an extra "u". We can fix it with an ``if``-``else`` statement:
+
+.. activecode:: ducklingsfixed
+        
+   prefixes = "JKLMNOPQ"
+   suffix = "ack"
+   for p in prefixes:
+       if p == "O" or p == "Q":
+           print(p + "u" + suffix)
+       else:
+           print(p + suffix)
+
+
+.. index:: slice, string slice, substring, sublist
+
+Slices
+------
+
+A *substring* of a string is obtained by taking a **slice**.   Similarly, we can
+slice a list to refer to some sublist of the items in the list:
+
+.. activecode:: slicefirstexample
+
+   s = "Pirates of the Caribbean"
+   print(s[0:7])
+   print(s[11:14])
+   print(s[15:24])
+   friends = ["Joe", "Zoe", "Brad", "Angelina", "Zuki", "Thandi", "Paris"]
+   print(friends[2:4])
+
+The operator ``[n:m]`` returns the part of the string from the n'th character
+to the m'th character, including the first but excluding the last. This
+behavior makes sense if you imagine the indices
+pointing *between* the characters, as in the following diagram:
+
+    .. image:: illustrations/banana.png
+       :alt: 'banana' string
+
+If you imagine this as a piece of paper, the slice operator ``[n:m]`` copies out
+the part of the paper between the ``n`` and ``m`` positions.  Provided ``m`` and ``n`` are
+both within the bounds of the string, your result will be of length (m-n).
+   
+Three tricks are added to this: if you omit the first index (before the colon), 
+the slice starts at the beginning of the string (or list). If you omit the second index, 
+the slice extends to the end of the string (or list). Similarly, if you provide value for
+``n`` that is bigger than the length of the string (or list), the slice will take all the 
+values up to the end. (It won't give an "out of range" error like the normal indexing operation
+does.)   Thus:
+
+.. activecode:: slicesecondexample
+
+   fruit = "banana"
+   print(fruit[:3])
+   print(fruit[3:])
+   print(fruit[3:999])
+
+What do you think ``s[:]`` means?   What about ``friends[4:]``?  (Try it in the above examples and see!)
+
+
+.. index:: string comparison, comparison of strings
+
+String comparison
+-----------------
+
+The comparison operators work on strings. To see if two strings are equal:
+
+.. activecode:: stringcomp1
+        
+   word = "banana"
+   if word == "banana":
+       print("Yes, we have no bananas!")
+
+Other comparison operations are useful for putting words in
+*lexicographical* order:
+
+.. activecode:: stringcomplex
+
+   word = "apple"
+   if word < "banana":
+       print("Your word, " + word + ", comes before banana.")
+   elif word > "banana":
+       print("Your word, " + word + ", comes after banana.")
+   else:
+       print("Yes, we have no bananas!")
+
+This is similar to the alphabetical order you would use with a dictionary,
+except that all the uppercase letters come before all the lowercase letters. Try changing ``word`` to "Zebra" (with a capital "Z") in the above code, and see what happens.
+
+A common way to address this problem is to convert strings to a standard
+format, such as all lowercase, before performing the comparison. A more
+difficult problem is making the program realize that zebras are not fruit.
+
+
+.. index:: mutable, immutable, runtime error
+
+Strings are immutable
+---------------------
+
+It is tempting to use the ``[]`` operator on the left side of an assignment,
+with the intention of changing a character in a string.  For example:
+
+.. activecode:: changelettererror
+        
+   greeting = "Hello, world!"
+   greeting[0] = 'J'            # ERROR!
+   print(greeting)
+
+Instead of producing the output ``Jello, world!``, this code produces the
+runtime error ``TypeError: 'str' object does not support item assignment``.
+
+Strings are **immutable**, which means you can't change an existing string. The
+best you can do is create a new string that is a variation on the original:
+
+.. activecode:: changelettercorrect
+        
+   greeting = "Hello, world!"
+   newGreeting = "J" + greeting[1:]
+   print(newGreeting)
+
+The solution here is to concatenate a new first letter onto a slice of
+``greeting``. This operation has no effect on the original string.
+
+
+.. index::
+    single: in operator
+    single: operator; in
+
+The ``in`` and ``not in`` operators
+-----------------------------------
+
+The ``in`` operator tests for membership. When both of the arguments to ``in``
+are strings, ``in`` checks whether the left argument is a substring of the right
+argument.
+
+.. activecode:: stringinexamples
+   :nolinenums:
+   :norun:
+        
+   >>> "p" in "apple"
+   True
+   >>> "i" in "apple"
+   False
+   >>> "ap" in "apple"
+   True
+   >>> "pa" in "apple"
+   False
+
+Note that a string is a substring of itself, and the empty string is a 
+substring of any other string. (Also note that computer scientists 
+like to think about these edge cases quite carefully!) 
+
+.. activecode:: stringinmoreexamples
+   :nolinenums:
+   :norun:
+        
+   >>> "a" in "a"
+   True
+   >>> "apple" in "apple"
+   True
+   >>> "" in "a"
+   True
+   >>> "" in "apple"
+   True
+    
+The ``not in`` operator returns the logical opposite results of ``in``: 
+
+.. activecode:: stringinonemoreexample
+   :nolinenums:
+   :norun:
+        
+   >>> "x" not in "apple"
+   True
+
+Combining the ``in`` operator with string concatenation using ``+``, we can
+write a function that removes all the vowels from a string:
+
+.. activecode:: removevowels
+        
+   def remove_vowels(s):
+       ''' returns string with vowels removed from s '''
+       vowels = "aeiouAEIOU"
+       sWithoutVowels = ""
+       for x in s:
+           if x not in vowels:
+               sWithoutVowels += x
+       return sWithoutVowels
+
+   print(remove_vowels("compsci"))  # should print "cmpsc"
+
+
+
+.. index:: traversal, eureka traversal, short-circuit evaluation, pattern of computation,
+           computation pattern
+
+A ``find`` function
+-------------------
+
+What does the following function do?
+
+.. activecode:: findcharacter
+        
+   def find(strng, ch):
+       """
+        Find and return the index of ch in strng.  
+        Return -1 if ch does not occur in strng.
+       """
+       ix = 0
+       while ix < len(strng):
+           if strng[ix] == ch:
+               return ix
+           ix += 1
+       return -1
+
+   print(find("Compsci","p"))
+   print(find("Compsci","C"))
+   print(find("Compsci","i"))
+   print(find("Compsci","x"))
+
+In a sense, ``find`` is the opposite of the indexing operator. Instead of taking
+an index and extracting the corresponding character, it takes a character and
+finds the index where that character appears. If the character is not found,
+the function returns ``-1``.
+
+This is another example where we see a ``return`` statement inside a loop.
+If ``strng[ix] == ch``, the function returns immediately, breaking out of
+the loop prematurely.
+
+If the character doesn't appear in the string, then the program exits the loop
+normally and returns ``-1``.
+
+This pattern of computation is sometimes called a **eureka traversal** or
+**short-circuit evaluation**,  because as soon as we find what we are looking for, 
+we can cry "Eureka!", take the short-circuit, and stop looking.
+
+
+.. index:: counting pattern
+
+Looping and counting
+--------------------
+
+The following program counts the number of times the letter ``a`` appears in a
+string, and is another example of the counter pattern introduced in
+:ref:`counting`:
+
+.. activecode:: countingletters
+        
+   def count_a(text): 
+       count = 0
+       for c in text:
+           if c == "a":
+               count += 1
+       return(count)
+
+   print(count_a("banana"))
+
+.. index:: optional parameter, default value, parameter; optional
+
+.. _optional_parameters:
+
+Optional parameters
+-------------------
+
+To find the locations of the second or third occurrence of a character in a
+string, we can modify the ``find`` function, adding a third parameter for the
+starting position in the search string:
+
+.. activecode:: letterfindbetter
+        
+   def find2(strng, ch, start):
+       ix = start 
+       while ix < len(strng):
+           if strng[ix] == ch:
+               return ix
+           ix += 1
+       return -1
+
+   print(find2("banana", "a", 2))
+
+The call ``find2("banana", "a", 2)`` now returns ``3``, the index of the first
+occurrence of "a" in "banana" starting the search at index 2. What does
+``find2("banana", "n", 3)`` return? If you said, 4, there is a good chance you
+understand how ``find2`` works.
+
+Better still, we can combine ``find`` and ``find2`` using an
+**optional parameter**:
+
+.. activecode:: letterfindbest
+        
+   def find(strng, ch, start=0):
+       ix = start 
+       while ix < len(strng):
+           if strng[ix] == ch:
+               return ix
+           ix += 1
+       return -1
+
+   print(find("banana", "a"))
+   print(find("banana", "a", 2))
+
+When a function has an optional parameter, the caller `may` provide a 
+matching argument. If the third argument is provided to ``find``, it gets assigned 
+to ``start``.  But if the caller leaves the argument out, then start is given
+a default value indicated by the assignment ``start=0`` in the function definition.
+ 
+So the call ``find("banana", "a", 2)`` to this version of ``find`` behaves just
+like ``find2``, while in the call ``find("banana", "a")``, ``start`` will be
+set to the **default value** of ``0``.
+
+Adding another optional parameter to ``find`` makes it search from a starting
+position, up to but not including the end position:
+
+.. activecode:: letterfindbestest
+        
+   def find(strng, ch, start=0, end=None):
+       ix = start 
+       if end is None:
+           end = len(strng)
+       while ix < end:
+           if strng[ix] == ch:
+               return ix
+           ix += 1
+       return -1
+
+   ss = "Python strings have some interesting methods."
+   print(find(ss, "s"))
+   print(find(ss, "s", 7))
+   print(find(ss, "s", 8))
+   print(find(ss, "s", 8, 13))
+   print(find(ss, "."))
+
+The optional value for ``end`` is interesting: we give it a default value ``None`` if the
+caller does not supply any argument.  In the body of the function we test what ``end`` is,
+and if the caller did not supply any argument, we reassign ``end`` to be the length of the string.
+If the caller has supplied an argument for ``end``, however, the caller's value will be used in the loop.
+
+The semantics of ``start`` and ``end`` in this function are precisely the same as they are in
+the ``range`` function.
+
+
+.. index:: module, string module, dir function, dot notation, function type,
+           docstring
+
+The built-in ``find`` method
+----------------------------
+ 
+Now that we've done all this work to write a powerful ``find`` function, we can reveal that
+strings already have their own built-in ``find`` method.  It can do everything 
+that our code can do, and more!  
+
+.. activecode:: builtinletterfind
+
+   ss = "Python strings have some interesting methods."
+   print(ss.find("s"))
+   print(ss.find("s", 7))
+   print(ss.find("s", 8))
+   print(ss.find("s", 8, 13))
+   print(ss.find("."))
+
+     
+The built-in ``find`` method is more general than our version. It can find
+substrings, not just single characters:
+
+.. activecode:: findsubstring
+
+   fruit = "banana"
+   print(fruit.find("nan"))
+   print(fruit.find("na", 3))
+
+Usually we'd prefer to use the methods that Python provides rather than reinvent
+our own equivalents. But many of the built-in functions and methods make good
+teaching exercises, and the underlying techniques you learn are your building blocks
+to becoming a proficient programmer.
+
+The ``split`` method
+--------------------
+
+One of the most useful methods on strings is the ``split`` method:
+it splits a single multi-word string into a list of individual words, removing
+all the whitespace between them.  (Whitespace means any tabs, newlines, or spaces.)
+This allows us to read input as a single string,
+and split it into words.
+
+.. activecode:: splitstring
+
+   ss = "Well I never did said Alice" 
+   wds = ss.split()
+   print(wds)
+    
+Cleaning up your strings
+------------------------
+
+We'll often work with strings that contain punctuation, or tab and newline characters,
+especially, as we'll see in a future chapter, when we read our text from files or from 
+the Internet. But if we're writing a program, say, to count word frequencies or check the
+spelling of each word, we'd prefer to strip off these unwanted characters.
+
+We'll show just one example of how to strip punctuation from a string.
+Remember that strings are immutable, so we cannot change the string with the
+punctuation --- we need to traverse the original string and create a new string,
+omitting any punctuation:
+
+.. activecode:: strippuncok
+     
+   punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+   def remove_punctuation(s):
+       sWithoutPunct = ""
+       for letter in s:
+           if letter not in punctuation:
+               sWithoutPunct += letter
+       return sWithoutPunct
+
+   sentence = "Hello, I'm Python -- pleased to meet you!"
+   print(remove_punctuation(sentence))
+
+..
+   Setting up that first assignment is messy and error-prone.  
+   Fortunately, the Python ``string`` module already does it
+   for us.  So we will make a slight improvement to this 
+   program --- we'll import the ``string`` module and use its definition: 
+
+   .. activecode:: strippuncbetter
+	 
+	  import string
+
+	  def remove_punctuation(s):
+		  sWithoutPunct = ""
+		  for letter in s:
+			  if letter not in string.punctuation:
+				  sWithoutPunct += letter
+		  return sWithoutPunct
+
+	  sentence = "Hello, I'm Python -- pleased to meet you!"
+	  print(remove_punctuation(sentence))
+
+
+Composing together this function and the ``split`` method from the previous section
+makes a useful combination --- we'll clean out the punctuation, and
+``split`` will clean out the newlines and tabs while turning the string into
+a list of words:
+
+.. activecode:: stripstory
+
+   punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+   def remove_punctuation(s):
+       sWithoutPunct = ""
+       for letter in s:
+           if letter not in punctuation:
+               sWithoutPunct += letter
+       return sWithoutPunct
+
+   my_story = """
+   Pythons are constrictors, which means that they will 'squeeze' the life 
+   out of their prey. They coil themselves around their prey and with 
+   each breath the creature takes the snake will squeeze a little tighter 
+   until they stop breathing completely. Once the heart stops the prey 
+   is swallowed whole. The entire animal is digested in the snake's 
+   stomach except for fur or feathers. What do you think happens to the fur, 
+   feathers, beaks, and eggshells? The 'extra stuff' gets passed out as --- 
+   you guessed it --- snake POOP! """
+
+   wds = remove_punctuation(my_story).split()
+   print(wds)
+       
+(The output of the above program is way to long to fit in the window. Trust us --- it prints a list of all the words in the story.)
+
+There are other useful string methods, but this book isn't intended to
+be a reference manual. On the other hand, the *Python Library Reference*
+is. Along with a wealth of other documentation, it is available at
+the `Python website <http://www.python.org>`__.
+
+
+.. index:: string formatting, operations on strings, formatting; strings, justification, field width
+
+
+Summary 
+------- 
+
+This chapter introduced a lot of new ideas.  The following summary 
+may prove helpful in remembering what you learned.
+
+.. glossary::
+
+    indexing (``[]``)
+        Access a single character in a string using its position (starting from
+        0).  Example: ``"This"[2]`` evaluates to ``"i"``.
+
+    length function (``len``)
+        Returns the number of characters in a string.  Example:
+        ``len("happy")`` evaluates to ``5``.
+
+    for loop traversal (``for``)
+        *Traversing* a string means accessing each character in the string, one
+        at a time.  For example, the following for loop:
+
+            .. sourcecode:: python3
+
+                for ch in "Example":
+                    ...
+
+        executes the body of the loop 7 times with different values of ``ch`` each time.
+
+    slicing (``[:]``)
+        A *slice* is a substring of a string. Example: ``'bananas and
+        cream'[3:6]`` evaluates to ``ana`` (so does ``'bananas and
+        cream'[1:4]``).
+
+    string comparison (``>, <, >=, <=, ==, !=``)
+        The six common comparison operators work with strings, evaluating according to
+        `lexicographical` order.  Examples:
+        ``"apple" < "banana"`` evaluates to ``True``.  ``"Zeta" < "Appricot"``
+        evaluates to ``False``.  ``"Zebra" <= "aardvark"`` evaluates to
+        ``True`` because all upper case letters precede lower case letters.
+
+    in and not in operator (``in``, ``not in``)
+        The ``in`` operator tests for membership. In the case of
+        strings, it tests whether one string is contained inside another
+        string.  Examples: ``"heck" in "I'll be checking for you."``
+        evaluates to ``True``.  ``"cheese" in "I'll be checking for
+        you."`` evaluates to ``False``.
+
+
+Glossary
+--------
+
+.. glossary::
+
+    compound data type
+        A data type in which the values are made up of components, or elements,
+        that are themselves values.
+
+    default value
+        The value given to an optional parameter if no argument for it is
+        provided in the function call.
+
+    docstring
+        A string constant on the first line of a function or module definition
+        (and as we will see later, in class and method definitions as well).
+        Docstrings provide a convenient way to associate documentation with
+        code. Docstrings are also used by programming tools to provide interactive help.
+
+    dot notation
+        Use of the **dot operator**, ``.``, to access methods and attributes of an object.
+
+    immutable data value
+        A data value which cannot be modified.  Assignments to elements or
+        slices (sub-parts) of immutable values cause a runtime error.
+
+    index
+        A variable or value used to select a member of an ordered collection, such as
+        a character from a string, or an element from a list.
+
+    mutable data value
+        A data value which can be modified. The types of all mutable values 
+        are compound types.  Lists and dictionaries are mutable; strings
+        and tuples are not.
+
+    optional parameter
+        A parameter written in a function header with an assignment to a
+        default value which it will receive if no corresponding argument is
+        given for it in the function call.
+        
+    short-circuit evaluation
+        A style of programming that shortcuts extra work as soon as the 
+        outcome is know with certainty. In this chapter our ``find`` 
+        function returned as soon as it found what it was looking for; it
+        didn't traverse all the rest of the items in the string.
+
+    slice
+        A part of a string (substring) specified by a range of indices. More
+        generally, a subsequence of any sequence type in Python can be created
+        using the slice operator (``sequence[start:stop]``).
+
+    traverse
+        To iterate through the elements of a collection, performing a similar
+        operation on each.
+
+    whitespace
+        Any of the characters that move the cursor without printing visible
+        characters. The constant ``string.whitespace`` contains all the
+        white-space characters.
+
+
