@@ -13,17 +13,17 @@
 The way of the program
 ======================
 
-The goal of this book is to teach you to think like a computer scientist. This
-way of thinking combines some of the best features of mathematics, engineering,
-and natural science. Like mathematicians, computer scientists use formal
-languages to denote ideas (specifically computations). Like engineers, they
-design things, assembling components into systems and evaluating tradeoffs
-among alternatives.  Like scientists, they observe the behavior of complex
+The goal of this book is to teach you to think like a computer scientist. As
+computer scientists, we will combine some of the best features of mathematics,
+engineering, and natural science. Like mathematicians, we will use formal
+languages to communicate our ideas. Like engineers, we will design complex
+systems, assembling components into systems and evaluating tradeoffs
+among alternatives.  Like scientists, we will observe the behavior of complex
 systems, form hypotheses, and test predictions.
 
 The single most important skill for a computer scientist is **problem
-solving**. Problem solving means the ability to formulate problems, think
-creatively about solutions, and express a solution clearly and accurately. As
+solving**. Problem solving is a skill that involves formulating problems, thinking
+creatively about solutions, and expressing a solution clearly and accurately. As
 it turns out, the process of learning to program is an excellent opportunity to
 practice problem-solving skills. That's why this chapter is called *The way of
 the program*.
@@ -78,20 +78,20 @@ instructions. We typed ``2 + 2``, and the interpreter evaluated our expression, 
 and on the next line it gave a new prompt, indicating that it is ready for more.   
 
 Alternatively, you can write a program in a file and use the interpreter to
-run the contents of the file. Such a file is called a **script** or a **module**.   Scripts have the
-advantage that they can be saved to disk, printed, and so on. 
+run the lines of code in the file. Such a file is called a **script**.  Scripts have the advantage
+that they can be saved, printed, and so on. A Python script is often called a **module**.
    
 For example, we can created a file named ``firstprogram.py`` using IDLE.
-(By convention, files that contain Python programs have names that end with
-``.py``.) To do this, select "New Window" from the File menu of IDLE, and then type 
+By convention, files that contain Python programs have names that end with
+``.py``.) To do this, select "New File" or "New Window" from the File menu of IDLE, and then type 
 the following two lines into the new window that appears:
 
 .. image:: illustrations/my_first_program_source.png
    :alt: first program source screenshot
 
-To run the program, we can select the "Run Program" option from the "Run" menu of IDLE (or
+To run the program, we can select the "Run Module" or "Run Program" option from the "Run" menu of IDLE (or
 alternatively you can press the F5 key). IDLE will ask you to save your program before it
-can run it: save it using the name ``firstprogram.py``. Then your program will run, and it
+can run it. Save it using the name ``firstprogram.py``. Then your program will run, and it
 should look something like the screenshot below:
 
 .. image:: illustrations/my_first_program_output.png
@@ -118,8 +118,8 @@ If you click the "Run" button, the program will run and you'll see its output ab
 You can also edit the code directly in the window above. If you click the "Reset" button (or refresh
 your browser window), the code will return to what it originally was (that is, any edits that you've
 made will be removed.) The little numbers to the left are **line numbers**, and you don't 
-type them in: they appear automatically in our ebook, so that it's easier for us to discuss our
-program. (For example, we can say "line 1 of our program prints a sentence".)
+type them in. They appear automatically in our ebook, so that it's easier for us to discuss our
+program. For example, we can say "line 1 of our program prints a sentence".
 
 .. index:: program, algorithm
 

@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -392,7 +389,8 @@ itself is a simple expression, and so is a variable.</p>
 multiplication and division. The values the operator uses are called <strong>operands</strong>.</p>
 <p>The following are all legal Python expressions whose meaning is more or less
 clear:</p>
-<div class="highlight-python"><pre>20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)</pre>
+<div class="highlight-python"><div class="highlight"><pre>20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)
+</pre></div>
 </div>
 <p>The tokens <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, and <tt class="docutils literal"><span class="pre">*</span></tt>, and the use of parenthesis for grouping,
 mean in Python what they mean in mathematics. The asterisk (<tt class="docutils literal"><span class="pre">*</span></tt>) is the
@@ -576,8 +574,9 @@ pythonTool.readOnlyFlags['twofruits_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="twofruits_runb" onclick="pythonTool.runit('twofruits_code','twofruits_pre','twofruits_error','twofruits_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twofruits_code','twofruits_pre','twofruits_error','twofruits_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="twofruits_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="twofruits_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="twofruits_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -613,8 +612,9 @@ pythonTool.readOnlyFlags['triplethefun_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="triplethefun_runb" onclick="pythonTool.runit('triplethefun_code','triplethefun_pre','triplethefun_error','triplethefun_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('triplethefun_code','triplethefun_pre','triplethefun_error','triplethefun_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="triplethefun_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="triplethefun_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="triplethefun_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -655,8 +655,9 @@ pythonTool.readOnlyFlags['firstinput_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="firstinput_runb" onclick="pythonTool.runit('firstinput_code','firstinput_pre','firstinput_error','firstinput_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstinput_code','firstinput_pre','firstinput_error','firstinput_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="firstinput_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="firstinput_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="firstinput_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -713,8 +714,9 @@ pythonTool.readOnlyFlags['circleareafoursteps_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="circleareafoursteps_runb" onclick="pythonTool.runit('circleareafoursteps_code','circleareafoursteps_pre','circleareafoursteps_error','circleareafoursteps_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareafoursteps_code','circleareafoursteps_pre','circleareafoursteps_error','circleareafoursteps_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="circleareafoursteps_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="circleareafoursteps_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="circleareafoursteps_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -750,8 +752,9 @@ pythonTool.readOnlyFlags['circleareaprinterror_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="circleareaprinterror_runb" onclick="pythonTool.runit('circleareaprinterror_code','circleareaprinterror_pre','circleareaprinterror_error','circleareaprinterror_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareaprinterror_code','circleareaprinterror_pre','circleareaprinterror_error','circleareaprinterror_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="circleareaprinterror_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="circleareaprinterror_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="circleareaprinterror_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -770,7 +773,7 @@ pythonTool.readOnlyFlags['circleareaprinterror_code'] = false;
 
 </div>
 
-<p>We get an error in the above program because Python doesn&#8217;t know how to &#8220;add&#8221; a string and a float. We need to convert the float to a string before we can add (that is, concatenate) it to the string <tt class="docutils literal"><span class="pre">&quot;The</span> <span class="pre">area</span> <span class="pre">is</span> <span class="pre">&quot;</span></tt>.</p>
+<p>We get a runtime error in the above program because Python doesn&#8217;t know how to &#8220;add&#8221; a string and a float. We need to convert the float to a string before we can add (that is, concatenate) it to the string <tt class="docutils literal"><span class="pre">&quot;The</span> <span class="pre">area</span> <span class="pre">is</span> <span class="pre">&quot;</span></tt>.</p>
 <p>Now let&#8217;s compose the first two lines into a single line of code, and compose the
 second two lines into another line of code.</p>
 
@@ -787,8 +790,9 @@ pythonTool.readOnlyFlags['circleareatwosteps_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="circleareatwosteps_runb" onclick="pythonTool.runit('circleareatwosteps_code','circleareatwosteps_pre','circleareatwosteps_error','circleareatwosteps_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareatwosteps_code','circleareatwosteps_pre','circleareatwosteps_error','circleareatwosteps_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="circleareatwosteps_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="circleareatwosteps_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="circleareatwosteps_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -821,8 +825,9 @@ pythonTool.readOnlyFlags['circleareaonestep_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="circleareaonestep_runb" onclick="pythonTool.runit('circleareaonestep_code','circleareaonestep_pre','circleareaonestep_error','circleareaonestep_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('circleareaonestep_code','circleareaonestep_pre','circleareaonestep_error','circleareaonestep_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="circleareaonestep_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="circleareaonestep_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="circleareaonestep_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -897,8 +902,9 @@ pythonTool.readOnlyFlags['secondstohours_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="secondstohours_runb" onclick="pythonTool.runit('secondstohours_code','secondstohours_pre','secondstohours_error','secondstohours_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('secondstohours_code','secondstohours_pre','secondstohours_error','secondstohours_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="secondstohours_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="secondstohours_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="secondstohours_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1034,7 +1040,7 @@ program <em>self documenting</em>.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

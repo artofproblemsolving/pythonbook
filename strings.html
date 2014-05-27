@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -97,8 +94,9 @@ pythonTool.readOnlyFlags['stringfirstexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringfirstexample_runb" onclick="pythonTool.runit('stringfirstexample_code','stringfirstexample_pre','stringfirstexample_error','stringfirstexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringfirstexample_code','stringfirstexample_pre','stringfirstexample_error','stringfirstexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringfirstexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringfirstexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringfirstexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -142,8 +140,9 @@ pythonTool.readOnlyFlags['stringchar1extract_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringchar1extract_runb" onclick="pythonTool.runit('stringchar1extract_code','stringchar1extract_pre','stringchar1extract_error','stringchar1extract_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringchar1extract_code','stringchar1extract_pre','stringchar1extract_error','stringchar1extract_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringchar1extract_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringchar1extract_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringchar1extract_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -184,8 +183,9 @@ pythonTool.readOnlyFlags['stringchar0extract_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringchar0extract_runb" onclick="pythonTool.runit('stringchar0extract_code','stringchar0extract_pre','stringchar0extract_error','stringchar0extract_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringchar0extract_code','stringchar0extract_pre','stringchar0extract_error','stringchar0extract_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringchar0extract_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringchar0extract_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringchar0extract_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -223,8 +223,9 @@ pythonTool.readOnlyFlags['stringcharallextract_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringcharallextract_runb" onclick="pythonTool.runit('stringcharallextract_code','stringcharallextract_pre','stringcharallextract_error','stringcharallextract_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcharallextract_code','stringcharallextract_pre','stringcharallextract_error','stringcharallextract_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringcharallextract_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringcharallextract_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringcharallextract_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -265,8 +266,9 @@ pythonTool.readOnlyFlags['listextractexamples_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="listextractexamples_runb" onclick="pythonTool.runit('listextractexamples_code','listextractexamples_pre','listextractexamples_error','listextractexamples_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('listextractexamples_code','listextractexamples_pre','listextractexamples_error','listextractexamples_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="listextractexamples_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="listextractexamples_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="listextractexamples_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -303,8 +305,9 @@ pythonTool.readOnlyFlags['lengthex1_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="lengthex1_runb" onclick="pythonTool.runit('lengthex1_code','lengthex1_pre','lengthex1_error','lengthex1_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lengthex1_code','lengthex1_pre','lengthex1_error','lengthex1_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="lengthex1_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="lengthex1_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="lengthex1_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -340,8 +343,9 @@ pythonTool.readOnlyFlags['lastcharexbad_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="lastcharexbad_runb" onclick="pythonTool.runit('lastcharexbad_code','lastcharexbad_pre','lastcharexbad_error','lastcharexbad_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexbad_code','lastcharexbad_pre','lastcharexbad_error','lastcharexbad_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexbad_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="lastcharexbad_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="lastcharexbad_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -381,8 +385,9 @@ pythonTool.readOnlyFlags['lastcharexgood_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="lastcharexgood_runb" onclick="pythonTool.runit('lastcharexgood_code','lastcharexgood_pre','lastcharexgood_error','lastcharexgood_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexgood_code','lastcharexgood_pre','lastcharexgood_error','lastcharexgood_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexgood_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="lastcharexgood_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="lastcharexgood_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -418,8 +423,9 @@ pythonTool.readOnlyFlags['lastcharexbetter_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="lastcharexbetter_runb" onclick="pythonTool.runit('lastcharexbetter_code','lastcharexbetter_pre','lastcharexbetter_error','lastcharexbetter_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('lastcharexbetter_code','lastcharexbetter_pre','lastcharexbetter_error','lastcharexbetter_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="lastcharexbetter_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="lastcharexbetter_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="lastcharexbetter_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -464,8 +470,9 @@ pythonTool.readOnlyFlags['stringtraversallong_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringtraversallong_runb" onclick="pythonTool.runit('stringtraversallong_code','stringtraversallong_pre','stringtraversallong_error','stringtraversallong_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringtraversallong_code','stringtraversallong_pre','stringtraversallong_error','stringtraversallong_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringtraversallong_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringtraversallong_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringtraversallong_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -506,8 +513,9 @@ pythonTool.readOnlyFlags['stringtraversalquick_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringtraversalquick_runb" onclick="pythonTool.runit('stringtraversalquick_code','stringtraversalquick_pre','stringtraversalquick_error','stringtraversalquick_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringtraversalquick_code','stringtraversalquick_pre','stringtraversalquick_error','stringtraversalquick_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringtraversalquick_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringtraversalquick_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringtraversalquick_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -551,8 +559,9 @@ pythonTool.readOnlyFlags['ducklings_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="ducklings_runb" onclick="pythonTool.runit('ducklings_code','ducklings_pre','ducklings_error','ducklings_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ducklings_code','ducklings_pre','ducklings_error','ducklings_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="ducklings_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="ducklings_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="ducklings_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -591,8 +600,9 @@ pythonTool.readOnlyFlags['ducklingsfixed_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="ducklingsfixed_runb" onclick="pythonTool.runit('ducklingsfixed_code','ducklingsfixed_pre','ducklingsfixed_error','ducklingsfixed_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ducklingsfixed_code','ducklingsfixed_pre','ducklingsfixed_error','ducklingsfixed_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="ducklingsfixed_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="ducklingsfixed_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="ducklingsfixed_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -634,8 +644,9 @@ pythonTool.readOnlyFlags['slicefirstexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="slicefirstexample_runb" onclick="pythonTool.runit('slicefirstexample_code','slicefirstexample_pre','slicefirstexample_error','slicefirstexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('slicefirstexample_code','slicefirstexample_pre','slicefirstexample_error','slicefirstexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="slicefirstexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="slicefirstexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="slicefirstexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -686,8 +697,9 @@ pythonTool.readOnlyFlags['slicesecondexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="slicesecondexample_runb" onclick="pythonTool.runit('slicesecondexample_code','slicesecondexample_pre','slicesecondexample_error','slicesecondexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('slicesecondexample_code','slicesecondexample_pre','slicesecondexample_error','slicesecondexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="slicesecondexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="slicesecondexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="slicesecondexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -726,8 +738,9 @@ pythonTool.readOnlyFlags['stringcomp1_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringcomp1_runb" onclick="pythonTool.runit('stringcomp1_code','stringcomp1_pre','stringcomp1_error','stringcomp1_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcomp1_code','stringcomp1_pre','stringcomp1_error','stringcomp1_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringcomp1_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringcomp1_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringcomp1_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -767,8 +780,9 @@ pythonTool.readOnlyFlags['stringcomplex_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stringcomplex_runb" onclick="pythonTool.runit('stringcomplex_code','stringcomplex_pre','stringcomplex_error','stringcomplex_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stringcomplex_code','stringcomplex_pre','stringcomplex_error','stringcomplex_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stringcomplex_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stringcomplex_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stringcomplex_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -812,8 +826,9 @@ pythonTool.readOnlyFlags['changelettererror_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="changelettererror_runb" onclick="pythonTool.runit('changelettererror_code','changelettererror_pre','changelettererror_error','changelettererror_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('changelettererror_code','changelettererror_pre','changelettererror_error','changelettererror_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="changelettererror_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="changelettererror_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="changelettererror_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -851,8 +866,9 @@ pythonTool.readOnlyFlags['changelettercorrect_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="changelettercorrect_runb" onclick="pythonTool.runit('changelettercorrect_code','changelettercorrect_pre','changelettercorrect_error','changelettercorrect_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('changelettercorrect_code','changelettercorrect_pre','changelettercorrect_error','changelettercorrect_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="changelettercorrect_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="changelettercorrect_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="changelettercorrect_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -973,8 +989,9 @@ pythonTool.readOnlyFlags['removevowels_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="removevowels_runb" onclick="pythonTool.runit('removevowels_code','removevowels_pre','removevowels_error','removevowels_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('removevowels_code','removevowels_pre','removevowels_error','removevowels_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="removevowels_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="removevowels_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="removevowels_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1025,8 +1042,9 @@ pythonTool.readOnlyFlags['findcharacter_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="findcharacter_runb" onclick="pythonTool.runit('findcharacter_code','findcharacter_pre','findcharacter_error','findcharacter_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('findcharacter_code','findcharacter_pre','findcharacter_error','findcharacter_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="findcharacter_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="findcharacter_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="findcharacter_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1083,8 +1101,9 @@ pythonTool.readOnlyFlags['countingletters_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="countingletters_runb" onclick="pythonTool.runit('countingletters_code','countingletters_pre','countingletters_error','countingletters_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingletters_code','countingletters_pre','countingletters_error','countingletters_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="countingletters_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="countingletters_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="countingletters_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1130,8 +1149,9 @@ pythonTool.readOnlyFlags['letterfindbetter_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="letterfindbetter_runb" onclick="pythonTool.runit('letterfindbetter_code','letterfindbetter_pre','letterfindbetter_error','letterfindbetter_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbetter_code','letterfindbetter_pre','letterfindbetter_error','letterfindbetter_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbetter_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="letterfindbetter_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="letterfindbetter_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1178,8 +1198,9 @@ pythonTool.readOnlyFlags['letterfindbest_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="letterfindbest_runb" onclick="pythonTool.runit('letterfindbest_code','letterfindbest_pre','letterfindbest_error','letterfindbest_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbest_code','letterfindbest_pre','letterfindbest_error','letterfindbest_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="letterfindbest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="letterfindbest_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1235,8 +1256,9 @@ pythonTool.readOnlyFlags['letterfindbestest_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="letterfindbestest_runb" onclick="pythonTool.runit('letterfindbestest_code','letterfindbestest_pre','letterfindbestest_error','letterfindbestest_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('letterfindbestest_code','letterfindbestest_pre','letterfindbestest_error','letterfindbestest_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="letterfindbestest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="letterfindbestest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="letterfindbestest_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1285,8 +1307,9 @@ pythonTool.readOnlyFlags['builtinletterfind_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="builtinletterfind_runb" onclick="pythonTool.runit('builtinletterfind_code','builtinletterfind_pre','builtinletterfind_error','builtinletterfind_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('builtinletterfind_code','builtinletterfind_pre','builtinletterfind_error','builtinletterfind_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="builtinletterfind_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="builtinletterfind_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="builtinletterfind_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1322,8 +1345,9 @@ pythonTool.readOnlyFlags['findsubstring_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="findsubstring_runb" onclick="pythonTool.runit('findsubstring_code','findsubstring_pre','findsubstring_error','findsubstring_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('findsubstring_code','findsubstring_pre','findsubstring_error','findsubstring_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="findsubstring_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="findsubstring_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="findsubstring_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1369,8 +1393,9 @@ pythonTool.readOnlyFlags['splitstring_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="splitstring_runb" onclick="pythonTool.runit('splitstring_code','splitstring_pre','splitstring_error','splitstring_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('splitstring_code','splitstring_pre','splitstring_error','splitstring_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="splitstring_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="splitstring_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="splitstring_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1423,8 +1448,9 @@ pythonTool.readOnlyFlags['strippuncok_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="strippuncok_runb" onclick="pythonTool.runit('strippuncok_code','strippuncok_pre','strippuncok_error','strippuncok_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('strippuncok_code','strippuncok_pre','strippuncok_error','strippuncok_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="strippuncok_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="strippuncok_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="strippuncok_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1480,8 +1506,9 @@ pythonTool.readOnlyFlags['stripstory_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="stripstory_runb" onclick="pythonTool.runit('stripstory_code','stripstory_pre','stripstory_error','stripstory_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('stripstory_code','stripstory_pre','stripstory_error','stripstory_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="stripstory_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="stripstory_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="stripstory_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1618,7 +1645,7 @@ white-space characters.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

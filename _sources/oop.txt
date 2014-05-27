@@ -1,0 +1,658 @@
+..  Copyright (C) 2014 AoPS Incorporated
+..  Copyright (C)  Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with Invariant Sections being Foreword, Preface, and Contributor List, no
+    Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+    included in the section entitled "GNU Free Documentation License".
+
+ 
+| 
+
+More Classes and Objects
+========================
+
+MyTime
+------
+
+As another example of a user-defined type, we'll define a class called ``MyTime``
+that records the time of day. We'll provide an ``__init__`` method to ensure
+that every instance is created with appropriate attributes and initialization.  
+The class definition looks like this:
+
+.. activecode:: mytimedef
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs     
+ 
+   # create a new MyTime object
+   tim1 = MyTime(11, 59, 30)
+
+
+The state diagram for the object looks like this:
+
+    .. image:: illustrations/time.png 
+
+We should also add a ``__str__``
+method so that MyTime objects can print themselves decently.
+
+.. activecode:: mytimestr
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+ 
+   # create a new MyTime object
+   tim1 = MyTime(11, 59, 30)
+   print(tim1)
+
+.. index:: function; pure
+
+Pure functions
+--------------
+
+In the next few sections, we'll write two versions of a function called
+``add_time``, which calculates the sum of two ``MyTime`` objects. They will demonstrate
+two kinds of functions: pure functions and modifiers.
+
+The following is a rough version of ``add_time``:
+
+.. activecode:: addtimebad
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+
+   def add_time(t1, t2):
+       h = t1.hours + t2.hours
+       m = t1.minutes + t2.minutes
+       s = t1.seconds + t2.seconds
+       sumTime = MyTime(h, m, s)
+       return sumTime
+
+The function creates a new ``MyTime`` object and
+returns a reference to the new object. This is called a **pure function**
+because it does not modify any of the objects passed to it as parameters and it
+has no side effects, such as updating global variables, 
+displaying a value, or getting user input.
+
+Here is an example of how to use this function. We'll create two ``MyTime``
+objects: ``currentTime``, which contains the current time; and ``breadTime``,
+which contains the amount of time it takes for a breadmaker to make bread. Then
+we'll use ``add_time`` to figure out when the bread will be done.  
+
+.. activecode:: addtimebadex
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+
+   def add_time(t1, t2):
+       h = t1.hours + t2.hours
+       m = t1.minutes + t2.minutes
+       s = t1.seconds + t2.seconds
+       sumTime = MyTime(h, m, s)
+       return sumTime
+        
+   currentTime = MyTime(9, 14, 30)
+   breadTime = MyTime(3, 35, 0)
+   doneTime = add_time(currentTime, breadTime)
+   print(doneTime)
+
+The output of this program is ``12:49:30``, which is correct. On the other
+hand, there are cases where the result is not correct. Can you think of one?
+
+.. activecode:: addtimebreaks
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+
+   def add_time(t1, t2):
+       h = t1.hours + t2.hours
+       m = t1.minutes + t2.minutes
+       s = t1.seconds + t2.seconds
+       sumTime = MyTime(h, m, s)
+       return sumTime
+        
+   currentTime = MyTime(6, 32, 40)
+   breadTime = MyTime(3, 35, 50)
+   doneTime = add_time(currentTime, breadTime)
+   print(doneTime)
+
+The problem is that this function does not deal with cases where the number of
+seconds or minutes adds up to more than sixty. When that happens, we have to
+carry the extra seconds into the minutes column or the extra minutes into the
+hours column.
+
+Here's a better version of the function:
+
+.. activecode:: addtimebetter
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+
+   def add_time(t1, t2):
+       h = t1.hours + t2.hours
+       m = t1.minutes + t2.minutes
+       s = t1.seconds + t2.seconds
+       if s >= 60:
+           s -= 60
+           m += 1
+       if m >= 60:
+           m -= 60
+           h += 1
+       sumTime = MyTime(h, m, s)
+       return sumTime
+        
+   currentTime = MyTime(6, 32, 40)
+   breadTime = MyTime(3, 35, 50)
+   doneTime = add_time(currentTime, breadTime)
+   print(doneTime)
+
+This function is starting to get bigger, and still doesn't work
+for all possible cases.  Later we will
+suggest an alternative approach that yields better code.
+
+.. index:: modifier
+
+Modifiers
+---------
+
+There are times when it is useful for a function to modify one or more of the
+objects it gets as parameters. Usually, the caller keeps a reference to the
+objects it passes, so any changes the function makes are visible to the caller.
+Functions that work this way are called **modifiers**.
+
+``increment``, which adds a given number of seconds to a ``MyTime`` object, would
+be written most naturally as a modifier. A rough draft of the function looks like this:
+
+.. activecode:: incrfirst
+   :norun:
+        
+   def increment(t, secs):
+       t.seconds += secs
+       if t.seconds >= 60:
+           t.seconds -= 60
+           t.minutes += 1
+       if t.minutes >= 60:
+           t.minutes -= 60
+           t.hours += 1
+
+The first line performs the basic operation; the remainder deals with the
+special cases we saw before.
+
+Is this function correct? What happens if the parameter ``seconds`` is much
+greater than sixty? In that case, it is not enough to carry once; we have to
+keep doing it until ``seconds`` is less than sixty. One solution is to replace
+the ``if`` statements with ``while`` statements:
+
+.. activecode:: incrsecond
+   :norun:
+        
+   def increment(t, secs):
+       t.seconds += secs
+       while t.seconds >= 60:
+           t.seconds -= 60
+           t.minutes += 1
+       while t.minutes >= 60:
+           t.minutes -= 60
+           t.hours += 1
+
+This function is now correct when seconds is not negative, and when
+hours does not exceed 23, but it is not a particularly good solution.
+
+Converting ``increment`` to a method
+------------------------------------
+
+Once again, OOP programmers would prefer to put functions that work with
+``MyTime`` objects into the ``MyTime`` class, so let's convert ``increment`` 
+to a method.
+
+.. activecode:: mytimeincr
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+           
+       def increment(self, seconds):
+           self.seconds += seconds 
+           while self.seconds >= 60:
+               self.seconds -= 60
+               self.minutes += 1
+           while self.minutes >= 60:
+               self.minutes -= 60
+               self.hours += 1
+
+   currentTime = MyTime(6,32,40)
+   currentTime.increment(70)
+   print(currentTime)  # should print 06:33:50
+
+The transformation is purely mechanical --- we move the definition into
+the class definition and (optionally) change the name of the first parameter to
+``self``, to fit with Python style conventions.
+
+Now we can invoke ``increment`` using the syntax for invoking a method, as on line 32.
+Again, the object on which the method is invoked gets assigned to the first
+parameter, ``self``. The second parameter, ``seconds`` gets the value ``70``.
+
+An "Aha!" insight
+----------------- 
+
+Often a high-level insight into the problem can make the programming much easier. 
+
+In this case, the insight is that a ``MyTime`` object is really a 
+three-digit number in base 60! The ``second``
+component is the ones column, the ``minute`` component is the sixties column,
+and the ``hour`` component is the thirty-six hundreds column.
+
+When we wrote ``add_time`` and ``increment``, we were effectively doing
+addition in base 60, which is why we had to carry from one column to the next.
+
+This observation suggests another approach to the whole problem --- we can
+convert a ``MyTime`` object into a single number and take advantage of the fact
+that the computer knows how to do arithmetic with numbers.  The following
+method is added to the ``MyTime`` class to convert any instance into 
+a corresponding number of seconds:
+
+.. activecode:: mytimetosec
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a MyTime object initialized to hrs, mins, secs """
+           self.hours = hrs
+           self.minutes = mins
+           self.seconds = secs    
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+            
+       def to_seconds(self):
+           """ Return the number of seconds represented 
+               by this instance 
+           """
+           return self.hours * 3600 + self.minutes * 60 + self.seconds
+ 
+
+Now, all we need is a way to convert from an integer back to a ``MyTime`` object.
+Supposing we have ``tsecs`` seconds, some integer division and mod operators
+can do this for us:
+
+.. activecode:: timeconversion
+   :norun:
+   :nolinenums:
+
+   hrs = tsecs // 3600
+   leftoversecs = tsecs % 3600
+   mins = leftoversecs // 60
+   secs = leftoversecs % 60  
+
+You might have to think a bit to convince yourself that this technique to
+convert from one base to another is correct. 
+
+In OOP we're really trying to wrap together the data and the operations
+that apply to it.  So we'd like to have this logic inside the ``MyTime``
+class.  A good solution is to rewrite the class initializer so that it can 
+cope with initial values of seconds or minutes that are outside the 
+**normalized** values.  (A normalized time would be something
+like 3 hours 12 minutes and 20 seconds.  The same time, but unnormalized 
+could be 2 hours 70 minutes and 140 seconds.)  
+
+Let's rewrite a more powerful initializer for ``MyTime``:
+
+.. activecode:: mytimebetterinit
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a new MyTime object initialized to hrs, mins, secs.
+               The values of mins and secs may be outside the range 0-59,
+               but the resulting MyTime object will be normalized.
+           """
+           # Calculate total seconds to represent
+           totalsecs = hrs*3600 + mins*60 + secs   
+           self.hours = totalsecs // 3600        # Split in h, m, s
+           leftoversecs = totalsecs % 3600
+           self.minutes = leftoversecs // 60
+           self.seconds = leftoversecs % 60   
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+            
+       def to_seconds(self):
+           """ Return the number of seconds represented 
+               by this instance 
+           """
+           return self.hours * 3600 + self.minutes * 60 + self.seconds
+
+Now we can rewrite ``add_time`` like this:
+
+.. activecode:: addtimebest
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a new MyTime object initialized to hrs, mins, secs.
+               The values of mins and secs may be outside the range 0-59,
+               but the resulting MyTime object will be normalized.
+           """
+           # Calculate total seconds to represent
+           totalsecs = hrs*3600 + mins*60 + secs   
+           self.hours = totalsecs // 3600        # Split in h, m, s
+           leftoversecs = totalsecs % 3600
+           self.minutes = leftoversecs // 60
+           self.seconds = leftoversecs % 60   
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+            
+       def to_seconds(self):
+           """ Return the number of seconds represented 
+               by this instance 
+           """
+           return self.hours * 3600 + self.minutes * 60 + self.seconds
+        
+   def add_time(t1, t2):
+       secs = t1.to_seconds() + t2.to_seconds()
+       return MyTime(0, 0, secs)
+
+   currentTime = MyTime(6, 32, 40)
+   breadTime = MyTime(3, 35, 50)
+   doneTime = add_time(currentTime, breadTime)
+   print(doneTime)
+
+This version is much shorter than the original, and it is much easier to
+demonstrate or reason that it is correct.
+
+.. index:: generalization
+
+Generalization
+--------------
+
+In some ways, converting from base 60 to base 10 and back is harder than just
+dealing with times. Base conversion is more abstract; our intuition for dealing
+with times is better.
+
+But if we have the insight to treat times as base 60 numbers and make the
+investment of writing the conversions, we get a program that is shorter, 
+easier to read and debug, and more reliable.
+
+It is also easier to add features later. For example, imagine subtracting two
+``MyTime`` objects to find the duration between them. The naive approach would be to
+implement subtraction with borrowing. Using the conversion functions would be
+easier and more likely to be correct.
+
+Ironically, sometimes making a problem harder (or more general) makes the
+programming easier, because there are fewer special cases and fewer opportunities 
+for error.
+
+.. admonition:: Specialization versus Generalization
+
+    Computer Scientists are generally fond of specializing their types, while mathematicians
+    often take the opposite approach, and generalize everything.
+    
+    What do we mean by this? 
+    
+    If we ask a mathematician to solve a problem involving weekdays, days of the century, 
+    playing cards, time, or dominoes, their most likely response is
+    to observe that all these objects can be represented by integers. Playing cards, for example,
+    can be numbered from 0 to 51.  Days within the century can be numbered. Mathematicians will say 
+    *"These things are enumerable --- the elements can be uniquely numbered (and we can
+    reverse this numbering to get back to the original concept). So let's number 
+    them, and confine our thinking to integers.  Luckily, we have powerful techniques and a 
+    good understanding of integers, and so our abstractions --- the way we tackle and simplify 
+    these problems --- is to try to reduce them to problems about integers."* 
+
+    Computer Scientists tend to do the opposite.  We will argue that there are many integer
+    operations that are simply not meaningful for dominoes, or for days of the century.  So
+    we'll often define new specialized types, like ``MyTime``, because we can restrict,
+    control, and specialize the operations that are possible.  Object-oriented programming
+    is particularly popular because it gives us a good way to bundle methods and specialized data
+    into a new type.   
+
+    Both approaches are powerful problem-solving techniques. Often it may help to try to
+    think about the problem from both points of view --- *"What would happen if I tried to reduce
+    everything to very few primitive types?"*, versus 
+    *"What would happen if this thing had its own specialized type?"*    
+
+
+Operator overloading
+--------------------
+
+Some languages, including Python, make it possible to have different meanings for
+the same operator when applied to different types.  For example, ``+`` in Python
+means quite different things for integers and for strings.  This feature is called
+**operator overloading**.
+
+It is especially useful when programmers can also overload the operators for their
+own user-defined types.  
+
+For example, to override the addition operator ``+``, we can provide a method named
+``__add__``:
+
+.. activecode:: addtimeoverload
+        
+   class MyTime:
+        
+       def __init__(self, hrs=0, mins=0, secs=0):
+           """ Create a new MyTime object initialized to hrs, mins, secs.
+               The values of mins and secs may be outside the range 0-59,
+               but the resulting MyTime object will be normalized.
+           """
+           # Calculate total seconds to represent
+           totalsecs = hrs*3600 + mins*60 + secs   
+           self.hours = totalsecs // 3600        # Split in h, m, s
+           leftoversecs = totalsecs % 3600
+           self.minutes = leftoversecs // 60
+           self.seconds = leftoversecs % 60   
+
+       def __str__(self):
+           timeString = ""
+           if self.hours < 10:
+               timeString += "0"
+           timeString += str(self.hours) + ":"
+           if self.minutes < 10:
+               timeString += "0"
+           timeString += str(self.minutes) + ":"
+           if self.seconds < 10:
+               timeString += "0"
+           timeString += str(self.seconds) 
+           return timeString
+            
+       def to_seconds(self):
+           """ Return the number of seconds represented 
+               by this instance 
+           """
+           return self.hours * 3600 + self.minutes * 60 + self.seconds
+        
+       def __add__(self, other):
+           secs = self.to_seconds() + other.to_seconds()
+           return MyTime(0, 0, secs)
+
+   currentTime = MyTime(6, 32, 40)
+   breadTime = MyTime(3, 35, 50)
+   doneTime = currentTime + breadTime
+   print(doneTime)
+           
+As usual, the first parameter is the object on which the method is invoked. The
+second parameter is conveniently named ``other`` to distinguish it from
+``self``.  To add two ``MyTime`` objects, we create and return a new ``MyTime`` object 
+that contains their sum.
+
+Now, when we apply the ``+`` operator to ``MyTime`` objects, Python invokes
+the ``__add__`` method that we have written. The expression ``currentTime + breadTime`` is equivalent to ``currentTime.__add__(breadTime)``, but obviously
+more elegant.  
+
+As an exercise, add a method ``__sub__(self, other)`` that
+overloads the subtraction operator, and try it out.  
+
+
+Glossary
+--------
+
+.. glossary::
+
+        
+    functional programming style
+        A style of program design in which the majority of functions are pure.
+        
+    modifier
+        A function or method that changes one or more of the objects it receives as
+        parameters. Most modifier functions are void (do not return a value).
+        
+    normalized
+        Data is said to be normalized if it fits into some reduced range or set of rules. 
+        We usually normalize our angles to values in the range [0..360). We normalize
+        minutes and seconds to be values in the range [0..60).  And we'd 
+        be surprised if the local store advertised its cold drinks at "One dollar,
+        two hundred and fifty cents".
+        
+    operator overloading
+        Extending built-in operators ( ``+``, ``-``, ``*``, ``>``, ``<``, etc.)
+        so that they do different things for different types of arguments. We've
+        seen early in the book how ``+`` is overloaded for numbers and strings,
+        and here we've shown how to further overload it for user-defined types.
+ 
+    pure function
+        A function that does not modify any of the objects it receives as
+        parameters. Most pure functions are fruitful rather than void.

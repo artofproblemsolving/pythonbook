@@ -44,12 +44,18 @@ def setup(app):
 # 	<script src="skulpt-stdlib.js" type="text/javascript"></script> 
 # 	<script src="aopsmods.js" type="text/javascript"></script>
 
+
+#   If you want to play with the codemirror files, uncomment 
+#     [codemirror.js, python.js, matchbrackets.js, and active-line.js]
+#     and comment out [pywindowCodemirrorC.js].
+
     app.add_stylesheet('codemirrorEdited.css')
     app.add_javascript('http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
-    app.add_javascript('codemirror.js' )
-    app.add_javascript('python.js' )
-    app.add_javascript('matchbrackets.js')
-    app.add_javascript('active-line.js')
+#    app.add_javascript('codemirror.js' )
+#    app.add_javascript('python.js' )
+#    app.add_javascript('matchbrackets.js')
+#    app.add_javascript('active-line.js')
+    app.add_javascript('pywindowCodemirrorC.js' )
     app.add_javascript('skulpt.min.js' )
     app.add_javascript('skulpt-stdlib.js')
     app.add_javascript('aopsmods.js')
@@ -79,8 +85,9 @@ pythonTool.readOnlyFlags['%(divid)s_code'] = %(readonlyflag)s;
 
 EDITRUN = '''
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="%(divid)s_runb" onclick="pythonTool.runit('%(divid)s_code','%(divid)s_pre','%(divid)s_error','%(divid)s_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('%(divid)s_code','%(divid)s_pre','%(divid)s_error','%(divid)s_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="%(divid)s_runb">Run</button>
+<button style="float:left margin-left:150px;" type='button' class='btn' id="%(divid)s_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="%(divid)s_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 '''
@@ -107,6 +114,7 @@ PRE = '''
 
 </pre>
 
+<div id="%(divid)s_files" class="ac-files ac-files-hidden"></div>
 '''
 
 END = '''

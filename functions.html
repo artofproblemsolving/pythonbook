@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -141,8 +138,9 @@ pythonTool.readOnlyFlags['drawsquarefunc_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="drawsquarefunc_runb" onclick="pythonTool.runit('drawsquarefunc_code','drawsquarefunc_pre','drawsquarefunc_error','drawsquarefunc_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('drawsquarefunc_code','drawsquarefunc_pre','drawsquarefunc_error','drawsquarefunc_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="drawsquarefunc_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="drawsquarefunc_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="drawsquarefunc_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -237,8 +235,9 @@ pythonTool.readOnlyFlags['drawmultisquare_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="drawmultisquare_runb" onclick="pythonTool.runit('drawmultisquare_code','drawmultisquare_pre','drawmultisquare_error','drawmultisquare_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('drawmultisquare_code','drawmultisquare_pre','drawmultisquare_error','drawmultisquare_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="drawmultisquare_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="drawmultisquare_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="drawmultisquare_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -459,8 +458,9 @@ pythonTool.readOnlyFlags['compoundinterest_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="compoundinterest_runb" onclick="pythonTool.runit('compoundinterest_code','compoundinterest_pre','compoundinterest_error','compoundinterest_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('compoundinterest_code','compoundinterest_pre','compoundinterest_error','compoundinterest_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="compoundinterest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="compoundinterest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="compoundinterest_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -769,8 +769,9 @@ pythonTool.readOnlyFlags['distancepart1a_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart1a_runb" onclick="pythonTool.runit('distancepart1a_code','distancepart1a_pre','distancepart1a_error','distancepart1a_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart1a_code','distancepart1a_pre','distancepart1a_error','distancepart1a_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart1a_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart1a_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart1a_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -809,8 +810,9 @@ pythonTool.readOnlyFlags['distancepart1b_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart1b_runb" onclick="pythonTool.runit('distancepart1b_code','distancepart1b_pre','distancepart1b_error','distancepart1b_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart1b_code','distancepart1b_pre','distancepart1b_error','distancepart1b_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart1b_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart1b_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart1b_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -857,8 +859,9 @@ pythonTool.readOnlyFlags['distancepart2a_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart2a_runb" onclick="pythonTool.runit('distancepart2a_code','distancepart2a_pre','distancepart2a_error','distancepart2a_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart2a_code','distancepart2a_pre','distancepart2a_error','distancepart2a_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart2a_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart2a_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart2a_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -900,8 +903,9 @@ pythonTool.readOnlyFlags['distancepart2b_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart2b_runb" onclick="pythonTool.runit('distancepart2b_code','distancepart2b_pre','distancepart2b_error','distancepart2b_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart2b_code','distancepart2b_pre','distancepart2b_error','distancepart2b_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart2b_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart2b_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart2b_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -943,8 +947,9 @@ pythonTool.readOnlyFlags['distancepart3a_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart3a_runb" onclick="pythonTool.runit('distancepart3a_code','distancepart3a_pre','distancepart3a_error','distancepart3a_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart3a_code','distancepart3a_pre','distancepart3a_error','distancepart3a_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart3a_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart3a_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart3a_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -985,8 +990,9 @@ pythonTool.readOnlyFlags['distancepart3b_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancepart3b_runb" onclick="pythonTool.runit('distancepart3b_code','distancepart3b_pre','distancepart3b_error','distancepart3b_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancepart3b_code','distancepart3b_pre','distancepart3b_error','distancepart3b_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancepart3b_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancepart3b_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancepart3b_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1027,8 +1033,9 @@ pythonTool.readOnlyFlags['distancefinal_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancefinal_runb" onclick="pythonTool.runit('distancefinal_code','distancefinal_pre','distancefinal_error','distancefinal_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancefinal_code','distancefinal_pre','distancefinal_error','distancefinal_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancefinal_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancefinal_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancefinal_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1092,8 +1099,9 @@ pythonTool.readOnlyFlags['distancefancy_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="distancefancy_runb" onclick="pythonTool.runit('distancefancy_code','distancefancy_pre','distancefancy_error','distancefancy_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('distancefancy_code','distancefancy_pre','distancefancy_error','distancefancy_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="distancefancy_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="distancefancy_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="distancefancy_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1286,7 +1294,7 @@ executed for the work it does, rather than for the value it returns.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

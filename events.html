@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>16. Event-Driven Programming &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="GNU Free Documentation License" href="fdl-1.3.html" />
+    <link rel="prev" title="15. Inheritance" href="inheritance.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="event-driven-programming">
+<span id="index-0"></span><h1>16. Event-Driven Programming<a class="headerlink" href="#event-driven-programming" title="Permalink to this headline">¶</a></h1>
+<p>Most programs and devices like a cellphone respond to <em>events</em> &#8212; things that happen.
+For example, you might move your mouse, and the computer responds.  Or you click a button,
+and the program does something interesting.   In this chapter we&#8217;ll touch very briefly on
+how event-driven programming works.</p>
+<blockquote>
+<div><div class="admonition-events-don-t-play-nice-with-our-ebook admonition">
+<p class="first admonition-title">Events don&#8217;t play nice with our ebook</p>
+<p class="last">In most other chapters of our ebook, you can run Python code directly in the book.
+However, in this chapter, you can&#8217;t, because event-driven programs don&#8217;t really work all that well
+in the ebook. So you&#8217;ll need to cut-and-paste the code samples over to IDLE in order
+to run the examples in this chapter.</p>
+</div>
+</div></blockquote>
+<div class="section" id="keypress-events">
+<h2>16.1. Keypress events<a class="headerlink" href="#keypress-events" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s a program with some new features.  Copy it into your workspace, run it.  When the
+turtle window opens, press the arrow keys and make tess move about!</p>
+
+<div id="turtlekp" class="pywindow" >
+
+<div id="turtlekp_code_div" style="display: block">
+<textarea rows="32" id="turtlekp_code" class="active_code" prefixcode="undefined">
+import turtle
+
+turtle.setup(400,500)                # Determine the window size
+wn = turtle.Screen()                 # Get a reference to the window
+wn.title("Handling keypresses!")     # Change the window title
+wn.bgcolor("lightgreen")             # Set the background color
+tess = turtle.Turtle()               # Create our favorite turtle
+
+# The next four functions are our "event handlers".
+def h1():
+    tess.forward(30)
+
+def h2():
+    tess.left(45)
+
+def h3():
+    tess.right(45)
+
+def h4():
+    wn.bye()                        # Close down the turtle window
+
+# These lines "wire up" keypresses to the handlers we've defined.
+wn.onkey(h1, "Up")
+wn.onkey(h2, "Left")
+wn.onkey(h3, "Right")
+wn.onkey(h4, "q")
+
+# Now we need to tell the window to start listening for events,
+# If any of the keys that we're monitoring is pressed, its
+# handler will be called.
+wn.listen()
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlekp_code'] = true;
+pythonTool.readOnlyFlags['turtlekp_code'] = true;
+</script>
+
+<div id='turtlekp_error'></div>
+<pre id="turtlekp_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Here are some points to note:</p>
+<ul class="simple">
+<li>We need the call to the window&#8217;s <tt class="docutils literal"><span class="pre">listen</span></tt> method at line 31, otherwise it won&#8217;t notice our keypresses.</li>
+<li>We named our handler functions <tt class="docutils literal"><span class="pre">h1</span></tt>, <tt class="docutils literal"><span class="pre">h2</span></tt> and so on, but we can choose better names.  The handlers can be
+arbitrarily complex functions that call other functions, etc.</li>
+<li>Pressing the <tt class="docutils literal"><span class="pre">q</span></tt> key on the keyboard calls function <tt class="docutils literal"><span class="pre">h4</span></tt> (because we <cite>bound</cite> the <tt class="docutils literal"><span class="pre">q</span></tt> key to <tt class="docutils literal"><span class="pre">h4</span></tt> on line 26).
+While executing <tt class="docutils literal"><span class="pre">h4</span></tt>, the window&#8217;s <tt class="docutils literal"><span class="pre">bye</span></tt> method (line 24) closes the turtle window, which causes the window&#8217;s
+mainloop call (line 31) to end its execution.  Since we did not write any more statements after line 32, this means
+that our program has completed everything, so it too will terminate.</li>
+<li>We can refer to keys on the keyboard by their character code (as we did in line 26), or by their symbolic names.
+Some of the symbolic names to try are Cancel (the Break key), BackSpace, Tab, Return(the Enter key),
+Shift_L (any Shift key), Control_L (any Control key), Alt_L (any Alt key), Pause, Caps_Lock, Escape, Prior (Page Up),
+Next (Page Down), End, Home, Left, Up, Right, Down, Print, Insert, Delete, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10,
+F11, F12, Num_Lock, and Scroll_Lock.</li>
+</ul>
+</div>
+<div class="section" id="mouse-events">
+<h2>16.2. Mouse events<a class="headerlink" href="#mouse-events" title="Permalink to this headline">¶</a></h2>
+<p>A mouse event is a bit different from a keypress event because its handler needs two parameters
+to receive x,y coordinate information telling us where the mouse was when the event occurred.</p>
+
+<div id="turtlemouse" class="pywindow" >
+
+<div id="turtlemouse_code_div" style="display: block">
+<textarea rows="17" id="turtlemouse_code" class="active_code" prefixcode="undefined">
+import turtle
+
+turtle.setup(400,500)
+wn = turtle.Screen()
+wn.title("How to handle mouse clicks on the window!")
+wn.bgcolor("lightgreen")
+
+tess = turtle.Turtle()
+tess.color("purple")
+tess.pensize(3)
+tess.shape("circle")
+
+def h1(x, y):
+    tess.goto(x, y)
+
+wn.onclick(h1)  # Wire up a click on the window.
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlemouse_code'] = true;
+pythonTool.readOnlyFlags['turtlemouse_code'] = true;
+</script>
+
+<div id='turtlemouse_error'></div>
+<pre id="turtlemouse_suffix" style="display:none">
+</pre>
+</div>
+
+<p>There is a new turtle method used at line 14 &#8212; this allows us to move the turtle to an <em>absolute</em>
+coordinate position.  (Most of the examples that we&#8217;ve seen so far move the turtle <em>relative</em> to where
+it currently is).   So what this program does is move the turtle (and draw a line) to wherever
+the mouse is clicked.  Try it out!</p>
+<p>If we add this line before line 14, we&#8217;ll learn a useful debugging trick too:</p>
+
+<div id="turtletitletrick" class="pywindow" >
+
+<div id="turtletitletrick_code_div" style="display: block">
+<textarea rows="1" id="turtletitletrick_code" class="active_code" prefixcode="undefined">
+wn.title("Got click at coords "+str(x)+","+str(y))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtletitletrick_code'] = false;
+pythonTool.readOnlyFlags['turtletitletrick_code'] = true;
+</script>
+
+<div id='turtletitletrick_error'></div>
+<pre id="turtletitletrick_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Because we can easily change the text in the window&#8217;s title bar, it is a useful place to display
+occasional debugging or status information. (Of course, this is not the real purpose of the window
+title!)</p>
+<p>But there is more!</p>
+<p>Not only can the window receive mouse events: individual turtles can also
+have their own handlers for mouse clicks.  The turtle that
+&#8220;receives&#8221; the click event will be the one under the mouse.   So we&#8217;ll create
+two turtles.  Each will bind a handler to its own <tt class="docutils literal"><span class="pre">onclick</span></tt> event.  And the
+two handlers can do different things for their turtles.</p>
+
+<div id="turtletwo" class="pywindow" >
+
+<div id="turtletwo_code_div" style="display: block">
+<textarea rows="26" id="turtletwo_code" class="active_code" prefixcode="undefined">
+import turtle
+
+turtle.setup(400,500)              # Determine the window size
+wn = turtle.Screen()               # Get a reference to the window
+wn.title("Handling mouse clicks!") # Change the window title
+wn.bgcolor("lightgreen")           # Set the background color
+tess = turtle.Turtle()             # Create two turtles
+tess.color("purple")
+alex = turtle.Turtle()             # Move them apart
+alex.color("blue")
+alex.forward(100)
+
+def handler_for_tess(x, y):
+    wn.title("Tess clicked at "+str(x)+","+str(y))
+    tess.left(42)
+    tess.forward(30)
+
+def handler_for_alex(x, y):
+    wn.title("Alex clicked at "+str(x)+","+str(y))
+    alex.right(84)
+    alex.forward(50)
+
+tess.onclick(handler_for_tess)
+alex.onclick(handler_for_alex)
+
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtletwo_code'] = true;
+pythonTool.readOnlyFlags['turtletwo_code'] = true;
+</script>
+
+<div id='turtletwo_error'></div>
+<pre id="turtletwo_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Run this, click on the turtles, see what happens!</p>
+</div>
+<div class="section" id="automatic-events-from-a-timer">
+<h2>16.3. Automatic events from a timer<a class="headerlink" href="#automatic-events-from-a-timer" title="Permalink to this headline">¶</a></h2>
+<p>Alarm clocks, kitchen timers, and thermonuclear bombs in James Bond movies are set to
+create an &#8220;automatic&#8221; event after a certain interval. The turtle module in Python has a
+timer that can cause an event when its time is up.</p>
+
+<div id="turtletimer" class="pywindow" >
+
+<div id="turtletimer_code_div" style="display: block">
+<textarea rows="17" id="turtletimer_code" class="active_code" prefixcode="undefined">
+import turtle
+
+turtle.setup(400,500)
+wn = turtle.Screen()
+wn.title("Using a timer")
+wn.bgcolor("lightgreen")
+
+tess = turtle.Turtle()
+tess.color("purple")
+tess.pensize(3)
+
+def h1():
+    tess.forward(100)
+    tess.left(56)
+
+wn.ontimer(h1, 2000)
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtletimer_code'] = true;
+pythonTool.readOnlyFlags['turtletimer_code'] = true;
+</script>
+
+<div id='turtletimer_error'></div>
+<pre id="turtletimer_suffix" style="display:none">
+</pre>
+</div>
+
+<p>On line 16 the timer is started and set to explode in 2000 milliseconds (2 seconds). When the event does occur,
+the handler is called, and tess springs into action.</p>
+<p>Unfortunately, when one sets a timer, it only goes off once. So a common idiom, or style, is to restart
+the timer inside the handler.  In this way the timer will keep on giving new events.  Try this program:</p>
+
+<div id="turtlerepeattimer" class="pywindow" >
+
+<div id="turtlerepeattimer_code_div" style="display: block">
+<textarea rows="17" id="turtlerepeattimer_code" class="active_code" prefixcode="undefined">
+import turtle
+
+turtle.setup(400,500)
+wn = turtle.Screen()
+wn.title("Using a timer to get events!")
+wn.bgcolor("lightgreen")
+
+tess = turtle.Turtle()
+tess.color("purple")
+
+def h1():
+    tess.forward(100)
+    tess.left(56)
+    wn.ontimer(h1, 60)
+
+h1()
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtlerepeattimer_code'] = true;
+pythonTool.readOnlyFlags['turtlerepeattimer_code'] = true;
+</script>
+
+<div id='turtlerepeattimer_error'></div>
+<pre id="turtlerepeattimer_suffix" style="display:none">
+</pre>
+</div>
+
+</div>
+<div class="section" id="an-example-state-machines">
+<h2>16.4. An example: state machines<a class="headerlink" href="#an-example-state-machines" title="Permalink to this headline">¶</a></h2>
+<p>A state machine is a system that can be in one of a few different <cite>states</cite>. We draw a
+state diagram to represent the machine, where each state is drawn as a circle or an ellipse.
+Certain events occur which cause the system to leave one state and <cite>transition</cite> into a
+different state.  These <cite>state transitions</cite> are usually drawn as an arrow on the diagram.</p>
+<p>This idea is not new: when first turning on a cellphone, it goes into a
+state which we could call &#8220;Awaiting PIN&#8221;.  When the correct PIN is entered, it
+transitions into a different state &#8212; say &#8220;Ready&#8221;.  Then we could lock the phone, and it
+would enter a &#8220;Locked&#8221; state, and so on.</p>
+<p>A simple state machine that we encounter often is a traffic light.  Here
+is a state diagram which shows that the machine continually cycles through three different
+states, which we&#8217;ve numbered 0, 1 and 2.</p>
+<blockquote>
+<div><img alt="_images/fsm_traffic_lights.png" src="_images/fsm_traffic_lights.png" />
+</div></blockquote>
+<p>We&#8217;re going to build a program that uses a turtle to simulate the traffic lights.
+There are three lessons here. The first shows off some different ways to use our turtles.
+The second demonstrates how we would program a state machine in Python, by using a variable
+to keep track of the current state, and a number of different <tt class="docutils literal"><span class="pre">if</span></tt> statements to
+inspect the current state, and take the actions as we change to a different state.
+The third lesson is to use events from the keyboard to trigger the state changes.</p>
+<p>Copy and run this program.  Make sure you understand what each line does, consulting the
+documentation as you need to.</p>
+
+<div id="trafficlight" class="pywindow" >
+
+<div id="trafficlight_code_div" style="display: block">
+<textarea rows="61" id="trafficlight_code" class="active_code" prefixcode="undefined">
+import turtle         # Tess becomes a traffic light.
+
+turtle.setup(400,500)
+wn = turtle.Screen()
+wn.title("Tess becomes a traffic light!")
+wn.bgcolor("lightgreen")
+tess = turtle.Turtle()
+
+def draw_housing():
+    """ Draw a nice housing to hold the traffic lights """
+    tess.pensize(3)
+    tess.color("black", "darkgrey")
+    tess.begin_fill()
+    tess.forward(80)
+    tess.left(90)
+    tess.forward(200)
+    tess.circle(40, 180)
+    tess.forward(200)
+    tess.left(90)
+    tess.end_fill()
+
+draw_housing()
+
+tess.penup()
+# Position tess onto the place where the green light should be
+tess.forward(40)
+tess.left(90)
+tess.forward(50)
+# Turn tess into a big green circle
+tess.shape("circle")
+tess.shapesize(3)
+tess.fillcolor("green")
+
+# A traffic light is a kind of state machine with three states,
+# Green, Yellow, Red.  We number these states  0, 1, 2
+# When the machine changes state, we change tess' position and
+# her fillcolor.
+
+# This variable holds the current state of the machine
+stateNum = 0
+
+def advance_state_machine():
+    global stateNum
+    if stateNum == 0:      # Transition from state 0 to state 1
+       tess.forward(70)
+       tess.fillcolor("yellow")
+       stateNum = 1
+    elif stateNum == 1:    # Transition from state 1 to state 2
+       tess.forward(70)
+       tess.fillcolor("red")
+       stateNum = 2
+    else:                  # Transition from state 2 to state 0
+       tess.back(140)
+       tess.fillcolor("green")
+       stateNum = 0
+
+# Bind the event handler to the space key.
+wn.onkey(advance_state_machine, "space")
+
+wn.listen()                 # Listen for events
+wn.mainloop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['trafficlight_code'] = true;
+pythonTool.readOnlyFlags['trafficlight_code'] = true;
+</script>
+
+<div id='trafficlight_error'></div>
+<pre id="trafficlight_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The new Python statement is at line 43.  The <tt class="docutils literal"><span class="pre">global</span></tt> keyword tells Python not to
+create a new local variable for <tt class="docutils literal"><span class="pre">stateNum</span></tt> (in spite of the fact that
+the function assigns to this variable at lines 47, 51, and 55).  Instead, in this function,
+<tt class="docutils literal"><span class="pre">stateNum</span></tt> always refers to the variable that was created at line 40.</p>
+<p>What the code in <tt class="docutils literal"><span class="pre">advance_state_machine</span></tt> does is advance from whatever
+the current state is, to the next state.  On the state change we move tess
+to her new position, change her color, and, of course, we assign to <tt class="docutils literal"><span class="pre">stateNum</span></tt>
+the number of the new state we&#8217;ve just entered.</p>
+<p>Each time the space bar is pressed, the event handler causes the traffic light
+machine to move to its new state.</p>
+</div>
+<div class="section" id="glossary">
+<h2>16.5. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-bind">bind</dt>
+<dd>We bind a function (or associate it) with an event, meaning that when the event occurs, the
+function is called to handle it.</dd>
+<dt id="term-event">event</dt>
+<dd>Something that happens &#8220;outside&#8221; the normal control flow of our program, usually from some user action.
+Typical events are mouse operations and keypresses.  We&#8217;ve also seen that a timer can be primed
+to create an event.</dd>
+<dt id="term-handler">handler</dt>
+<dd>A function that is called in response to an event.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

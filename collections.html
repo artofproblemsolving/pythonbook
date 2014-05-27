@@ -1,0 +1,1436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>14. Collections of Objects &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="15. Inheritance" href="inheritance.html" />
+    <link rel="prev" title="13. More Classes and Objects" href="oop.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="oop.html" title="13. More Classes and Objects"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="collections-of-objects">
+<h1>14. Collections of Objects<a class="headerlink" href="#collections-of-objects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="composition">
+<h2>14.1. Composition<a class="headerlink" href="#composition" title="Permalink to this headline">¶</a></h2>
+<p>By now, we have seen several examples of composition. One of the first
+examples was using a method invocation as part of an expression.  Another
+example is the nested structure of statements; we can put an <tt class="docutils literal"><span class="pre">if</span></tt> statement
+within a <tt class="docutils literal"><span class="pre">while</span></tt> loop, within another <tt class="docutils literal"><span class="pre">if</span></tt> statement, and so on.</p>
+<p>Having seen this pattern, and having learned about lists and objects, we
+should not be surprised to learn that we can create lists of objects. We can
+also create objects that contain lists (as attributes); we can create lists
+that contain lists; we can create objects that contain objects; and so on.</p>
+<p>In this chapter and the next, we will look at some examples of these
+combinations, using <tt class="docutils literal"><span class="pre">Card</span></tt> objects as an example.</p>
+</div>
+<div class="section" id="card-objects">
+<h2>14.2. <tt class="docutils literal"><span class="pre">Card</span></tt> objects<a class="headerlink" href="#card-objects" title="Permalink to this headline">¶</a></h2>
+<p>If you are not familiar with common playing cards, now would be a good time to
+get a deck, or else this chapter might not make much sense.  There are
+fifty-two cards in a deck, each of which belongs to one of four suits and one
+of thirteen ranks. The suits are Spades, Hearts, Diamonds, and Clubs (in
+descending order in bridge). The ranks are Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+Jack, Queen, and King. Depending on the game that we are playing, the rank of
+Ace may be higher than King or lower than 2.
+The rank is sometimes called the face-value of the card.</p>
+<p>If we want to define a new object to represent a playing card, it is obvious
+what the attributes should be: <tt class="docutils literal"><span class="pre">rank</span></tt> and <tt class="docutils literal"><span class="pre">suit</span></tt>. It is not as obvious what
+type the attributes should be. One possibility is to use strings containing
+words like <tt class="docutils literal"><span class="pre">&quot;Spade&quot;</span></tt> for suits and <tt class="docutils literal"><span class="pre">&quot;Queen&quot;</span></tt> for ranks. One problem with
+this implementation is that it would not be easy to compare cards to see which
+had a higher rank or suit.</p>
+<p>An alternative is to use integers to <strong>encode</strong> the ranks and suits.  By
+encode, we do not mean what some people think, which is to encrypt or translate
+into a secret code. What a computer scientist means by encode is to define a
+mapping between a sequence of numbers and the items we want to represent. For
+example:</p>
+<blockquote>
+<div><div class="highlight-python3"><div class="highlight"><pre><span class="n">Spades</span>   <span class="o">--&gt;</span>  <span class="mi">3</span>
+<span class="n">Hearts</span>   <span class="o">--&gt;</span>  <span class="mi">2</span>
+<span class="n">Diamonds</span> <span class="o">--&gt;</span>  <span class="mi">1</span>
+<span class="n">Clubs</span>    <span class="o">--&gt;</span>  <span class="mi">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>An obvious feature of this mapping is that the suits map to integers in order,
+so we can compare suits by comparing integers. The mapping for ranks is fairly
+obvious; each of the numerical ranks maps to the corresponding integer, and for
+face cards:</p>
+<blockquote>
+<div><div class="highlight-python3"><div class="highlight"><pre><span class="n">Jack</span>   <span class="o">--&gt;</span>  <span class="mi">11</span>
+<span class="n">Queen</span>  <span class="o">--&gt;</span>  <span class="mi">12</span>
+<span class="n">King</span>   <span class="o">--&gt;</span>  <span class="mi">13</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The reason we are using mathematical notation for these mappings is that they
+are not part of the Python program. They are part of the program design, but
+they never appear explicitly in the code. The class definition for the <tt class="docutils literal"><span class="pre">Card</span></tt>
+type looks like this:</p>
+
+<div id="carddef" class="pywindow" >
+
+<div id="carddef_code_div" style="display: block">
+<textarea rows="5" id="carddef_code" class="active_code" prefixcode="undefined">
+class Card:
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['carddef_code'] = true;
+pythonTool.readOnlyFlags['carddef_code'] = true;
+</script>
+
+<div id='carddef_error'></div>
+<pre id="carddef_suffix" style="display:none">
+</pre>
+</div>
+
+<p>As usual, we provide an initialization method that takes an optional parameter
+for each attribute.</p>
+<p>To create some objects, representing say the 3 of Clubs and the Jack of Diamonds, use these commands:</p>
+
+<div id="carddefexs" class="pywindow" >
+
+<div id="carddefexs_code_div" style="display: block">
+<textarea rows="8" id="carddefexs_code" class="active_code" prefixcode="undefined">
+class Card:
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+threeOfClubs = Card(0, 3)
+jackOfDiamonds = Card(1, 11)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['carddefexs_code'] = true;
+pythonTool.readOnlyFlags['carddefexs_code'] = true;
+</script>
+
+<div id='carddefexs_error'></div>
+<pre id="carddefexs_suffix" style="display:none">
+</pre>
+</div>
+
+<p>In the first case above, for example, the first argument, <tt class="docutils literal"><span class="pre">0</span></tt>, represents the suit Clubs.</p>
+</div>
+<div class="section" id="class-attributes-and-the-str-method">
+<h2>14.3. Class attributes and the <tt class="docutils literal"><span class="pre">__str__</span></tt> method<a class="headerlink" href="#class-attributes-and-the-str-method" title="Permalink to this headline">¶</a></h2>
+<p>In order to print <tt class="docutils literal"><span class="pre">Card</span></tt> objects in a way that people can easily read, we
+want to map the integer codes onto words. A natural way to do that is with
+lists of strings. We assign these lists to <strong>class attributes</strong> at the top of
+the class definition:</p>
+
+<div id="cardattribs" class="pywindow" >
+
+<div id="cardattribs_code_div" style="display: block">
+<textarea rows="16" id="cardattribs_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+threeOfClubs = Card(0, 3)
+print(threeOfClubs)
+jackOfDiamonds = Card(1, 11)
+print(jackOfDiamonds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardattribs_code'] = true;
+pythonTool.readOnlyFlags['cardattribs_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardattribs_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardattribs_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardattribs_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardattribs_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardattribs_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardattribs_suffix" style="display:none">
+</pre>
+<pre id="cardattribs_pre" class="active_out">
+
+</pre>
+
+<div id="cardattribs_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>A class attribute is defined outside of any method, and it can be accessed from
+any of the methods in the class.</p>
+<p>Inside <tt class="docutils literal"><span class="pre">__str__</span></tt>, we can use <tt class="docutils literal"><span class="pre">suits</span></tt> and <tt class="docutils literal"><span class="pre">ranks</span></tt> to map the numerical
+values of <tt class="docutils literal"><span class="pre">suit</span></tt> and <tt class="docutils literal"><span class="pre">rank</span></tt> to strings. For example, the expression
+<tt class="docutils literal"><span class="pre">self.suits[self.suit]</span></tt> means use the attribute <tt class="docutils literal"><span class="pre">suit</span></tt> from the object
+<tt class="docutils literal"><span class="pre">self</span></tt> as an index into the class attribute named <tt class="docutils literal"><span class="pre">suits</span></tt>, and select the
+appropriate string.</p>
+<p>The reason for the <tt class="docutils literal"><span class="pre">&quot;narf&quot;</span></tt> in the first element in <tt class="docutils literal"><span class="pre">ranks</span></tt> is to act as a
+place keeper for the zero-eth element of the list, which will never be used.
+The only valid ranks are 1 to 13. This wasted item is not entirely necessary.
+We could have started at 0, as usual, but it is less confusing to encode the
+rank 2 as integer 2, 3 as 3, and so on.</p>
+<p>Class attributes like <tt class="docutils literal"><span class="pre">suits</span></tt> are shared by all <tt class="docutils literal"><span class="pre">Card</span></tt> objects. The
+advantage of this is that we can use any <tt class="docutils literal"><span class="pre">Card</span></tt> object to access the class
+attributes:</p>
+
+<div id="cardattribaccess" class="pywindow" >
+
+<div id="cardattribaccess_code_div" style="display: block">
+<textarea rows="17" id="cardattribaccess_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+threeOfClubs = Card(0, 3)
+print(threeOfClubs)
+jackOfDiamonds = Card(1, 11)
+print(jackOfDiamonds)
+print(jackOfDiamonds.suits[2])  # should print Hearts</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardattribaccess_code'] = true;
+pythonTool.readOnlyFlags['cardattribaccess_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardattribaccess_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardattribaccess_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardattribaccess_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardattribaccess_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardattribaccess_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardattribaccess_suffix" style="display:none">
+</pre>
+<pre id="cardattribaccess_pre" class="active_out">
+
+</pre>
+
+<div id="cardattribaccess_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Because every <tt class="docutils literal"><span class="pre">Card</span></tt> instance references the same class attribute, we have an
+aliasing situation.  The disadvantage is that if we modify a class attribute, it affects every
+instance of the class. For example, if we decide that Jack of Diamonds should
+really be called Jack of Swirly Whales, we could do this:</p>
+
+<div id="cardattribmodify" class="pywindow" >
+
+<div id="cardattribmodify_code_div" style="display: block">
+<textarea rows="16" id="cardattribmodify_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+threeOfClubs = Card(0, 3)
+jackOfDiamonds = Card(1, 11)
+jackOfDiamonds.suits[1] = "Swirly Whales"
+print(jackOfDiamonds)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardattribmodify_code'] = true;
+pythonTool.readOnlyFlags['cardattribmodify_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardattribmodify_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardattribmodify_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardattribmodify_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardattribmodify_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardattribmodify_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardattribmodify_suffix" style="display:none">
+</pre>
+<pre id="cardattribmodify_pre" class="active_out">
+
+</pre>
+
+<div id="cardattribmodify_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The problem is that <em>all</em> of the Diamonds just became Swirly Whales. So we have an issue in the following example:</p>
+
+<div id="cardattriboops" class="pywindow" >
+
+<div id="cardattriboops_code_div" style="display: block">
+<textarea rows="17" id="cardattriboops_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+card1 = Card(1, 11)  # Jack of Diamonds
+card2 = Card(1, 3)   # 3 of Diamonds
+card1.suits[1] = "Swirly Whales"   # changes card1 to Jack of Swirly Whales
+print(card1)
+print(card2)  # card2's suit got changed too!</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardattriboops_code'] = true;
+pythonTool.readOnlyFlags['cardattriboops_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardattriboops_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardattriboops_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardattriboops_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardattriboops_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardattriboops_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardattriboops_suffix" style="display:none">
+</pre>
+<pre id="cardattriboops_pre" class="active_out">
+
+</pre>
+
+<div id="cardattriboops_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>For this reason, it is usually not a good idea to modify class attributes.</p>
+</div>
+<div class="section" id="comparing-cards">
+<h2>14.4. Comparing cards<a class="headerlink" href="#comparing-cards" title="Permalink to this headline">¶</a></h2>
+<p>For primitive types, there are six relational operators ( <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>,
+etc.) that compare values and determine when one is greater than, less than, or
+equal to another.   If we want our own types to be comparable using the syntax
+of these relational operators, we need to define six corresponding special methods
+in our class.</p>
+<p>We&#8217;d like to start with a single method named <tt class="docutils literal"><span class="pre">cmp</span></tt> that houses the logic of ordering.
+By convention, a comparison method takes two parameters, <tt class="docutils literal"><span class="pre">self</span></tt> and <tt class="docutils literal"><span class="pre">other</span></tt>,
+and returns 1 if the first object is greater, -1 if the second object is greater,
+and 0 if they are equal to each other.</p>
+<p>Some types are completely ordered, which means that we can compare any two
+elements and tell which is bigger. For example, the integers and the
+floating-point numbers are completely ordered. Some types are unordered, which
+means that there is no meaningful way to say that one element is bigger than
+another. For example, the fruits are unordered, which is why we cannot compare
+apples and oranges, and we cannot meaningfully order a collection of images,
+or a collection of cellphones.</p>
+<p>Playing cards are partially ordered, which means that sometimes we
+can compare cards and sometimes not. For example, we know that the 3 of Clubs
+is higher than the 2 of Clubs, and the 3 of Diamonds is higher than the 3 of
+Clubs. But which is better, the 3 of Clubs or the 2 of Diamonds? One has a
+higher rank, but the other has a higher suit.</p>
+<p>In order to make cards comparable, we have to decide which is more important,
+rank or suit. To be honest, the choice is arbitrary. For the sake of choosing,
+we will say that suit is more important, because a new deck of cards comes
+sorted with all the Clubs together, followed by all the Diamonds, and so on.</p>
+<p>With that decided, we can write <tt class="docutils literal"><span class="pre">cmp</span></tt>:</p>
+
+<div id="cardcmp" class="pywindow" >
+
+<div id="cardcmp_code_div" style="display: block">
+<textarea rows="25" id="cardcmp_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardcmp_code'] = true;
+pythonTool.readOnlyFlags['cardcmp_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardcmp_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardcmp_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardcmp_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardcmp_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardcmp_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardcmp_suffix" style="display:none">
+</pre>
+<pre id="cardcmp_pre" class="active_out">
+
+</pre>
+
+<div id="cardcmp_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>In this ordering, Aces appear lower than Deuces (2s).</p>
+<p>Now, we can define the six special methods that do the
+overloading of each of the relational operators for us.
+With this machinery in place, the relational operators now work as we&#8217;d like them to:</p>
+
+<div id="cardreloverload" class="pywindow" >
+
+<div id="cardreloverload_code_div" style="display: block">
+<textarea rows="49" id="cardreloverload_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+card1 = Card(1, 11)  # Jack of Diamonds
+card2 = Card(1, 3)   # 3 of Diamonds
+card3 = Card(1, 11)  # Jack of Diamonds
+print(card1 < card2)  # should be False
+print(card1 == card3) # should be True</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardreloverload_code'] = true;
+pythonTool.readOnlyFlags['cardreloverload_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="cardreloverload_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="cardreloverload_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="cardreloverload_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='cardreloverload_error'></div>
+
+<div style="text-align: center">
+<canvas id="cardreloverload_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="cardreloverload_suffix" style="display:none">
+</pre>
+<pre id="cardreloverload_pre" class="active_out">
+
+</pre>
+
+<div id="cardreloverload_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="decks">
+<h2>14.5. Decks<a class="headerlink" href="#decks" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have objects to represent <tt class="docutils literal"><span class="pre">Card</span></tt>s, the next logical step is to
+define a class to represent a <tt class="docutils literal"><span class="pre">Deck</span></tt>. Of course, a deck is made up of cards,
+so each <tt class="docutils literal"><span class="pre">Deck</span></tt> object will contain a list of cards as an attribute.  Many card
+games will need at least two different decks &#8212; a red deck and a blue deck.</p>
+<p>The following is a class definition for the <tt class="docutils literal"><span class="pre">Deck</span></tt> class. The initialization
+method creates the attribute <tt class="docutils literal"><span class="pre">cards</span></tt> and generates the standard pack of
+fifty-two cards:</p>
+
+<div id="deckinit" class="pywindow" >
+
+<div id="deckinit_code_div" style="display: block">
+<textarea rows="51" id="deckinit_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckinit_code'] = true;
+pythonTool.readOnlyFlags['deckinit_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckinit_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckinit_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckinit_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckinit_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckinit_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckinit_suffix" style="display:none">
+</pre>
+<pre id="deckinit_pre" class="active_out">
+
+</pre>
+
+<div id="deckinit_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The easiest way to populate the deck is with a nested loop. The outer loop
+enumerates the suits from 0 to 3. The inner loop enumerates the ranks from 1 to
+13. Since the outer loop iterates four times, and the inner loop iterates
+thirteen times, the total number of times the body is executed is fifty-two
+(thirteen times four). Each iteration creates a new instance of <tt class="docutils literal"><span class="pre">Card</span></tt> with
+the current suit and rank, and appends that card to the <tt class="docutils literal"><span class="pre">cards</span></tt> list.</p>
+<p>As usual, when we define a new type we want a method that prints the
+contents of an instance. To print a <tt class="docutils literal"><span class="pre">Deck</span></tt>, we traverse the list and print each
+<tt class="docutils literal"><span class="pre">Card</span></tt>:</p>
+
+<div id="deckprint" class="pywindow" >
+
+<div id="deckprint_code_div" style="display: block">
+<textarea rows="55" id="deckprint_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def print_deck(self):
+        for card in self.cards:
+            print(card)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckprint_code'] = true;
+pythonTool.readOnlyFlags['deckprint_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckprint_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckprint_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckprint_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckprint_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckprint_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckprint_suffix" style="display:none">
+</pre>
+<pre id="deckprint_pre" class="active_out">
+
+</pre>
+
+<div id="deckprint_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>As an alternative to <tt class="docutils literal"><span class="pre">print_deck</span></tt>, we could write a <tt class="docutils literal"><span class="pre">__str__</span></tt> method for
+the <tt class="docutils literal"><span class="pre">Deck</span></tt> class. The advantage of <tt class="docutils literal"><span class="pre">__str__</span></tt> is that it is more flexible.
+Rather than just printing the contents of the object, it generates a string
+representation that other parts of the program can manipulate before printing,
+or store for later use. Here is a version of <tt class="docutils literal"><span class="pre">__str__</span></tt> that returns a string representation of a <tt class="docutils literal"><span class="pre">Deck</span></tt>.</p>
+
+<div id="deckstr" class="pywindow" >
+
+<div id="deckstr_code_div" style="display: block">
+<textarea rows="57" id="deckstr_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckstr_code'] = true;
+pythonTool.readOnlyFlags['deckstr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckstr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckstr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckstr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckstr_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckstr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckstr_suffix" style="display:none">
+</pre>
+<pre id="deckstr_pre" class="active_out">
+
+</pre>
+
+<div id="deckstr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice we are using the variable <tt class="docutils literal"><span class="pre">s</span></tt> as an <strong>accumulator</strong>.  Initially,
+<tt class="docutils literal"><span class="pre">s</span></tt> is the empty string. Each time through the loop, a new string is
+generated and concatenated with the old value of <tt class="docutils literal"><span class="pre">s</span></tt> to get the new value.</p>
+<p>Also note that we can calling the <tt class="docutils literal"><span class="pre">str</span></tt> function on the cards in our deck.
+Recall that <tt class="docutils literal"><span class="pre">str</span></tt> is equivalent to invoking the <tt class="docutils literal"><span class="pre">__str__</span></tt> method on the object.</p>
+<p>When the loop ends, <tt class="docutils literal"><span class="pre">s</span></tt> contains the complete string representation of the
+<tt class="docutils literal"><span class="pre">Deck</span></tt>. We can try it out:</p>
+
+<div id="deckfirstexample" class="pywindow" >
+
+<div id="deckfirstexample_code_div" style="display: block">
+<textarea rows="60" id="deckfirstexample_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+myDeck = Deck()
+print(myDeck)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckfirstexample_code'] = true;
+pythonTool.readOnlyFlags['deckfirstexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckfirstexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckfirstexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckfirstexample_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckfirstexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckfirstexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckfirstexample_suffix" style="display:none">
+</pre>
+<pre id="deckfirstexample_pre" class="active_out">
+
+</pre>
+
+<div id="deckfirstexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Even though the result appears on 52 lines, it is one long string
+that contains newlines.</p>
+</div>
+<div class="section" id="shuffling-the-deck">
+<h2>14.6. Shuffling the deck<a class="headerlink" href="#shuffling-the-deck" title="Permalink to this headline">¶</a></h2>
+<p>If a deck is perfectly shuffled, then any card is equally likely to appear
+anywhere in the deck, and any location in the deck is equally likely to contain
+any card.</p>
+<p>To shuffle the deck, we will use the <tt class="docutils literal"><span class="pre">randrange</span></tt> function from the <tt class="docutils literal"><span class="pre">random</span></tt>
+module. With two integer arguments, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt>, <tt class="docutils literal"><span class="pre">randrange</span></tt> chooses a
+random integer in the range <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&lt;=</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">b</span></tt>. Since the upper bound is strictly
+less than <tt class="docutils literal"><span class="pre">b</span></tt>, we can use the length of a list as the second parameter, and
+we are guaranteed to get a legal index. For example, if <tt class="docutils literal"><span class="pre">rng</span></tt> has already
+been instantiated as a random number source, this expression chooses
+the index of a random card in a deck:</p>
+
+<div id="randrangeex" class="pywindow" >
+
+<div id="randrangeex_code_div" style="display: block">
+<textarea rows="1" id="randrangeex_code" class="active_code" prefixcode="undefined">
+rng.randrange(0, len(self.cards))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['randrangeex_code'] = false;
+pythonTool.readOnlyFlags['randrangeex_code'] = true;
+</script>
+
+<div id='randrangeex_error'></div>
+<pre id="randrangeex_suffix" style="display:none">
+</pre>
+</div>
+
+<p>An easy way to shuffle the deck is by traversing the cards and swapping each
+card with a randomly chosen one. It is possible that the card will be swapped
+with itself, but that is fine. In fact, if we precluded that possibility, the
+order of the cards would be less than entirely random:</p>
+
+<div id="deckshuffle" class="pywindow" >
+
+<div id="deckshuffle_code_div" style="display: block">
+<textarea rows="68" id="deckshuffle_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        numCards = len(self.cards)
+        for i in range(numCards):
+            j = random.randrange(i, numCards)  # pick a card to swap with i
+            (self.cards[i], self.cards[j]) = (self.cards[j], self.cards[i])
+
+myDeck = Deck()
+myDeck.shuffle()
+print(myDeck)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckshuffle_code'] = true;
+pythonTool.readOnlyFlags['deckshuffle_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckshuffle_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckshuffle_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckshuffle_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckshuffle_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckshuffle_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckshuffle_suffix" style="display:none">
+</pre>
+<pre id="deckshuffle_pre" class="active_out">
+
+</pre>
+
+<div id="deckshuffle_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Rather than assume that there are fifty-two cards in the deck, we get the
+actual length of the list and store it in <tt class="docutils literal"><span class="pre">numCards</span></tt>.</p>
+<p>For each card in the deck, we choose a random card from among the cards that
+haven&#8217;t been shuffled yet. Then we swap the current card (<tt class="docutils literal"><span class="pre">i</span></tt>) with the
+selected card (<tt class="docutils literal"><span class="pre">j</span></tt>). To swap the cards we use a tuple assignment.</p>
+<p>While this is a good shuffling method, a random number generator object also
+has a <tt class="docutils literal"><span class="pre">shuffle</span></tt> method that can shuffle elements in a list, in place.
+So we could rewrite this function to use the one provided for us:</p>
+
+<div id="decknewshuffle" class="pywindow" >
+
+<div id="decknewshuffle_code_div" style="display: block">
+<textarea rows="65" id="decknewshuffle_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+myDeck = Deck()
+myDeck.shuffle()
+print(myDeck)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['decknewshuffle_code'] = true;
+pythonTool.readOnlyFlags['decknewshuffle_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="decknewshuffle_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="decknewshuffle_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="decknewshuffle_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='decknewshuffle_error'></div>
+
+<div style="text-align: center">
+<canvas id="decknewshuffle_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="decknewshuffle_suffix" style="display:none">
+</pre>
+<pre id="decknewshuffle_pre" class="active_out">
+
+</pre>
+
+<div id="decknewshuffle_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="removing-and-dealing-cards">
+<h2>14.7. Removing and dealing cards<a class="headerlink" href="#removing-and-dealing-cards" title="Permalink to this headline">¶</a></h2>
+<p>Another method that would be useful for the <tt class="docutils literal"><span class="pre">Deck</span></tt> class is <tt class="docutils literal"><span class="pre">remove</span></tt>,
+which takes a card as a parameter, removes it, and returns <tt class="docutils literal"><span class="pre">True</span></tt> if
+the card was in the deck and <tt class="docutils literal"><span class="pre">False</span></tt> otherwise:</p>
+
+<div id="deckremove" class="pywindow" >
+
+<div id="deckremove_code_div" style="display: block">
+<textarea rows="8" id="deckremove_code" class="active_code" prefixcode="undefined">
+class Deck:
+    ...
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckremove_code'] = false;
+pythonTool.readOnlyFlags['deckremove_code'] = true;
+</script>
+
+<div id='deckremove_error'></div>
+<pre id="deckremove_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">in</span></tt> operator returns <tt class="docutils literal"><span class="pre">True</span></tt> if the first operand is in the second.
+If the first operand is an object, Python uses
+the object&#8217;s <tt class="docutils literal"><span class="pre">__eq__</span></tt> method to determine equality with items in the list.
+Since the <tt class="docutils literal"><span class="pre">__eq__</span></tt> we provided in the <tt class="docutils literal"><span class="pre">Card</span></tt> class checks for deep equality, the
+<tt class="docutils literal"><span class="pre">remove</span></tt> method checks for deep equality.</p>
+<p>To deal cards, we want to remove and return the top card. The list method
+<tt class="docutils literal"><span class="pre">pop</span></tt> provides a convenient way to do that:</p>
+
+<div id="deckpop" class="pywindow" >
+
+<div id="deckpop_code_div" style="display: block">
+<textarea rows="4" id="deckpop_code" class="active_code" prefixcode="undefined">
+class Deck:
+    ...
+    def pop(self):
+        return self.cards.pop()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckpop_code'] = false;
+pythonTool.readOnlyFlags['deckpop_code'] = true;
+</script>
+
+<div id='deckpop_error'></div>
+<pre id="deckpop_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Actually, <tt class="docutils literal"><span class="pre">pop</span></tt> removes the <em>last</em> card in the list, so we are in effect
+dealing from the bottom of the deck.</p>
+<p>One more operation that we are likely to want is the Boolean function
+<tt class="docutils literal"><span class="pre">is_empty</span></tt>, which returns <tt class="docutils literal"><span class="pre">True</span></tt> if the deck contains no cards:</p>
+
+<div id="deckisempty" class="pywindow" >
+
+<div id="deckisempty_code_div" style="display: block">
+<textarea rows="4" id="deckisempty_code" class="active_code" prefixcode="undefined">
+class Deck:
+    ...
+    def is_empty(self):
+        return self.cards == []</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckisempty_code'] = false;
+pythonTool.readOnlyFlags['deckisempty_code'] = true;
+</script>
+
+<div id='deckisempty_error'></div>
+<pre id="deckisempty_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Here is our entire class with these methods added:</p>
+
+<div id="deckfinal" class="pywindow" >
+
+<div id="deckfinal_code_div" style="display: block">
+<textarea rows="81" id="deckfinal_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+# testing
+myDeck = Deck()
+myDeck.shuffle()
+card1 = myDeck.pop()  # deal a card
+print(card1)
+print(myDeck.remove(card1))  # should print False becuase card was already dealt</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['deckfinal_code'] = true;
+pythonTool.readOnlyFlags['deckfinal_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="deckfinal_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="deckfinal_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="deckfinal_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='deckfinal_error'></div>
+
+<div style="text-align: center">
+<canvas id="deckfinal_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="deckfinal_suffix" style="display:none">
+</pre>
+<pre id="deckfinal_pre" class="active_out">
+
+</pre>
+
+<div id="deckfinal_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="glossary">
+<h2>14.8. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-accumulator">accumulator</dt>
+<dd>A variable used in a loop to accumulate a series of values, such as by
+concatenating them onto a string or adding them to a running sum.</dd>
+<dt id="term-class-attribute">class attribute</dt>
+<dd>A variable that is defined inside a class definition but outside any
+method. Class attributes are accessible from any method in the class
+and are shared by all instances of the class.</dd>
+<dt id="term-encode">encode</dt>
+<dd>To represent one type of value using another type of value by
+constructing a mapping between them.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="oop.html" title="13. More Classes and Objects"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

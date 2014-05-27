@@ -441,3 +441,105 @@ border-color: #eea236
 .pywindow .ac-files-hidden {
 	display: none;
 }
+
+
+.pywindow .pywindow-file-table-holder {
+	border:1px solid black; 
+	border-radius:6px; 
+	background-color: #fff;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.pywindow .pywindow-file-table {
+	margin-bottom: 7px;
+}
+.pywindow .pywindow-file-table tr:nth-of-type(even) {
+	background-color: #eee;
+}
+.pywindow .pywindow-file-table th {
+	padding: 5px;
+}
+.pywindow .pywindow-file-table td {
+	padding: 5px;
+}
+.pywindow .pywindow-file-table td:nth-of-type(2) {
+	min-width: 100px;
+}
+.pywindow .pywindow-file-table td img{
+	float: right;
+}
+.pywindow .pywindow-file-table td a{
+	float: right;
+}
+
+
+.pywindow-readonly .CodeMirror-gutters {
+    background-color: #eaeaea;
+}
+.pywindow-readonly .CodeMirror {
+    background-color: #f2f2f2;
+}
+
+.pywindow .pywindow-btn-small {
+	padding: 0px 3px;
+	margin: 0px;
+}
+
+
+.pywindow-file-preview-modal {
+	position: fixed;
+	width: 650px;
+	left: 50%;
+	margin-left: -325px;
+	height: 500px;
+	top: 50%;
+	margin-top: -250px;
+	
+	border-radius: 7px;
+/*	border:none;*/
+	border: 3px solid #888;
+/*	border-right: none;*/
+/*	border-left: 3px solid #888;*/
+/*	border-top: 3px solid #888;*/
+/*	border-bottom: 3px solid #888;*/
+	background-color: white;
+	overflow:auto;
+	z-index:20000;
+}
+.pywindow-file-preview-titlebar {
+	padding: 10px 0px;
+	position:fixed;
+	background-color:rgb(132, 181, 206);
+	border-top-left-radius: 3px;
+	width:635px;
+}
+.pywindow-file-fake-scroll {
+	position:fixed;
+	width:1px;
+	left: 50%;
+	margin-left: 313px;
+	height: 500px;
+	top: 50%;
+	margin-top: -247px;
+	background-color:#f7f7f7;
+	border-left: 1px solid #eee;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+.pywindow-file-preview-modal textarea{
+	width: 600px;
+	margin: 50px 10px 10px 10px;
+	border: none;
+	resize: none;
+	font-family: "Droid Sans Mono", "Lucida Console", Monospace, Courier;
+}
+.pywindow-file-preview-modal button{
+	padding: 5px;
+	margin: 0px 15px;
+	border: none;
+	border-radius: 4px;
+}
+.pywindow-file-preview-modal .pywindow-file-loading{
+	margin: 50px 10px 10px 10px;
+}

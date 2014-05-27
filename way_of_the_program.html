@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -63,16 +60,16 @@
 </div>
 <div class="section" id="the-way-of-the-program">
 <h1>1. The way of the program<a class="headerlink" href="#the-way-of-the-program" title="Permalink to this headline">¶</a></h1>
-<p>The goal of this book is to teach you to think like a computer scientist. This
-way of thinking combines some of the best features of mathematics, engineering,
-and natural science. Like mathematicians, computer scientists use formal
-languages to denote ideas (specifically computations). Like engineers, they
-design things, assembling components into systems and evaluating tradeoffs
-among alternatives.  Like scientists, they observe the behavior of complex
+<p>The goal of this book is to teach you to think like a computer scientist. As
+computer scientists, we will combine some of the best features of mathematics,
+engineering, and natural science. Like mathematicians, we will use formal
+languages to communicate our ideas. Like engineers, we will design complex
+systems, assembling components into systems and evaluating tradeoffs
+among alternatives.  Like scientists, we will observe the behavior of complex
 systems, form hypotheses, and test predictions.</p>
 <p>The single most important skill for a computer scientist is <strong>problem
-solving</strong>. Problem solving means the ability to formulate problems, think
-creatively about solutions, and express a solution clearly and accurately. As
+solving</strong>. Problem solving is a skill that involves formulating problems, thinking
+creatively about solutions, and expressing a solution clearly and accurately. As
 it turns out, the process of learning to program is an excellent opportunity to
 practice problem-solving skills. That&#8217;s why this chapter is called <em>The way of
 the program</em>.</p>
@@ -107,16 +104,16 @@ IDLE on your computer, it should look something like this:</p>
 instructions. We typed <tt class="docutils literal"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></tt>, and the interpreter evaluated our expression, and replied <tt class="docutils literal"><span class="pre">4</span></tt>,
 and on the next line it gave a new prompt, indicating that it is ready for more.</p>
 <p>Alternatively, you can write a program in a file and use the interpreter to
-run the contents of the file. Such a file is called a <strong>script</strong> or a <strong>module</strong>.   Scripts have the
-advantage that they can be saved to disk, printed, and so on.</p>
+run the lines of code in the file. Such a file is called a <strong>script</strong>.  Scripts have the advantage
+that they can be saved, printed, and so on. A Python script is often called a <strong>module</strong>.</p>
 <p>For example, we can created a file named <tt class="docutils literal"><span class="pre">firstprogram.py</span></tt> using IDLE.
-(By convention, files that contain Python programs have names that end with
-<tt class="docutils literal"><span class="pre">.py</span></tt>.) To do this, select &#8220;New Window&#8221; from the File menu of IDLE, and then type
+By convention, files that contain Python programs have names that end with
+<tt class="docutils literal"><span class="pre">.py</span></tt>.) To do this, select &#8220;New File&#8221; or &#8220;New Window&#8221; from the File menu of IDLE, and then type
 the following two lines into the new window that appears:</p>
 <img alt="first program source screenshot" src="_images/my_first_program_source.png" />
-<p>To run the program, we can select the &#8220;Run Program&#8221; option from the &#8220;Run&#8221; menu of IDLE (or
+<p>To run the program, we can select the &#8220;Run Module&#8221; or &#8220;Run Program&#8221; option from the &#8220;Run&#8221; menu of IDLE (or
 alternatively you can press the F5 key). IDLE will ask you to save your program before it
-can run it: save it using the name <tt class="docutils literal"><span class="pre">firstprogram.py</span></tt>. Then your program will run, and it
+can run it. Save it using the name <tt class="docutils literal"><span class="pre">firstprogram.py</span></tt>. Then your program will run, and it
 should look something like the screenshot below:</p>
 <img alt="first program output screenshot" src="_images/my_first_program_output.png" />
 <p>Notice that the program always runs in the Shell window.</p>
@@ -141,8 +138,9 @@ pythonTool.readOnlyFlags['firstprogram_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="firstprogram_runb" onclick="pythonTool.runit('firstprogram_code','firstprogram_pre','firstprogram_error','firstprogram_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstprogram_code','firstprogram_pre','firstprogram_error','firstprogram_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="firstprogram_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="firstprogram_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="firstprogram_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -165,8 +163,8 @@ pythonTool.readOnlyFlags['firstprogram_code'] = false;
 You can also edit the code directly in the window above. If you click the &#8220;Reset&#8221; button (or refresh
 your browser window), the code will return to what it originally was (that is, any edits that you&#8217;ve
 made will be removed.) The little numbers to the left are <strong>line numbers</strong>, and you don&#8217;t
-type them in: they appear automatically in our ebook, so that it&#8217;s easier for us to discuss our
-program. (For example, we can say &#8220;line 1 of our program prints a sentence&#8221;.)</p>
+type them in. They appear automatically in our ebook, so that it&#8217;s easier for us to discuss our
+program. For example, we can say &#8220;line 1 of our program prints a sentence&#8221;.</p>
 </div>
 <div class="section" id="what-is-a-program">
 <span id="index-1"></span><h2>1.2. What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this headline">¶</a></h2>
@@ -373,8 +371,9 @@ pythonTool.readOnlyFlags['helloworld_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="helloworld_runb" onclick="pythonTool.runit('helloworld_code','helloworld_pre','helloworld_error','helloworld_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('helloworld_code','helloworld_pre','helloworld_error','helloworld_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="helloworld_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="helloworld_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="helloworld_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -432,8 +431,9 @@ pythonTool.readOnlyFlags['helloworldwithcomments_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="helloworldwithcomments_runb" onclick="pythonTool.runit('helloworldwithcomments_code','helloworldwithcomments_pre','helloworldwithcomments_error','helloworldwithcomments_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('helloworldwithcomments_code','helloworldwithcomments_pre','helloworldwithcomments_error','helloworldwithcomments_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="helloworldwithcomments_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="helloworldwithcomments_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="helloworldwithcomments_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -556,7 +556,7 @@ analogous to a word in a natural language.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

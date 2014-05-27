@@ -25,16 +25,13 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
     <link rel="copyright" title="Copyright" href="copyright.html" />
     <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
-    <link rel="next" title="GNU Free Documentation License" href="fdl-1.3.html" />
+    <link rel="next" title="11. Recursion" href="recursion.html" />
     <link rel="prev" title="9. Files" href="files.html" /> 
   </head>
   <body>
@@ -45,7 +42,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+          <a href="recursion.html" title="11. Recursion"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="files.html" title="9. Files"
@@ -113,8 +110,9 @@ pythonTool.readOnlyFlags['dictexampleoutput_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictexampleoutput_runb" onclick="pythonTool.runit('dictexampleoutput_code','dictexampleoutput_pre','dictexampleoutput_error','dictexampleoutput_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexampleoutput_code','dictexampleoutput_pre','dictexampleoutput_error','dictexampleoutput_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictexampleoutput_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictexampleoutput_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictexampleoutput_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -151,8 +149,9 @@ pythonTool.readOnlyFlags['dictexampleallatonce_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictexampleallatonce_runb" onclick="pythonTool.runit('dictexampleallatonce_code','dictexampleallatonce_pre','dictexampleallatonce_error','dictexampleallatonce_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexampleallatonce_code','dictexampleallatonce_pre','dictexampleallatonce_error','dictexampleallatonce_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictexampleallatonce_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictexampleallatonce_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictexampleallatonce_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -189,8 +188,9 @@ pythonTool.readOnlyFlags['dictexamplelookup_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictexamplelookup_runb" onclick="pythonTool.runit('dictexamplelookup_code','dictexamplelookup_pre','dictexamplelookup_error','dictexamplelookup_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexamplelookup_code','dictexamplelookup_pre','dictexamplelookup_error','dictexamplelookup_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictexamplelookup_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictexamplelookup_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictexamplelookup_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -232,8 +232,9 @@ pythonTool.readOnlyFlags['dictfruitexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictfruitexample_runb" onclick="pythonTool.runit('dictfruitexample_code','dictfruitexample_pre','dictfruitexample_error','dictfruitexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitexample_code','dictfruitexample_pre','dictfruitexample_error','dictfruitexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictfruitexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictfruitexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -269,8 +270,9 @@ pythonTool.readOnlyFlags['dictfruitdelexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictfruitdelexample_runb" onclick="pythonTool.runit('dictfruitdelexample_code','dictfruitdelexample_pre','dictfruitdelexample_error','dictfruitdelexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitdelexample_code','dictfruitdelexample_pre','dictfruitdelexample_error','dictfruitdelexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitdelexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictfruitdelexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictfruitdelexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -307,8 +309,9 @@ pythonTool.readOnlyFlags['dictfruitzeroexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictfruitzeroexample_runb" onclick="pythonTool.runit('dictfruitzeroexample_code','dictfruitzeroexample_pre','dictfruitzeroexample_error','dictfruitzeroexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitzeroexample_code','dictfruitzeroexample_pre','dictfruitzeroexample_error','dictfruitzeroexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitzeroexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictfruitzeroexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictfruitzeroexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -344,8 +347,9 @@ pythonTool.readOnlyFlags['dictfruitincexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictfruitincexample_runb" onclick="pythonTool.runit('dictfruitincexample_code','dictfruitincexample_pre','dictfruitincexample_error','dictfruitincexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitincexample_code','dictfruitincexample_pre','dictfruitincexample_error','dictfruitincexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitincexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictfruitincexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictfruitincexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -380,8 +384,9 @@ pythonTool.readOnlyFlags['dictfruitlenexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictfruitlenexample_runb" onclick="pythonTool.runit('dictfruitlenexample_code','dictfruitlenexample_pre','dictfruitlenexample_error','dictfruitlenexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictfruitlenexample_code','dictfruitlenexample_pre','dictfruitlenexample_error','dictfruitlenexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictfruitlenexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictfruitlenexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictfruitlenexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -428,8 +433,9 @@ pythonTool.readOnlyFlags['dictexamplekeys_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictexamplekeys_runb" onclick="pythonTool.runit('dictexamplekeys_code','dictexamplekeys_pre','dictexamplekeys_error','dictexamplekeys_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictexamplekeys_code','dictexamplekeys_pre','dictexamplekeys_error','dictexamplekeys_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictexamplekeys_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictexamplekeys_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictexamplekeys_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -467,8 +473,9 @@ pythonTool.readOnlyFlags['dictloopkeys_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictloopkeys_runb" onclick="pythonTool.runit('dictloopkeys_code','dictloopkeys_pre','dictloopkeys_error','dictloopkeys_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictloopkeys_code','dictloopkeys_pre','dictloopkeys_error','dictloopkeys_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictloopkeys_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictloopkeys_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictloopkeys_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -503,8 +510,9 @@ pythonTool.readOnlyFlags['dictprintvalues_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictprintvalues_runb" onclick="pythonTool.runit('dictprintvalues_code','dictprintvalues_pre','dictprintvalues_error','dictprintvalues_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictprintvalues_code','dictprintvalues_pre','dictprintvalues_error','dictprintvalues_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictprintvalues_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictprintvalues_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictprintvalues_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -539,8 +547,9 @@ pythonTool.readOnlyFlags['dictprintpairs_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictprintpairs_runb" onclick="pythonTool.runit('dictprintpairs_code','dictprintpairs_pre','dictprintpairs_error','dictprintpairs_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictprintpairs_code','dictprintpairs_pre','dictprintpairs_error','dictprintpairs_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictprintpairs_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictprintpairs_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictprintpairs_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -576,8 +585,9 @@ pythonTool.readOnlyFlags['dictforlooppairs_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictforlooppairs_runb" onclick="pythonTool.runit('dictforlooppairs_code','dictforlooppairs_pre','dictforlooppairs_error','dictforlooppairs_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictforlooppairs_code','dictforlooppairs_pre','dictforlooppairs_error','dictforlooppairs_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictforlooppairs_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictforlooppairs_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictforlooppairs_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -613,8 +623,9 @@ pythonTool.readOnlyFlags['dictkeytest_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictkeytest_runb" onclick="pythonTool.runit('dictkeytest_code','dictkeytest_pre','dictkeytest_error','dictkeytest_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictkeytest_code','dictkeytest_pre','dictkeytest_error','dictkeytest_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictkeytest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictkeytest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictkeytest_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -648,8 +659,9 @@ pythonTool.readOnlyFlags['dictkeyerror_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictkeyerror_runb" onclick="pythonTool.runit('dictkeyerror_code','dictkeyerror_pre','dictkeyerror_error','dictkeyerror_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictkeyerror_code','dictkeyerror_pre','dictkeyerror_error','dictkeyerror_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictkeyerror_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictkeyerror_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictkeyerror_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -684,8 +696,9 @@ pythonTool.readOnlyFlags['dictgetexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictgetexample_runb" onclick="pythonTool.runit('dictgetexample_code','dictgetexample_pre','dictgetexample_error','dictgetexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictgetexample_code','dictgetexample_pre','dictgetexample_error','dictgetexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictgetexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictgetexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictgetexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -752,8 +765,9 @@ pythonTool.readOnlyFlags['dictchangedexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictchangedexample_runb" onclick="pythonTool.runit('dictchangedexample_code','dictchangedexample_pre','dictchangedexample_error','dictchangedexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictchangedexample_code','dictchangedexample_pre','dictchangedexample_error','dictchangedexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictchangedexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictchangedexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictchangedexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -790,8 +804,9 @@ pythonTool.readOnlyFlags['dictunchangedexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="dictunchangedexample_runb" onclick="pythonTool.runit('dictunchangedexample_code','dictunchangedexample_pre','dictunchangedexample_error','dictunchangedexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('dictunchangedexample_code','dictunchangedexample_pre','dictunchangedexample_error','dictunchangedexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="dictunchangedexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="dictunchangedexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="dictunchangedexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -837,8 +852,9 @@ pythonTool.readOnlyFlags['freqtable_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="freqtable_runb" onclick="pythonTool.runit('freqtable_code','freqtable_pre','freqtable_error','freqtable_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('freqtable_code','freqtable_pre','freqtable_error','freqtable_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="freqtable_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="freqtable_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="freqtable_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -880,8 +896,9 @@ pythonTool.readOnlyFlags['freqtablesorted_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="freqtablesorted_runb" onclick="pythonTool.runit('freqtablesorted_code','freqtablesorted_pre','freqtablesorted_error','freqtablesorted_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('freqtablesorted_code','freqtablesorted_pre','freqtablesorted_error','freqtablesorted_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="freqtablesorted_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="freqtablesorted_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="freqtablesorted_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -946,7 +963,7 @@ and tuples are not.</dd>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="fdl-1.3.html" title="GNU Free Documentation License"
+          <a href="recursion.html" title="11. Recursion"
              >next</a> |</li>
         <li class="right" >
           <a href="files.html" title="9. Files"
@@ -956,7 +973,7 @@ and tuples are not.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

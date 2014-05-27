@@ -1,0 +1,1471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>16. PyGame &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="17. Event-Driven Programming" href="events.html" />
+    <link rel="prev" title="15. Inheritance" href="inheritance.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="events.html" title="17. Event-Driven Programming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="pygame">
+<span id="index-0"></span><h1>16. PyGame<a class="headerlink" href="#pygame" title="Permalink to this headline">¶</a></h1>
+<p>PyGame is a package that is not part of the standard Python distribution, so if you do not
+already have it installed (i.e. <tt class="docutils literal"><span class="pre">import</span> <span class="pre">pygame</span></tt> fails), download and install a suitable version from <a class="reference external" href="http://pygame.org/download.shtml">http://pygame.org/download.shtml</a>.
+These notes are based on PyGame 1.9.1, the most recent version at the time of writing.</p>
+<p>PyGame comes with a substantial set of tutorials, examples, and help, so there is ample
+opportunity to stretch yourself on the code. You may need to look around a bit to find
+these resources, though: if you&#8217;ve installed PyGame on a Windows machine, for example,
+they&#8217;ll end up in a folder like C:\Python31\Lib\site-packages\pygame\ where you
+will find directories for <em>docs</em> and <em>examples</em>.</p>
+<div class="section" id="the-game-loop">
+<h2>16.1. The game loop<a class="headerlink" href="#the-game-loop" title="Permalink to this headline">¶</a></h2>
+<p>The structure of the games we&#8217;ll consider always follows this fixed pattern:</p>
+<blockquote>
+<div><img alt="_images/pygame_structure.png" src="_images/pygame_structure.png" />
+</div></blockquote>
+<p>In every game, in the <em>setup</em> section we&#8217;ll create a window, load and prepare some content, and then
+enter the <strong>game loop</strong>.  The game loop continuously does four main things:</p>
+<ul class="simple">
+<li>it <strong>polls</strong> for events &#8212; i.e. asks the system whether
+events have occurred &#8212; and responds appropriately,</li>
+<li>it updates whatever internal data structures or objects need changing,</li>
+<li>it draws the current state of the game into a (non-visible) surface,</li>
+<li>it puts the just-drawn surface on display.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Set up the game and run the main game loop &quot;&quot;&quot;</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>      <span class="c"># Prepare the pygame module for use</span>
+    <span class="n">surface_sz</span> <span class="o">=</span> <span class="mi">480</span>   <span class="c"># Desired physical surface size, in pixels.</span>
+
+    <span class="c"># Create surface of (width, height), and its window.</span>
+    <span class="n">main_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">surface_sz</span><span class="p">,</span> <span class="n">surface_sz</span><span class="p">))</span>
+
+    <span class="c"># Set up some data to describe a small rectangle and its color</span>
+    <span class="n">small_rect</span> <span class="o">=</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+    <span class="n">some_color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>        <span class="c"># A color is a mix of (Red, Green, Blue)</span>
+
+    <span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>    <span class="c"># Look for any event</span>
+        <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>  <span class="c"># Window close button clicked?</span>
+            <span class="k">break</span>                   <span class="c">#   ... leave game loop</span>
+
+        <span class="c"># Update your game objects and data structures here...</span>
+
+        <span class="c"># We draw everything from scratch on each frame.</span>
+        <span class="c"># So first fill everything with the background color</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+
+        <span class="c"># Overpaint a smaller rectangle on the main surface</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">some_color</span><span class="p">,</span> <span class="n">small_rect</span><span class="p">)</span>
+
+        <span class="c"># Now the surface is ready, tell pygame to display it!</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>     <span class="c"># Once we leave the loop, close the window.</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>This program pops up a window which stays there until we close it:</p>
+<blockquote>
+<div><img alt="_images/pygame_screenshot01.png" src="_images/pygame_screenshot01.png" />
+</div></blockquote>
+<p>PyGame does all its drawing onto rectangular <em>surfaces</em>. After initializing PyGame
+at line 5, we create a window holding our main surface. The main loop of the game
+extends from line 15 to 30, with the following key bits of logic:</p>
+<ul class="simple">
+<li>First (line 16) we poll to fetch the next event that might be ready for us.  This step will
+always be followed by some conditional statements that will determine whether
+any event that we&#8217;re interested in has happened.  Polling for the event consumes
+it, as far as PyGame is concerned, so we only get one chance to fetch and use
+each event.   On line 17 we test whether the type of the event is the
+predefined constant called pygame.QUIT.  This is the event that we&#8217;ll see
+when the user clicks the close button on the PyGame window.   In response to
+this event, we leave the loop.</li>
+<li>Once we&#8217;ve left the loop, the code at line 32 closes window, and we&#8217;ll return
+from function <tt class="docutils literal"><span class="pre">main</span></tt>.  Your program could go on to do other things, or reinitialize
+pygame and create another window, but it will usually just end too.</li>
+<li>There are different kinds of events &#8212; key presses, mouse motion, mouse
+clicks, joystick movement, and so on.  It is usual that we test and handle all these cases
+with new code squeezed in before line 19.  The general idea is &#8220;handle events
+first, then worry about the other stuff&#8221;.</li>
+<li>At line 20 we&#8217;d update objects or data &#8212; for example, if we wanted to vary the
+color, position, or size of the rectangle we&#8217;re about to draw, we&#8217;d re-assign
+<tt class="docutils literal"><span class="pre">some_color</span></tt>, and <tt class="docutils literal"><span class="pre">small_rect</span></tt> here.</li>
+<li>A modern way to write games (now that we have fast computers and fast graphics
+cards) is to redraw everything from scratch on every iteration of the game loop.  So
+the first thing we do at line 24 is fill the entire surface with a background
+color.  The <tt class="docutils literal"><span class="pre">fill</span></tt> method of a surface takes two arguments &#8212; the color to
+use for filling, and the rectangle to be filled.  But the second argument is
+optional, and if it is left out the entire surface is filled.</li>
+<li>In line 27 we fill a second rectangle, this time using <tt class="docutils literal"><span class="pre">some_color</span></tt>.
+The placement and size of the rectangle are given by the tuple <tt class="docutils literal"><span class="pre">small_rect</span></tt>,
+a 4-element tuple <tt class="docutils literal"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">width,</span> <span class="pre">height)</span></tt>.</li>
+<li>It is important to understand that the origin of the PyGame&#8217;s surface is at the top left
+corner (unlike the turtle module that puts its origin in the middle of the screen).
+So, if you wanted the rectangle closer to the top of the window, you need to make its
+y coordinate smaller.</li>
+<li>If your graphics display hardware tries to read from memory at the
+same time as the program is writing to that memory, they will interfere with each other,
+causing video noise and flicker.  To get around this, PyGame keeps two
+buffers in the main surface &#8212; the <em>back buffer</em> that the program draws to,
+while the <em>front buffer</em> is being shown to the user.  Each time the program has fully
+prepared its back buffer, it flips the back/front role of the two buffers.
+So the drawing on lines 24 and 27 does does not
+change what is seen on the screen until
+we <tt class="docutils literal"><span class="pre">flip</span></tt> the buffers, on line 30.</li>
+</ul>
+</div>
+<div class="section" id="displaying-images-and-text">
+<h2>16.2. Displaying images and text<a class="headerlink" href="#displaying-images-and-text" title="Permalink to this headline">¶</a></h2>
+<p>To draw an image on the main surface, we load the
+image, say a beach ball, into its own new surface.
+The main surface has a <tt class="docutils literal"><span class="pre">blit</span></tt> method that copies
+pixels from the beach ball surface into its
+own surface.  When we call <tt class="docutils literal"><span class="pre">blit</span></tt>, we can specify where the beach ball should be placed
+on the main surface.  The term <strong>blit</strong> is widely used in computer graphics, and means
+<em>to make a fast copy of pixels from one area of memory to another</em>.</p>
+<p>So in the setup section, before we enter the game
+loop, we&#8217;d load the image, like this:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">ball</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;ball.png&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>and after line 28 in the program above, we&#8217;d add this
+code to display our image at position (100,120):</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">main_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>To display text, we need do do three things.  Before we enter the game loop, we
+instantiate a <tt class="docutils literal"><span class="pre">font</span></tt> object:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Instantiate 16 point Courier font to draw text.</span>
+<span class="n">my_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s">&quot;Courier&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>and after line 28, again, we use the font&#8217;s
+<tt class="docutils literal"><span class="pre">render</span></tt> method to create a new surface
+containing the pixels of the drawn text,
+and then, as in the case for images, we blit
+our new surface onto the main surface.  Notice that <tt class="docutils literal"><span class="pre">render</span></tt>
+takes two extra parameters &#8212; the second tells
+it whether to carefully smooth edges of the text
+while drawing (this process is called <em>anti-aliasing</em>),
+and the second is the color that
+we want the text text be.  Here we&#8217;ve used <tt class="docutils literal"><span class="pre">(0,0,0)</span></tt>
+which is black:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">the_text</span> <span class="o">=</span> <span class="n">my_font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="k">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">main_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">the_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>We&#8217;ll demonstrate these two new features by counting
+the frames &#8212; the iterations of the game loop &#8212; and keeping
+some timing information.  On each frame, we&#8217;ll
+display the frame count, and the frame rate.  We will only update
+the frame rate after every 500 frames, when we&#8217;ll
+look at the timing interval and can do the calculations.</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>    <span class="c"># Prepare the PyGame module for use</span>
+    <span class="n">main_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">480</span><span class="p">,</span> <span class="mi">240</span><span class="p">))</span>
+
+    <span class="c"># Load an image to draw. Substitute your own.</span>
+    <span class="c"># PyGame handles gif, jpg, png, etc. image types.</span>
+    <span class="n">ball</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;ball.png&quot;</span><span class="p">)</span>
+
+    <span class="c"># Create a font for rendering text</span>
+    <span class="n">my_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s">&quot;Courier&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">frame_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">frame_rate</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+
+        <span class="c"># Look for an event from keyboard, mouse, joystick, etc.</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>   <span class="c"># Window close button clicked?</span>
+            <span class="k">break</span>                    <span class="c"># Leave game loop</span>
+
+        <span class="c"># Do other bits of logic for the game here</span>
+        <span class="n">frame_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+            <span class="n">frame_rate</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">/</span> <span class="p">(</span><span class="n">t1</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">t1</span>
+
+        <span class="c"># Completely redraw the surface, starting with background</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+
+        <span class="c"># Put a red rectangle somewhere on the surface</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+
+        <span class="c"># Copy our image to the surface, at this (x,y) posn</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+
+        <span class="c"># Make a new surface with an image of the text</span>
+        <span class="n">the_text</span> <span class="o">=</span> <span class="n">my_font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;Frame = {0},  rate = {1:.2f} fps&quot;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">frame_rate</span><span class="p">),</span> <span class="k">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="c"># Copy the text surface to the main surface</span>
+        <span class="n">main_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">the_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+        <span class="c"># Now that everything is drawn, put it on display!</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>The frame rate is close to ridiculous &#8212;
+a lot faster than one&#8217;s eye can process frames. (Commercial
+video games usually plan their action for 60
+frames per second (fps).)  Of course, our rate will drop
+once we start doing something a little more strenuous inside our game loop.</p>
+<blockquote>
+<div><img alt="_images/pygame_screenshot02.png" src="_images/pygame_screenshot02.png" />
+</div></blockquote>
+</div>
+<div class="section" id="drawing-a-board-for-the-n-queens-puzzle">
+<h2>16.3. Drawing a board for the N queens puzzle<a class="headerlink" href="#drawing-a-board-for-the-n-queens-puzzle" title="Permalink to this headline">¶</a></h2>
+<p>We previously solved our N queens puzzle.
+For the 8x8 board, one of the solutions was the list <tt class="docutils literal"><span class="pre">[6,4,2,0,5,7,1,3]</span></tt>.
+Let&#8217;s use that solution as testdata, and now use PyGame to draw that
+chessboard with its queens.</p>
+<p>We&#8217;ll create a new module for the drawing code, called <tt class="docutils literal"><span class="pre">draw_queens.py</span></tt>. When
+we have our test case(s) working, we can go back to our solver, import this new module,
+and add a call to our new function to draw a board each time a solution is discovered.</p>
+<p>We begin with a background of black and red squares
+for the board. Perhaps we could create an image that we could
+load and draw, but that approach would need
+different background images for different size boards.
+Just drawing our own red and black rectangles of
+the appropriate size sounds like much more fun!</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">draw_board</span><span class="p">(</span><span class="n">the_board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Draw a chess board with queens, from the_board. &quot;&quot;&quot;</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span>    <span class="c"># Set up colors [red, black]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">the_board</span><span class="p">)</span>         <span class="c"># This is an NxN chess board.</span>
+    <span class="n">surface_sz</span> <span class="o">=</span> <span class="mi">480</span>           <span class="c"># Proposed physical surface size.</span>
+    <span class="n">sq_sz</span> <span class="o">=</span> <span class="n">surface_sz</span> <span class="o">//</span> <span class="n">n</span>    <span class="c"># sq_sz is length of a square.</span>
+    <span class="n">surface_sz</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sq_sz</span>     <span class="c"># Adjust to exactly fit n squares.</span>
+
+    <span class="c"># Create the surface of (width, height), and its window.</span>
+    <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">surface_sz</span><span class="p">,</span> <span class="n">surface_sz</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Here we precompute <tt class="docutils literal"><span class="pre">sq_sz</span></tt>, the integer
+size that each square will be, so that we can fit the squares
+nicely into the available window.  So if
+we&#8217;d like the board to be 480x480, and we&#8217;re drawing an 8x8
+chessboard, then each square will need
+to have a size of 60 units.  But we
+notice that a 7x7 board cannot
+fit nicely into 480 &#8212; we&#8217;re going to
+get some ugly border that our squares don&#8217;t fill exactly.
+So we recompute the surface size to exactly
+fit our squares before we create the window.</p>
+<p>Now let&#8217;s draw the squares, in the game loop.
+We&#8217;ll need a nested loop: the outer loop will
+run over the rows of the chessboard, the
+inner loop over the columns:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Draw a fresh background (a blank chess board)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>           <span class="c"># Draw each row of the board.</span>
+    <span class="n">c_indx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">%</span> <span class="mi">2</span>           <span class="c"># Change starting color on each row</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>       <span class="c"># Run through cols drawing squares</span>
+        <span class="n">the_square</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="n">sq_sz</span><span class="p">,</span> <span class="n">row</span><span class="o">*</span><span class="n">sq_sz</span><span class="p">,</span> <span class="n">sq_sz</span><span class="p">,</span> <span class="n">sq_sz</span><span class="p">)</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">c_indx</span><span class="p">],</span> <span class="n">the_square</span><span class="p">)</span>
+        <span class="c"># now flip the color index for the next square</span>
+        <span class="n">c_indx</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_indx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>There are two important ideas in this code: firstly,
+we compute the rectangle to be filled
+from the <tt class="docutils literal"><span class="pre">row</span></tt> and <tt class="docutils literal"><span class="pre">col</span></tt> loop variables,
+multiplying them by the size of the square to
+get their position.  And, of course, each
+square is a fixed width and height.  So <tt class="docutils literal"><span class="pre">the_square</span></tt>
+represents the rectangle to be filled on the
+current iteration of the loop.  The second idea
+is that we have to alternate colors on
+every square.  In the earlier setup code we created
+a list containing two colors, here we
+manipulate <tt class="docutils literal"><span class="pre">c_indx</span></tt>  (which will always either have
+the value 0 or 1) to start each row on a
+color that is different from the previous row&#8217;s
+starting color, and to switch colors each
+time a square is filled.</p>
+<p>This (together with the other fragments not shown to flip the surface onto the display) leads
+to the pleasing backgrounds like this, for different size boards:</p>
+<img alt="_images/pygame_screenshot03.png" src="_images/pygame_screenshot03.png" />
+<p>Now, on to drawing the queens!  Recall that our
+solution <tt class="docutils literal"><span class="pre">[6,4,2,0,5,7,1,3]</span></tt> means that
+in column 0 of the board we want a queen at
+row 6, at column 1 we want a queen at row 4,
+and so on. So we need a loop running over each queen:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">the_board</span><span class="p">):</span>
+    <span class="c"># draw a queen at col, row...</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>In this chapter we already have a beach ball image,
+so we&#8217;ll use that for our queens.  In the
+setup code before our game loop, we load the ball
+image (as we did before), and in the body of
+the loop, we add the line:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="p">(</span><span class="n">col</span> <span class="o">*</span> <span class="n">sq_sz</span><span class="p">,</span> <span class="n">row</span> <span class="o">*</span> <span class="n">sq_sz</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<img alt="_images/pygame_screenshot04.png" src="_images/pygame_screenshot04.png" />
+</div></blockquote>
+<p>We&#8217;re getting there, but those queens need to be
+centred in their squares!  Our problem arises from
+the fact that both the ball and the rectangle have
+their upper left corner as their reference points.
+If we&#8217;re going to centre this ball in the square,
+we need to give it an extra offset in both the
+x and y direction.  (Since the ball is round and
+the square is square, the offset in the two directions
+will be the same, so we&#8217;ll just compute a single offset
+value, and use it in both directions.)</p>
+<p>The offset we need is half the (size of the square less the size
+of the ball).  So we&#8217;ll precompute
+this in the game&#8217;s setup section, after we&#8217;ve loaded the ball
+and determined the square size:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">ball_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">sq_sz</span> <span class="o">-</span> <span class="n">ball</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now we touch up the drawing code for the ball and we&#8217;re done:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="p">(</span><span class="n">col</span> <span class="o">*</span> <span class="n">sq_sz</span> <span class="o">+</span> <span class="n">ball_offset</span><span class="p">,</span> <span class="n">row</span> <span class="o">*</span> <span class="n">q_sz</span> <span class="o">+</span> <span class="n">ball_offset</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>We might just want to think about what would happen if the ball was bigger than
+the square.  In that case, <tt class="docutils literal"><span class="pre">ball_offset</span></tt> would become negative.
+So it would still be centered in the square - it would just spill
+over the boundaries, or perhaps obscure the square entirely!</p>
+<p>Here is the complete program:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="k">def</span> <span class="nf">draw_board</span><span class="p">(</span><span class="n">the_board</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Draw a chess board with queens, as determined by the the_board. &quot;&quot;&quot;</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span>    <span class="c"># Set up colors [red, black]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">the_board</span><span class="p">)</span>         <span class="c"># This is an NxN chess board.</span>
+    <span class="n">surface_sz</span> <span class="o">=</span> <span class="mi">480</span>           <span class="c"># Proposed physical surface size.</span>
+    <span class="n">sq_sz</span> <span class="o">=</span> <span class="n">surface_sz</span> <span class="o">//</span> <span class="n">n</span>    <span class="c"># sq_sz is length of a square.</span>
+    <span class="n">surface_sz</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sq_sz</span>     <span class="c"># Adjust to exactly fit n squares.</span>
+
+    <span class="c"># Create the surface of (width, height), and its window.</span>
+    <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">surface_sz</span><span class="p">,</span> <span class="n">surface_sz</span><span class="p">))</span>
+
+    <span class="n">ball</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;ball.png&quot;</span><span class="p">)</span>
+
+    <span class="c"># Use an extra offset to centre the ball in its square.</span>
+    <span class="c"># If the square is too small, offset becomes negative,</span>
+    <span class="c">#   but it will still be centered :-)</span>
+    <span class="n">ball_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">sq_sz</span><span class="o">-</span><span class="n">ball</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+
+        <span class="c"># Look for an event from keyboard, mouse, etc.</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="c"># Draw a fresh background (a blank chess board)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>           <span class="c"># Draw each row of the board.</span>
+            <span class="n">c_indx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">%</span> <span class="mi">2</span>           <span class="c"># Alternate starting color</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>       <span class="c"># Run through cols drawing squares</span>
+                <span class="n">the_square</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="n">sq_sz</span><span class="p">,</span> <span class="n">row</span><span class="o">*</span><span class="n">sq_sz</span><span class="p">,</span> <span class="n">sq_sz</span><span class="p">,</span> <span class="n">sq_sz</span><span class="p">)</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">c_indx</span><span class="p">],</span> <span class="n">the_square</span><span class="p">)</span>
+                <span class="c"># Now flip the color index for the next square</span>
+                <span class="n">c_indx</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_indx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+
+        <span class="c"># Now that squares are drawn, draw the queens.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">the_board</span><span class="p">):</span>
+          <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="n">sq_sz</span><span class="o">+</span><span class="n">ball_offset</span><span class="p">,</span><span class="n">row</span><span class="o">*</span><span class="n">sq_sz</span><span class="o">+</span><span class="n">ball_offset</span><span class="p">))</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">draw_board</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>    <span class="c"># 7 x 7 to test window size</span>
+    <span class="n">draw_board</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">draw_board</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c"># 13 x 13</span>
+    <span class="n">draw_board</span><span class="p">([</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>There is one more thing worth reviewing here.  The conditional statement on line
+50 tests whether the name of the currently executing program is <tt class="docutils literal"><span class="pre">__main__</span></tt>.
+This allows us to distinguish whether this module is being run as a main program,
+or whether it has been imported elsewhere, and used as a module.  If we run this
+module in Python, the test cases in lines 51-54 will be executed.  However, if we
+import this module into another program (i.e. our N queens solver from earlier)
+the condition at line 50 will be false, and the statements on lines 51-54 won&#8217;t run.</p>
+<p>In the section <em class="xref std std-ref">eightqueensmainprog</em> our main program looked like this:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">bd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>     <span class="c"># Generate the initial permutation</span>
+    <span class="n">num_found</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">num_found</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+       <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
+       <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
+       <span class="k">if</span> <span class="ow">not</span> <span class="n">has_clashes</span><span class="p">(</span><span class="n">bd</span><span class="p">):</span>
+           <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Found solution {0} in {1} tries.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">tries</span><span class="p">))</span>
+           <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
+           <span class="n">num_found</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now we just need two changes.  At the top of that program, we
+import the module that we&#8217;ve been working on here (assume we
+called it <tt class="docutils literal"><span class="pre">draw_queens</span></tt>).  (You&#8217;ll have to ensure that the
+two modules are saved in the same folder.)  Then after line 10
+here we add a call to draw the solution that we&#8217;ve just discovered:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">draw_queens</span><span class="o">.</span><span class="n">draw_board</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And that gives a very satisfying combination of program that can search for solutions to the N queens problem,
+and when it finds each, it pops up the board showing the solution.</p>
+</div>
+<div class="section" id="sprites">
+<h2>16.4. Sprites<a class="headerlink" href="#sprites" title="Permalink to this headline">¶</a></h2>
+<p>A sprite is an object that can move about in a game,
+and has internal behaviour and state of its own.  For example,
+a spaceship would be a sprite, the player would be a sprite,
+and bullets and bombs would all be sprites.</p>
+<p>Object oriented programming (OOP) is ideally suited to a
+situation like this: each object can have its own attributes
+and internal state, and a couple of methods.   Let&#8217;s have
+some fun with our N queens board.  Instead of placing
+the queen in her final position, we&#8217;d like to drop her in
+from the top of the board, and let her fall into position,
+perhaps bouncing along the way.</p>
+<p>The first encapsulation we need is to turn each of our
+queens into an object.  We&#8217;ll keep a list of all the active
+sprites (i.e. a list of queen objects), and arrange two new
+things in our game loop:</p>
+<ul class="simple">
+<li>After handling events, but before drawing, call an <tt class="docutils literal"><span class="pre">update</span></tt>
+method on every sprite.  This will give each sprite a chance to
+modify its internal state in some way &#8212; perhaps change its
+image, or change its position, or rotate itself, or make itself
+grow a bit bigger or a bit smaller.</li>
+<li>Once all the sprites have updated themselves, the game loop
+can begin drawing - first the background, and then
+call a <tt class="docutils literal"><span class="pre">draw</span></tt> method on each sprite in turn, and delegate (hand off)
+the task of drawing to the object itself.  This is
+in line with the OOP idea that we don&#8217;t say &#8220;Hey, <em>draw</em>,
+show this queen!&#8221;,  but we prefer to say
+&#8220;Hey, <em>queen</em>, draw yourself!&#8221;.</li>
+</ul>
+<p>We start with a simple object, no movement or animation yet, just scaffolding,
+to see how to fit all the pieces together:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">QueenSprite</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">target_posn</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create and initialize a queen for this</span>
+<span class="sd">            target position on the board</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">img</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_posn</span> <span class="o">=</span> <span class="n">target_posn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="n">target_posn</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>                <span class="c"># Do nothing for the moment.</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_surface</span><span class="p">):</span>
+        <span class="n">target_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>We&#8217;ve given the sprite three attributes: an image to be drawn,
+a target position, and a current position.  If we&#8217;re going to
+move the spite about, the current position may need to be
+different from the target, which is where we want the queen
+finally to end up.   In this code at this time we&#8217;ve done nothing
+in the <tt class="docutils literal"><span class="pre">update</span></tt> method, and our <tt class="docutils literal"><span class="pre">draw</span></tt> method (which
+can probably remain this simple in future) simply draws itself
+at its current position on the surface that is provided
+by the caller.</p>
+<p>With its class definition in place, we now instantiate our N queens,
+put them into a list of sprites, and arrange for the game loop to call
+the <tt class="docutils literal"><span class="pre">update</span></tt> and <tt class="docutils literal"><span class="pre">draw</span></tt> methods on each frame.   The new bits of
+code, and the revised game loop look like this:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="n">all_sprites</span> <span class="o">=</span> <span class="p">[]</span>      <span class="c"># Keep a list of all sprites in the game</span>
+
+    <span class="c"># Create a sprite object for each queen, and populate our list.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">the_board</span><span class="p">):</span>
+        <span class="n">a_queen</span> <span class="o">=</span> <span class="n">QueenSprite</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="n">sq_sz</span><span class="o">+</span><span class="n">ball_offset</span><span class="p">,</span> <span class="n">row</span><span class="o">*</span><span class="n">sq_sz</span><span class="o">+</span><span class="n">ball_offset</span><span class="p">))</span>
+        <span class="n">all_sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_queen</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+        <span class="c"># Look for an event from keyboard, mouse, etc.</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="c"># Ask every sprite to update itself.</span>
+        <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="n">all_sprites</span><span class="p">:</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="c"># Draw a fresh background (a blank chess board)</span>
+        <span class="c"># ... same as before ...</span>
+
+        <span class="c"># Ask every sprite to draw itself.</span>
+        <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="n">all_sprites</span><span class="p">:</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>This works just like it did before, but our extra work in making objects
+for the queens has prepared the way for some more ambitious extensions.</p>
+<p>Let us begin with a falling queen object.  At any instant, it will have a
+velocity i.e. a speed, in a certain direction.
+(We are only working with movement in the y direction, but use your imagination!)
+So in the object&#8217;s <tt class="docutils literal"><span class="pre">update</span></tt> method, we want to change its current position by its velocity.
+If our N queens board is floating in space, velocity would stay constant, but hey, here on
+Earth we have gravity!  Gravity changes the velocity on each time interval, so we&#8217;ll want a ball
+that speeds up as it falls further.  Gravity will be constant for all queens, so we won&#8217;t keep
+it in the instances &#8212; we&#8217;ll just make it a variable in our module.  We&#8217;ll make one other
+change too: we will start every queen at the top of the board, so that it can fall towards
+its target position.   With these changes, we now get the following:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">gravity</span> <span class="o">=</span> <span class="mf">0.0001</span>
+
+<span class="k">class</span> <span class="nc">QueenSprite</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">target_posn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">img</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_posn</span> <span class="o">=</span> <span class="n">target_posn</span>
+        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">target_posn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>     <span class="c"># Start ball at top of its column</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c">#    with zero initial velocity</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span> <span class="o">+=</span> <span class="n">gravity</span>       <span class="c"># Gravity changes velocity</span>
+        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span>
+        <span class="n">new_y_pos</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span>  <span class="c"># Velocity moves the ball</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">new_y_pos</span><span class="p">)</span>       <span class="c">#   to this new position.</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_surface</span><span class="p">):</span>      <span class="c"># Same as before.</span>
+        <span class="n">target_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Making these changes gives us a new chessboard in
+which each queen starts at the top of its column,
+and speeds up, until it drops off the bottom of
+the board and disappears forever.
+A good start &#8212; we have movement!</p>
+<p>The next step is to get the ball to bounce when it reaches
+its own target position.
+It is pretty easy to bounce something &#8212; you just change
+the sign of its velocity, and it will
+move at the same speed in the opposite direction.  Of course,
+if it is travelling up towards the
+top of the board it will be slowed down by gravity.
+(Gravity always sucks down!)  And you&#8217;ll
+find it bounces all the way up to where it began from,
+reaches zero velocity, and starts falling
+all over again.  So we&#8217;ll have bouncing balls that never settle.</p>
+<p>A realistic way to settle the object is to lose some energy (probably to friction)
+each time it bounces &#8212; so instead of simply reversing the sign of the velocity,
+we multiply it by some fractional factor &#8212; say -0.65.
+This means the ball only retains 65% of its energy on
+each bounce, so it will, as in real life,
+stop bouncing after a short while, and settle on its &#8220;ground&#8221;.</p>
+<p>The only changes are in the <tt class="docutils literal"><span class="pre">update</span></tt> method, which now looks like this:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span> <span class="o">+=</span> <span class="n">gravity</span>
+    <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span>
+    <span class="n">new_y_pos</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span>
+    <span class="p">(</span><span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_posn</span>   <span class="c"># Unpack the position</span>
+    <span class="n">dist_to_go</span> <span class="o">=</span> <span class="n">target_y</span> <span class="o">-</span> <span class="n">new_y_pos</span>         <span class="c"># How far to our floor?</span>
+
+    <span class="k">if</span> <span class="n">dist_to_go</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>                        <span class="c"># Are we under floor?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.65</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span>     <span class="c"># Bounce</span>
+        <span class="n">new_y_pos</span> <span class="o">=</span> <span class="n">target_y</span> <span class="o">+</span> <span class="n">dist_to_go</span>     <span class="c"># Move back above floor</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">new_y_pos</span><span class="p">)</span>                <span class="c"># Set our new position.</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Heh, heh, heh!  We&#8217;re not going to show animated screenshots,
+so copy the code into your Python environment and see for yourself.</p>
+</div>
+<div class="section" id="events">
+<h2>16.5. Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>The only kind of event we&#8217;re handled so far has been the
+QUIT event.  But we can also detect keydown and keyup
+events, mouse motion, and mousebutton down or up events.
+Consult the PyGame documentation and follow the link to Event.</p>
+<p>When your program polls for and receives an event
+object from PyGame, its event type will determine what secondary
+information is available.  Each event object carries a
+<em>dictionary</em> (which you may only cover in due course in these notes).
+The dictionary holds certain <em>keys</em> and <em>values</em> that make
+sense for the type of event.</p>
+<p>For example, if the type of event is MOUSEMOTION,
+we&#8217;ll be able to find the mouse position and information about
+the state of the mouse buttons in the dictionary
+attached to the event.  Similarly, if the event is KEYDOWN, we
+can learn from the dictionary which key went down, and
+whether any modifier keys (shift, control, alt, etc.) are also
+down.  You also get events when the game window becomes
+active (i.e. gets focus) or loses focus.</p>
+<p>The event object with type NOEVENT is returned if there are
+no events waiting.  Events can be printed, allowing you to
+experiment and play around.   So dropping these lines of code
+into the game loop directly after polling for any event is
+quite informative:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">NOEVENT</span><span class="p">:</span>   <span class="c"># Only print if it is interesting!</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>With this is place, hit the space bar and the escape key, and
+watch the events you get.  Click your three
+mouse buttons.  Move your mouse over the window.
+(This causes a vast cascade of events, so you may also
+need to filter those out of the printing.)
+You&#8217;ll get output that looks something like this:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="go">&lt;Event(17-VideoExpose {})&gt;</span>
+<span class="go">&lt;Event(1-ActiveEvent {&#39;state&#39;: 1, &#39;gain&#39;: 0})&gt;</span>
+<span class="go">&lt;Event(2-KeyDown {&#39;scancode&#39;: 57, &#39;key&#39;: 32, &#39;unicode&#39;: &#39; &#39;, &#39;mod&#39;: 0})&gt;</span>
+<span class="go">&lt;Event(3-KeyUp {&#39;scancode&#39;: 57, &#39;key&#39;: 32, &#39;mod&#39;: 0})&gt;</span>
+<span class="go">&lt;Event(2-KeyDown {&#39;scancode&#39;: 1, &#39;key&#39;: 27, &#39;unicode&#39;: &#39;\x1b&#39;, &#39;mod&#39;: 0})&gt;</span>
+<span class="go">&lt;Event(3-KeyUp {&#39;scancode&#39;: 1, &#39;key&#39;: 27, &#39;mod&#39;: 0})&gt;</span>
+<span class="gp">...</span>
+<span class="go">&lt;Event(4-MouseMotion {&#39;buttons&#39;: (0, 0, 0), &#39;pos&#39;: (323, 194), &#39;rel&#39;: (-3, -1)})&gt;</span>
+<span class="go">&lt;Event(4-MouseMotion {&#39;buttons&#39;: (0, 0, 0), &#39;pos&#39;: (322, 193), &#39;rel&#39;: (-1, -1)})&gt;</span>
+<span class="go">&lt;Event(4-MouseMotion {&#39;buttons&#39;: (0, 0, 0), &#39;pos&#39;: (321, 192), &#39;rel&#39;: (-1, -1)})&gt;</span>
+<span class="go">&lt;Event(4-MouseMotion {&#39;buttons&#39;: (0, 0, 0), &#39;pos&#39;: (319, 192), &#39;rel&#39;: (-2, 0)})&gt;</span>
+<span class="go">&lt;Event(5-MouseButtonDown {&#39;button&#39;: 1, &#39;pos&#39;: (319, 192)})&gt;</span>
+<span class="go">&lt;Event(6-MouseButtonUp {&#39;button&#39;: 1, &#39;pos&#39;: (319, 192)})&gt;</span>
+<span class="go">&lt;Event(4-MouseMotion {&#39;buttons&#39;: (0, 0, 0), &#39;pos&#39;: (319, 191), &#39;rel&#39;: (0, -1)})&gt;</span>
+<span class="go">&lt;Event(5-MouseButtonDown {&#39;button&#39;: 2, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go">&lt;Event(5-MouseButtonDown {&#39;button&#39;: 5, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go">&lt;Event(6-MouseButtonUp {&#39;button&#39;: 5, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go">&lt;Event(6-MouseButtonUp {&#39;button&#39;: 2, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go">&lt;Event(5-MouseButtonDown {&#39;button&#39;: 3, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go">&lt;Event(6-MouseButtonUp {&#39;button&#39;: 3, &#39;pos&#39;: (319, 191)})&gt;</span>
+<span class="go"> ...</span>
+<span class="go">&lt;Event(1-ActiveEvent {&#39;state&#39;: 1, &#39;gain&#39;: 0})&gt;</span>
+<span class="go">&lt;Event(12-Quit {})&gt;</span>
+</pre></div>
+</div>
+<p>So let us now make these changes to the code near the top of our game loop:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+
+    <span class="c"># Look for an event from keyboard, mouse, etc.</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="s">&quot;key&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>                  <span class="c"># On Escape key ...</span>
+            <span class="k">break</span>                      <span class="c">#   leave the game loop.</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="p">):</span>
+            <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>    <span class="c"># Change to red + black.</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">&quot;g&quot;</span><span class="p">):</span>
+            <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>    <span class="c"># Change to green + black.</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">):</span>
+            <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>    <span class="c"># Change to blue + black.</span>
+
+    <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span> <span class="c"># Mouse gone down?</span>
+        <span class="n">posn_of_click</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="s">&quot;pos&quot;</span><span class="p">]</span>    <span class="c"># Get the coordinates.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">posn_of_click</span><span class="p">)</span>              <span class="c"># Just print them.</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Lines 7-16 show typical processing for a KEYDOWN event &#8212; if a key has gone down, we
+test which key it is, and take some action.
+With this in place, we have another way to quit our queens program &#8212;
+by hitting the escape key.  Also, we can use keys to change the color of the board that is drawn.</p>
+<p>Finally, at line 20, we respond (pretty lamely) to the mouse button going down.</p>
+<p>As a final exercise in this section, we&#8217;ll write a better response handler to mouse clicks.
+What we will do is figure out if the user has clicked the mouse on one of our sprites.
+If there is a sprite under the mouse when the click occurs, we&#8217;ll send the click to the
+sprite and let it respond in some sensible way.</p>
+<p>We&#8217;ll begin with some code that finds out which sprite is under the clicked position, perhaps none!
+We add a method to the class, <tt class="docutils literal"><span class="pre">contains_point</span></tt>, which returns True if the point is within
+the rectangle of the sprite:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>  <span class="k">def</span> <span class="nf">contains_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot; Return True if my sprite rectangle contains point pt &quot;&quot;&quot;</span>
+      <span class="p">(</span><span class="n">my_x</span><span class="p">,</span> <span class="n">my_y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span>
+      <span class="n">my_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+      <span class="n">my_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+      <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">pt</span>
+      <span class="k">return</span> <span class="p">(</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">my_x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">my_x</span> <span class="o">+</span> <span class="n">my_width</span> <span class="ow">and</span>
+               <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">my_y</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">my_y</span> <span class="o">+</span> <span class="n">my_height</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now in the game loop, once we&#8217;ve seen the mouse event, we determine which queen, if any,
+should be told to respond to the event:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+    <span class="n">posn_of_click</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="s">&quot;pos&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="n">all_sprites</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sprite</span><span class="o">.</span><span class="n">contains_point</span><span class="p">(</span><span class="n">posn_of_click</span><span class="p">):</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">handle_click</span><span class="p">()</span>
+            <span class="k">break</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>And the final thing is to write a new method called <tt class="docutils literal"><span class="pre">handle_click</span></tt> in the <tt class="docutils literal"><span class="pre">QueenSprite</span></tt> class.
+When a sprite is clicked, we&#8217;ll just add some velocity in the up direction,
+i.e. kick it back into the air.</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">handle_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y_velocity</span> <span class="o">+=</span> <span class="o">-</span><span class="mf">0.3</span>   <span class="c"># Kick it up</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>With these changes we have a playable game!  See if you can keep all the balls on the move, not allowing any one to settle!</p>
+</div>
+<div class="section" id="a-wave-of-animation">
+<h2>16.6. A wave of animation<a class="headerlink" href="#a-wave-of-animation" title="Permalink to this headline">¶</a></h2>
+<p>Many games have sprites that are animated: they crouch, jump and shoot.  How do they do that?</p>
+<p>Consider this sequence of 10 images: if we display them in quick succession, Duke will wave at us.
+(Duke is a friendly visitor from the kingdom of Javaland.)</p>
+<img alt="_images/duke_spritesheet.png" src="_images/duke_spritesheet.png" />
+<p>A compound image containing smaller <em>patches</em> which are intended for animation is
+called a <strong>sprite sheet</strong>.   Download this sprite sheet by right-clicking in your browser
+and saving it in your working directory with the name
+<tt class="docutils literal"><span class="pre">duke_spritesheet.png</span></tt>.</p>
+<p>The sprite sheet has been quite carefully prepared: each of the 10 patches are spaced exactly
+50 pixels apart.  So, assuming we want to draw patch number 4 (numbering from 0), we want to
+draw only the rectangle that starts at x position 200, and is 50 pixels wide, within the sprite sheet.
+Here we&#8217;ve shown the patches and highlighted the patch we want to draw.</p>
+<img alt="_images/duke_spritesheet_with_patch.png" src="_images/duke_spritesheet_with_patch.png" />
+<p>The <tt class="docutils literal"><span class="pre">blit</span></tt> method we&#8217;ve been using &#8212; for copying pixels from one surface to another &#8212;
+can copy a sub-rectangle of the source surface.  So the grand idea here is that
+each time we draw Duke, we won&#8217;t blit the whole sprite sheet. Instead we&#8217;ll provide an extra
+rectangle argument that determines which portion of the sprite sheet will be blitted.</p>
+<p>We&#8217;re going to add new code in this section to our existing N queens drawing game.  What we
+want is to put some instances of Duke on the chessboard somewhere.  If the user
+clicks on one of them, we&#8217;ll get him to respond by waving back, for one cycle of his animation.</p>
+<p>But before we do that, we need another change.  Up until now, our game loop has been running
+at really fast frame rates that are unpredictable.  So we&#8217;ve chosen some
+<em>magic numbers</em> for gravity and for bouncing and kicking the ball on the basis of trial-and-error.
+If we&#8217;re going to start animating more sprites, we need to tame our game loop to operate at
+a fixed, known frame rate.  This will allow us to plan our animation better.</p>
+<p>PyGame gives us the tools to do this in just two lines of code.  In the setup section of
+the game, we instantiate a new <tt class="docutils literal"><span class="pre">Clock</span></tt> object:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">my_clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>and right at the bottom of the game loop, we call a method on this object that limits the
+frame rate to whatever we specify.  So let&#8217;s plan our game and animation for
+60 frames per second, by adding this line at the bottom of our game loop:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">my_clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>  <span class="c"># Waste time so that frame rate becomes 60 fps</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>You&#8217;ll find that you have to go back and adjust the numbers for gravity and
+kicking the ball now, to match this much slower frame rate.  When we plan an
+animation so that it only works sensibly at a fixed frame rate, we say that we&#8217;ve
+<em>baked</em> the animation. In this case we&#8217;re baking our animations for 60 frames per second.</p>
+<p>To fit into the existing framework that we
+already have for our queens board, we want to create
+a <tt class="docutils literal"><span class="pre">DukeSprite</span></tt> class that has all the same
+methods as the <tt class="docutils literal"><span class="pre">QueenSprite</span></tt> class.  Then we can
+add one or more Duke instances onto our list of
+<tt class="docutils literal"><span class="pre">all_sprites</span></tt>, and our existing game loop will then
+call methods of the Duke instance.  Let us start with
+skeleton scaffolding for the new class:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DukeSprite</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">target_posn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">img</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="n">target_posn</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_surface</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">handle_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">contains_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+        <span class="c"># Use code from QueenSprite here</span>
+        <span class="k">return</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>The only changes we&#8217;ll need to the existing game are all in the setup section.
+We load up the new sprite sheet and instantiate a couple of instances of Duke,
+at the positions we want on the chessboard.  So before entering
+the game loop, we add this code:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Load the sprite sheet</span>
+<span class="n">duke_sprite_sheet</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;duke_spritesheet.png&quot;</span><span class="p">)</span>
+
+<span class="c"># Instantiate two duke instances, put them on the chessboard</span>
+<span class="n">duke1</span> <span class="o">=</span> <span class="n">DukeSprite</span><span class="p">(</span><span class="n">duke_sprite_sheet</span><span class="p">,(</span><span class="n">sq_sz</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">duke2</span> <span class="o">=</span> <span class="n">DukeSprite</span><span class="p">(</span><span class="n">duke_sprite_sheet</span><span class="p">,(</span><span class="n">sq_sz</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">sq_sz</span><span class="p">))</span>
+
+<span class="c"># Add them to the list of sprites which our game loop manages</span>
+<span class="n">all_sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">duke1</span><span class="p">)</span>
+<span class="n">all_sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">duke2</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now the game loop will test if each instance has been clicked, will call
+the click handler for that instance.  It will also call update and draw for all sprites.
+All the remaining changes we need to make will be made in the methods of the <tt class="docutils literal"><span class="pre">DukeSprite</span></tt> class.</p>
+<p>Let&#8217;s begin with drawing one of the patches.  We&#8217;ll introduce a new attribute <tt class="docutils literal"><span class="pre">curr_patch_num</span></tt>
+into the class.  It holds a value between 0 and 9, and determines which patch to draw.  So
+the job of the <tt class="docutils literal"><span class="pre">draw</span></tt> method is to compute the sub-rectangle of the patch to be drawn, and
+to blit only that portion of the spritesheet:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_surface</span><span class="p">):</span>
+    <span class="n">patch_rect</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_patch_num</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="mi">50</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span>
+    <span class="n">target_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span><span class="p">,</span> <span class="n">patch_rect</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now on to getting the animation to work. We need to arrange logic in <tt class="docutils literal"><span class="pre">update</span></tt>
+so that if we&#8217;re busy animating, we change the <tt class="docutils literal"><span class="pre">curr_patch_num</span></tt> every so
+often, and we also decide when to bring Duke back to his rest position, and
+stop the animation.  An important issue is that the game loop frame rate &#8212;
+in our case 60 fps &#8212; is not the same as the <em>animation rate</em> &#8212;
+the rate at which we want to change
+Duke&#8217;s animation patches.  So we&#8217;ll plan Duke wave&#8217;s animation cycle
+for a duration of 1 second. In other words, we want to play out Duke&#8217;s
+10 animation patches over 60 calls to <tt class="docutils literal"><span class="pre">update</span></tt>. (This is how the baking
+of the animation takes place!)  So we&#8217;ll keep another animation frame
+counter in the class, which will be zero when we&#8217;re not animating, and
+each call to <tt class="docutils literal"><span class="pre">update</span></tt> will increment the counter up to 59, and then
+back to 0.  We can then divide that animation counter by 6, to set the
+<tt class="docutils literal"><span class="pre">curr_patch_num</span></tt> variable to select the patch we want to show.</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">%</span> <span class="mi">60</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">curr_patch_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">//</span> <span class="mi">6</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Notice that if <tt class="docutils literal"><span class="pre">anim_frame_count</span></tt> is zero, i.e. Duke is at rest, nothing
+happens here.  But if we start the counter running, it will count up
+to 59 before settling back to zero.   Notice also, that because <tt class="docutils literal"><span class="pre">anim_frame_count</span></tt>
+can only be a value between 0 and 59, the <tt class="docutils literal"><span class="pre">curr_patch_num</span></tt> will
+always stay between 0 and 9.  Just what we require!</p>
+<p>Now how do we trigger the animation, and start it running?  On the mouse click.</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">handle_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Two things of interest here.  We only start the animation if Duke is at rest.
+Clicks on Duke while he is already waving get ignored.  And when we do start the
+animation, we set the counter to 5 &#8212; this means that on the very next call to
+<tt class="docutils literal"><span class="pre">update</span></tt> the counter becomes 6, and the image changes.  If
+we had set the counter to 1, we would have needed to wait for 5 more calls to
+<tt class="docutils literal"><span class="pre">update</span></tt> before anything happened &#8212; a slight lag, but enough to make things
+feel sluggish.</p>
+<p>The final touch-up is to initialize our two new attributes when we instantiate the
+class.  Here is the code for the whole class now:</p>
+<blockquote>
+<div><div class="highlight-python3"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DukeSprite</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">target_posn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">img</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posn</span> <span class="o">=</span> <span class="n">target_posn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_patch_num</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">%</span> <span class="mi">60</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">curr_patch_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">//</span> <span class="mi">6</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_surface</span><span class="p">):</span>
+        <span class="n">patch_rect</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_patch_num</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                       <span class="mi">50</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span>
+        <span class="n">target_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span><span class="p">,</span> <span class="n">patch_rect</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">contains_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+         <span class="sd">&quot;&quot;&quot; Return True if my sprite rectangle contains  pt &quot;&quot;&quot;</span>
+         <span class="p">(</span><span class="n">my_x</span><span class="p">,</span> <span class="n">my_y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">posn</span>
+         <span class="n">my_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+         <span class="n">my_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+         <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">pt</span>
+         <span class="k">return</span> <span class="p">(</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">my_x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">my_x</span> <span class="o">+</span> <span class="n">my_width</span> <span class="ow">and</span>
+                  <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">my_y</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">my_y</span> <span class="o">+</span> <span class="n">my_height</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">handle_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anim_frame_count</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p>Now we have two extra Duke instances on our chessboard, and clicking on either
+causes that instance to wave.</p>
+<blockquote>
+<div><img alt="_images/pygame_screenshot05.png" src="_images/pygame_screenshot05.png" />
+</div></blockquote>
+</div>
+<div class="section" id="aliens-a-case-study">
+<h2>16.7. Aliens - a case study<a class="headerlink" href="#aliens-a-case-study" title="Permalink to this headline">¶</a></h2>
+<p>Find the example games with the PyGame package, (On a windows system, something like C:\Python3\Lib\site-packages\pygame\examples) and play the Aliens game.  Then read the code, in an editor
+or Python environment that shows line numbers.</p>
+<p>It does a number of much more advanced things that we do, and relies on the PyGame framework
+for more of its logic.   Here are some of the points to notice:</p>
+<ul class="simple">
+<li>The frame rate is deliberately constrained near the bottom of the game loop at line 311.  If we
+change that number we can make the game very slow or unplayably fast!</li>
+<li>There are different kinds of sprites: Explosions, Shots, Bombs, Aliens and a Player.  Some
+of these have more than one image &#8212; by swapping the images, we get animation of the
+sprites, i.e. the Alien spacecraft lights change, and this is done at line 112.</li>
+<li>Different kinds of objects are referenced in different groups of sprites, and PyGame helps
+maintain these.  This lets the program check for collisions between, say, the list of shots fired by
+the player, and the list of spaceships that are attacking.  PyGame does a lot of the
+hard work for us.</li>
+<li>Unlike our game, objects in the Aliens game have a limited lifetime, and have to get killed.  For example,
+if we shoot, a Shot object is created &#8212; if it reaches the top of the screen without
+expoding against anything, it has to be removed from the game.  Lines 141-142 do this.  Similarly,
+when a falling bomb gets close to the ground (line 156), it instantiates a new Explosion sprite, and
+the bomb kills itself.</li>
+<li>There are random timings that add to the fun &#8212; when to spawn the next Alien, when an Alien drops the
+next bomb, etc.</li>
+<li>The game plays sounds too: a less-than-relaxing loop sound, plus sounds for the shots and explosions.</li>
+</ul>
+</div>
+<div class="section" id="reflections">
+<h2>16.8. Reflections<a class="headerlink" href="#reflections" title="Permalink to this headline">¶</a></h2>
+<p>Object oriented programming is a good organizational tool for software.  In the examples in this
+chapter, we&#8217;ve started to use (and hopefully appreciate) these benefits.  Here we had
+N queens each with its own state, falling to its own floor level, bouncing, getting kicked, etc.
+We might have managed without the organizational power of objects &#8212; perhaps we could have
+kept lists of velocities for each queen, and lists of target positions, and so on &#8212; our code
+would likely have been much more complicated, ugly, and a lot poorer!</p>
+</div>
+<div class="section" id="glossary">
+<h2>16.9. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-animation-rate">animation rate</dt>
+<dd>The rate at which we play back successive patches to create the illusion of movement.
+In the sample we considered in this chapter, we played Duke&#8217;s 10 patches over the
+duration of one second.  Not the same as the frame rate.</dd>
+<dt id="term-baked-animation">baked animation</dt>
+<dd>An animation that is designed to look good at a predetermined fixed frame rate.
+This reduces the amount of computation that needs to be done when the game is running.
+High-end commercial games usually bake their animations.</dd>
+<dt id="term-blit">blit</dt>
+<dd>A verb used in computer graphics, meaning to make a fast copy of an image or pixels from
+a sub-rectangle of one image or surface to another surface or image.</dd>
+<dt id="term-frame-rate">frame rate</dt>
+<dd>The rate at which the game loop executes and updates the display.</dd>
+<dt id="term-game-loop">game loop</dt>
+<dd>A loop that drives the logic of a game.  It will usually poll for events, then update each
+of the objects in the game, then get everything drawn, and then put the newly drawn frame on display.</dd>
+<dt id="term-pixel">pixel</dt>
+<dd>A single picture element, or dot, from which images are made.</dd>
+<dt id="term-poll">poll</dt>
+<dd>To ask whether something like a keypress or mouse movement has happened.  Game loops usually
+poll to discover what events have occurred.  This is different from event-driven programs like
+the ones seen in the chapter titled &#8220;Events&#8221;.  In those cases, the button click or keypress
+event triggers the call of a handler function in your program, but this happens behind your back.</dd>
+<dt id="term-sprite">sprite</dt>
+<dd>An active agent or element in a game, with its own state, position and behaviour.</dd>
+<dt id="term-surface">surface</dt>
+<dd>This is PyGame&#8217;s term for what the Turtle module calls a <em>canvas</em>.  A surface is a rectangle
+of pixels used for displaying shapes and images.</dd>
+</dl>
+</div>
+<div class="section" id="exercises">
+<h2>16.10. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Have fun with Python, and with PyGame.</li>
+<li>We deliberately left a bug in the code for animating Duke.  If you click on one of the
+chessboard squares to the right of Duke, he waves anyway.  Why?  Find a one-line fix for the bug.</li>
+<li>Use your preferred search engine to search their image library for &#8220;sprite sheet playing cards&#8221;.
+Create a list [0..51] to represent an encoding of
+the 52 cards in a deck. Shuffle the cards, slice off the top five as your hand in a poker deal.
+Display the hand you have been dealt.</li>
+<li>So the Aliens game is in outer space, without gravity. Shots fly away forever, and bombs don&#8217;t speed up
+when they fall.  Add some gravity to the game.   Decide if you&#8217;re going to allow your own shots to
+fall back on your head and kill you.</li>
+<li>Those pesky Aliens seem to pass right through each other!  Change the game so that they collide, and
+destroy each other in a mighty explosion.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="events.html" title="17. Event-Driven Programming"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inheritance.html" title="15. Inheritance"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

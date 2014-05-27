@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -98,8 +95,9 @@ pythonTool.readOnlyFlags['firstturtle_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="firstturtle_runb" onclick="pythonTool.runit('firstturtle_code','firstturtle_pre','firstturtle_error','firstturtle_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstturtle_code','firstturtle_pre','firstturtle_error','firstturtle_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="firstturtle_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="firstturtle_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="firstturtle_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -177,8 +175,9 @@ pythonTool.readOnlyFlags['secondturtle_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="secondturtle_runb" onclick="pythonTool.runit('secondturtle_code','secondturtle_pre','secondturtle_error','secondturtle_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('secondturtle_code','secondturtle_pre','secondturtle_error','secondturtle_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="secondturtle_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="secondturtle_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="secondturtle_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -248,8 +247,9 @@ pythonTool.readOnlyFlags['twoturtles_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="twoturtles_runb" onclick="pythonTool.runit('twoturtles_code','twoturtles_pre','twoturtles_error','twoturtles_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twoturtles_code','twoturtles_pre','twoturtles_error','twoturtles_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="twoturtles_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="twoturtles_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="twoturtles_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -320,8 +320,9 @@ pythonTool.readOnlyFlags['partyinvites_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="partyinvites_runb" onclick="pythonTool.runit('partyinvites_code','partyinvites_pre','partyinvites_error','partyinvites_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('partyinvites_code','partyinvites_pre','partyinvites_error','partyinvites_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="partyinvites_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="partyinvites_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="partyinvites_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -399,8 +400,9 @@ pythonTool.readOnlyFlags['turtlesquare_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlesquare_runb" onclick="pythonTool.runit('turtlesquare_code','turtlesquare_pre','turtlesquare_error','turtlesquare_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquare_code','turtlesquare_pre','turtlesquare_error','turtlesquare_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquare_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlesquare_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlesquare_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -449,8 +451,9 @@ pythonTool.readOnlyFlags['forloopexamples_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="forloopexamples_runb" onclick="pythonTool.runit('forloopexamples_code','forloopexamples_pre','forloopexamples_error','forloopexamples_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('forloopexamples_code','forloopexamples_pre','forloopexamples_error','forloopexamples_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="forloopexamples_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="forloopexamples_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="forloopexamples_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -525,8 +528,9 @@ pythonTool.readOnlyFlags['turtlesquarefourcolors_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolors_runb" onclick="pythonTool.runit('turtlesquarefourcolors_code','turtlesquarefourcolors_pre','turtlesquarefourcolors_error','turtlesquarefourcolors_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefourcolors_code','turtlesquarefourcolors_pre','turtlesquarefourcolors_error','turtlesquarefourcolors_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolors_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlesquarefourcolors_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlesquarefourcolors_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -570,8 +574,9 @@ pythonTool.readOnlyFlags['turtlesquarefourcolorlist_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolorlist_runb" onclick="pythonTool.runit('turtlesquarefourcolorlist_code','turtlesquarefourcolorlist_pre','turtlesquarefourcolorlist_error','turtlesquarefourcolorlist_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefourcolorlist_code','turtlesquarefourcolorlist_pre','turtlesquarefourcolorlist_error','turtlesquarefourcolorlist_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefourcolorlist_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlesquarefourcolorlist_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlesquarefourcolorlist_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -630,8 +635,9 @@ pythonTool.readOnlyFlags['penupexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="penupexample_runb" onclick="pythonTool.runit('penupexample_code','penupexample_pre','penupexample_error','penupexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('penupexample_code','penupexample_pre','penupexample_error','penupexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="penupexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="penupexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="penupexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -674,8 +680,9 @@ pythonTool.readOnlyFlags['firstturtleshape_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="firstturtleshape_runb" onclick="pythonTool.runit('firstturtleshape_code','firstturtleshape_pre','firstturtleshape_error','firstturtleshape_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('firstturtleshape_code','firstturtleshape_pre','firstturtleshape_error','firstturtleshape_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="firstturtleshape_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="firstturtleshape_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="firstturtleshape_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -747,8 +754,9 @@ pythonTool.readOnlyFlags['turtlefeatureexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlefeatureexample_runb" onclick="pythonTool.runit('turtlefeatureexample_code','turtlefeatureexample_pre','turtlefeatureexample_error','turtlefeatureexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlefeatureexample_code','turtlefeatureexample_pre','turtlefeatureexample_error','turtlefeatureexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlefeatureexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlefeatureexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlefeatureexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -803,8 +811,9 @@ pythonTool.readOnlyFlags['turtlewrite_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlewrite_runb" onclick="pythonTool.runit('turtlewrite_code','turtlewrite_pre','turtlewrite_error','turtlewrite_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlewrite_code','turtlewrite_pre','turtlewrite_error','turtlewrite_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlewrite_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlewrite_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlewrite_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -850,8 +859,9 @@ pythonTool.readOnlyFlags['turtlesquarefill_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefill_runb" onclick="pythonTool.runit('turtlesquarefill_code','turtlesquarefill_pre','turtlesquarefill_error','turtlesquarefill_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarefill_code','turtlesquarefill_pre','turtlesquarefill_error','turtlesquarefill_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarefill_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlesquarefill_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlesquarefill_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -900,8 +910,9 @@ pythonTool.readOnlyFlags['turtlesquarecolorfill_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlesquarecolorfill_runb" onclick="pythonTool.runit('turtlesquarecolorfill_code','turtlesquarecolorfill_pre','turtlesquarecolorfill_error','turtlesquarecolorfill_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlesquarecolorfill_code','turtlesquarecolorfill_pre','turtlesquarecolorfill_error','turtlesquarecolorfill_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlesquarecolorfill_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlesquarecolorfill_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlesquarecolorfill_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -957,8 +968,9 @@ pythonTool.readOnlyFlags['turtlebarchart1_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart1_runb" onclick="pythonTool.runit('turtlebarchart1_code','turtlebarchart1_pre','turtlebarchart1_error','turtlebarchart1_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart1_code','turtlebarchart1_pre','turtlebarchart1_error','turtlebarchart1_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart1_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlebarchart1_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlebarchart1_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1023,8 +1035,9 @@ pythonTool.readOnlyFlags['turtlebarchart2_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart2_runb" onclick="pythonTool.runit('turtlebarchart2_code','turtlebarchart2_pre','turtlebarchart2_error','turtlebarchart2_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart2_code','turtlebarchart2_pre','turtlebarchart2_error','turtlebarchart2_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart2_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlebarchart2_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlebarchart2_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1082,8 +1095,9 @@ pythonTool.readOnlyFlags['turtlebarchart3_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart3_runb" onclick="pythonTool.runit('turtlebarchart3_code','turtlebarchart3_pre','turtlebarchart3_error','turtlebarchart3_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('turtlebarchart3_code','turtlebarchart3_pre','turtlebarchart3_error','turtlebarchart3_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="turtlebarchart3_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="turtlebarchart3_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="turtlebarchart3_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1174,7 +1188,7 @@ has been when there are no more elements to assign to the loop variable.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -94,8 +91,9 @@ pythonTool.readOnlyFlags['variablereassign_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="variablereassign_runb" onclick="pythonTool.runit('variablereassign_code','variablereassign_pre','variablereassign_error','variablereassign_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('variablereassign_code','variablereassign_pre','variablereassign_error','variablereassign_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="variablereassign_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="variablereassign_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="variablereassign_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -145,8 +143,9 @@ pythonTool.readOnlyFlags['twovariablesresassign_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="twovariablesresassign_runb" onclick="pythonTool.runit('twovariablesresassign_code','twovariablesresassign_pre','twovariablesresassign_error','twovariablesresassign_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('twovariablesresassign_code','twovariablesresassign_pre','twovariablesresassign_error','twovariablesresassign_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="twovariablesresassign_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="twovariablesresassign_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="twovariablesresassign_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -196,8 +195,9 @@ pythonTool.readOnlyFlags['simpleupdateexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="simpleupdateexample_runb" onclick="pythonTool.runit('simpleupdateexample_code','simpleupdateexample_pre','simpleupdateexample_error','simpleupdateexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('simpleupdateexample_code','simpleupdateexample_pre','simpleupdateexample_error','simpleupdateexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="simpleupdateexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="simpleupdateexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="simpleupdateexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -264,8 +264,9 @@ pythonTool.readOnlyFlags['partyinviteredux_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="partyinviteredux_runb" onclick="pythonTool.runit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('partyinviteredux_code','partyinviteredux_pre','partyinviteredux_error','partyinviteredux_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="partyinviteredux_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="partyinviteredux_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="partyinviteredux_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -319,8 +320,9 @@ pythonTool.readOnlyFlags['sumalistexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="sumalistexample_runb" onclick="pythonTool.runit('sumalistexample_code','sumalistexample_pre','sumalistexample_error','sumalistexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('sumalistexample_code','sumalistexample_pre','sumalistexample_error','sumalistexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="sumalistexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="sumalistexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="sumalistexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -367,8 +369,9 @@ pythonTool.readOnlyFlags['whilefirstexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="whilefirstexample_runb" onclick="pythonTool.runit('whilefirstexample_code','whilefirstexample_pre','whilefirstexample_error','whilefirstexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('whilefirstexample_code','whilefirstexample_pre','whilefirstexample_error','whilefirstexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="whilefirstexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="whilefirstexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="whilefirstexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -437,8 +440,9 @@ pythonTool.readOnlyFlags['betterwithoutwhile_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="betterwithoutwhile_runb" onclick="pythonTool.runit('betterwithoutwhile_code','betterwithoutwhile_pre','betterwithoutwhile_error','betterwithoutwhile_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('betterwithoutwhile_code','betterwithoutwhile_pre','betterwithoutwhile_error','betterwithoutwhile_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="betterwithoutwhile_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="betterwithoutwhile_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="betterwithoutwhile_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -500,8 +504,9 @@ pythonTool.readOnlyFlags['collatz_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="collatz_runb" onclick="pythonTool.runit('collatz_code','collatz_pre','collatz_error','collatz_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('collatz_code','collatz_pre','collatz_error','collatz_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="collatz_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="collatz_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="collatz_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -657,8 +662,9 @@ pythonTool.readOnlyFlags['countingdigits_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="countingdigits_runb" onclick="pythonTool.runit('countingdigits_code','countingdigits_pre','countingdigits_error','countingdigits_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingdigits_code','countingdigits_pre','countingdigits_error','countingdigits_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="countingdigits_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="countingdigits_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="countingdigits_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -704,8 +710,9 @@ pythonTool.readOnlyFlags['countingwitherror_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="countingwitherror_runb" onclick="pythonTool.runit('countingwitherror_code','countingwitherror_pre','countingwitherror_error','countingwitherror_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingwitherror_code','countingwitherror_pre','countingwitherror_error','countingwitherror_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="countingwitherror_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="countingwitherror_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="countingwitherror_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -748,8 +755,9 @@ pythonTool.readOnlyFlags['countingzerosandfives_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="countingzerosandfives_runb" onclick="pythonTool.runit('countingzerosandfives_code','countingzerosandfives_pre','countingzerosandfives_error','countingzerosandfives_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('countingzerosandfives_code','countingzerosandfives_pre','countingzerosandfives_error','countingzerosandfives_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="countingzerosandfives_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="countingzerosandfives_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="countingzerosandfives_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -794,8 +802,9 @@ pythonTool.readOnlyFlags['selfincrement_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="selfincrement_runb" onclick="pythonTool.runit('selfincrement_code','selfincrement_pre','selfincrement_error','selfincrement_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfincrement_code','selfincrement_pre','selfincrement_error','selfincrement_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="selfincrement_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="selfincrement_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="selfincrement_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -831,8 +840,9 @@ pythonTool.readOnlyFlags['selfadd_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="selfadd_runb" onclick="pythonTool.runit('selfadd_code','selfadd_pre','selfadd_error','selfadd_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfadd_code','selfadd_pre','selfadd_error','selfadd_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="selfadd_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="selfadd_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="selfadd_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -873,8 +883,9 @@ pythonTool.readOnlyFlags['selfarith_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="selfarith_runb" onclick="pythonTool.runit('selfarith_code','selfarith_pre','selfarith_error','selfarith_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('selfarith_code','selfarith_pre','selfarith_error','selfarith_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="selfarith_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="selfarith_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="selfarith_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -926,8 +937,9 @@ pythonTool.readOnlyFlags['powersof2table_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="powersof2table_runb" onclick="pythonTool.runit('powersof2table_code','powersof2table_pre','powersof2table_error','powersof2table_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('powersof2table_code','powersof2table_pre','powersof2table_error','powersof2table_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="powersof2table_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="powersof2table_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="powersof2table_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -984,8 +996,9 @@ pythonTool.readOnlyFlags['multtablestep1_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="multtablestep1_runb" onclick="pythonTool.runit('multtablestep1_code','multtablestep1_pre','multtablestep1_error','multtablestep1_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep1_code','multtablestep1_pre','multtablestep1_error','multtablestep1_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep1_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="multtablestep1_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="multtablestep1_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1043,8 +1056,9 @@ pythonTool.readOnlyFlags['multtablestep2_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="multtablestep2_runb" onclick="pythonTool.runit('multtablestep2_code','multtablestep2_pre','multtablestep2_error','multtablestep2_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep2_code','multtablestep2_pre','multtablestep2_error','multtablestep2_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep2_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="multtablestep2_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="multtablestep2_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1088,8 +1102,9 @@ pythonTool.readOnlyFlags['multtablestep3_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="multtablestep3_runb" onclick="pythonTool.runit('multtablestep3_code','multtablestep3_pre','multtablestep3_error','multtablestep3_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablestep3_code','multtablestep3_pre','multtablestep3_error','multtablestep3_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="multtablestep3_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="multtablestep3_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="multtablestep3_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1137,8 +1152,9 @@ pythonTool.readOnlyFlags['multtablefinal_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="multtablefinal_runb" onclick="pythonTool.runit('multtablefinal_code','multtablefinal_pre','multtablefinal_error','multtablefinal_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('multtablefinal_code','multtablefinal_pre','multtablefinal_error','multtablefinal_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="multtablefinal_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="multtablefinal_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="multtablefinal_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1216,8 +1232,9 @@ pythonTool.readOnlyFlags['breakexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="breakexample_runb" onclick="pythonTool.runit('breakexample_code','breakexample_pre','breakexample_error','breakexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('breakexample_code','breakexample_pre','breakexample_error','breakexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="breakexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="breakexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="breakexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1281,8 +1298,9 @@ pythonTool.readOnlyFlags['sumbreakexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="sumbreakexample_runb" onclick="pythonTool.runit('sumbreakexample_code','sumbreakexample_pre','sumbreakexample_error','sumbreakexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('sumbreakexample_code','sumbreakexample_pre','sumbreakexample_error','sumbreakexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="sumbreakexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="sumbreakexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="sumbreakexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1374,8 +1392,9 @@ pythonTool.readOnlyFlags['continueexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="continueexample_runb" onclick="pythonTool.runit('continueexample_code','continueexample_pre','continueexample_error','continueexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('continueexample_code','continueexample_pre','continueexample_error','continueexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="continueexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="continueexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="continueexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1544,7 +1563,7 @@ change of state of the variables and any output produced.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

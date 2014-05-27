@@ -1,0 +1,1116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>12. Classes and Objects — the Basics &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="13. More Classes and Objects" href="oop.html" />
+    <link rel="prev" title="11. Recursion" href="recursion.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="oop.html" title="13. More Classes and Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="recursion.html" title="11. Recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="classes-and-objects-the-basics">
+<h1>12. Classes and Objects &#8212; the Basics<a class="headerlink" href="#classes-and-objects-the-basics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="object-oriented-programming">
+<span id="index-0"></span><h2>12.1. Object-oriented programming<a class="headerlink" href="#object-oriented-programming" title="Permalink to this headline">¶</a></h2>
+<p>Python is an <strong>object-oriented programming language</strong>, which means that it
+provides features that support <a class="reference external" href="http://en.wikipedia.org/wiki/Object-oriented_programming">object-oriented programming</a> (<strong>OOP</strong>).</p>
+<p>Object-oriented programming has its roots in the 1960s, but it wasn&#8217;t until the
+mid 1980s that it became the main <a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">programming paradigm</a> used in the creation
+of new software. It was developed as a way to handle the rapidly increasing
+size and complexity of software systems, and to make it easier to modify these
+large and complex systems over time.</p>
+<p>Up to now, most of the programs we have been writing use a <a class="reference external" href="http://en.wikipedia.org/wiki/Procedural_programming">procedural programming</a> paradigm. In
+procedural programming the focus is on writing functions or <em>procedures</em> which
+operate on data. In object-oriented programming the focus is on the creation of
+<strong>objects</strong> which contain both data and functionality together.   (We have seen turtle
+objects, string objects, and random number generators, to name a few places where
+we&#8217;ve already worked with objects.)</p>
+<p>Usually, each object definition corresponds to some object or concept in the real
+world, and the functions that operate on that object correspond to the ways
+real-world objects interact.</p>
+</div>
+<div class="section" id="user-defined-compound-data-types">
+<span id="index-1"></span><h2>12.2. User-defined compound data types<a class="headerlink" href="#user-defined-compound-data-types" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve already seen classes like <tt class="docutils literal"><span class="pre">str</span></tt>, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt> and <tt class="docutils literal"><span class="pre">Turtle</span></tt>.
+We are now ready to create our own user-defined class: the <tt class="docutils literal"><span class="pre">Point</span></tt>.</p>
+<p>Consider the concept of a mathematical point. In two dimensions, a point is two
+numbers (coordinates) that are treated collectively as a single object.
+Points are often written in parentheses with a comma
+separating the coordinates. For example, <tt class="docutils literal"><span class="pre">(0,</span> <span class="pre">0)</span></tt> represents the origin, and
+<tt class="docutils literal"><span class="pre">(x,</span> <span class="pre">y)</span></tt> represents the point <tt class="docutils literal"><span class="pre">x</span></tt> units to the right and <tt class="docutils literal"><span class="pre">y</span></tt> units up
+from the origin.</p>
+<p>Some of the typical operations that one associates with points might be
+calculating the distance of a point from the origin, or from another point,
+or finding a midpoint of two points, or asking if a point falls within a
+given rectangle or circle.  We&#8217;ll shortly see how we can organize these
+together with the data.</p>
+<p>A natural way to represent a point in Python is with two numeric values. The
+question, then, is how to group these two values into a compound object. The
+quick and dirty solution is to use a tuple, and for some applications
+that might be a good choice.</p>
+<p>An alternative is to define a new <strong>class</strong>. This approach involves a
+bit more effort, but it has advantages that will be apparent soon.
+We&#8217;ll want our points to each have an <tt class="docutils literal"><span class="pre">x</span></tt> and a <tt class="docutils literal"><span class="pre">y</span></tt> attribute,
+so our first class definition looks like this:</p>
+
+<div id="pointdef" class="pywindow" >
+
+<div id="pointdef_code_div" style="display: block">
+<textarea rows="7" id="pointdef_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self):
+        """ Create a new point at the origin """
+        self.x = 0
+        self.y = 0</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointdef_code'] = true;
+pythonTool.readOnlyFlags['pointdef_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointdef_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointdef_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointdef_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointdef_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointdef_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointdef_suffix" style="display:none">
+</pre>
+<pre id="pointdef_pre" class="active_out">
+
+</pre>
+
+<div id="pointdef_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Class definitions can appear anywhere in a program, but they are usually near
+the beginning (after the <tt class="docutils literal"><span class="pre">import</span></tt> statements). Some programmers and languages
+prefer to put every class in a module of its own &#8212; we won&#8217;t do that here.
+The syntax rules for a class
+definition are the same as for other compound statements. There is a header
+which begins with the keyword, <tt class="docutils literal"><span class="pre">class</span></tt>, followed by the name of the class,
+and ending with a colon.  Indentation levels tell us where the class ends.</p>
+<p>If the first line after the class header is a string, it becomes
+the docstring of the class, and will be recognized by various tools.  (This
+is also the way docstrings work in functions.)</p>
+<p>Every class should have a method with the special name <tt class="docutils literal"><span class="pre">__init__</span></tt>.
+This <strong>initializer method</strong> is automatically called whenever a new
+instance of <tt class="docutils literal"><span class="pre">Point</span></tt> is created.  It gives the programmer the opportunity
+to set up the attributes required within the new instance by giving them
+their initial state/values.  The <tt class="docutils literal"><span class="pre">self</span></tt> parameter (we could choose any
+other name, but <tt class="docutils literal"><span class="pre">self</span></tt> is the convention) is automatically set to reference
+the newly created object that needs to be initialized.</p>
+<p>So let&#8217;s use our new <tt class="docutils literal"><span class="pre">Point</span></tt> class now:</p>
+
+<div id="pointcreate" class="pywindow" >
+
+<div id="pointcreate_code_div" style="display: block">
+<textarea rows="12" id="pointcreate_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self):
+        """ Create a new point at the origin """
+        self.x = 0
+        self.y = 0
+
+p = Point()         # Instantiate an object of type Point
+q = Point()         # Make a second point
+
+print(p.x, p.y, q.x, q.y)  # Each point object has its own x and y</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointcreate_code'] = true;
+pythonTool.readOnlyFlags['pointcreate_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointcreate_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointcreate_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointcreate_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointcreate_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointcreate_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointcreate_suffix" style="display:none">
+</pre>
+<pre id="pointcreate_pre" class="active_out">
+
+</pre>
+
+<div id="pointcreate_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This program prints:</p>
+<blockquote>
+<div><div class="highlight-python3"><div class="highlight"><pre><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>because during the initialization of the objects, we created two
+attributes called <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> for each, and gave them both the value 0.</p>
+<p>This should look familiar &#8212; we&#8217;ve used classes before to create
+more than one object:</p>
+
+<div id="turtleanalogy" class="pywindow" >
+
+<div id="turtleanalogy_code_div" style="display: block">
+<textarea rows="4" id="turtleanalogy_code" class="active_code" prefixcode="undefined">
+from turtle import Turtle
+
+tess = Turtle()     # Instantiate objects of type Turtle
+alex = Turtle()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['turtleanalogy_code'] = false;
+pythonTool.readOnlyFlags['turtleanalogy_code'] = true;
+</script>
+
+<div id='turtleanalogy_error'></div>
+<pre id="turtleanalogy_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The variables <tt class="docutils literal"><span class="pre">p</span></tt> and <tt class="docutils literal"><span class="pre">q</span></tt> are assigned references to two new <tt class="docutils literal"><span class="pre">Point</span></tt> objects.
+A function like <tt class="docutils literal"><span class="pre">Turtle</span></tt> or <tt class="docutils literal"><span class="pre">Point</span></tt> that creates a new object instance
+is called a <strong>constructor</strong>, and every class automatically provides a
+constructor function which is named the same as the class.</p>
+<p>It may be helpful to think of a class as a <em>factory</em> for making objects.
+The class itself isn&#8217;t an instance of a point, but it contains the machinery
+to make point instances.   Every time we call the constructor, we&#8217;re asking
+the factory to make us a new object.  As the object comes off the
+production line, its initialization method is executed to
+get the object properly set up with its factory default settings.</p>
+<p>The combined process of &#8220;make me a new object&#8221; and &#8220;get its settings initialized
+to the factory default settings&#8221; is called <strong>instantiation</strong>.</p>
+</div>
+<div class="section" id="attributes">
+<span id="index-2"></span><h2>12.3. Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>Like real world objects, object instances have both attributes and methods.</p>
+<p>We can modify the attributes in an instance using dot notation:</p>
+
+<div id="pointmodify" class="pywindow" >
+
+<div id="pointmodify_code_div" style="display: block">
+<textarea rows="16" id="pointmodify_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self):
+        """ Create a new point at the origin """
+        self.x = 0
+        self.y = 0
+
+p = Point()         # Instantiate an object of type Point
+q = Point()         # Make a second point
+
+# change attributes of p
+p.x = 3
+p.y = 4
+
+print(p.x, p.y, q.x, q.y)  # Each point object has its own x and y</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointmodify_code'] = true;
+pythonTool.readOnlyFlags['pointmodify_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointmodify_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointmodify_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointmodify_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointmodify_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointmodify_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointmodify_suffix" style="display:none">
+</pre>
+<pre id="pointmodify_pre" class="active_out">
+
+</pre>
+
+<div id="pointmodify_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Both modules and instances create
+their own namespaces, and the syntax for accessing names contained in each,
+called <strong>attributes</strong>, is the same. In this case the attribute we are selecting
+is a data item from an instance.</p>
+<p>The following state diagram shows the result of these assignments:</p>
+<blockquote>
+<div><img alt="Point state diagram" src="_images/point.png" />
+</div></blockquote>
+<p>The variable <tt class="docutils literal"><span class="pre">p</span></tt> refers to a <tt class="docutils literal"><span class="pre">Point</span></tt> object, which contains two attributes.
+Each attribute refers to a number.</p>
+<p>We can access the value of an attribute using the same syntax:</p>
+
+<div id="pointattr" class="pywindow" >
+
+<div id="pointattr_code_div" style="display: block">
+<textarea rows="17" id="pointattr_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self):
+        """ Create a new point at the origin """
+        self.x = 0
+        self.y = 0
+
+p = Point()         # Instantiate an object of type Point
+q = Point()         # Make a second point
+
+# change attributes of p
+p.x = 3
+p.y = 4
+
+x = p.x
+print(x)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointattr_code'] = true;
+pythonTool.readOnlyFlags['pointattr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointattr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointattr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointattr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointattr_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointattr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointattr_suffix" style="display:none">
+</pre>
+<pre id="pointattr_pre" class="active_out">
+
+</pre>
+
+<div id="pointattr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The expression <tt class="docutils literal"><span class="pre">p.x</span></tt> means, &#8220;Go to the object <tt class="docutils literal"><span class="pre">p</span></tt> refers to and get the
+value of <tt class="docutils literal"><span class="pre">x</span></tt>&#8221;. In this case, we assign that value to a variable named <tt class="docutils literal"><span class="pre">x</span></tt>.
+There is no conflict between the variable <tt class="docutils literal"><span class="pre">x</span></tt> (in the global namespace here)
+and the attribute <tt class="docutils literal"><span class="pre">x</span></tt> (in the namespace belonging to the instance). The
+purpose of dot notation is to fully qualify which variable we are referring to
+unambiguously.</p>
+<p>We can use dot notation as part of any expression, so the following statements
+are legal:</p>
+
+<div id="pointuseattr" class="pywindow" >
+
+<div id="pointuseattr_code_div" style="display: block">
+<textarea rows="18" id="pointuseattr_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self):
+        """ Create a new point at the origin """
+        self.x = 0
+        self.y = 0
+
+p = Point()         # Instantiate an object of type Point
+q = Point()         # Make a second point
+
+# change attributes of p
+p.x = 3
+p.y = 4
+
+print("(x="+str(p.x)+", y="+str(p.y)+")")
+distanceSquaredFromOrigin = p.x * p.x + p.y * p.y
+print(distanceSquaredFromOrigin)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointuseattr_code'] = true;
+pythonTool.readOnlyFlags['pointuseattr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointuseattr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointuseattr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointuseattr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointuseattr_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointuseattr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointuseattr_suffix" style="display:none">
+</pre>
+<pre id="pointuseattr_pre" class="active_out">
+
+</pre>
+
+<div id="pointuseattr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="improving-our-initializer">
+<h2>12.4. Improving our initializer<a class="headerlink" href="#improving-our-initializer" title="Permalink to this headline">¶</a></h2>
+<p>To create a point at position (7, 6) currently needs three lines of code:</p>
+
+<div id="pointinitbad" class="pywindow" >
+
+<div id="pointinitbad_code_div" style="display: block">
+<textarea rows="3" id="pointinitbad_code" class="active_code" prefixcode="undefined">
+p = Point()
+p.x = 7
+p.y = 6</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointinitbad_code'] = false;
+pythonTool.readOnlyFlags['pointinitbad_code'] = true;
+</script>
+
+<div id='pointinitbad_error'></div>
+<pre id="pointinitbad_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We can make our class constructor more general by placing extra parameters into
+the <tt class="docutils literal"><span class="pre">__init__</span></tt> method, as shown in this example:</p>
+
+<div id="pointinitimproved" class="pywindow" >
+
+<div id="pointinitimproved_code_div" style="display: block">
+<textarea rows="9" id="pointinitimproved_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+# Other statements outside the class continue below here.</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointinitimproved_code'] = false;
+pythonTool.readOnlyFlags['pointinitimproved_code'] = true;
+</script>
+
+<div id='pointinitimproved_error'></div>
+<pre id="pointinitimproved_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> parameters here are both optional.  If the caller does not
+supply arguments, they&#8217;ll get the default values of 0.  Here is our improved class
+in action:</p>
+
+<div id="pointinitexample" class="pywindow" >
+
+<div id="pointinitexample_code_div" style="display: block">
+<textarea rows="12" id="pointinitexample_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+p = Point(4, 2)
+q = Point(6, 3)
+r = Point()       # r represents the origin (0, 0)
+print(p.x, q.y, r.x)  # should print 4 3 0</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointinitexample_code'] = true;
+pythonTool.readOnlyFlags['pointinitexample_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointinitexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointinitexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointinitexample_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointinitexample_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointinitexample_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointinitexample_suffix" style="display:none">
+</pre>
+<pre id="pointinitexample_pre" class="active_out">
+
+</pre>
+
+<div id="pointinitexample_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="adding-other-methods-to-our-class">
+<h2>12.5. Adding other methods to our class<a class="headerlink" href="#adding-other-methods-to-our-class" title="Permalink to this headline">¶</a></h2>
+<p>The key advantage of using a class like <tt class="docutils literal"><span class="pre">Point</span></tt> rather than a simple
+tuple <tt class="docutils literal"><span class="pre">(6,</span> <span class="pre">7)</span></tt> now becomes apparent.  We can add methods to
+the <tt class="docutils literal"><span class="pre">Point</span></tt> class that are sensible operations for points, but
+which may not be appropriate for other tuples like <tt class="docutils literal"><span class="pre">(25,</span> <span class="pre">12)</span></tt> which might
+represent, say, a day and a month, e.g. Christmas day. So being able
+to calculate the distance from the origin is sensible for
+points, but not for (day, month) data.  For (day, month) data,
+we&#8217;d like different operations, perhaps to find what day of the week
+it will fall on in 2020.</p>
+<p>Creating a class like <tt class="docutils literal"><span class="pre">Point</span></tt> brings an exceptional
+amount of &#8220;organizational power&#8221; to our programs, and to our thinking.
+We can group together the sensible operations, and the kinds of data
+they apply to, and each instance of the class can have its own state.</p>
+<p>A <strong>method</strong> behaves like a function but it is invoked on a specific
+instance, e.g. <tt class="docutils literal"><span class="pre">tess.right(90)</span></tt>.   Like a data
+attribute, methods are accessed using dot notation.</p>
+<p>Let&#8217;s add another method, <tt class="docutils literal"><span class="pre">distance_from_origin</span></tt>, to see better how methods
+work:</p>
+
+<div id="pointmethod" class="pywindow" >
+
+<div id="pointmethod_code_div" style="display: block">
+<textarea rows="19" id="pointmethod_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+p = Point(3, 4)
+q = Point(5, 12)
+r = Point()       # r represents the origin (0, 0)
+
+print(p.distance_from_origin())  # should be 5
+print(q.distance_from_origin())  # should be 13
+print(r.distance_from_origin())  # should be 0</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointmethod_code'] = true;
+pythonTool.readOnlyFlags['pointmethod_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointmethod_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointmethod_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointmethod_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointmethod_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointmethod_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointmethod_suffix" style="display:none">
+</pre>
+<pre id="pointmethod_pre" class="active_out">
+
+</pre>
+
+<div id="pointmethod_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>When defining a method, the first parameter refers to the instance being
+manipulated.  As already noted, it is customary to name this parameter <tt class="docutils literal"><span class="pre">self</span></tt>.</p>
+<p>Notice that the caller of <tt class="docutils literal"><span class="pre">distance_from_origin</span></tt> does not explicitly
+supply an argument to match the <tt class="docutils literal"><span class="pre">self</span></tt> parameter &#8212; this is done for
+us, behind our back.</p>
+</div>
+<div class="section" id="instances-as-arguments-and-parameters">
+<h2>12.6. Instances as arguments and parameters<a class="headerlink" href="#instances-as-arguments-and-parameters" title="Permalink to this headline">¶</a></h2>
+<p>We can pass an object as an argument in the usual way. We&#8217;ve already seen
+this in some of the turtle examples, where we passed the turtle to
+some function like <tt class="docutils literal"><span class="pre">draw_bar</span></tt> in the chapter titled <cite>Conditionals</cite>,
+so that the function could control and use whatever turtle instance we passed to it.</p>
+<p>Be aware that our variable only holds a reference to an object, so passing <tt class="docutils literal"><span class="pre">tess</span></tt>
+into a function creates an alias: both the caller and the called function
+now have a reference, but there is only one turtle!</p>
+<p>Here is a simple function involving our new <tt class="docutils literal"><span class="pre">Point</span></tt> objects:</p>
+
+<div id="printpointfunc" class="pywindow" >
+
+<div id="printpointfunc_code_div" style="display: block">
+<textarea rows="17" id="printpointfunc_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+def print_point(pt):
+    print("("+str(pt.x)+","+str(pt.y)+")")
+
+p = Point(3, 4)
+print_point(p)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['printpointfunc_code'] = true;
+pythonTool.readOnlyFlags['printpointfunc_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="printpointfunc_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="printpointfunc_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="printpointfunc_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='printpointfunc_error'></div>
+
+<div style="text-align: center">
+<canvas id="printpointfunc_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="printpointfunc_suffix" style="display:none">
+</pre>
+<pre id="printpointfunc_pre" class="active_out">
+
+</pre>
+
+<div id="printpointfunc_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="converting-an-instance-to-a-string">
+<h2>12.7. Converting an instance to a string<a class="headerlink" href="#converting-an-instance-to-a-string" title="Permalink to this headline">¶</a></h2>
+<p>Most object-oriented programmers probably would not do what we&#8217;ve just done in <tt class="docutils literal"><span class="pre">print_point</span></tt>.
+When we&#8217;re working with classes and objects, a preferred alternative
+is to add a new method to the class.  And we don&#8217;t like chatterbox methods that call
+<tt class="docutils literal"><span class="pre">print</span></tt>.  A better approach is to have a method so that every instance
+can produce a string representation of itself.  Let&#8217;s initially
+call it <tt class="docutils literal"><span class="pre">to_string</span></tt>:</p>
+
+<div id="printpointmethod" class="pywindow" >
+
+<div id="printpointmethod_code_div" style="display: block">
+<textarea rows="17" id="printpointmethod_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def to_string(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+p = Point(3, 4)
+print(p.to_string())</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['printpointmethod_code'] = true;
+pythonTool.readOnlyFlags['printpointmethod_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="printpointmethod_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="printpointmethod_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="printpointmethod_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='printpointmethod_error'></div>
+
+<div style="text-align: center">
+<canvas id="printpointmethod_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="printpointmethod_suffix" style="display:none">
+</pre>
+<pre id="printpointmethod_pre" class="active_out">
+
+</pre>
+
+<div id="printpointmethod_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>But don&#8217;t we already have a <tt class="docutils literal"><span class="pre">str</span></tt> type converter that can
+turn our object into a string?  Yes!  And doesn&#8217;t <tt class="docutils literal"><span class="pre">print</span></tt>
+automatically use this when printing things?  Yes again!
+But these automatic mechanisms do not yet do exactly what we want:</p>
+
+<div id="printobjdirectly" class="pywindow" >
+
+<div id="printobjdirectly_code_div" style="display: block">
+<textarea rows="18" id="printobjdirectly_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def to_string(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+p = Point(3, 4)
+print(str(p))
+print(p)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['printobjdirectly_code'] = true;
+pythonTool.readOnlyFlags['printobjdirectly_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="printobjdirectly_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="printobjdirectly_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="printobjdirectly_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='printobjdirectly_error'></div>
+
+<div style="text-align: center">
+<canvas id="printobjdirectly_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="printobjdirectly_suffix" style="display:none">
+</pre>
+<pre id="printobjdirectly_pre" class="active_out">
+
+</pre>
+
+<div id="printobjdirectly_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Python has a clever trick up its sleeve to fix this.  If we call our new
+method <tt class="docutils literal"><span class="pre">__str__</span></tt> instead of <tt class="docutils literal"><span class="pre">to_string</span></tt>, the Python interpreter
+will use our code whenever it needs to convert a <tt class="docutils literal"><span class="pre">Point</span></tt> to a string.
+Let&#8217;s re-do this again, now:</p>
+
+<div id="pointstrmethod" class="pywindow" >
+
+<div id="pointstrmethod_code_div" style="display: block">
+<textarea rows="18" id="pointstrmethod_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def __str__(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+p = Point(3, 4)
+print(str(p))
+print(p)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointstrmethod_code'] = true;
+pythonTool.readOnlyFlags['pointstrmethod_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointstrmethod_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointstrmethod_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointstrmethod_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointstrmethod_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointstrmethod_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointstrmethod_suffix" style="display:none">
+</pre>
+<pre id="pointstrmethod_pre" class="active_out">
+
+</pre>
+
+<div id="pointstrmethod_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="instances-as-return-values">
+<h2>12.8. Instances as return values<a class="headerlink" href="#instances-as-return-values" title="Permalink to this headline">¶</a></h2>
+<p>Functions and methods can return instances. For example, given two <tt class="docutils literal"><span class="pre">Point</span></tt> objects,
+find their midpoint.  First we&#8217;ll write this as a regular function. The function creates and returns a new <tt class="docutils literal"><span class="pre">Point</span></tt> object:</p>
+
+<div id="pointsmpfunc" class="pywindow" >
+
+<div id="pointsmpfunc_code_div" style="display: block">
+<textarea rows="25" id="pointsmpfunc_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def __str__(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+def midpoint(p1, p2):
+    """ Return the midpoint of points p1 and p2 """
+    mx = (p1.x + p2.x)/2
+    my = (p1.y + p2.y)/2
+    return Point(mx, my)
+
+p = Point(3, 4)
+q = Point(5, 12)
+r = midpoint(p, q)
+print(r)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointsmpfunc_code'] = true;
+pythonTool.readOnlyFlags['pointsmpfunc_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointsmpfunc_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointsmpfunc_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointsmpfunc_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointsmpfunc_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointsmpfunc_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointsmpfunc_suffix" style="display:none">
+</pre>
+<pre id="pointsmpfunc_pre" class="active_out">
+
+</pre>
+
+<div id="pointsmpfunc_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Now let us do this as a method instead.  Suppose we have a point object,
+and wish to find the midpoint halfway between it and some other target point. This method is identical to the function, aside from some renaming.</p>
+
+<div id="pointsmpmeth" class="pywindow" >
+
+<div id="pointsmpmeth_code_div" style="display: block">
+<textarea rows="25" id="pointsmpmeth_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def __str__(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+    def halfway(self, target):
+        """ Return the halfway point between myself and the target """
+        mx = (self.x + target.x)/2
+        my = (self.y + target.y)/2
+        return Point(mx, my)
+
+p = Point(3, 4)
+q = Point(5, 12)
+r = p.halfway(q)
+print(r)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointsmpmeth_code'] = true;
+pythonTool.readOnlyFlags['pointsmpmeth_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointsmpmeth_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointsmpmeth_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointsmpmeth_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointsmpmeth_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointsmpmeth_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointsmpmeth_suffix" style="display:none">
+</pre>
+<pre id="pointsmpmeth_pre" class="active_out">
+
+</pre>
+
+<div id="pointsmpmeth_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>While this example assigns each point to a variable, this need not be done.
+Just as function calls are composable, method calls and object instantiation
+are also composable, leading to this alternative that uses no variables:</p>
+
+<div id="pointsmpnovars" class="pywindow" >
+
+<div id="pointsmpnovars_code_div" style="display: block">
+<textarea rows="22" id="pointsmpnovars_code" class="active_code" prefixcode="undefined">
+class Point:
+    """ Point class represents and manipulates x,y coords. """
+
+    def __init__(self, x=0, y=0):
+        """ Create a new point at the origin """
+        self.x = x
+        self.y = y
+
+    def distance_from_origin(self):
+        """ Compute my distance from the origin """
+        return ((self.x ** 2) + (self.y ** 2)) ** 0.5
+
+    def __str__(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
+    def halfway(self, target):
+        """ Return the halfway point between myself and the target """
+        mx = (self.x + target.x)/2
+        my = (self.y + target.y)/2
+        return Point(mx, my)
+
+print(Point(3, 4).halfway(Point(5, 12)))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['pointsmpnovars_code'] = true;
+pythonTool.readOnlyFlags['pointsmpnovars_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="pointsmpnovars_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="pointsmpnovars_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="pointsmpnovars_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='pointsmpnovars_error'></div>
+
+<div style="text-align: center">
+<canvas id="pointsmpnovars_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="pointsmpnovars_suffix" style="display:none">
+</pre>
+<pre id="pointsmpnovars_pre" class="active_out">
+
+</pre>
+
+<div id="pointsmpnovars_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="a-change-of-perspective">
+<h2>12.9. A change of perspective<a class="headerlink" href="#a-change-of-perspective" title="Permalink to this headline">¶</a></h2>
+<p>The original syntax for a function call, <tt class="docutils literal"><span class="pre">print_time(current_time)</span></tt>, suggests that the
+function is the active agent. It says something like, <em>&#8220;Hey, print_time!
+Here&#8217;s an object for you to print.&#8221;</em></p>
+<p>In object-oriented programming, the objects are considered the active agents. An
+invocation like <tt class="docutils literal"><span class="pre">current_time.print_time()</span></tt> says <em>&#8220;Hey current_time!
+Please print yourself!&#8221;</em></p>
+<p>In our early introduction to turtles, we used
+an object-oriented style, so that we said <tt class="docutils literal"><span class="pre">tess.forward(100)</span></tt>, which
+asks the turtle to move itself forward by the given number of steps.</p>
+<p>This change in perspective might be more polite, but it may not initially
+be obvious that it is useful. But sometimes shifting responsibility from
+the functions onto the objects makes it possible to write more versatile
+functions, and makes it easier to maintain and reuse code.</p>
+<p>The most important advantage of the object-oriented style is that it
+fits our mental chunking and real-life experience more accurately.
+In real life our <tt class="docutils literal"><span class="pre">cook</span></tt> method is part of our microwave oven &#8212; we don&#8217;t
+have a <tt class="docutils literal"><span class="pre">cook</span></tt> function sitting in the corner of the kitchen, into which
+we pass the microwave!  Similarly, we use the cellphone&#8217;s own methods
+to send an sms, or to change its state to silent.  The functionality
+of real-world objects tends to be tightly bound up inside the objects
+themselves.  OOP allows us to accurately mirror this when we
+organize our programs.</p>
+</div>
+<div class="section" id="objects-can-have-state">
+<h2>12.10. Objects can have state<a class="headerlink" href="#objects-can-have-state" title="Permalink to this headline">¶</a></h2>
+<p>Objects are most useful when we also need to keep some state that is updated from
+time to time.  Consider a turtle object.  Its state consists of things like
+its position, its heading, its color, and its shape.  A method like <tt class="docutils literal"><span class="pre">left(90)</span></tt> updates
+the turtle&#8217;s heading, <tt class="docutils literal"><span class="pre">forward</span></tt> changes its position, and so on.</p>
+<p>For a bank account object, a main component of the state would be
+the current balance, and perhaps a log of all transactions.  The methods would
+allow us to query the current balance, deposit new funds, or make a payment.
+Making a payment would include an amount, and a description, so that this could
+be added to the transaction log.  We&#8217;d also want a method to show the transaction
+log.</p>
+</div>
+<div class="section" id="glossary">
+<h2>12.11. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-attribute">attribute</dt>
+<dd>One of the named data items that makes up an instance.</dd>
+<dt id="term-class">class</dt>
+<dd>A user-defined compound type. A class can also be thought of as a
+template for the objects that are instances of it. (The iPhone is
+a class. By December 2010, estimates are that 50 million instances
+had been sold!)</dd>
+<dt id="term-constructor">constructor</dt>
+<dd>Every class has a &#8220;factory&#8221;, called by the same name as the class, for
+making new instances.  If the class has an <em>initializer method</em>, this method
+is used to get the attributes (i.e. the state) of the new object properly set up.</dd>
+<dt id="term-initializer-method">initializer method</dt>
+<dd>A special method in Python (called <tt class="docutils literal"><span class="pre">__init__</span></tt>)
+that is invoked automatically to set a newly created object&#8217;s
+attributes to their initial (factory-default) state.</dd>
+<dt id="term-instance">instance</dt>
+<dd>An object whose type is of some class.  Instance and object are used
+interchangeably.</dd>
+<dt id="term-instantiate">instantiate</dt>
+<dd>To create an instance of a class, and to run its initializer.</dd>
+<dt id="term-method">method</dt>
+<dd>A function that is defined inside a class definition and is invoked on
+instances of that class.</dd>
+<dt id="term-object">object</dt>
+<dd>A compound data type that is often used to model a thing or concept in
+the real world.  It bundles together the data and the operations that
+are relevant for that kind of data.  Instance and object are used
+interchangeably.</dd>
+<dt id="term-object-oriented-programming">object-oriented programming</dt>
+<dd>A powerful style of programming in which data and the operations
+that manipulate it are organized into objects.</dd>
+<dt id="term-object-oriented-language">object-oriented language</dt>
+<dd>A language that provides features, such as user-defined classes and
+inheritance, that facilitate object-oriented programming.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="oop.html" title="13. More Classes and Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="recursion.html" title="11. Recursion"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

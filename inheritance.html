@@ -1,0 +1,1359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>15. Inheritance &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="16. Event-Driven Programming" href="events.html" />
+    <link rel="prev" title="14. Collections of Objects" href="collections.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="events.html" title="16. Event-Driven Programming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="collections.html" title="14. Collections of Objects"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="inheritance">
+<h1>15. Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>15.1. Inheritance<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The language feature most often associated with object-oriented programming is
+<strong>inheritance</strong>. Inheritance is the ability to define a new class that is a
+modified version of an existing class.</p>
+<p>The primary advantage of this feature is that you can add new methods to a
+class without modifying the existing class. It is called inheritance because
+the new class inherits all of the methods of the existing class. Extending this
+metaphor, the existing class is sometimes called the <strong>parent</strong> class. The new
+class may be called the <strong>child</strong> class or sometimes subclass.</p>
+<p>Inheritance is a powerful feature. Some programs that would be complicated
+without inheritance can be written concisely and simply with it. Also,
+inheritance can facilitate code reuse, since you can customize the behavior of
+parent classes without having to modify them. In some cases, the inheritance
+structure reflects the natural structure of the problem, which makes the
+program easier to understand.</p>
+<p>On the other hand, inheritance can make programs difficult to read.  When a
+method is invoked, it is sometimes not clear where to find its definition. The
+relevant code may be scattered among several modules.  Also, many of the things
+that can be done using inheritance can be done as elegantly (or more so)
+without it. If the natural structure of the problem does not lend itself to
+inheritance, this style of programming can do more harm than good.</p>
+<p>In this chapter we will demonstrate the use of inheritance as part of a program
+that plays the card game Old Maid. One of our goals is to write code that could
+be reused to implement other card games.</p>
+</div>
+<div class="section" id="a-hand-of-cards">
+<h2>15.2. A hand of cards<a class="headerlink" href="#a-hand-of-cards" title="Permalink to this headline">¶</a></h2>
+<p>For almost any card game, we need to represent a hand of cards. A hand is
+similar to a deck, of course. Both are made up of a set of cards, and both
+require operations like adding and removing cards. Also, we might like the
+ability to shuffle both decks and hands.</p>
+<p>A hand is also different from a deck. Depending on the game being played, we
+might want to perform some operations on hands that don&#8217;t make sense for a
+deck. For example, in poker we might classify a hand (straight, flush, etc.) or
+compare it with another hand. In bridge, we might want to compute a score for a
+hand in order to make a bid.</p>
+<p>This situation suggests the use of inheritance. If <tt class="docutils literal"><span class="pre">Hand</span></tt> is a subclass of
+<tt class="docutils literal"><span class="pre">Deck</span></tt>, it will have all the methods of <tt class="docutils literal"><span class="pre">Deck</span></tt>, and new methods can be
+added.</p>
+<p>We add the code in this chapter to our codd from the previous chapter.
+In the class definition, the name of the parent class appears in parentheses:</p>
+<div class="highlight-none"><div class="highlight"><pre>class Hand(Deck):
+    pass
+</pre></div>
+</div>
+<p>This statement indicates that the new <tt class="docutils literal"><span class="pre">Hand</span></tt> class inherits from the existing
+<tt class="docutils literal"><span class="pre">Deck</span></tt> class.</p>
+<p>The <tt class="docutils literal"><span class="pre">Hand</span></tt> constructor initializes the attributes for the hand, which are
+<tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">cards</span></tt>. The string <tt class="docutils literal"><span class="pre">name</span></tt> identifies this hand, probably by
+the name of the player that holds it. The name is an optional parameter with
+the empty string as a default value. <tt class="docutils literal"><span class="pre">cards</span></tt> is the list of cards in the
+hand, initialized to the empty list:</p>
+
+<div id="handinit" class="pywindow" >
+
+<div id="handinit_code_div" style="display: block">
+<textarea rows="80" id="handinit_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['handinit_code'] = true;
+pythonTool.readOnlyFlags['handinit_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="handinit_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="handinit_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="handinit_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='handinit_error'></div>
+
+<div style="text-align: center">
+<canvas id="handinit_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="handinit_suffix" style="display:none">
+</pre>
+<pre id="handinit_pre" class="active_out">
+
+</pre>
+
+<div id="handinit_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>For just about any card game, it is necessary to add and remove cards from the
+deck. Removing cards is already taken care of, since <tt class="docutils literal"><span class="pre">Hand</span></tt> inherits
+<tt class="docutils literal"><span class="pre">remove</span></tt> from <tt class="docutils literal"><span class="pre">Deck</span></tt>. But we have to write <tt class="docutils literal"><span class="pre">add</span></tt>. We use the list <tt class="docutils literal"><span class="pre">append</span></tt> method to add the new card to the end of the list of cards.</p>
+
+<div id="handadd" class="pywindow" >
+
+<div id="handadd_code_div" style="display: block">
+<textarea rows="88" id="handadd_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+
+    def add(self, card):
+        self.cards.append(card)
+
+myHand = Hand('Joe')
+myHand.add(Card(0,3))
+myHand.add(Card(3,12))
+print(myHand)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['handadd_code'] = true;
+pythonTool.readOnlyFlags['handadd_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="handadd_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="handadd_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="handadd_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='handadd_error'></div>
+
+<div style="text-align: center">
+<canvas id="handadd_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="handadd_suffix" style="display:none">
+</pre>
+<pre id="handadd_pre" class="active_out">
+
+</pre>
+
+<div id="handadd_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="dealing-cards">
+<h2>15.3. Dealing cards<a class="headerlink" href="#dealing-cards" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a <tt class="docutils literal"><span class="pre">Hand</span></tt> class, we want to deal cards from the <tt class="docutils literal"><span class="pre">Deck</span></tt> into
+hands. It is not immediately obvious whether this method should go in the
+<tt class="docutils literal"><span class="pre">Hand</span></tt> class or in the <tt class="docutils literal"><span class="pre">Deck</span></tt> class, but since it operates on a single deck
+and (possibly) several hands, it is more natural to put it in <tt class="docutils literal"><span class="pre">Deck</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">deal</span></tt> should be fairly general, since different games will have different
+requirements. We may want to deal out the entire deck at once or add one card
+to each hand.</p>
+<p><tt class="docutils literal"><span class="pre">deal</span></tt> takes two parameters, a list (or tuple) of hands and the total number
+of cards to deal. If there are not enough cards in the deck, the method deals
+out all of the cards and stops:</p>
+
+<div id="handdeal" class="pywindow" >
+
+<div id="handdeal_code_div" style="display: block">
+<textarea rows="103" id="handdeal_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+    def deal(self, hands, numCards=999):
+        numHands = len(hands)
+        for i in range(numCards):
+            if self.is_empty():
+                break                    # Break if out of cards
+            card = self.pop()            # Take the top card
+            hand = hands[i % numHands]  # Whose turn is next?
+            hand.add(card)               # Add the card to the hand
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+
+    def add(self, card):
+        self.cards.append(card)
+
+hand1 = Hand("Hand 1")
+hand2 = Hand("Hand 2")
+myDeck = Deck()
+myDeck.shuffle()
+# deal 5 cards to each player
+myDeck.deal([hand1,hand2],10)
+print(hand1)
+print(hand2)
+# should be 42 cards left in the deck
+print(len(myDeck.cards))</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['handdeal_code'] = true;
+pythonTool.readOnlyFlags['handdeal_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="handdeal_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="handdeal_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="handdeal_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='handdeal_error'></div>
+
+<div style="text-align: center">
+<canvas id="handdeal_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="handdeal_suffix" style="display:none">
+</pre>
+<pre id="handdeal_pre" class="active_out">
+
+</pre>
+
+<div id="handdeal_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The second parameter, <tt class="docutils literal"><span class="pre">numCards</span></tt>, is optional; the default is a large
+number, which effectively means that all of the cards in the deck will get
+dealt.</p>
+<p>The loop variable <tt class="docutils literal"><span class="pre">i</span></tt> goes from 0 to <tt class="docutils literal"><span class="pre">numCards-1</span></tt>. Each time through the
+loop, a card is removed from the deck using the list method <tt class="docutils literal"><span class="pre">pop</span></tt>, which
+removes and returns the last item in the list.</p>
+<p>The modulus operator (<tt class="docutils literal"><span class="pre">%</span></tt>) allows us to deal cards in a round robin (one
+card at a time to each hand). When <tt class="docutils literal"><span class="pre">i</span></tt> is equal to the number of hands in the
+list, the expression <tt class="docutils literal"><span class="pre">i</span> <span class="pre">%</span> <span class="pre">numHands</span></tt> wraps around to the beginning of the list
+(index 0).</p>
+</div>
+<div class="section" id="printing-a-hand">
+<h2>15.4. Printing a Hand<a class="headerlink" href="#printing-a-hand" title="Permalink to this headline">¶</a></h2>
+<p>To print the contents of a hand, we can take advantage of the
+<tt class="docutils literal"><span class="pre">__str__</span></tt> method inherited from <tt class="docutils literal"><span class="pre">Deck</span></tt>. Although it is convenient to inherit the existing methods, there is additional
+information in a <tt class="docutils literal"><span class="pre">Hand</span></tt> object we might want to include when we print one. To
+do that, we can provide a <tt class="docutils literal"><span class="pre">__str__</span></tt> method in the <tt class="docutils literal"><span class="pre">Hand</span></tt> class that
+overrides the one in the <tt class="docutils literal"><span class="pre">Deck</span></tt> class:</p>
+
+<div id="handstr" class="pywindow" >
+
+<div id="handstr_code_div" style="display: block">
+<textarea rows="109" id="handstr_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+    def deal(self, hands, numCards=999):
+        numHands = len(hands)
+        for i in range(numCards):
+            if self.is_empty():
+                break                    # Break if out of cards
+            card = self.pop()            # Take the top card
+            hand = hands[i % numHands]  # Whose turn is next?
+            hand.add(card)               # Add the card to the hand
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+
+    def add(self, card):
+        self.cards.append(card)
+
+    def __str__(self):
+        s = "Hand " + self.name
+        if self.is_empty():
+            s += " is empty\n"
+        else:
+            s += " contains\n"
+        return s + Deck.__str__(self)
+
+hand1 = Hand("Hand 1")
+hand2 = Hand("Hand 2")
+myDeck = Deck()
+myDeck.shuffle()
+# deal 5 cards to each player
+myDeck.deal([hand1,hand2],10)
+print(hand1)
+print(hand2)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['handstr_code'] = true;
+pythonTool.readOnlyFlags['handstr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="handstr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="handstr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="handstr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='handstr_error'></div>
+
+<div style="text-align: center">
+<canvas id="handstr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="handstr_suffix" style="display:none">
+</pre>
+<pre id="handstr_pre" class="active_out">
+
+</pre>
+
+<div id="handstr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Initially, <tt class="docutils literal"><span class="pre">s</span></tt> is a string that identifies the hand. If the hand is empty,
+the program appends the words <tt class="docutils literal"><span class="pre">is</span> <span class="pre">empty</span></tt> and returns <tt class="docutils literal"><span class="pre">s</span></tt>.</p>
+<p>Otherwise, the program appends the word <tt class="docutils literal"><span class="pre">contains</span></tt> and the string
+representation of the <tt class="docutils literal"><span class="pre">Deck</span></tt>, computed by invoking the <tt class="docutils literal"><span class="pre">__str__</span></tt> method in
+the <tt class="docutils literal"><span class="pre">Deck</span></tt> class on <tt class="docutils literal"><span class="pre">self</span></tt>.</p>
+<p>It may seem odd to send <tt class="docutils literal"><span class="pre">self</span></tt>, which refers to the current <tt class="docutils literal"><span class="pre">Hand</span></tt>, to a
+<tt class="docutils literal"><span class="pre">Deck</span></tt> method, until you remember that a <tt class="docutils literal"><span class="pre">Hand</span></tt> is a kind of <tt class="docutils literal"><span class="pre">Deck</span></tt>.
+<tt class="docutils literal"><span class="pre">Hand</span></tt> objects can do everything <tt class="docutils literal"><span class="pre">Deck</span></tt> objects can, so it is legal to send
+a <tt class="docutils literal"><span class="pre">Hand</span></tt> to a <tt class="docutils literal"><span class="pre">Deck</span></tt> method.</p>
+<p>In general, it is always legal to use an instance of a subclass in place of an
+instance of a parent class.</p>
+</div>
+<div class="section" id="the-cardgame-class">
+<h2>15.5. The <tt class="docutils literal"><span class="pre">CardGame</span></tt> class<a class="headerlink" href="#the-cardgame-class" title="Permalink to this headline">¶</a></h2>
+
+<div id="cardgameinit" class="pywindow" >
+
+<div id="cardgameinit_code_div" style="display: block">
+<textarea rows="5" id="cardgameinit_code" class="active_code" prefixcode="undefined">
+class CardGame:
+
+    def __init__(self):
+        self.deck = Deck()
+        self.deck.shuffle()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['cardgameinit_code'] = false;
+pythonTool.readOnlyFlags['cardgameinit_code'] = true;
+</script>
+
+<div id='cardgameinit_error'></div>
+<pre id="cardgameinit_suffix" style="display:none">
+</pre>
+</div>
+
+<p>This is the first case we have seen where the initialization method performs a
+significant computation, beyond initializing attributes.</p>
+<p>To implement specific games, we can inherit from <tt class="docutils literal"><span class="pre">CardGame</span></tt> and add features
+for the new game. As an example, we&#8217;ll write a simulation of Old Maid.</p>
+<p>The object of Old Maid is to get rid of cards in your hand. You do this by
+matching cards by rank and color. For example, the 4 of Clubs matches the 4 of
+Spades since both suits are black. The Jack of Hearts matches the Jack of
+Diamonds since both are red.</p>
+<p>To begin the game, the Queen of Clubs is removed from the deck so that the
+Queen of Spades has no match. The fifty-one remaining cards are dealt to the
+players in a round robin. After the deal, all players match and discard as many
+cards as possible.</p>
+<p>When no more matches can be made, play begins. In turn, each player picks a
+card (without looking) from the closest neighbor to the left who still has
+cards. If the chosen card matches a card in the player&#8217;s hand, the pair is
+removed. Otherwise, the card is added to the player&#8217;s hand. Eventually all
+possible matches are made, leaving only the Queen of Spades in the loser&#8217;s
+hand.</p>
+<p>In our computer simulation of the game, the computer plays all hands.
+Unfortunately, some nuances of the real game are lost. In a real game, the
+player with the Old Maid goes to some effort to get their neighbor to pick that
+card, by displaying it a little more prominently, or perhaps failing to display
+it more prominently, or even failing to fail to display that card more
+prominently. The computer simply picks a neighbor&#8217;s card at random.</p>
+</div>
+<div class="section" id="oldmaidhand-class">
+<h2>15.6. <tt class="docutils literal"><span class="pre">OldMaidHand</span></tt> class<a class="headerlink" href="#oldmaidhand-class" title="Permalink to this headline">¶</a></h2>
+<p>A hand for playing Old Maid requires some abilities beyond the general
+abilities of a <tt class="docutils literal"><span class="pre">Hand</span></tt>. We will define a new class, <tt class="docutils literal"><span class="pre">OldMaidHand</span></tt>, that
+inherits from <tt class="docutils literal"><span class="pre">Hand</span></tt> and provides an additional method called
+<tt class="docutils literal"><span class="pre">remove_matches</span></tt>:</p>
+
+<div id="oldmainhandinit" class="pywindow" >
+
+<div id="oldmainhandinit_code_div" style="display: block">
+<textarea rows="14" id="oldmainhandinit_code" class="active_code" prefixcode="undefined">
+class OldMaidHand(Hand):
+
+    def remove_matches(self):
+        count = 0
+        originalCards = self.cards[:]
+        for card in originalCards:
+            match = Card(3 - card.suit, card.rank)
+            if match in self.cards:
+                self.cards.remove(card)
+                self.cards.remove(match)
+                print("Hand "+self.name+":",end=' ')
+                print(str(card)+" matches "+str(match))
+                count += 1
+        return count</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmainhandinit_code'] = false;
+pythonTool.readOnlyFlags['oldmainhandinit_code'] = true;
+</script>
+
+<div id='oldmainhandinit_error'></div>
+<pre id="oldmainhandinit_suffix" style="display:none">
+</pre>
+</div>
+
+<p>We start by making a copy of the list of cards, so that we can traverse the
+copy while removing cards from the original. Since <tt class="docutils literal"><span class="pre">self.cards</span></tt> is modified
+in the loop, we don&#8217;t want to use it to control the traversal. Python can get
+quite confused if it is traversing a list that is changing!</p>
+<p>For each card in the hand, we figure out what the matching card is and go
+looking for it. The match card has the same rank and the other suit of the same
+color. The expression <tt class="docutils literal"><span class="pre">3</span> <span class="pre">-</span> <span class="pre">card.suit</span></tt> turns a Club (suit 0) into a Spade
+(suit 3) and a Diamond (suit 1) into a Heart (suit 2).  You should satisfy
+yourself that the opposite operations also work. If the match card is also in
+the hand, both cards are removed.</p>
+<p>The following example adds our new classes to our existing code, and demonstrates how to use <tt class="docutils literal"><span class="pre">remove_matches</span></tt>:</p>
+
+<div id="oldmaidmatch" class="pywindow" >
+
+<div id="oldmaidmatch_code_div" style="display: block">
+<textarea rows="128" id="oldmaidmatch_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+    def deal(self, hands, numCards=999):
+        numHands = len(hands)
+        for i in range(numCards):
+            if self.is_empty():
+                break                    # Break if out of cards
+            card = self.pop()            # Take the top card
+            hand = hands[i % numHands]  # Whose turn is next?
+            hand.add(card)               # Add the card to the hand
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+
+    def add(self, card):
+        self.cards.append(card)
+
+    def __str__(self):
+        s = "Hand " + self.name
+        if self.is_empty():
+            s += " is empty\n"
+        else:
+            s += " contains\n"
+        return s + Deck.__str__(self)
+
+class CardGame:
+
+    def __init__(self):
+        self.deck = Deck()
+        self.deck.shuffle()
+
+class OldMaidHand(Hand):
+
+    def remove_matches(self):
+        count = 0
+        originalCards = self.cards[:]
+        for card in originalCards:
+            match = Card(3 - card.suit, card.rank)
+            if match in self.cards:
+                self.cards.remove(card)
+                self.cards.remove(match)
+                print("Hand "+self.name+":",end=' ')
+                print(str(card)+" matches "+str(match))
+                count += 1
+        return count
+
+game = CardGame()             # start a new game
+hand = OldMaidHand("Frank")   # initialize a new Old Maid hand called "Frank"
+game.deck.deal([hand], 13)    # deal 13 cards to Frank
+print(hand)
+hand.remove_matches()         # remove the matches
+print(hand)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidmatch_code'] = true;
+pythonTool.readOnlyFlags['oldmaidmatch_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="oldmaidmatch_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="oldmaidmatch_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="oldmaidmatch_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='oldmaidmatch_error'></div>
+
+<div style="text-align: center">
+<canvas id="oldmaidmatch_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="oldmaidmatch_suffix" style="display:none">
+</pre>
+<pre id="oldmaidmatch_pre" class="active_out">
+
+</pre>
+
+<div id="oldmaidmatch_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Notice that there is no <tt class="docutils literal"><span class="pre">__init__</span></tt> method for the <tt class="docutils literal"><span class="pre">OldMaidHand</span></tt> class.  We
+inherit it from <tt class="docutils literal"><span class="pre">Hand</span></tt>.</p>
+</div>
+<div class="section" id="oldmaidgame-class">
+<h2>15.7. <tt class="docutils literal"><span class="pre">OldMaidGame</span></tt> class<a class="headerlink" href="#oldmaidgame-class" title="Permalink to this headline">¶</a></h2>
+<p>Now we can turn our attention to the game itself. <tt class="docutils literal"><span class="pre">OldMaidGame</span></tt> is a subclass
+of <tt class="docutils literal"><span class="pre">CardGame</span></tt> with a new method called <tt class="docutils literal"><span class="pre">play</span></tt> that takes a list of players
+as a parameter.</p>
+<p>Since <tt class="docutils literal"><span class="pre">__init__</span></tt> is inherited from <tt class="docutils literal"><span class="pre">CardGame</span></tt>, a new <tt class="docutils literal"><span class="pre">OldMaidGame</span></tt> object
+contains a new shuffled deck:</p>
+
+<div id="oldmaidgameinit" class="pywindow" >
+
+<div id="oldmaidgameinit_code_div" style="display: block">
+<textarea rows="30" id="oldmaidgameinit_code" class="active_code" prefixcode="undefined">
+class OldMaidGame(CardGame):
+
+    def play(self, names):
+        # Remove Queen of Clubs
+        self.deck.remove(Card(0,12))
+
+        # Make a hand for each player
+        self.hands = []
+        for name in names:
+            self.hands.append(OldMaidHand(name))
+
+        # Deal the cards
+        self.deck.deal(self.hands)
+        print("---------- Cards have been dealt")
+        self.print_hands()
+
+        # Remove initial matches
+        matches = self.remove_all_matches()
+        print("---------- Matches discarded, play begins")
+        self.print_hands()
+
+        # Play until all 50 cards are matched
+        turn = 0
+        numHands = len(self.hands)
+        while matches < 25:
+            matches += self.play_one_turn(turn)
+            turn = (turn + 1) % numHands
+
+        print("---------- Game is Over")
+        self.print_hands()</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidgameinit_code'] = true;
+pythonTool.readOnlyFlags['oldmaidgameinit_code'] = true;
+</script>
+
+<div id='oldmaidgameinit_error'></div>
+<pre id="oldmaidgameinit_suffix" style="display:none">
+</pre>
+</div>
+
+<p>Some of the steps of the game have been separated into methods that we stil have to write.</p>
+<p><tt class="docutils literal"><span class="pre">print_hands</span></tt> just traverses the list of hands and prints each one:</p>
+
+<div id="oldmaidgameprinthands" class="pywindow" >
+
+<div id="oldmaidgameprinthands_code_div" style="display: block">
+<textarea rows="3" id="oldmaidgameprinthands_code" class="active_code" prefixcode="undefined">
+    def print_hands(self):
+        for hand in self.hands:
+            print(hand)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidgameprinthands_code'] = true;
+pythonTool.readOnlyFlags['oldmaidgameprinthands_code'] = true;
+</script>
+
+<div id='oldmaidgameprinthands_error'></div>
+<pre id="oldmaidgameprinthands_suffix" style="display:none">
+</pre>
+</div>
+
+<p><tt class="docutils literal"><span class="pre">remove_all_matches</span></tt> traverses the list of hands and invokes
+<tt class="docutils literal"><span class="pre">remove_matches</span></tt> on each:</p>
+
+<div id="oldmaidgameremove" class="pywindow" >
+
+<div id="oldmaidgameremove_code_div" style="display: block">
+<textarea rows="5" id="oldmaidgameremove_code" class="active_code" prefixcode="undefined">
+    def remove_all_matches(self):
+        count = 0
+        for hand in self.hands:
+            count += hand.remove_matches()
+        return count</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidgameremove_code'] = true;
+pythonTool.readOnlyFlags['oldmaidgameremove_code'] = true;
+</script>
+
+<div id='oldmaidgameremove_error'></div>
+<pre id="oldmaidgameremove_suffix" style="display:none">
+</pre>
+</div>
+
+<p><tt class="docutils literal"><span class="pre">count</span></tt> is an accumulator that adds up the number of matches in each
+hand. When we&#8217;ve gone through every hand, the total is returned
+(<tt class="docutils literal"><span class="pre">count</span></tt>).</p>
+<p>When the total number of matches reaches twenty-five, fifty cards have been
+removed from the hands, which means that only one card is left and the game is
+over.</p>
+<p>The variable <tt class="docutils literal"><span class="pre">turn</span></tt> keeps track of which player&#8217;s turn it is. It starts at 0
+and increases by one each time; when it reaches <tt class="docutils literal"><span class="pre">numHands</span></tt>, the modulus
+operator wraps it back around to 0.</p>
+<p>The method <tt class="docutils literal"><span class="pre">play_one_turn</span></tt> takes a parameter that indicates whose turn it is.
+The return value is the number of matches made during this turn:</p>
+
+<div id="oldmaidgameoneturn" class="pywindow" >
+
+<div id="oldmaidgameoneturn_code_div" style="display: block">
+<textarea rows="10" id="oldmaidgameoneturn_code" class="active_code" prefixcode="undefined">
+    def play_one_turn(self, i):
+        if self.hands[i].is_empty():
+            return 0
+        neighbor = self.find_neighbor(i)
+        pickedCard = self.hands[neighbor].pop()
+        self.hands[i].add(pickedCard)
+        print("Hand", self.hands[i].name, "picked", pickedCard)
+        count = self.hands[i].remove_matches()
+        self.hands[i].shuffle()
+        return count</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidgameoneturn_code'] = true;
+pythonTool.readOnlyFlags['oldmaidgameoneturn_code'] = true;
+</script>
+
+<div id='oldmaidgameoneturn_error'></div>
+<pre id="oldmaidgameoneturn_suffix" style="display:none">
+</pre>
+</div>
+
+<p>If a player&#8217;s hand is empty, that player is out of the game, so he or she does
+nothing and returns 0.</p>
+<p>Otherwise, a turn consists of finding the first player on the left that has
+cards, taking one card from the neighbor, and checking for matches. Before
+returning, the cards in the hand are shuffled so that the next player&#8217;s choice
+is random.</p>
+<p>The method <tt class="docutils literal"><span class="pre">find_neighbor</span></tt> starts with the player to the immediate left and
+continues around the circle until it finds a player that still has cards:</p>
+
+<div id="oldmaidgamefindneighbor" class="pywindow" >
+
+<div id="oldmaidgamefindneighbor_code_div" style="display: block">
+<textarea rows="6" id="oldmaidgamefindneighbor_code" class="active_code" prefixcode="undefined">
+    def find_neighbor(self, i):
+        numHands = len(self.hands)
+        for next in range(1,numHands):
+            neighbor = (i + next) % numHands
+            if not self.hands[neighbor].is_empty():
+                return neighbor</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidgamefindneighbor_code'] = true;
+pythonTool.readOnlyFlags['oldmaidgamefindneighbor_code'] = true;
+</script>
+
+<div id='oldmaidgamefindneighbor_error'></div>
+<pre id="oldmaidgamefindneighbor_suffix" style="display:none">
+</pre>
+</div>
+
+<p>If <tt class="docutils literal"><span class="pre">find_neighbor</span></tt> ever went all the way around the circle without finding
+cards, it would return <tt class="docutils literal"><span class="pre">None</span></tt> and cause an error elsewhere in the program.
+Fortunately, we can prove that that will never happen (as long as the end of
+the game is detected correctly).</p>
+<p>Let&#8217;s add all these new methods to our code, and then you can play the game!</p>
+
+<div id="oldmaidfullgame" class="pywindow" >
+
+<div id="oldmaidfullgame_code_div" style="display: block">
+<textarea rows="183" id="oldmaidfullgame_code" class="active_code" prefixcode="undefined">
+class Card:
+    suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    ranks = ["narf", "Ace", "2", "3", "4", "5", "6", "7",
+             "8", "9", "10", "Jack", "Queen", "King"]
+
+    def __init__(self, suit=0, rank=0):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return (self.ranks[self.rank] + " of " + self.suits[self.suit])
+
+    def cmp(self, other):
+        # Check the suits
+        if self.suit > other.suit:
+            return 1
+        if self.suit < other.suit:
+            return -1
+        # Suits are the same... check ranks
+        if self.rank > other.rank:
+            return 1
+        if self.rank < other.rank:
+            return -1
+        # Ranks are the same... it's a tie
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __le__(self, other):
+        return self.cmp(other) <= 0
+
+    def __ge__(self, other):
+        return self.cmp(other) >= 0
+
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __ne__(self, other):
+        return self.cmp(other) != 0
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+
+    def __str__(self):
+        s = ""
+        for card in self.cards:
+            s += str(card) + '\n'
+        return s
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
+
+    def remove(self, card):
+        if card in self.cards:
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+
+    def pop(self):
+        return self.cards.pop()
+
+    def is_empty(self):
+        return self.cards == []
+
+    def deal(self, hands, numCards=999):
+        numHands = len(hands)
+        for i in range(numCards):
+            if self.is_empty():
+                break                    # Break if out of cards
+            card = self.pop()            # Take the top card
+            hand = hands[i % numHands]  # Whose turn is next?
+            hand.add(card)               # Add the card to the hand
+
+class Hand(Deck):
+
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+
+    def add(self, card):
+        self.cards.append(card)
+
+    def __str__(self):
+        s = "Hand " + self.name
+        if self.is_empty():
+            s += " is empty\n"
+        else:
+            s += " contains\n"
+        return s + Deck.__str__(self)
+
+class CardGame:
+
+    def __init__(self):
+        self.deck = Deck()
+        self.deck.shuffle()
+
+class OldMaidHand(Hand):
+
+    def remove_matches(self):
+        count = 0
+        originalCards = self.cards[:]
+        for card in originalCards:
+            match = Card(3 - card.suit, card.rank)
+            if match in self.cards:
+                self.cards.remove(card)
+                self.cards.remove(match)
+                print("Hand "+self.name+":",end=' ')
+                print(str(card)+" matches "+str(match))
+                count += 1
+        return count
+
+class OldMaidGame(CardGame):
+
+    def play(self, names):
+        # Remove Queen of Clubs
+        self.deck.remove(Card(0,12))
+
+        # Make a hand for each player
+        self.hands = []
+        for name in names:
+            self.hands.append(OldMaidHand(name))
+
+        # Deal the cards
+        self.deck.deal(self.hands)
+        print("---------- Cards have been dealt")
+        self.print_hands()
+
+        # Remove initial matches
+        matches = self.remove_all_matches()
+        print("---------- Matches discarded, play begins")
+        self.print_hands()
+
+        # Play until all 50 cards are matched
+        turn = 0
+        numHands = len(self.hands)
+        while matches < 25:
+            matches += self.play_one_turn(turn)
+            turn = (turn + 1) % numHands
+
+        print("---------- Game is Over")
+        self.print_hands()
+
+    def print_hands(self):
+        for hand in self.hands:
+            print(hand)
+
+    def remove_all_matches(self):
+        count = 0
+        for hand in self.hands:
+            count += hand.remove_matches()
+        return count
+
+    def play_one_turn(self, i):
+        if self.hands[i].is_empty():
+            return 0
+        neighbor = self.find_neighbor(i)
+        pickedCard = self.hands[neighbor].pop()
+        self.hands[i].add(pickedCard)
+        print("Hand", self.hands[i].name, "picked", pickedCard)
+        count = self.hands[i].remove_matches()
+        self.hands[i].shuffle()
+        return count
+
+    def find_neighbor(self, i):
+        numHands = len(self.hands)
+        for next in range(1,numHands):
+            neighbor = (i + next) % numHands
+            if not self.hands[neighbor].is_empty():
+                return neighbor
+
+game = OldMaidGame()
+game.play(["Allen","Betsy","Carl","Diane"])</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['oldmaidfullgame_code'] = true;
+pythonTool.readOnlyFlags['oldmaidfullgame_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="oldmaidfullgame_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="oldmaidfullgame_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="oldmaidfullgame_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='oldmaidfullgame_error'></div>
+
+<div style="text-align: center">
+<canvas id="oldmaidfullgame_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="oldmaidfullgame_suffix" style="display:none">
+</pre>
+<pre id="oldmaidfullgame_pre" class="active_out">
+
+</pre>
+
+<div id="oldmaidfullgame_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="glossary">
+<h2>15.8. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-inheritance">inheritance</dt>
+<dd>The ability to define a new class that is a modified version of a
+previously defined class.</dd>
+<dt id="term-parent-class">parent class</dt>
+<dd>The class from which a child class inherits.</dd>
+<dt id="term-child-class">child class</dt>
+<dd>A new class created by inheriting from an existing class; also called a
+subclass.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="events.html" title="16. Event-Driven Programming"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="collections.html" title="14. Collections of Objects"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

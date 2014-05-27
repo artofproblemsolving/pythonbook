@@ -1,0 +1,1041 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>13. More Classes and Objects &mdash; How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/codemirrorEdited.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
+    <script type="text/javascript" src="_static/skulpt.min.js"></script>
+    <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
+    <script type="text/javascript" src="_static/aopsmods.js"></script>
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)" href="index.html" />
+    <link rel="next" title="14. Collections of Objects" href="collections.html" />
+    <link rel="prev" title="12. Classes and Objects — the Basics" href="classes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="collections.html" title="14. Collections of Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="classes.html" title="12. Classes and Objects — the Basics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="more-classes-and-objects">
+<h1>13. More Classes and Objects<a class="headerlink" href="#more-classes-and-objects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mytime">
+<h2>13.1. MyTime<a class="headerlink" href="#mytime" title="Permalink to this headline">¶</a></h2>
+<p>As another example of a user-defined type, we&#8217;ll define a class called <tt class="docutils literal"><span class="pre">MyTime</span></tt>
+that records the time of day. We&#8217;ll provide an <tt class="docutils literal"><span class="pre">__init__</span></tt> method to ensure
+that every instance is created with appropriate attributes and initialization.
+The class definition looks like this:</p>
+
+<div id="mytimedef" class="pywindow" >
+
+<div id="mytimedef_code_div" style="display: block">
+<textarea rows="10" id="mytimedef_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+# create a new MyTime object
+tim1 = MyTime(11, 59, 30)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['mytimedef_code'] = true;
+pythonTool.readOnlyFlags['mytimedef_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="mytimedef_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="mytimedef_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="mytimedef_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='mytimedef_error'></div>
+
+<div style="text-align: center">
+<canvas id="mytimedef_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="mytimedef_suffix" style="display:none">
+</pre>
+<pre id="mytimedef_pre" class="active_out">
+
+</pre>
+
+<div id="mytimedef_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The state diagram for the object looks like this:</p>
+<blockquote>
+<div><img alt="_images/time.png" src="_images/time.png" />
+</div></blockquote>
+<p>We should also add a <tt class="docutils literal"><span class="pre">__str__</span></tt>
+method so that MyTime objects can print themselves decently.</p>
+
+<div id="mytimestr" class="pywindow" >
+
+<div id="mytimestr_code_div" style="display: block">
+<textarea rows="24" id="mytimestr_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+# create a new MyTime object
+tim1 = MyTime(11, 59, 30)
+print(tim1)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['mytimestr_code'] = true;
+pythonTool.readOnlyFlags['mytimestr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="mytimestr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="mytimestr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="mytimestr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='mytimestr_error'></div>
+
+<div style="text-align: center">
+<canvas id="mytimestr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="mytimestr_suffix" style="display:none">
+</pre>
+<pre id="mytimestr_pre" class="active_out">
+
+</pre>
+
+<div id="mytimestr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+</div>
+<div class="section" id="pure-functions">
+<span id="index-0"></span><h2>13.2. Pure functions<a class="headerlink" href="#pure-functions" title="Permalink to this headline">¶</a></h2>
+<p>In the next few sections, we&#8217;ll write two versions of a function called
+<tt class="docutils literal"><span class="pre">add_time</span></tt>, which calculates the sum of two <tt class="docutils literal"><span class="pre">MyTime</span></tt> objects. They will demonstrate
+two kinds of functions: pure functions and modifiers.</p>
+<p>The following is a rough version of <tt class="docutils literal"><span class="pre">add_time</span></tt>:</p>
+
+<div id="addtimebad" class="pywindow" >
+
+<div id="addtimebad_code_div" style="display: block">
+<textarea rows="27" id="addtimebad_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+def add_time(t1, t2):
+    h = t1.hours + t2.hours
+    m = t1.minutes + t2.minutes
+    s = t1.seconds + t2.seconds
+    sumTime = MyTime(h, m, s)
+    return sumTime</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimebad_code'] = true;
+pythonTool.readOnlyFlags['addtimebad_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimebad_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimebad_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimebad_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimebad_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimebad_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimebad_suffix" style="display:none">
+</pre>
+<pre id="addtimebad_pre" class="active_out">
+
+</pre>
+
+<div id="addtimebad_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The function creates a new <tt class="docutils literal"><span class="pre">MyTime</span></tt> object and
+returns a reference to the new object. This is called a <strong>pure function</strong>
+because it does not modify any of the objects passed to it as parameters and it
+has no side effects, such as updating global variables,
+displaying a value, or getting user input.</p>
+<p>Here is an example of how to use this function. We&#8217;ll create two <tt class="docutils literal"><span class="pre">MyTime</span></tt>
+objects: <tt class="docutils literal"><span class="pre">currentTime</span></tt>, which contains the current time; and <tt class="docutils literal"><span class="pre">breadTime</span></tt>,
+which contains the amount of time it takes for a breadmaker to make bread. Then
+we&#8217;ll use <tt class="docutils literal"><span class="pre">add_time</span></tt> to figure out when the bread will be done.</p>
+
+<div id="addtimebadex" class="pywindow" >
+
+<div id="addtimebadex_code_div" style="display: block">
+<textarea rows="32" id="addtimebadex_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+def add_time(t1, t2):
+    h = t1.hours + t2.hours
+    m = t1.minutes + t2.minutes
+    s = t1.seconds + t2.seconds
+    sumTime = MyTime(h, m, s)
+    return sumTime
+
+currentTime = MyTime(9, 14, 30)
+breadTime = MyTime(3, 35, 0)
+doneTime = add_time(currentTime, breadTime)
+print(doneTime)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimebadex_code'] = true;
+pythonTool.readOnlyFlags['addtimebadex_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimebadex_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimebadex_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimebadex_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimebadex_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimebadex_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimebadex_suffix" style="display:none">
+</pre>
+<pre id="addtimebadex_pre" class="active_out">
+
+</pre>
+
+<div id="addtimebadex_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The output of this program is <tt class="docutils literal"><span class="pre">12:49:30</span></tt>, which is correct. On the other
+hand, there are cases where the result is not correct. Can you think of one?</p>
+
+<div id="addtimebreaks" class="pywindow" >
+
+<div id="addtimebreaks_code_div" style="display: block">
+<textarea rows="32" id="addtimebreaks_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+def add_time(t1, t2):
+    h = t1.hours + t2.hours
+    m = t1.minutes + t2.minutes
+    s = t1.seconds + t2.seconds
+    sumTime = MyTime(h, m, s)
+    return sumTime
+
+currentTime = MyTime(6, 32, 40)
+breadTime = MyTime(3, 35, 50)
+doneTime = add_time(currentTime, breadTime)
+print(doneTime)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimebreaks_code'] = true;
+pythonTool.readOnlyFlags['addtimebreaks_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimebreaks_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimebreaks_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimebreaks_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimebreaks_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimebreaks_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimebreaks_suffix" style="display:none">
+</pre>
+<pre id="addtimebreaks_pre" class="active_out">
+
+</pre>
+
+<div id="addtimebreaks_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The problem is that this function does not deal with cases where the number of
+seconds or minutes adds up to more than sixty. When that happens, we have to
+carry the extra seconds into the minutes column or the extra minutes into the
+hours column.</p>
+<p>Here&#8217;s a better version of the function:</p>
+
+<div id="addtimebetter" class="pywindow" >
+
+<div id="addtimebetter_code_div" style="display: block">
+<textarea rows="38" id="addtimebetter_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+def add_time(t1, t2):
+    h = t1.hours + t2.hours
+    m = t1.minutes + t2.minutes
+    s = t1.seconds + t2.seconds
+    if s >= 60:
+        s -= 60
+        m += 1
+    if m >= 60:
+        m -= 60
+        h += 1
+    sumTime = MyTime(h, m, s)
+    return sumTime
+
+currentTime = MyTime(6, 32, 40)
+breadTime = MyTime(3, 35, 50)
+doneTime = add_time(currentTime, breadTime)
+print(doneTime)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimebetter_code'] = true;
+pythonTool.readOnlyFlags['addtimebetter_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimebetter_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimebetter_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimebetter_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimebetter_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimebetter_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimebetter_suffix" style="display:none">
+</pre>
+<pre id="addtimebetter_pre" class="active_out">
+
+</pre>
+
+<div id="addtimebetter_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This function is starting to get bigger, and still doesn&#8217;t work
+for all possible cases.  Later we will
+suggest an alternative approach that yields better code.</p>
+</div>
+<div class="section" id="modifiers">
+<span id="index-1"></span><h2>13.3. Modifiers<a class="headerlink" href="#modifiers" title="Permalink to this headline">¶</a></h2>
+<p>There are times when it is useful for a function to modify one or more of the
+objects it gets as parameters. Usually, the caller keeps a reference to the
+objects it passes, so any changes the function makes are visible to the caller.
+Functions that work this way are called <strong>modifiers</strong>.</p>
+<p><tt class="docutils literal"><span class="pre">increment</span></tt>, which adds a given number of seconds to a <tt class="docutils literal"><span class="pre">MyTime</span></tt> object, would
+be written most naturally as a modifier. A rough draft of the function looks like this:</p>
+
+<div id="incrfirst" class="pywindow" >
+
+<div id="incrfirst_code_div" style="display: block">
+<textarea rows="8" id="incrfirst_code" class="active_code" prefixcode="undefined">
+def increment(t, secs):
+    t.seconds += secs
+    if t.seconds >= 60:
+        t.seconds -= 60
+        t.minutes += 1
+    if t.minutes >= 60:
+        t.minutes -= 60
+        t.hours += 1</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['incrfirst_code'] = true;
+pythonTool.readOnlyFlags['incrfirst_code'] = true;
+</script>
+
+<div id='incrfirst_error'></div>
+<pre id="incrfirst_suffix" style="display:none">
+</pre>
+</div>
+
+<p>The first line performs the basic operation; the remainder deals with the
+special cases we saw before.</p>
+<p>Is this function correct? What happens if the parameter <tt class="docutils literal"><span class="pre">seconds</span></tt> is much
+greater than sixty? In that case, it is not enough to carry once; we have to
+keep doing it until <tt class="docutils literal"><span class="pre">seconds</span></tt> is less than sixty. One solution is to replace
+the <tt class="docutils literal"><span class="pre">if</span></tt> statements with <tt class="docutils literal"><span class="pre">while</span></tt> statements:</p>
+
+<div id="incrsecond" class="pywindow" >
+
+<div id="incrsecond_code_div" style="display: block">
+<textarea rows="8" id="incrsecond_code" class="active_code" prefixcode="undefined">
+def increment(t, secs):
+    t.seconds += secs
+    while t.seconds >= 60:
+        t.seconds -= 60
+        t.minutes += 1
+    while t.minutes >= 60:
+        t.minutes -= 60
+        t.hours += 1</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['incrsecond_code'] = true;
+pythonTool.readOnlyFlags['incrsecond_code'] = true;
+</script>
+
+<div id='incrsecond_error'></div>
+<pre id="incrsecond_suffix" style="display:none">
+</pre>
+</div>
+
+<p>This function is now correct when seconds is not negative, and when
+hours does not exceed 23, but it is not a particularly good solution.</p>
+</div>
+<div class="section" id="converting-increment-to-a-method">
+<h2>13.4. Converting <tt class="docutils literal"><span class="pre">increment</span></tt> to a method<a class="headerlink" href="#converting-increment-to-a-method" title="Permalink to this headline">¶</a></h2>
+<p>Once again, OOP programmers would prefer to put functions that work with
+<tt class="docutils literal"><span class="pre">MyTime</span></tt> objects into the <tt class="docutils literal"><span class="pre">MyTime</span></tt> class, so let&#8217;s convert <tt class="docutils literal"><span class="pre">increment</span></tt>
+to a method.</p>
+
+<div id="mytimeincr" class="pywindow" >
+
+<div id="mytimeincr_code_div" style="display: block">
+<textarea rows="33" id="mytimeincr_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+    def increment(self, seconds):
+        self.seconds += seconds
+        while self.seconds >= 60:
+            self.seconds -= 60
+            self.minutes += 1
+        while self.minutes >= 60:
+            self.minutes -= 60
+            self.hours += 1
+
+currentTime = MyTime(6,32,40)
+currentTime.increment(70)
+print(currentTime)  # should print 06:33:50</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['mytimeincr_code'] = true;
+pythonTool.readOnlyFlags['mytimeincr_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="mytimeincr_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="mytimeincr_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="mytimeincr_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='mytimeincr_error'></div>
+
+<div style="text-align: center">
+<canvas id="mytimeincr_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="mytimeincr_suffix" style="display:none">
+</pre>
+<pre id="mytimeincr_pre" class="active_out">
+
+</pre>
+
+<div id="mytimeincr_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>The transformation is purely mechanical &#8212; we move the definition into
+the class definition and (optionally) change the name of the first parameter to
+<tt class="docutils literal"><span class="pre">self</span></tt>, to fit with Python style conventions.</p>
+<p>Now we can invoke <tt class="docutils literal"><span class="pre">increment</span></tt> using the syntax for invoking a method, as on line 32.
+Again, the object on which the method is invoked gets assigned to the first
+parameter, <tt class="docutils literal"><span class="pre">self</span></tt>. The second parameter, <tt class="docutils literal"><span class="pre">seconds</span></tt> gets the value <tt class="docutils literal"><span class="pre">70</span></tt>.</p>
+</div>
+<div class="section" id="an-aha-insight">
+<h2>13.5. An &#8220;Aha!&#8221; insight<a class="headerlink" href="#an-aha-insight" title="Permalink to this headline">¶</a></h2>
+<p>Often a high-level insight into the problem can make the programming much easier.</p>
+<p>In this case, the insight is that a <tt class="docutils literal"><span class="pre">MyTime</span></tt> object is really a
+three-digit number in base 60! The <tt class="docutils literal"><span class="pre">second</span></tt>
+component is the ones column, the <tt class="docutils literal"><span class="pre">minute</span></tt> component is the sixties column,
+and the <tt class="docutils literal"><span class="pre">hour</span></tt> component is the thirty-six hundreds column.</p>
+<p>When we wrote <tt class="docutils literal"><span class="pre">add_time</span></tt> and <tt class="docutils literal"><span class="pre">increment</span></tt>, we were effectively doing
+addition in base 60, which is why we had to carry from one column to the next.</p>
+<p>This observation suggests another approach to the whole problem &#8212; we can
+convert a <tt class="docutils literal"><span class="pre">MyTime</span></tt> object into a single number and take advantage of the fact
+that the computer knows how to do arithmetic with numbers.  The following
+method is added to the <tt class="docutils literal"><span class="pre">MyTime</span></tt> class to convert any instance into
+a corresponding number of seconds:</p>
+
+<div id="mytimetosec" class="pywindow" >
+
+<div id="mytimetosec_code_div" style="display: block">
+<textarea rows="26" id="mytimetosec_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a MyTime object initialized to hrs, mins, secs """
+        self.hours = hrs
+        self.minutes = mins
+        self.seconds = secs
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+    def to_seconds(self):
+        """ Return the number of seconds represented
+            by this instance
+        """
+        return self.hours * 3600 + self.minutes * 60 + self.seconds</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['mytimetosec_code'] = true;
+pythonTool.readOnlyFlags['mytimetosec_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="mytimetosec_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="mytimetosec_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="mytimetosec_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='mytimetosec_error'></div>
+
+<div style="text-align: center">
+<canvas id="mytimetosec_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="mytimetosec_suffix" style="display:none">
+</pre>
+<pre id="mytimetosec_pre" class="active_out">
+
+</pre>
+
+<div id="mytimetosec_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Now, all we need is a way to convert from an integer back to a <tt class="docutils literal"><span class="pre">MyTime</span></tt> object.
+Supposing we have <tt class="docutils literal"><span class="pre">tsecs</span></tt> seconds, some integer division and mod operators
+can do this for us:</p>
+
+<div id="timeconversion" class="pywindow" >
+
+<div id="timeconversion_code_div" style="display: block">
+<textarea rows="4" id="timeconversion_code" class="active_code" prefixcode="undefined">
+hrs = tsecs // 3600
+leftoversecs = tsecs % 3600
+mins = leftoversecs // 60
+secs = leftoversecs % 60</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['timeconversion_code'] = false;
+pythonTool.readOnlyFlags['timeconversion_code'] = true;
+</script>
+
+<div id='timeconversion_error'></div>
+<pre id="timeconversion_suffix" style="display:none">
+</pre>
+</div>
+
+<p>You might have to think a bit to convince yourself that this technique to
+convert from one base to another is correct.</p>
+<p>In OOP we&#8217;re really trying to wrap together the data and the operations
+that apply to it.  So we&#8217;d like to have this logic inside the <tt class="docutils literal"><span class="pre">MyTime</span></tt>
+class.  A good solution is to rewrite the class initializer so that it can
+cope with initial values of seconds or minutes that are outside the
+<strong>normalized</strong> values.  (A normalized time would be something
+like 3 hours 12 minutes and 20 seconds.  The same time, but unnormalized
+could be 2 hours 70 minutes and 140 seconds.)</p>
+<p>Let&#8217;s rewrite a more powerful initializer for <tt class="docutils literal"><span class="pre">MyTime</span></tt>:</p>
+
+<div id="mytimebetterinit" class="pywindow" >
+
+<div id="mytimebetterinit_code_div" style="display: block">
+<textarea rows="32" id="mytimebetterinit_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a new MyTime object initialized to hrs, mins, secs.
+            The values of mins and secs may be outside the range 0-59,
+            but the resulting MyTime object will be normalized.
+        """
+        # Calculate total seconds to represent
+        totalsecs = hrs*3600 + mins*60 + secs
+        self.hours = totalsecs // 3600        # Split in h, m, s
+        leftoversecs = totalsecs % 3600
+        self.minutes = leftoversecs // 60
+        self.seconds = leftoversecs % 60
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+    def to_seconds(self):
+        """ Return the number of seconds represented
+            by this instance
+        """
+        return self.hours * 3600 + self.minutes * 60 + self.seconds</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['mytimebetterinit_code'] = true;
+pythonTool.readOnlyFlags['mytimebetterinit_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="mytimebetterinit_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="mytimebetterinit_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="mytimebetterinit_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='mytimebetterinit_error'></div>
+
+<div style="text-align: center">
+<canvas id="mytimebetterinit_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="mytimebetterinit_suffix" style="display:none">
+</pre>
+<pre id="mytimebetterinit_pre" class="active_out">
+
+</pre>
+
+<div id="mytimebetterinit_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>Now we can rewrite <tt class="docutils literal"><span class="pre">add_time</span></tt> like this:</p>
+
+<div id="addtimebest" class="pywindow" >
+
+<div id="addtimebest_code_div" style="display: block">
+<textarea rows="41" id="addtimebest_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a new MyTime object initialized to hrs, mins, secs.
+            The values of mins and secs may be outside the range 0-59,
+            but the resulting MyTime object will be normalized.
+        """
+        # Calculate total seconds to represent
+        totalsecs = hrs*3600 + mins*60 + secs
+        self.hours = totalsecs // 3600        # Split in h, m, s
+        leftoversecs = totalsecs % 3600
+        self.minutes = leftoversecs // 60
+        self.seconds = leftoversecs % 60
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+    def to_seconds(self):
+        """ Return the number of seconds represented
+            by this instance
+        """
+        return self.hours * 3600 + self.minutes * 60 + self.seconds
+
+def add_time(t1, t2):
+    secs = t1.to_seconds() + t2.to_seconds()
+    return MyTime(0, 0, secs)
+
+currentTime = MyTime(6, 32, 40)
+breadTime = MyTime(3, 35, 50)
+doneTime = add_time(currentTime, breadTime)
+print(doneTime)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimebest_code'] = true;
+pythonTool.readOnlyFlags['addtimebest_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimebest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimebest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimebest_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimebest_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimebest_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimebest_suffix" style="display:none">
+</pre>
+<pre id="addtimebest_pre" class="active_out">
+
+</pre>
+
+<div id="addtimebest_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>This version is much shorter than the original, and it is much easier to
+demonstrate or reason that it is correct.</p>
+</div>
+<div class="section" id="generalization">
+<span id="index-2"></span><h2>13.6. Generalization<a class="headerlink" href="#generalization" title="Permalink to this headline">¶</a></h2>
+<p>In some ways, converting from base 60 to base 10 and back is harder than just
+dealing with times. Base conversion is more abstract; our intuition for dealing
+with times is better.</p>
+<p>But if we have the insight to treat times as base 60 numbers and make the
+investment of writing the conversions, we get a program that is shorter,
+easier to read and debug, and more reliable.</p>
+<p>It is also easier to add features later. For example, imagine subtracting two
+<tt class="docutils literal"><span class="pre">MyTime</span></tt> objects to find the duration between them. The naive approach would be to
+implement subtraction with borrowing. Using the conversion functions would be
+easier and more likely to be correct.</p>
+<p>Ironically, sometimes making a problem harder (or more general) makes the
+programming easier, because there are fewer special cases and fewer opportunities
+for error.</p>
+<div class="admonition-specialization-versus-generalization admonition">
+<p class="first admonition-title">Specialization versus Generalization</p>
+<p>Computer Scientists are generally fond of specializing their types, while mathematicians
+often take the opposite approach, and generalize everything.</p>
+<p>What do we mean by this?</p>
+<p>If we ask a mathematician to solve a problem involving weekdays, days of the century,
+playing cards, time, or dominoes, their most likely response is
+to observe that all these objects can be represented by integers. Playing cards, for example,
+can be numbered from 0 to 51.  Days within the century can be numbered. Mathematicians will say
+<em>&#8220;These things are enumerable &#8212; the elements can be uniquely numbered (and we can
+reverse this numbering to get back to the original concept). So let&#8217;s number
+them, and confine our thinking to integers.  Luckily, we have powerful techniques and a
+good understanding of integers, and so our abstractions &#8212; the way we tackle and simplify
+these problems &#8212; is to try to reduce them to problems about integers.&#8221;</em></p>
+<p>Computer Scientists tend to do the opposite.  We will argue that there are many integer
+operations that are simply not meaningful for dominoes, or for days of the century.  So
+we&#8217;ll often define new specialized types, like <tt class="docutils literal"><span class="pre">MyTime</span></tt>, because we can restrict,
+control, and specialize the operations that are possible.  Object-oriented programming
+is particularly popular because it gives us a good way to bundle methods and specialized data
+into a new type.</p>
+<p class="last">Both approaches are powerful problem-solving techniques. Often it may help to try to
+think about the problem from both points of view &#8212; <em>&#8220;What would happen if I tried to reduce
+everything to very few primitive types?&#8221;</em>, versus
+<em>&#8220;What would happen if this thing had its own specialized type?&#8221;</em></p>
+</div>
+</div>
+<div class="section" id="operator-overloading">
+<h2>13.7. Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h2>
+<p>Some languages, including Python, make it possible to have different meanings for
+the same operator when applied to different types.  For example, <tt class="docutils literal"><span class="pre">+</span></tt> in Python
+means quite different things for integers and for strings.  This feature is called
+<strong>operator overloading</strong>.</p>
+<p>It is especially useful when programmers can also overload the operators for their
+own user-defined types.</p>
+<p>For example, to override the addition operator <tt class="docutils literal"><span class="pre">+</span></tt>, we can provide a method named
+<tt class="docutils literal"><span class="pre">__add__</span></tt>:</p>
+
+<div id="addtimeoverload" class="pywindow" >
+
+<div id="addtimeoverload_code_div" style="display: block">
+<textarea rows="41" id="addtimeoverload_code" class="active_code" prefixcode="undefined">
+class MyTime:
+
+    def __init__(self, hrs=0, mins=0, secs=0):
+        """ Create a new MyTime object initialized to hrs, mins, secs.
+            The values of mins and secs may be outside the range 0-59,
+            but the resulting MyTime object will be normalized.
+        """
+        # Calculate total seconds to represent
+        totalsecs = hrs*3600 + mins*60 + secs
+        self.hours = totalsecs // 3600        # Split in h, m, s
+        leftoversecs = totalsecs % 3600
+        self.minutes = leftoversecs // 60
+        self.seconds = leftoversecs % 60
+
+    def __str__(self):
+        timeString = ""
+        if self.hours < 10:
+            timeString += "0"
+        timeString += str(self.hours) + ":"
+        if self.minutes < 10:
+            timeString += "0"
+        timeString += str(self.minutes) + ":"
+        if self.seconds < 10:
+            timeString += "0"
+        timeString += str(self.seconds)
+        return timeString
+
+    def to_seconds(self):
+        """ Return the number of seconds represented
+            by this instance
+        """
+        return self.hours * 3600 + self.minutes * 60 + self.seconds
+
+    def __add__(self, other):
+        secs = self.to_seconds() + other.to_seconds()
+        return MyTime(0, 0, secs)
+
+currentTime = MyTime(6, 32, 40)
+breadTime = MyTime(3, 35, 50)
+doneTime = currentTime + breadTime
+print(doneTime)</textarea>
+</div>
+<script type="text/javascript">
+pythonTool.lineNumberFlags['addtimeoverload_code'] = true;
+pythonTool.readOnlyFlags['addtimeoverload_code'] = false;
+</script>
+
+<div>
+<button style="float:left" type='button' class='btn btn-run' id="addtimeoverload_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="addtimeoverload_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="addtimeoverload_resetb">Reset</button>
+<div style='clear:both'></div>
+</div>
+
+<div id='addtimeoverload_error'></div>
+
+<div style="text-align: center">
+<canvas id="addtimeoverload_canvas" class="ac-canvas" height="400" width="400" style="border-style: solid; display: none; text-align: center"></canvas>
+</div>
+<pre id="addtimeoverload_suffix" style="display:none">
+</pre>
+<pre id="addtimeoverload_pre" class="active_out">
+
+</pre>
+
+<div id="addtimeoverload_files" class="ac-files ac-files-hidden"></div>
+
+</div>
+
+<p>As usual, the first parameter is the object on which the method is invoked. The
+second parameter is conveniently named <tt class="docutils literal"><span class="pre">other</span></tt> to distinguish it from
+<tt class="docutils literal"><span class="pre">self</span></tt>.  To add two <tt class="docutils literal"><span class="pre">MyTime</span></tt> objects, we create and return a new <tt class="docutils literal"><span class="pre">MyTime</span></tt> object
+that contains their sum.</p>
+<p>Now, when we apply the <tt class="docutils literal"><span class="pre">+</span></tt> operator to <tt class="docutils literal"><span class="pre">MyTime</span></tt> objects, Python invokes
+the <tt class="docutils literal"><span class="pre">__add__</span></tt> method that we have written. The expression <tt class="docutils literal"><span class="pre">currentTime</span> <span class="pre">+</span> <span class="pre">breadTime</span></tt> is equivalent to <tt class="docutils literal"><span class="pre">currentTime.__add__(breadTime)</span></tt>, but obviously
+more elegant.</p>
+<p>As an exercise, add a method <tt class="docutils literal"><span class="pre">__sub__(self,</span> <span class="pre">other)</span></tt> that
+overloads the subtraction operator, and try it out.</p>
+</div>
+<div class="section" id="glossary">
+<h2>13.8. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-functional-programming-style">functional programming style</dt>
+<dd>A style of program design in which the majority of functions are pure.</dd>
+<dt id="term-modifier">modifier</dt>
+<dd>A function or method that changes one or more of the objects it receives as
+parameters. Most modifier functions are void (do not return a value).</dd>
+<dt id="term-normalized">normalized</dt>
+<dd>Data is said to be normalized if it fits into some reduced range or set of rules.
+We usually normalize our angles to values in the range [0..360). We normalize
+minutes and seconds to be values in the range [0..60).  And we&#8217;d
+be surprised if the local store advertised its cold drinks at &#8220;One dollar,
+two hundred and fifty cents&#8221;.</dd>
+<dt id="term-operator-overloading">operator overloading</dt>
+<dd>Extending built-in operators ( <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, etc.)
+so that they do different things for different types of arguments. We&#8217;ve
+seen early in the book how <tt class="docutils literal"><span class="pre">+</span></tt> is overloaded for numbers and strings,
+and here we&#8217;ve shown how to further overload it for user-defined types.</dd>
+<dt id="term-pure-function">pure function</dt>
+<dd>A function that does not modify any of the objects it receives as
+parameters. Most pure functions are fruitful rather than void.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="collections.html" title="14. Collections of Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="classes.html" title="12. Classes and Objects — the Basics"
+             >previous</a> |</li>
+        <li><a href="index.html">How to Think Like a Computer Scientist: Learning with Python 3 (AoPS Edition)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

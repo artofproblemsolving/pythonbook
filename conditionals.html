@@ -25,10 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="_static/codemirror.js"></script>
-    <script type="text/javascript" src="_static/python.js"></script>
-    <script type="text/javascript" src="_static/matchbrackets.js"></script>
-    <script type="text/javascript" src="_static/active-line.js"></script>
+    <script type="text/javascript" src="_static/pywindowCodemirrorC.js"></script>
     <script type="text/javascript" src="_static/skulpt.min.js"></script>
     <script type="text/javascript" src="_static/skulpt-stdlib.js"></script>
     <script type="text/javascript" src="_static/aopsmods.js"></script>
@@ -135,8 +132,9 @@ pythonTool.readOnlyFlags['booleanexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="booleanexample_runb" onclick="pythonTool.runit('booleanexample_code','booleanexample_pre','booleanexample_error','booleanexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanexample_code','booleanexample_pre','booleanexample_error','booleanexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="booleanexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="booleanexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="booleanexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -182,8 +180,9 @@ pythonTool.readOnlyFlags['ortest_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="ortest_runb" onclick="pythonTool.runit('ortest_code','ortest_pre','ortest_error','ortest_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('ortest_code','ortest_pre','ortest_error','ortest_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="ortest_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="ortest_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="ortest_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -335,8 +334,9 @@ pythonTool.readOnlyFlags['parityexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="parityexample_runb" onclick="pythonTool.runit('parityexample_code','parityexample_pre','parityexample_error','parityexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('parityexample_code','parityexample_pre','parityexample_error','parityexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="parityexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="parityexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="parityexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -447,8 +447,9 @@ pythonTool.readOnlyFlags['squarerootexample_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="squarerootexample_runb" onclick="pythonTool.runit('squarerootexample_code','squarerootexample_pre','squarerootexample_error','squarerootexample_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('squarerootexample_code','squarerootexample_pre','squarerootexample_error','squarerootexample_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="squarerootexample_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="squarerootexample_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="squarerootexample_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -652,8 +653,9 @@ pythonTool.readOnlyFlags['squarerootwithcheck_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="squarerootwithcheck_runb" onclick="pythonTool.runit('squarerootwithcheck_code','squarerootwithcheck_pre','squarerootwithcheck_error','squarerootwithcheck_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('squarerootwithcheck_code','squarerootwithcheck_pre','squarerootwithcheck_error','squarerootwithcheck_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="squarerootwithcheck_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="squarerootwithcheck_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="squarerootwithcheck_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -948,8 +950,9 @@ pythonTool.readOnlyFlags['booleanfunction_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="booleanfunction_runb" onclick="pythonTool.runit('booleanfunction_code','booleanfunction_pre','booleanfunction_error','booleanfunction_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanfunction_code','booleanfunction_pre','booleanfunction_error','booleanfunction_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="booleanfunction_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="booleanfunction_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="booleanfunction_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -993,8 +996,9 @@ pythonTool.readOnlyFlags['booleanfunctionbetter_code'] = false;
 </script>
 
 <div>
-<button style="float:left" type='button' class='btn btn-run' id="booleanfunctionbetter_runb" onclick="pythonTool.runit('booleanfunctionbetter_code','booleanfunctionbetter_pre','booleanfunctionbetter_error','booleanfunctionbetter_canvas');">Run</button>
-<button style="float:right" type="button" class='btn btn-reset' onclick="pythonTool.resetit('booleanfunctionbetter_code','booleanfunctionbetter_pre','booleanfunctionbetter_error','booleanfunctionbetter_canvas')">Reset</button>
+<button style="float:left" type='button' class='btn btn-run' id="booleanfunctionbetter_runb">Run</button>
+<button style="float:left; margin-left:150px;" type='button' class='btn' id="booleanfunctionbetter_popb">Pop Out</button>
+<button style="float:right" type="button" class='btn btn-reset' id="booleanfunctionbetter_resetb">Reset</button>
 <div style='clear:both'></div>
 </div>
 
@@ -1132,7 +1136,7 @@ chunking, and how they&#8217;ve broken a complex problem into pieces.</dd>
     </div>
     <div class="footer">
         &copy; <a href="copyright.html">Copyright</a> 2014, AoPS Incorporated, 2012, Peter Wentworth, Jeffrey Elkner, Allen B. Downey and Chris Meyers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>
